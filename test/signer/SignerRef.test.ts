@@ -70,4 +70,5 @@ describe('wallet-toolbox signerRef resolver', () => {
     })
     expect(resolution.walletStorageNamespace).toMatch(/^wallet-toolbox-rocksdb:bsv-testnet:autonomous-commerce:[0-9a-f]{16}$/)
   })
+
 })

@@ -1,0 +1,76 @@
+{
+  "ok": true,
+  "setupMethods": [
+    "createRocksDbWallet",
+    "createWallet",
+    "createWalletClient",
+    "createWalletClientNoEnv"
+  ],
+  "walletClasses": [
+    "Wallet"
+  ],
+  "walletClientClasses": [
+    "WalletClient from @bsv/sdk via BRC-100 WalletInterface",
+    "CWIStyleWalletManager",
+    "SimpleWalletManager"
+  ],
+  "storageProviderInterfaces": [
+    "WalletStorageProvider",
+    "WalletStorageSync",
+    "WalletStorageWriter",
+    "WalletStorageReader",
+    "StorageProvider"
+  ],
+  "storageManagerClasses": [
+    "WalletStorageManager"
+  ],
+  "storageImplementations": [
+    "RocksDbWalletStore"
+  ],
+  "signerComponents": [
+    "WalletSigner",
+    "SignerRef parser",
+    "WalletToolboxSignerRefResolver",
+    "CachedKeyDeriver",
+    "PrivilegedKeyManager"
+  ],
+  "servicesComponents": [
+    "Services",
+    "ArcSSEClient",
+    "BHServiceClient",
+    "ChaintracksChainTracker"
+  ],
+  "monitorComponents": [
+    "Monitor",
+    "MonitorDaemon",
+    "Task.*"
+  ],
+  "brc100Methods": [
+    "createAction",
+    "signAction",
+    "abortAction",
+    "internalizeAction",
+    "listActions",
+    "listOutputs",
+    "listCertificates",
+    "relinquishOutput",
+    "relinquishCertificate"
+  ],
+  "actionFlowMethods": [
+    "StorageProvider.createAction",
+    "StorageProvider.processAction",
+    "StorageProvider.internalizeAction",
+    "RocksDbWalletStore.allocateChangeInput"
+  ],
+  "authPermissionMethods": [
+    "findCertificatesAuth",
+    "findOutputBasketsAuth",
+    "findOutputsAuth",
+    "insertCertificateAuth",
+    "WalletPermissionsManager",
+    "WalletAuthenticationManager"
+  ],
+  "nativeIdentityModel": "PrivateKey -> CachedKeyDeriver -> identityKey -> WalletStorageManager active RocksDbWalletStore; signerRef maps to a RocksDB wallet namespace and does not contain key material.",
+  "keyHandlingBoundary": "wallet-toolbox-rocksdb owns wallet/key-deriver/signer wiring; Nektar passes signerRef only and must not print or store raw signing material.",
+  "evidenceHash": "sha256:89dd07039be199ad7c36d0c4a9207d5a5e4a280c8e6e6409e46faa59a9a0b31f"
+}

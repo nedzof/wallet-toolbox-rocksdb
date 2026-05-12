@@ -1,8 +1,9 @@
 import { mkdtemp, rm } from 'fs/promises'
 import os from 'os'
 import path from 'path'
-import { Validation } from '@bsv/sdk'
+import { PrivateKey, Validation } from '@bsv/sdk'
 import type { WalletStorageProvider } from '../../src/sdk/WalletStorage.interfaces'
+import { createRocksDbWallet } from '../../src/SetupRocksDb'
 import { WalletStorageManager } from '../../src/storage/WalletStorageManager'
 import { RocksDbWalletStore } from '../../src/storage/rocksdb'
 
@@ -114,6 +115,25 @@ describe('RocksDbWalletStore', () => {
       expect(store.isStorageProvider()).toBe(true)
     } finally {
       store.close()
+    }
+  })
+
+  test('createRocksDbWallet follows native wallet setup with RocksDB storage', async () => {
+    const rootKey = PrivateKey.fromRandom()
+    const setup = await createRocksDbWallet({
+      chain: 'test',
+      rootKeyHex: rootKey.toHex(),
+      path: path.join(dir, 'setup-wallet.rocksdb'),
+      namespace: 'autonomous-commerce'
+    })
+    try {
+      expect(setup.chain).toBe('test')
+      expect(setup.identityKey).toBe(rootKey.toPublicKey().toString())
+      expect(setup.storage.getActiveStore()).toMatch(/^rocksdb:test:autonomous-commerce$/)
+      expect(setup.activeStorage.isStorageProvider()).toBe(true)
+      expect((await setup.activeStorage.makeAvailable()).dbtype).toBe('RocksDB')
+    } finally {
+      setup.activeStorage.close()
     }
   })
 })

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "scope": "wallet-toolbox-rocksdb-radical-refactor",
+  "generatedAt": "2026-05-12T20:24:57.741Z",
+  "rocksDbProviderImplemented": true,
+  "providerContractComplete": true,
+  "missingMethods": [],
+  "deferredMethods": [],
+  "setupHelperAdded": true,
+  "publicSurfaceRocksDbOnly": true,
+  "legacyAdaptersPublic": false,
+  "legacyStorageRuntimeDeps": false,
+  "docsUpdated": true,
+  "testsPassed": [
+    "npm run build",
+    "npm run typecheck:rocksdb",
+    "npm run test:rocksdb",
+    "ts-standard focused files"
+  ],
+  "noNektarImports": true,
+  "noSecretInspection": true,
+  "evidenceHash": "sha256:3b3038f75857ceca10a2219a1fb699557aec640c33f58901012ec978ce7fb747"
+}

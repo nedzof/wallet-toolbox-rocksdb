@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "providerInterfaceName": "WalletStorageProvider",
+  "requiredMethods": [
+    "makeAvailable",
+    "migrate",
+    "destroy",
+    "findOrInsertUser",
+    "createAction",
+    "processAction",
+    "internalizeAction",
+    "findCertificatesAuth",
+    "findOutputBasketsAuth",
+    "findOutputsAuth",
+    "listActions",
+    "listCertificates",
+    "listOutputs",
+    "insertCertificateAuth",
+    "relinquishCertificate",
+    "relinquishOutput",
+    "setServices",
+    "isStorageProvider",
+    "getSyncChunk",
+    "processSyncChunk",
+    "findOrInsertSyncStateAuth",
+    "setActive"
+  ],
+  "methodOwners": {
+    "RocksDbWalletStore": [
+      "makeAvailable",
+      "migrate",
+      "destroy",
+      "find/findAuth/list methods",
+      "entity persistence",
+      "allocateChangeInput",
+      "reviewStatus",
+      "purgeData",
+      "adminStats"
+    ],
+    "StorageProvider": [
+      "createAction",
+      "processAction",
+      "internalizeAction",
+      "abortAction",
+      "listCertificates",
+      "relinquishCertificate",
+      "relinquishOutput",
+      "setServices"
+    ],
+    "StorageReaderWriter": [
+      "findOrInsertUser",
+      "setActive",
+      "findOrInsertSyncStateAuth"
+    ],
+    "StorageReader": [
+      "isStorageProvider",
+      "getSyncChunk"
+    ]
+  },
+  "closestReferenceImplementation": "StorageKnex for native semantics; RocksDbWalletStore extends StorageProvider and reuses shared StorageProvider action/internalization/process logic.",
+  "rocksDbImplementedMethods": [
+    "makeAvailable",
+    "migrate",
+    "destroy",
+    "findOrInsertUser",
+    "createAction",
+    "processAction",
+    "internalizeAction",
+    "findCertificatesAuth",
+    "findOutputBasketsAuth",
+    "findOutputsAuth",
+    "listActions",
+    "listCertificates",
+    "listOutputs",
+    "insertCertificateAuth",
+    "relinquishCertificate",
+    "relinquishOutput",
+    "setServices",
+    "isStorageProvider",
+    "getSyncChunk",
+    "processSyncChunk",
+    "findOrInsertSyncStateAuth",
+    "setActive"
+  ],
+  "rocksDbMissingMethods": [],
+  "rocksDbUnsupportedMethods": [],
+  "mustImplementForBrc100Wallet": [
+    "makeAvailable",
+    "findOrInsertUser",
+    "createAction",
+    "processAction",
+    "internalizeAction",
+    "listActions",
+    "listOutputs",
+    "findOutputsAuth",
+    "allocateChangeInput"
+  ],
+  "canDeferWithTypedUnsupportedError": [],
+  "evidenceHash": "sha256:68ef7410a0307c7739c0357d0ca55a00b7093e5d738aca6ca327d69feb45ffe8"
+}
