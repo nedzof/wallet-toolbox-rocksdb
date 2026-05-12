@@ -27,13 +27,13 @@
   ],
   "scripts": {
     "test": "npm run build && jest --testPathIgnorePatterns=man.test.ts",
-    "test:rocksdb": "jest test/storage/RocksDbWalletStore.test.ts --runInBand",
+    "test:rocksdb": "jest test/storage/RocksDbWalletStore.test.ts test/signer/SignerRef.test.ts --runInBand",
     "test:watch": "npm run build && jest --testPathIgnorePatterns=man.test.ts --watch",
     "test:coverage": "npm run build && jest --testPathIgnorePatterns=man.test.ts --coverage",
     "lint": "ts-standard --fix src/**/*.ts",
     "lint:ci": "ts-standard src/**/*.ts",
     "build": "tsc --build",
-    "typecheck:rocksdb": "tsc --noEmit --target es2018 --module commonjs --moduleResolution node --esModuleInterop --skipLibCheck --types node,jest src/storage/rocksdb/RocksDbWalletStore.ts test/storage/RocksDbWalletStore.test.ts",
+    "typecheck:rocksdb": "tsc --noEmit --target es2018 --module commonjs --moduleResolution node --esModuleInterop --skipLibCheck --types node,jest src/storage/rocksdb/RocksDbWalletStore.ts src/signer/SignerRef.ts src/signer/WalletToolboxSignerRefResolver.ts test/storage/RocksDbWalletStore.test.ts test/signer/SignerRef.test.ts",
     "prepublishOnly": "npm run lint && npm run build && npm run doc && npm run sync-versions",
     "doc": "ts2md",
     "sync-versions": "node syncVersions.js"
