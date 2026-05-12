@@ -1,36 +1,63 @@
-# BSV Wallet Toolbox
+# BSV Wallet Toolbox RocksDB
 
-## RocksDB Fork
+Standalone Node.js fork of `@bsv/wallet-toolbox` with RocksDB as the production
+storage provider.
 
-This standalone fork tracks upstream `@bsv/wallet-toolbox` and adds a Node-only
-RocksDB storage extension under `src/storage/rocksdb`.
+This repo keeps the upstream wallet-toolbox codebase intact for compatibility
+and future upstream merges, but the public storage barrel for this package
+exports the RocksDB provider instead of the SQLite/MySQL/IndexedDB/remote
+storage adapters. `RocksDbWalletStore` implements the wallet-toolbox
+`WalletStorageProvider` contract and can be configured for either testnet or
+mainnet by passing `chain: 'test'` or `chain: 'main'`.
 
-```ts
-import { RocksDbWalletStore } from '@bsv/wallet-toolbox-rocksdb'
+## Installation
 
-const store = await RocksDbWalletStore.open({
-  path: './wallet.rocksdb',
-  namespace: 'wallet-toolbox'
-})
-
-await store.put({
-  key: 'utxo!txid:0',
-  value: { satoshis: 1, state: 'available' },
-  expectedVersion: null
-})
-
-const utxos = await store.scan({ prefix: 'utxo!', limit: 100 })
-store.close()
+```bash
+npm install @bsv/wallet-toolbox-rocksdb
 ```
 
-The RocksDB extension currently provides durable versioned wallet records,
-optimistic compare-and-set writes, transactional batches, prefix scans, flush,
-and close. It is intentionally kept below the existing BRC-100 wallet APIs so
-the fork can replace SQLite/IDB persistence incrementally without changing
-signing semantics.
+## Quick Example
 
-This fork does not generate keys, does not run payments, and does not expose
-private key material through RocksDB records.
+```ts
+import {
+  RocksDbWalletStore,
+  WalletStorageManager
+} from '@bsv/wallet-toolbox-rocksdb'
+
+const identityKey = 'your-public-identity-key'
+
+const active = await RocksDbWalletStore.open({
+  path: './data/wallet-test.rocksdb',
+  chain: 'test',
+  storageName: 'local-rocksdb-test',
+  storageIdentityKey: 'local-rocksdb-test'
+})
+
+const storage = new WalletStorageManager(identityKey, active)
+await storage.makeAvailable()
+
+const { user } = await active.findOrInsertUser(identityKey)
+const baskets = await active.findOutputBasketsAuth(
+  { identityKey, userId: user.userId },
+  { partial: { name: 'default' } }
+)
+
+active.close()
+```
+
+For mainnet, use a separate database path and pass `chain: 'main'`:
+
+```ts
+const active = await RocksDbWalletStore.open({
+  path: './data/wallet-main.rocksdb',
+  chain: 'main',
+  storageName: 'local-rocksdb-main',
+  storageIdentityKey: 'local-rocksdb-main'
+})
+```
+
+RocksDB stores wallet state only. It does not expose or log private key
+material; signing remains in the wallet/key-derivation layer.
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/bsv-blockchain/wallet-toolbox/push.yaml?branch=master&label=build)](https://github.com/bsv-blockchain/wallet-toolbox/actions)
 [![npm version](https://img.shields.io/npm/v/@bsv/wallet-toolbox)](https://www.npmjs.com/package/@bsv/wallet-toolbox)
@@ -58,7 +85,7 @@ BSV Desktop and BSV Browser are the BSV Association reference wallet application
 | Module | Description |
 |--------|-------------|
 | **Wallet** | Full BRC-100 wallet — action creation, signing, certificate management, identity discovery, output tracking |
-| **Storage** | Pluggable persistence with **SQLite/MySQL** (via Knex), **IndexedDB** (browser/mobile), **remote** (client/server over HTTP), and a Node-only **RocksDB** wallet state extension |
+| **Storage** | Node-only **RocksDB** wallet storage provider for this package; upstream alternate adapters remain in source for compatibility work |
 | **Services** | Network layer — ARC transaction broadcasting, chain tracking (Chaintracks), merkle proof verification, UTXO lookups via WhatsOnChain |
 | **Monitor** | Background daemon that watches pending transactions, rebroadcasts failures, handles chain reorganizations, and manages proof acquisition |
 | **Signer** | `WalletSigner` bridges any BRC-100 wallet to the SDK's `Transaction` signing interface |
@@ -67,50 +94,13 @@ BSV Desktop and BSV Browser are the BSV Association reference wallet application
 | **MockChain** | In-memory blockchain for testing — mock mining, UTXO tracking, and merkle proof generation without a network |
 | **Entropy** | `EntropyCollector` gathers mouse/touch entropy for high-quality randomness in browser environments |
 
-### Packages
+### Upstream Packages
 
-The toolbox publishes three npm packages from this repo:
+The upstream toolbox publishes these packages:
 
 - **[`@bsv/wallet-toolbox`](https://www.npmjs.com/package/@bsv/wallet-toolbox)** — Full package with all storage backends (SQLite, MySQL, IndexedDB, remote)
 - **[`@bsv/wallet-toolbox-client`](https://www.npmjs.com/package/@bsv/wallet-toolbox-client)** — Browser build; excludes Node-only backends (Knex/SQLite/MySQL)
 - **[`@bsv/wallet-toolbox-mobile`](https://www.npmjs.com/package/@bsv/wallet-toolbox-mobile)** — Mobile build; IndexedDB and remote storage only
-
-## Getting Started
-
-### Installation
-
-```bash
-# Full (Node.js servers, CLIs)
-npm install @bsv/wallet-toolbox
-
-# Browser apps
-npm install @bsv/wallet-toolbox-client
-
-# React Native / mobile
-npm install @bsv/wallet-toolbox-mobile
-```
-
-### Quick Example
-
-```typescript
-import { SetupWallet } from '@bsv/wallet-toolbox'
-
-// Create a wallet with SQLite storage and default mainnet services
-const wallet = await SetupWallet({
-  env: 'main',
-  endpointUrl: 'https://your-storage-server.example.com'
-})
-
-// Create a transaction
-const result = await wallet.createAction({
-  description: 'Send payment',
-  outputs: [{
-    lockingScript: '76a914...88ac',
-    satoshis: 1000,
-    outputDescription: 'payment'
-  }]
-})
-```
 
 ## Documentation
 
@@ -121,11 +111,12 @@ The codebase has detailed JSDoc annotations throughout — these will surface in
 ## Development
 
 ```bash
-git clone https://github.com/bsv-blockchain/wallet-toolbox.git
-cd wallet-toolbox
+git clone https://github.com/nedzof/wallet-toolbox-rocksdb.git
+cd wallet-toolbox-rocksdb
 npm install
+npm run typecheck:rocksdb
+npm run test:rocksdb
 npm run build
-npm test
 ```
 
 Tests use Jest. Files named `*.man.test.ts` are manual/integration tests excluded from CI — they require network access or long runtimes and are run locally by developers.

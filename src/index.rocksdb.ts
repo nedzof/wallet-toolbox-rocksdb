@@ -1,19 +1,17 @@
 export * as sdk from './sdk/index'
 
 export * from './utility/index.all'
-export * from './storage/index.all'
+export * from './storage/WalletStorageManager'
+export * from './storage/StorageProvider'
+export * from './storage/StorageSyncReader'
+export * from './storage/rocksdb'
+export * from './storage/schema/tables/index'
+export * from './storage/schema/entities/index'
+export * as sync from './storage/sync'
 export * from './services/chaintracker/index.all'
-
-export * from './Setup'
-export * from './monitor/index.all'
-
-export * from './SetupClient'
+export * from './monitor/Monitor'
+export * as Task from './monitor/tasks/index.all'
 export * from './SetupWallet'
-export * from './storage/schema/KnexMigrations'
-export * from './storage/StorageKnex'
-export * from './storage/StorageIdb'
-export * from './storage/remoting/StorageClient'
-
 export * from './CWIStyleWalletManager'
 export * from './sdk/PrivilegedKeyManager'
 export * from './services/Services'

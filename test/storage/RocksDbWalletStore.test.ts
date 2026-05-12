@@ -1,6 +1,9 @@
 import { mkdtemp, rm } from 'fs/promises'
 import os from 'os'
 import path from 'path'
+import { Validation } from '@bsv/sdk'
+import type { WalletStorageProvider } from '../../src/sdk/WalletStorage.interfaces'
+import { WalletStorageManager } from '../../src/storage/WalletStorageManager'
 import { RocksDbWalletStore } from '../../src/storage/rocksdb'
 
 describe('RocksDbWalletStore', () => {
@@ -56,6 +59,59 @@ describe('RocksDbWalletStore', () => {
       await store.batch([{ type: 'delete', key: 'idem!1' }])
       expect(await store.get('idem!1')).toBeUndefined()
       expect((await store.get<{ status: string }>('idem!2'))?.value.status).toBe('reserved')
+    } finally {
+      store.close()
+    }
+  })
+
+  test('implements WalletStorageProvider availability and user bootstrap contract', async () => {
+    const store = await RocksDbWalletStore.open({
+      path: path.join(dir, 'wallet.rocksdb'),
+      chain: 'test',
+      storageName: 'rocksdb-test',
+      storageIdentityKey: 'rocksdb-test-storage'
+    })
+    const provider: WalletStorageProvider = store
+    const manager = new WalletStorageManager('identity-key', provider)
+    try {
+      const settings = await manager.makeAvailable()
+      expect(settings.storageIdentityKey).toBe('rocksdb-test-storage')
+      expect(settings.storageName).toBe('rocksdb-test')
+      expect(settings.dbtype).toBe('RocksDB')
+      expect(manager.getActiveStore()).toBe('rocksdb-test-storage')
+
+      const { user, isNew } = await provider.findOrInsertUser('identity-key')
+      expect(isNew).toBe(false)
+      expect(user.activeStorage).toBe('rocksdb-test-storage')
+      expect(await provider.findOutputBasketsAuth({ identityKey: 'identity-key', userId: user.userId }, { partial: { name: 'default' } })).toHaveLength(1)
+      expect(provider.isStorageProvider()).toBe(true)
+      expect(Object.prototype.hasOwnProperty.call(RocksDbWalletStore.prototype, 'createAction')).toBe(false)
+
+      await expect(provider.listActions({ identityKey: 'identity-key', userId: user.userId }, Validation.validateListActionsArgs({ labels: [] }))).resolves.toEqual({
+        totalActions: 0,
+        actions: []
+      })
+      await expect(provider.listOutputs({ identityKey: 'identity-key', userId: user.userId }, Validation.validateListOutputsArgs({ basket: 'default' }))).resolves.toEqual({
+        totalOutputs: 0,
+        outputs: []
+      })
+    } finally {
+      store.close()
+    }
+  })
+
+  test('can be configured for mainnet without disabling provider behavior', async () => {
+    const store = await RocksDbWalletStore.open({
+      path: path.join(dir, 'main-wallet.rocksdb'),
+      chain: 'main',
+      storageName: 'rocksdb-main',
+      storageIdentityKey: 'rocksdb-main-storage'
+    })
+    try {
+      const settings = await store.makeAvailable()
+      expect(settings.chain).toBe('main')
+      expect(settings.dbtype).toBe('RocksDB')
+      expect(store.isStorageProvider()).toBe(true)
     } finally {
       store.close()
     }

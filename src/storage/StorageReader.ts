@@ -116,6 +116,7 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     let r: Date | string = this.validateDate(date)
     switch (this.dbtype) {
       case 'IndexedDB':
+      case 'RocksDB':
       case 'MySQL':
         break
       case 'SQLite':
@@ -142,6 +143,7 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     if ((r == null) && useNowAsDefault) r = new Date()
     switch (this.dbtype) {
       case 'IndexedDB':
+      case 'RocksDB':
       case 'MySQL':
         break
       case 'SQLite':
@@ -172,6 +174,7 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     let r: Date | string | number
     switch (this.dbtype) {
       case 'IndexedDB':
+      case 'RocksDB':
       case 'MySQL':
         r = vdate
         break
@@ -189,7 +192,7 @@ export interface StorageReaderOptions {
   chain: sdk.Chain
 }
 
-export type DBType = 'SQLite' | 'MySQL' | 'IndexedDB'
+export type DBType = 'SQLite' | 'MySQL' | 'IndexedDB' | 'RocksDB'
 
 type DbEntityTimeStamp<T extends sdk.EntityTimeStamp> = {
   [K in keyof T]: T[K] extends Date ? Date | string : T[K]
