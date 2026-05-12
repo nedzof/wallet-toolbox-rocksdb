@@ -9,7 +9,7 @@ export type RocksDbWalletSignerRefBlocker =
   | 'signer-ref-placeholder'
   | 'signer-ref-secret-like'
   | 'unsupported-signer-ref-scheme'
-  | 'wallet-storage-not-initialized'
+  | 'wallet-toolbox-wallet-not-initialized'
   | 'wallet-identity-not-found'
 
 export interface ResolveRocksDbWalletSignerRefInput {
@@ -60,6 +60,6 @@ export function resolveRocksDbWalletSignerRef (input: ResolveRocksDbWalletSigner
     secretMaterialRequired: false,
     readyForDryRun: true,
     walletInitialized,
-    blocker: walletInitialized ? null : 'wallet-storage-not-initialized'
+    blocker: walletInitialized ? null : 'wallet-toolbox-wallet-not-initialized'
   }
 }

@@ -66,7 +66,7 @@ describe('wallet-toolbox signerRef resolver', () => {
       secretMaterialRequired: false,
       readyForDryRun: true,
       walletInitialized: false,
-      blocker: 'wallet-storage-not-initialized'
+      blocker: 'wallet-toolbox-wallet-not-initialized'
     })
     expect(resolution.walletStorageNamespace).toMatch(/^wallet-toolbox-rocksdb:bsv-testnet:autonomous-commerce:[0-9a-f]{16}$/)
   })
