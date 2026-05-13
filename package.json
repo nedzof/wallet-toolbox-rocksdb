@@ -4,6 +4,19 @@
   "description": "BRC100 conforming wallet, wallet storage and wallet signer components extended with RocksDB storage",
   "main": "./out/src/index.rocksdb.js",
   "types": "./out/src/index.rocksdb.d.ts",
+  "exports": {
+    ".": {
+      "types": "./out/src/index.rocksdb.d.ts",
+      "require": "./out/src/index.rocksdb.js",
+      "default": "./out/src/index.rocksdb.js"
+    },
+    "./rocksdb": {
+      "types": "./out/src/index.rocksdb.d.ts",
+      "require": "./out/src/index.rocksdb.js",
+      "default": "./out/src/index.rocksdb.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "out/src/",
     "docs/",
@@ -33,7 +46,7 @@
     "lint": "ts-standard --fix src/**/*.ts",
     "lint:ci": "ts-standard src/**/*.ts",
     "build": "tsc --build",
-    "typecheck:rocksdb": "tsc --noEmit --target es2018 --module commonjs --moduleResolution node --esModuleInterop --skipLibCheck --types node,jest src/storage/rocksdb/RocksDbWalletStore.ts src/SetupRocksDb.ts src/signer/SignerRef.ts src/signer/WalletToolboxSignerRefResolver.ts test/storage/RocksDbWalletStore.test.ts test/signer/SignerRef.test.ts",
+    "typecheck:rocksdb": "tsc --noEmit --target es2018 --module commonjs --moduleResolution node --esModuleInterop --skipLibCheck --types node,jest src/storage/rocksdb/RocksDbWalletStore.ts src/SetupRocksDb.ts src/signer/SignerRef.ts src/signer/WalletToolboxSignerRefResolver.ts src/signer/ProductionSigning.ts test/storage/RocksDbWalletStore.test.ts test/signer/SignerRef.test.ts",
     "prepublishOnly": "npm run lint && npm run build && npm run doc && npm run sync-versions",
     "doc": "ts2md",
     "sync-versions": "node syncVersions.js"

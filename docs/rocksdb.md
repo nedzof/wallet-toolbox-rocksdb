@@ -26,8 +26,26 @@ Node package surface via `src/storage/index.all.ts`.
 - `batch` uses a RocksDB transaction.
 - Prefix scans are bounded by `limit`.
 
-## Current Boundary
+## Wallet Layer Boundary
 
-This is a storage primitive, not yet a full replacement for every
-`WalletStorageProvider` method. The next migration step is mapping the existing
-wallet tables onto this primitive while preserving BRC-100 wallet behavior.
+`@bsv/wallet-toolbox-rocksdb` owns the local wallet layer for Node.js BSV
+applications that want RocksDB-backed wallet state:
+
+- signer reference parsing for `wallet-toolbox://testnet/...` and
+  `wallet-toolbox://mainnet/...`
+- RocksDB wallet initialization and readiness inspection
+- local wallet storage through `RocksDbWalletStore`
+- BRC-100 wallet construction through `WalletStorageManager`
+- local key resolution from caller-supplied key config paths
+- spendable UTXO import and validation
+- no-spend payment dry-run
+- transaction construction/signing with idempotent signing records
+
+The package does not broadcast transactions and does not own application policy,
+proof materialization, receipts, or operator artifacts. Consumers should call
+`signRocksDbWalletPayment` only after their own admission/idempotency/outbox
+gates approve signing, then hand the returned signed transaction to their own
+broadcast/proof boundary.
+
+Public wallet APIs return redacted readiness and signing metadata only. They must
+not return or log root keys, xpriv, WIF, mnemonic, seed, or raw signing material.

@@ -18,6 +18,49 @@ npm install @bsv/wallet-toolbox-rocksdb
 
 ## Quick Example
 
+Initialize and inspect a local RocksDB wallet from a signer reference:
+
+```ts
+import {
+  initializeRocksDbWalletFromSignerRef,
+  inspectRocksDbWalletFromSignerRef,
+  dryRunRocksDbWalletPayment
+} from '@bsv/wallet-toolbox-rocksdb'
+
+const signerRef = 'wallet-toolbox://testnet/demo-wallet'
+const walletPath = './data/demo-wallet.rocksdb'
+const localKeyConfigPath = './secrets/demo-wallet.local.json'
+
+await initializeRocksDbWalletFromSignerRef({
+  signerRef,
+  expectedNetwork: 'bsv-testnet',
+  walletPath,
+  localKeyConfigPath
+})
+
+const readiness = await inspectRocksDbWalletFromSignerRef({
+  signerRef,
+  expectedNetwork: 'bsv-testnet',
+  walletPath
+})
+
+const preflight = await dryRunRocksDbWalletPayment({
+  signerRef,
+  walletPath,
+  localKeyConfigPath,
+  network: 'bsv-testnet',
+  idempotencyKey: 'demo-payment-1',
+  recipientOutputs: [{ satoshis: 100, address: 'recipient-testnet-address' }]
+})
+```
+
+The returned readiness and dry-run objects contain only redacted wallet state.
+They do not include root keys, xpriv, WIF, mnemonic, seed, or raw signing
+material. Dry-run validates wallet readiness and spendable UTXO state without
+constructing, signing, or broadcasting a transaction.
+
+For direct BRC-100 wallet/storage access:
+
 ```ts
 import {
   RocksDbWalletStore,
@@ -56,8 +99,11 @@ const active = await RocksDbWalletStore.open({
 })
 ```
 
-RocksDB stores wallet state only. It does not expose or log private key
-material; signing remains in the wallet/key-derivation layer.
+RocksDB stores wallet state, identity markers, imported UTXO state, and
+idempotent wallet-side signing records. The package constructs and signs
+transactions through the local wallet/signing layer, but it does not broadcast
+transactions. Broadcast, proof, receipt, and application policy layers belong to
+the consuming application.
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/bsv-blockchain/wallet-toolbox/push.yaml?branch=master&label=build)](https://github.com/bsv-blockchain/wallet-toolbox/actions)
 [![npm version](https://img.shields.io/npm/v/@bsv/wallet-toolbox)](https://www.npmjs.com/package/@bsv/wallet-toolbox)
