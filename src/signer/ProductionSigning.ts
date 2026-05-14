@@ -26,6 +26,10 @@ export type RocksDbWalletProductionSigningBlocker =
   | 'wallet-toolbox-local-key-missing'
   | 'wallet-toolbox-utxo-state-empty'
   | 'wallet-toolbox-insufficient-spendable-utxos'
+  | 'wallet-toolbox-required-utxo-unavailable'
+  | 'wallet-toolbox-required-utxo-outside-source-basket'
+  | 'wallet-toolbox-source-basket-mismatch'
+  | 'wallet-toolbox-reserved-outpoint-mismatch'
   | 'wallet-toolbox-recipient-output-invalid'
   | 'wallet-toolbox-idempotency-key-required'
 
@@ -44,6 +48,7 @@ export interface RocksDbWalletSpendableUtxo {
   status?: 'spendable' | 'reserved' | 'spent' | 'quarantined' | 'unknown'
   network?: WalletToolboxSignerRefNetwork
   signerRef?: string
+  basketId?: string
 }
 
 export interface ImportRocksDbWalletUtxosArgs {
@@ -53,9 +58,29 @@ export interface ImportRocksDbWalletUtxosArgs {
   utxos: RocksDbWalletSpendableUtxo[]
   localKeyConfigPath?: string | null
   requireWalletOwnership?: boolean
+  basketId?: string | null
 }
 
 export type SyncRocksDbWalletUtxosArgs = ImportRocksDbWalletUtxosArgs
+
+export interface ListRocksDbWalletSpendableUtxosArgs {
+  walletPath: string
+  signerRef: string
+  network: WalletToolboxSignerRefNetwork | 'testnet' | 'mainnet'
+  basketId?: string | null
+}
+
+export interface RocksDbWalletSpendableUtxoSummary {
+  outpoint: string
+  txid: string
+  vout: number
+  satoshis: number
+  network: WalletToolboxSignerRefNetwork
+  signerRef: string
+  status: 'spendable'
+  walletStorageNamespace: string
+  basketId: string | null
+}
 
 export interface SignRocksDbWalletPaymentArgs {
   signerRef: string
@@ -66,6 +91,9 @@ export interface SignRocksDbWalletPaymentArgs {
   network: WalletToolboxSignerRefNetwork | 'testnet' | 'mainnet'
   satsPerKb?: number
   createdAt?: Date | string | number
+  requiredOutpoints?: string[]
+  sourceBasketId?: string | null
+  changeBasketId?: string | null
 }
 
 export type DryRunRocksDbWalletPaymentArgs = SignRocksDbWalletPaymentArgs
@@ -80,6 +108,16 @@ export interface SignRocksDbWalletPaymentResult {
   outputCount: number
   spendSats: number
   feeSats: number
+  selectedOutpoints: string[]
+  requiredOutpoints: string[]
+  signingRecordTxid: string | null
+  signingRecordIdempotencyKey: string | null
+  signingRecordSelectedOutpoints: string[]
+  signingRecordRequiredOutpoints: string[]
+  sourceBasketId: string | null
+  changeBasketId: string | null
+  signingRecordSourceBasketId: string | null
+  signingRecordChangeBasketId: string | null
   replayed: boolean
   duplicateExternalEffects: 0
   unknownOutcome: false
@@ -121,6 +159,9 @@ interface SigningRecord {
   rawTxHex: string
   rawTxHash: string
   inputOutpoints: string[]
+  requiredOutpoints: string[]
+  sourceBasketId: string | null
+  changeBasketId: string | null
   outputCount: number
   spendSats: number
   feeSats: number
@@ -155,7 +196,7 @@ export async function importRocksDbWalletUtxos (args: ImportRocksDbWalletUtxosAr
   const store = await RocksDbWalletStore.open({ path: args.walletPath, namespace: parsed.parsed.walletStorageNamespace })
   try {
     for (const utxo of args.utxos) {
-      const normalized = normalizeUtxo(utxo, parsed.parsed.network, args.signerRef)
+      const normalized = normalizeUtxo(utxo, parsed.parsed.network, args.signerRef, normalizeBasketId(args.basketId) ?? normalizeBasketId(utxo.basketId))
       verifyRawSourceTx(normalized, walletReceiveScript)
       await store.put({
         key: utxoKey(normalized),
@@ -178,6 +219,61 @@ export async function importRocksDbWalletUtxos (args: ImportRocksDbWalletUtxosAr
  */
 export async function syncRocksDbWalletUtxos (args: SyncRocksDbWalletUtxosArgs): Promise<{ ok: true, imported: number, walletStorageNamespace: string }> {
   return await importRocksDbWalletUtxos(args)
+}
+
+export async function listRocksDbWalletSpendableUtxosFromSignerRef (args: ListRocksDbWalletSpendableUtxosArgs): Promise<{
+  ok: boolean
+  spendableUtxos: RocksDbWalletSpendableUtxoSummary[]
+  walletStorageNamespace: string | null
+  network: WalletToolboxSignerRefNetwork | null
+  blocker: RocksDbWalletProductionSigningBlocker | null
+}> {
+  const expectedNetwork = normalizeWalletToolboxSignerRefNetwork(args.network)
+  const parsed = parseWalletToolboxSignerRef({
+    signerRef: args.signerRef,
+    expectedNetwork: expectedNetwork ?? undefined
+  })
+  if (!parsed.ok || parsed.parsed === null) {
+    return spendableUtxosBlocked(parsed.blocker, null, null)
+  }
+  const inspection = await inspectRocksDbWalletFromSignerRef({
+    signerRef: args.signerRef,
+    expectedNetwork: expectedNetwork ?? undefined,
+    walletPath: args.walletPath
+  })
+  if (inspection.ok !== true) {
+    return spendableUtxosBlocked(inspection.blocker as RocksDbWalletProductionSigningBlocker, parsed.parsed.network, parsed.parsed.walletStorageNamespace)
+  }
+
+  const store = await RocksDbWalletStore.open({ path: args.walletPath, namespace: parsed.parsed.walletStorageNamespace })
+  try {
+    const basketId = normalizeBasketId(args.basketId)
+    const spendableUtxos = (await store.scan<RocksDbWalletSpendableUtxo>({ prefix: 'utxo!available!', limit: 1000 }))
+      .map(record => record.value)
+      .filter(utxo => utxo.status === 'spendable' && utxo.network === parsed.parsed!.network && utxo.signerRef === args.signerRef)
+      .filter(utxo => basketId == null || normalizeBasketId(utxo.basketId) === basketId)
+      .map(utxo => ({
+        outpoint: outpointId(utxo),
+        txid: utxo.txid,
+        vout: utxo.vout,
+        satoshis: utxo.satoshis,
+        network: parsed.parsed!.network,
+        signerRef: args.signerRef,
+        status: 'spendable' as const,
+        walletStorageNamespace: parsed.parsed!.walletStorageNamespace,
+        basketId: normalizeBasketId(utxo.basketId)
+      }))
+      .sort((left, right) => right.satoshis - left.satoshis || left.outpoint.localeCompare(right.outpoint))
+    return {
+      ok: true,
+      spendableUtxos,
+      walletStorageNamespace: parsed.parsed.walletStorageNamespace,
+      network: parsed.parsed.network,
+      blocker: null
+    }
+  } finally {
+    store.close()
+  }
 }
 
 export async function dryRunRocksDbWalletPayment (args: DryRunRocksDbWalletPaymentArgs): Promise<DryRunRocksDbWalletPaymentResult> {
@@ -254,6 +350,9 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
 
   const idempotencyKey = String(args.idempotencyKey ?? '').trim()
   if (idempotencyKey === '') return blocked('wallet-toolbox-idempotency-key-required', parsed.parsed.network, true, parsed.parsed.walletStorageNamespace)
+  const requiredOutpoints = normalizeRequiredOutpoints(args.requiredOutpoints)
+  const sourceBasketId = normalizeBasketId(args.sourceBasketId)
+  const changeBasketId = normalizeBasketId(args.changeBasketId) ?? sourceBasketId
 
   const inspection = await inspectRocksDbWalletFromSignerRef({
     signerRef: args.signerRef,
@@ -268,6 +367,32 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
   try {
     const existing = await store.get<SigningRecord>(signingKey(idempotencyKey))
     if (existing?.value.status === 'signed') {
+      const existingInputOutpoints = normalizeRequiredOutpoints(existing.value.inputOutpoints)
+      const existingRequiredOutpoints = normalizeRequiredOutpoints(existing.value.requiredOutpoints)
+      const existingSourceBasketId = normalizeBasketId(existing.value.sourceBasketId)
+      const existingChangeBasketId = normalizeBasketId(existing.value.changeBasketId)
+      if (sourceBasketId !== existingSourceBasketId) {
+        return {
+          ...blocked('wallet-toolbox-source-basket-mismatch', existing.value.network, true, parsed.parsed.walletStorageNamespace),
+          signingRecordTxid: existing.value.txid,
+          signingRecordIdempotencyKey: idempotencyKey,
+          signingRecordSelectedOutpoints: existingInputOutpoints,
+          signingRecordRequiredOutpoints: existingRequiredOutpoints,
+          signingRecordSourceBasketId: existingSourceBasketId,
+          signingRecordChangeBasketId: existingChangeBasketId
+        }
+      }
+      if (requiredOutpoints.length > 0 && !sameOutpoints(existingRequiredOutpoints, requiredOutpoints)) {
+        return {
+          ...blocked('wallet-toolbox-reserved-outpoint-mismatch', existing.value.network, true, parsed.parsed.walletStorageNamespace),
+          signingRecordTxid: existing.value.txid,
+          signingRecordIdempotencyKey: idempotencyKey,
+          signingRecordSelectedOutpoints: existingInputOutpoints,
+          signingRecordRequiredOutpoints: existingRequiredOutpoints,
+          signingRecordSourceBasketId: existingSourceBasketId,
+          signingRecordChangeBasketId: existingChangeBasketId
+        }
+      }
       return {
         ok: true,
         status: 'signed',
@@ -278,6 +403,16 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
         outputCount: existing.value.outputCount,
         spendSats: existing.value.spendSats,
         feeSats: existing.value.feeSats,
+        selectedOutpoints: existing.value.inputOutpoints,
+        requiredOutpoints: existingRequiredOutpoints,
+        signingRecordTxid: existing.value.txid,
+        signingRecordIdempotencyKey: idempotencyKey,
+        signingRecordSelectedOutpoints: existingInputOutpoints,
+        signingRecordRequiredOutpoints: existingRequiredOutpoints,
+        sourceBasketId: existingSourceBasketId,
+        changeBasketId: existingChangeBasketId,
+        signingRecordSourceBasketId: existingSourceBasketId,
+        signingRecordChangeBasketId: existingChangeBasketId,
         replayed: true,
         duplicateExternalEffects: 0,
         unknownOutcome: false,
@@ -308,10 +443,18 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
       return blocked('wallet-toolbox-recipient-output-invalid', parsed.parsed.network, true, parsed.parsed.walletStorageNamespace)
     }
 
-    const utxos = (await store.scan<RocksDbWalletSpendableUtxo>({ prefix: 'utxo!available!', limit: 1000 }))
+    const availableUtxos = (await store.scan<RocksDbWalletSpendableUtxo>({ prefix: 'utxo!available!', limit: 1000 }))
       .map(record => record.value)
       .filter(utxo => utxo.status === 'spendable' && utxo.network === parsed.parsed!.network && utxo.signerRef === args.signerRef)
-    if (utxos.length === 0) return blocked('wallet-toolbox-utxo-state-empty', parsed.parsed.network, true, parsed.parsed.walletStorageNamespace)
+      .filter(utxo => sourceBasketId == null || normalizeBasketId(utxo.basketId) === sourceBasketId)
+    if (availableUtxos.length === 0) return blocked('wallet-toolbox-utxo-state-empty', parsed.parsed.network, true, parsed.parsed.walletStorageNamespace)
+
+    const utxos = requiredOutpoints.length > 0
+      ? availableUtxos.filter(utxo => requiredOutpoints.includes(outpointId(utxo)))
+      : availableUtxos
+    if (requiredOutpoints.length > 0 && utxos.length !== requiredOutpoints.length) {
+      return blocked(sourceBasketId == null ? 'wallet-toolbox-required-utxo-unavailable' : 'wallet-toolbox-required-utxo-outside-source-basket', parsed.parsed.network, true, parsed.parsed.walletStorageNamespace)
+    }
 
     const signed = await buildSignedTransaction({
       rootKeyHex,
@@ -328,6 +471,9 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
       rawTxHex: signed.rawTxHex,
       rawTxHash: sha256(signed.rawTxHex),
       inputOutpoints: signed.inputOutpoints,
+      requiredOutpoints,
+      sourceBasketId,
+      changeBasketId,
       outputCount: signed.outputCount,
       spendSats: signed.spendSats,
       feeSats: signed.feeSats,
@@ -359,6 +505,16 @@ export async function signRocksDbWalletPayment (args: SignRocksDbWalletPaymentAr
       outputCount: record.outputCount,
       spendSats: record.spendSats,
       feeSats: record.feeSats,
+      selectedOutpoints: record.inputOutpoints,
+      requiredOutpoints: record.requiredOutpoints,
+      signingRecordTxid: record.txid,
+      signingRecordIdempotencyKey: idempotencyKey,
+      signingRecordSelectedOutpoints: record.inputOutpoints,
+      signingRecordRequiredOutpoints: record.requiredOutpoints,
+      sourceBasketId: record.sourceBasketId,
+      changeBasketId: record.changeBasketId,
+      signingRecordSourceBasketId: record.sourceBasketId,
+      signingRecordChangeBasketId: record.changeBasketId,
       replayed: false,
       duplicateExternalEffects: 0,
       unknownOutcome: false,
@@ -427,7 +583,7 @@ async function buildSignedTransaction (args: {
   return {
     txid: tx.id('hex'),
     rawTxHex: tx.toHex(),
-    inputOutpoints: selected.map(utxo => `${utxo.txid}.${utxo.vout}`),
+    inputOutpoints: selected.map(outpointId),
     selectedUtxos: selected,
     outputCount: tx.outputs.length,
     spendSats,
@@ -468,7 +624,7 @@ function normalizeOutputs (outputs: RocksDbWalletRecipientOutputIntent[], option
   return normalized
 }
 
-function normalizeUtxo (utxo: RocksDbWalletSpendableUtxo, network: WalletToolboxSignerRefNetwork, signerRef: string): RocksDbWalletSpendableUtxo {
+function normalizeUtxo (utxo: RocksDbWalletSpendableUtxo, network: WalletToolboxSignerRefNetwork, signerRef: string, basketId: string | null): RocksDbWalletSpendableUtxo {
   const txid = normalizeText(utxo.txid)?.toLowerCase()
   const vout = Math.trunc(Number(utxo.vout))
   const satoshis = Math.trunc(Number(utxo.satoshis))
@@ -486,7 +642,8 @@ function normalizeUtxo (utxo: RocksDbWalletSpendableUtxo, network: WalletToolbox
     rawSourceTxHex,
     status,
     network,
-    signerRef
+    signerRef,
+    basketId: basketId ?? undefined
   }
 }
 
@@ -525,6 +682,29 @@ function utxoKey (utxo: RocksDbWalletSpendableUtxo): string {
   return `utxo!available!${utxo.txid}.${utxo.vout}`
 }
 
+function outpointId (utxo: Pick<RocksDbWalletSpendableUtxo, 'txid' | 'vout'>): string {
+  return `${utxo.txid}:${utxo.vout}`
+}
+
+function normalizeRequiredOutpoints (value: string[] | undefined): string[] {
+  if (!Array.isArray(value)) return []
+  return [...new Set(value.map(entry => {
+    const normalized = String(entry ?? '').trim().toLowerCase().replace('.', ':')
+    return /^[0-9a-f]{64}:\d+$/.test(normalized) ? normalized : null
+  }).filter((entry): entry is string => entry != null))]
+}
+
+function normalizeBasketId (value: unknown): string | null {
+  const normalized = normalizeText(value)
+  if (normalized == null) return null
+  if (!/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(normalized)) return null
+  return normalized
+}
+
+function sameOutpoints (left: string[], right: string[]): boolean {
+  return JSON.stringify(normalizeRequiredOutpoints(left).sort()) === JSON.stringify(normalizeRequiredOutpoints(right).sort())
+}
+
 function signingKey (idempotencyKey: string): string {
   return `production-signing!${sha256(idempotencyKey)}`
 }
@@ -545,12 +725,42 @@ function blocked (
     outputCount: 0,
     spendSats: 0,
     feeSats: 0,
+    selectedOutpoints: [],
+    requiredOutpoints: [],
+    signingRecordTxid: null,
+    signingRecordIdempotencyKey: null,
+    signingRecordSelectedOutpoints: [],
+    signingRecordRequiredOutpoints: [],
+    sourceBasketId: null,
+    changeBasketId: null,
+    signingRecordSourceBasketId: null,
+    signingRecordChangeBasketId: null,
     replayed: false,
     duplicateExternalEffects: 0,
     unknownOutcome: false,
     network,
     signerRefResolved,
     walletStorageNamespace,
+    blocker
+  }
+}
+
+function spendableUtxosBlocked (
+  blocker: RocksDbWalletProductionSigningBlocker | null,
+  network: WalletToolboxSignerRefNetwork | null,
+  walletStorageNamespace: string | null
+): {
+    ok: false
+    spendableUtxos: RocksDbWalletSpendableUtxoSummary[]
+    walletStorageNamespace: string | null
+    network: WalletToolboxSignerRefNetwork | null
+    blocker: RocksDbWalletProductionSigningBlocker | null
+  } {
+  return {
+    ok: false,
+    spendableUtxos: [],
+    walletStorageNamespace,
+    network,
     blocker
   }
 }

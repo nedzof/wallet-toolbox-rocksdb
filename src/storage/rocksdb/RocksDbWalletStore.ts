@@ -855,9 +855,15 @@ export class RocksDbWalletStore extends StorageProvider {
 
   private async getStoredRecord<T> (key: string, trx?: TrxToken): Promise<StoredRocksDbWalletRecord<T> | undefined> {
     const storageKey = this.storageKey(key)
-    const stored = trx !== undefined
-      ? await (trx as unknown as RocksDbTransaction).get(storageKey)
-      : await this.db.get(storageKey)
+    let stored: unknown
+    try {
+      stored = trx !== undefined
+        ? await (trx as unknown as RocksDbTransaction).get(storageKey)
+        : await this.db.get(storageKey)
+    } catch (error) {
+      if (isRocksDbMissingValue(error)) return undefined
+      throw error
+    }
     return stored as StoredRocksDbWalletRecord<T> | undefined
   }
 
@@ -932,6 +938,11 @@ function normalizeNamespace (value?: string): string {
 
 function isDeleteWrite (write: RocksDbWalletPutArgs | { type: 'delete', key: string }): write is { type: 'delete', key: string } {
   return 'type' in write && write.type === 'delete'
+}
+
+function isRocksDbMissingValue (error: unknown): boolean {
+  const message = String(error instanceof Error ? error.message : error)
+  return /result incomplete: no blocking io/i.test(message)
 }
 
 function normalizeKey (value: string): string {

@@ -10,7 +10,7 @@ import {
   inspectRocksDbWalletFromSignerRef,
   openRocksDbWalletFromSignerRef
 } from '../../src/SetupRocksDb'
-import { dryRunRocksDbWalletPayment, importRocksDbWalletUtxos, signRocksDbWalletPayment, syncRocksDbWalletUtxos } from '../../src/signer/ProductionSigning'
+import { dryRunRocksDbWalletPayment, importRocksDbWalletUtxos, listRocksDbWalletSpendableUtxosFromSignerRef, signRocksDbWalletPayment, syncRocksDbWalletUtxos } from '../../src/signer/ProductionSigning'
 import * as rocksDbEntrypoint from '../../src/index.rocksdb'
 import { WalletStorageManager } from '../../src/storage/WalletStorageManager'
 import { RocksDbWalletStore } from '../../src/storage/rocksdb'
@@ -60,6 +60,7 @@ describe('RocksDbWalletStore', () => {
   test('applies batch writes and deletes transactionally', async () => {
     const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
     try {
+      await expect(store.get('idem!missing')).resolves.toBeUndefined()
       const results = await store.batch([
         { key: 'idem!1', value: { status: 'reserved' } },
         { key: 'idem!2', value: { status: 'reserved' } }
@@ -328,6 +329,7 @@ describe('RocksDbWalletStore', () => {
       localKeyConfigPath,
       network: 'bsv-testnet',
       idempotencyKey: 'idem-1',
+      requiredOutpoints: [`${sourceTx.id('hex')}:0`],
       recipientOutputs: [{ satoshis: 250, address: recipient }],
       satsPerKb: 50,
       createdAt: 0
@@ -348,6 +350,7 @@ describe('RocksDbWalletStore', () => {
     expect(first.txid).toMatch(/^[0-9a-f]{64}$/)
     expect(first.rawTxHex).toMatch(/^[0-9a-f]+$/i)
     expect(first.rawTxHash).toMatch(/^[0-9a-f]{64}$/)
+    expect(first.selectedOutpoints).toEqual([`${sourceTx.id('hex')}:0`])
     expect(first.replayed).toBe(false)
     expect(first.duplicateExternalEffects).toBe(0)
     expect(first.walletStorageNamespace).toBe(sync.walletStorageNamespace)
@@ -357,6 +360,25 @@ describe('RocksDbWalletStore', () => {
     expect(replay.replayed).toBe(true)
     expect(replay.txid).toBe(first.txid)
     expect(replay.rawTxHex).toBe(first.rawTxHex)
+    expect(replay.selectedOutpoints).toEqual(first.selectedOutpoints)
+    expect(replay.requiredOutpoints).toEqual([`${sourceTx.id('hex')}:0`])
+
+    const replayWithSameRequiredOutpoint = await signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-1',
+      requiredOutpoints: [`${sourceTx.id('hex')}:0`],
+      recipientOutputs: [{ satoshis: 250, address: recipient }],
+      satsPerKb: 50,
+      createdAt: 1
+    })
+    expect(replayWithSameRequiredOutpoint.ok).toBe(true)
+    expect(replayWithSameRequiredOutpoint.replayed).toBe(true)
+    expect(replayWithSameRequiredOutpoint.selectedOutpoints).toEqual([`${sourceTx.id('hex')}:0`])
+    expect(replayWithSameRequiredOutpoint.signingRecordSelectedOutpoints).toEqual([`${sourceTx.id('hex')}:0`])
+    expect(replayWithSameRequiredOutpoint.signingRecordRequiredOutpoints).toEqual([`${sourceTx.id('hex')}:0`])
 
     await expect(signRocksDbWalletPayment({
       signerRef,
@@ -370,6 +392,327 @@ describe('RocksDbWalletStore', () => {
     })).resolves.toMatchObject({
       ok: false,
       blocker: 'wallet-toolbox-utxo-state-empty'
+    })
+  })
+
+  test('lists spendable wallet UTXOs with public fields only', async () => {
+    const signerRef = 'wallet-toolbox://testnet/demo-wallet'
+    const rootKey = PrivateKey.fromRandom()
+    const walletPath = path.join(dir, 'spendable-list-wallet.rocksdb')
+    const localKeyConfigPath = path.join(dir, 'toolbox-local-key-spendable-list.json')
+    await writeFile(localKeyConfigPath, JSON.stringify({ rootKeyHex: rootKey.toHex() }))
+    await initializeRocksDbWalletFromSignerRef({
+      signerRef,
+      expectedNetwork: 'bsv-testnet',
+      walletPath,
+      localKeyConfigPath
+    })
+
+    const sourceTx = new Transaction()
+    sourceTx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1500
+    })
+    await importRocksDbWalletUtxos({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      utxos: [{
+        txid: sourceTx.id('hex'),
+        vout: 0,
+        satoshis: 1500,
+        rawSourceTxHex: sourceTx.toHex()
+      }]
+    })
+
+    const listed = await listRocksDbWalletSpendableUtxosFromSignerRef({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet'
+    })
+
+    expect(listed).toMatchObject({
+      ok: true,
+      network: 'bsv-testnet',
+      blocker: null,
+      spendableUtxos: [{
+        outpoint: `${sourceTx.id('hex')}:0`,
+        txid: sourceTx.id('hex'),
+        vout: 0,
+        satoshis: 1500,
+        network: 'bsv-testnet',
+        signerRef,
+        status: 'spendable'
+      }]
+    })
+    expect(listed.spendableUtxos[0].walletStorageNamespace).toMatch(/^wallet-toolbox-rocksdb:bsv-testnet:demo-wallet:/)
+    expect(JSON.stringify(listed)).not.toContain(sourceTx.toHex())
+    expect(JSON.stringify(listed)).not.toContain(rootKey.toHex())
+  })
+
+  test('imports lists signs and replays wallet UTXOs by source basket', async () => {
+    const signerRef = 'wallet-toolbox://testnet/demo-wallet'
+    const rootKey = PrivateKey.fromRandom()
+    const walletPath = path.join(dir, 'basket-source-wallet.rocksdb')
+    const localKeyConfigPath = path.join(dir, 'toolbox-local-key-basket-source.json')
+    await writeFile(localKeyConfigPath, JSON.stringify({ rootKeyHex: rootKey.toHex() }))
+    await initializeRocksDbWalletFromSignerRef({
+      signerRef,
+      expectedNetwork: 'bsv-testnet',
+      walletPath,
+      localKeyConfigPath
+    })
+
+    const hotLane1Tx = new Transaction()
+    hotLane1Tx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1200
+    })
+    const hotLane2Tx = new Transaction()
+    hotLane2Tx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1300
+    })
+    const hotLane1 = 'autonomous-commerce.hot-lane.1'
+    const hotLane2 = 'autonomous-commerce.hot-lane.2'
+    const explicitChange = 'autonomous-commerce.hot-lane.change'
+    const hotLane1Outpoint = `${hotLane1Tx.id('hex')}:0`
+    const hotLane2Outpoint = `${hotLane2Tx.id('hex')}:0`
+
+    await importRocksDbWalletUtxos({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      basketId: hotLane1,
+      utxos: [{
+        txid: hotLane1Tx.id('hex'),
+        vout: 0,
+        satoshis: 1200,
+        rawSourceTxHex: hotLane1Tx.toHex()
+      }]
+    })
+    await importRocksDbWalletUtxos({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      utxos: [{
+        txid: hotLane2Tx.id('hex'),
+        vout: 0,
+        satoshis: 1300,
+        rawSourceTxHex: hotLane2Tx.toHex(),
+        basketId: hotLane2
+      }]
+    })
+
+    const listedLane1 = await listRocksDbWalletSpendableUtxosFromSignerRef({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      basketId: hotLane1
+    })
+    const listedLane2 = await listRocksDbWalletSpendableUtxosFromSignerRef({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      basketId: hotLane2
+    })
+    expect(listedLane1.spendableUtxos.map(utxo => utxo.outpoint)).toEqual([hotLane1Outpoint])
+    expect(listedLane1.spendableUtxos[0].basketId).toBe(hotLane1)
+    expect(listedLane2.spendableUtxos.map(utxo => utxo.outpoint)).toEqual([hotLane2Outpoint])
+
+    await expect(signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-basket-wrong-required',
+      sourceBasketId: hotLane1,
+      requiredOutpoints: [hotLane2Outpoint],
+      recipientOutputs: [{ satoshis: 250, address: PrivateKey.fromRandom().toAddress('testnet') }],
+      satsPerKb: 50,
+      createdAt: 0
+    })).resolves.toMatchObject({
+      ok: false,
+      blocker: 'wallet-toolbox-required-utxo-outside-source-basket'
+    })
+
+    const signed = await signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-basket-source',
+      sourceBasketId: hotLane1,
+      changeBasketId: explicitChange,
+      requiredOutpoints: [hotLane1Outpoint],
+      recipientOutputs: [{ satoshis: 250, address: PrivateKey.fromRandom().toAddress('testnet') }],
+      satsPerKb: 50,
+      createdAt: 0
+    })
+    expect(signed.ok).toBe(true)
+    expect(signed.selectedOutpoints).toEqual([hotLane1Outpoint])
+    expect(signed.requiredOutpoints).toEqual([hotLane1Outpoint])
+    expect(signed.sourceBasketId).toBe(hotLane1)
+    expect(signed.changeBasketId).toBe(explicitChange)
+    expect(signed.signingRecordSourceBasketId).toBe(hotLane1)
+    expect(signed.signingRecordChangeBasketId).toBe(explicitChange)
+
+    await expect(signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-basket-source',
+      sourceBasketId: hotLane2,
+      requiredOutpoints: [hotLane1Outpoint],
+      recipientOutputs: [{ satoshis: 250, address: PrivateKey.fromRandom().toAddress('testnet') }],
+      satsPerKb: 50,
+      createdAt: 1
+    })).resolves.toMatchObject({
+      ok: false,
+      blocker: 'wallet-toolbox-source-basket-mismatch',
+      signingRecordSourceBasketId: hotLane1
+    })
+
+    const replay = await signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-basket-source',
+      sourceBasketId: hotLane1,
+      requiredOutpoints: [hotLane1Outpoint],
+      recipientOutputs: [{ satoshis: 250, address: PrivateKey.fromRandom().toAddress('testnet') }],
+      satsPerKb: 50,
+      createdAt: 2
+    })
+    expect(replay.ok).toBe(true)
+    expect(replay.replayed).toBe(true)
+    expect(replay.requiredOutpoints).toEqual([hotLane1Outpoint])
+    expect(replay.sourceBasketId).toBe(hotLane1)
+  })
+
+  test('signing fails closed when required outpoint is not available', async () => {
+    const signerRef = 'wallet-toolbox://testnet/demo-wallet'
+    const rootKey = PrivateKey.fromRandom()
+    const localKeyConfigPath = path.join(dir, 'toolbox-local-key-required-outpoint.json')
+    await writeFile(localKeyConfigPath, JSON.stringify({ rootKeyHex: rootKey.toHex() }))
+    const walletPath = path.join(dir, 'required-outpoint.rocksdb')
+    await initializeRocksDbWalletFromSignerRef({
+      signerRef,
+      expectedNetwork: 'bsv-testnet',
+      walletPath,
+      localKeyConfigPath
+    })
+
+    const sourceTx = new Transaction()
+    sourceTx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1000
+    })
+    await importRocksDbWalletUtxos({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      utxos: [{
+        txid: sourceTx.id('hex'),
+        vout: 0,
+        satoshis: 1000,
+        rawSourceTxHex: sourceTx.toHex()
+      }]
+    })
+
+    const recipient = PrivateKey.fromRandom().toAddress('testnet')
+    await expect(signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-required-outpoint',
+      requiredOutpoints: ['0'.repeat(64) + ':0'],
+      recipientOutputs: [{ satoshis: 250, address: recipient }],
+      satsPerKb: 50,
+      createdAt: 0
+    })).resolves.toMatchObject({
+      ok: false,
+      blocker: 'wallet-toolbox-required-utxo-unavailable'
+    })
+  })
+
+  test('signing replay fails closed when stored selected outpoint differs from required outpoint', async () => {
+    const signerRef = 'wallet-toolbox://testnet/demo-wallet'
+    const rootKey = PrivateKey.fromRandom()
+    const localKeyConfigPath = path.join(dir, 'toolbox-local-key-replay-required-outpoint.json')
+    await writeFile(localKeyConfigPath, JSON.stringify({ rootKeyHex: rootKey.toHex() }))
+    const walletPath = path.join(dir, 'replay-required-outpoint.rocksdb')
+    await initializeRocksDbWalletFromSignerRef({
+      signerRef,
+      expectedNetwork: 'bsv-testnet',
+      walletPath,
+      localKeyConfigPath
+    })
+
+    const firstSourceTx = new Transaction()
+    firstSourceTx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1000
+    })
+    const secondSourceTx = new Transaction()
+    secondSourceTx.addOutput({
+      lockingScript: new P2PKH().lock(rootKey.toAddress('testnet')),
+      satoshis: 1100
+    })
+    await importRocksDbWalletUtxos({
+      walletPath,
+      signerRef,
+      network: 'bsv-testnet',
+      utxos: [{
+        txid: firstSourceTx.id('hex'),
+        vout: 0,
+        satoshis: 1000,
+        rawSourceTxHex: firstSourceTx.toHex()
+      }, {
+        txid: secondSourceTx.id('hex'),
+        vout: 0,
+        satoshis: 1100,
+        rawSourceTxHex: secondSourceTx.toHex()
+      }]
+    })
+
+    const recipient = PrivateKey.fromRandom().toAddress('testnet')
+    const firstOutpoint = `${firstSourceTx.id('hex')}:0`
+    const secondOutpoint = `${secondSourceTx.id('hex')}:0`
+    const first = await signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-replay-required-mismatch',
+      requiredOutpoints: [firstOutpoint],
+      recipientOutputs: [{ satoshis: 250, address: recipient }],
+      satsPerKb: 50,
+      createdAt: 0
+    })
+    expect(first.ok).toBe(true)
+    expect(first.selectedOutpoints).toEqual([firstOutpoint])
+    expect(first.requiredOutpoints).toEqual([firstOutpoint])
+
+    await expect(signRocksDbWalletPayment({
+      signerRef,
+      walletPath,
+      localKeyConfigPath,
+      network: 'bsv-testnet',
+      idempotencyKey: 'idem-replay-required-mismatch',
+      requiredOutpoints: [secondOutpoint],
+      recipientOutputs: [{ satoshis: 250, address: recipient }],
+      satsPerKb: 50,
+      createdAt: 1
+    })).resolves.toMatchObject({
+      ok: false,
+      blocker: 'wallet-toolbox-reserved-outpoint-mismatch',
+      signingRecordTxid: first.txid,
+      signingRecordSelectedOutpoints: [firstOutpoint],
+      signingRecordRequiredOutpoints: [firstOutpoint]
     })
   })
 
