@@ -175,7 +175,7 @@ export interface StorageReaderOptions {
   chain: sdk.Chain
 }
 
-export type DBType = 'MySQL' | 'IndexedDB'
+export type DBType = 'MySQL' | 'IndexedDB' | 'RocksDB'
 
 type DbEntityTimeStamp<T extends sdk.EntityTimeStamp> = {
   [K in keyof T]: T[K] extends Date ? Date | string : T[K]

@@ -38,6 +38,14 @@ async function main (): Promise<void> {
   const elapsedSeconds = Number(process.hrtime.bigint() - started) / 1_000_000_000
   const tps = count / elapsedSeconds
   const summary = {
+    mode: 'mocked-in-process',
+    coverage: 'BroadcastOrchestrator queue/concurrency only',
+    notCovered: [
+      'RocksDB writes',
+      'provider HTTP latency',
+      'BEEF serialization',
+      'testnet/public-network finality'
+    ],
     count,
     calls,
     concurrency,

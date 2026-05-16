@@ -12,6 +12,6 @@ export interface TableSettings extends sdk.StorageIdentity, sdk.EntityTimeStamp 
    */
   storageName: string
   chain: sdk.Chain
-  dbtype: 'MySQL' | 'IndexedDB'
+  dbtype: 'MySQL' | 'IndexedDB' | 'RocksDB'
   maxOutputScript: number
 }
