@@ -83,12 +83,10 @@ const manager = new ShamirWalletManager({
     totalShares: 3,  // total shares generated (min: 3, must be >= threshold + 1)
 
     walletBuilder: async (privateKey, privilegedKeyManager) => {
-        const { wallet } = await Setup.createWalletSQLite({
-            filePath: './wallet.sqlite',
-            databaseName: 'myWallet',
+        const wallet = await Setup.createWalletClientNoEnv({
             chain: 'main',
             rootKeyHex: privateKey.toHex(),
-            privilegedKeyManager
+            storageUrl: 'https://storage.babbage.systems'
         })
         return wallet
     }

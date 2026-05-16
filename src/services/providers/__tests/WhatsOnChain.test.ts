@@ -217,9 +217,6 @@ describe('whatsonchain tests', () => {
 
   test.skip('8b run monitor mainnet', async () => {
     if (Setup.noEnv('main')) return
-    if (!Setup.getEnv('main').filePath) return
-
-    // Only run if `Setup` style .env is present with a sqlite filePath...
 
     const c = await _tu.createWalletSetupEnv('main')
 
@@ -230,7 +227,6 @@ describe('whatsonchain tests', () => {
 
   test.skip('8c backup to cloud', async () => {
     if (Setup.noEnv('main')) return
-    if (!Setup.getEnv('main').filePath) return
 
     const c = await _tu.createWalletSetupEnv('main')
     const client = new StorageClient(c.wallet, 'https://storage.babbage.systems')

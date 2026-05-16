@@ -355,6 +355,11 @@ export interface WalletServicesOptions {
    */
   httpClient?: HttpClient
   /**
+   * Options used when Services creates the default pooled HTTP client. Ignored
+   * when `httpClient` is supplied.
+   */
+  httpClientOptions?: PooledHttpClientOptions
+  /**
    * Controls transaction broadcast provider orchestration.
    *
    * PromiseAll broadcasts the same BEEF and txid set to every configured provider
@@ -407,6 +412,15 @@ export interface WalletServicesOptions {
   scriptHashCacheMaxEntries?: number
   scriptHashCacheTtlMs?: number
   postBeefQueueConcurrency?: number
+}
+
+export interface PooledHttpClientOptions {
+  connections?: number
+  pipelining?: number
+  allowH2?: boolean
+  keepAliveTimeout?: number
+  keepAliveMaxTimeout?: number
+  keepAliveTimeoutThreshold?: number
 }
 
 export interface GetStatusForTxidsResult {

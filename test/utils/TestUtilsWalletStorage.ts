@@ -24,7 +24,6 @@ import {
   WalletCertificate,
   WalletInterface
 } from '@bsv/sdk'
-import { StorageIdb } from '../../src/storage/StorageIdb'
 import { Chain, TransactionStatus } from '../../src/sdk/types'
 import { Setup } from '../../src/Setup'
 import { StorageKnex } from '../../src/storage/StorageKnex'
@@ -39,7 +38,6 @@ import { Wallet } from '../../src/Wallet'
 import { StorageClient } from '../../src/storage/remoting/StorageClient'
 import { randomBytesBase64, randomBytesHex, verifyOne, verifyTruthy } from '../../src/utility/utilityHelpers'
 import { WalletError } from '../../src/sdk/WalletError'
-import { StorageSyncReader } from '../../src/storage/StorageSyncReader'
 import { StorageProvider } from '../../src/storage/StorageProvider'
 import { TableProvenTx } from '../../src/storage/schema/tables/TableProvenTx'
 import { TableProvenTxReq } from '../../src/storage/schema/tables/TableProvenTxReq'
@@ -80,17 +78,9 @@ export interface TuEnv extends TuEnvFlags {
   commissionsIdentity: string
   devKeys: Record<string, string>
   /**
-   * file path to local sqlite file for identityKey
-   */
-  filePath?: string
-  /**
    * identityKey for automated test wallet on this chain
    */
   testIdentityKey?: string
-  /**
-   * file path to local sqlite file for testIdentityKey
-   */
-  testFilePath?: string
   cloudMySQLConnection?: string
 }
 
@@ -110,12 +100,12 @@ export abstract class TestUtilsWalletStorage {
 
   /**
    * @param chain
-   * @returns true if .env is not valid for chain or testIdentityKey or testFilePath are undefined or empty.
+   * @returns true if .env is not valid for chain or testIdentityKey is undefined or empty.
    */
   static noTestEnv(chain: Chain): boolean {
     try {
       const env = _tu.getEnv(chain)
-      return !env.testIdentityKey || !env.testFilePath
+      return !env.testIdentityKey
     } catch {
       return true
     }
@@ -137,10 +127,8 @@ export abstract class TestUtilsWalletStorage {
     const flagsEnv = _tu.getEnvFlags(chain)
     // Identity keys of the lead maintainer of this repo...
     const identityKey = (chain === 'main' ? process.env.MY_MAIN_IDENTITY : process.env.MY_TEST_IDENTITY) || ''
-    const filePath = chain === 'main' ? process.env.MY_MAIN_FILEPATH : process.env.MY_TEST_FILEPATH
     const identityKey2 = (chain === 'main' ? process.env.MY_MAIN_IDENTITY2 : process.env.MY_TEST_IDENTITY2) || ''
     const testIdentityKey = chain === 'main' ? process.env.TEST_MAIN_IDENTITY : process.env.TEST_TEST_IDENTITY
-    const testFilePath = chain === 'main' ? process.env.TEST_MAIN_FILEPATH : process.env.TEST_TEST_FILEPATH
     const cloudMySQLConnection =
       chain === 'main' ? process.env.MAIN_CLOUD_MYSQL_CONNECTION : process.env.TEST_CLOUD_MYSQL_CONNECTION
     const DEV_KEYS = process.env.DEV_KEYS || '{}'
@@ -159,9 +147,7 @@ export abstract class TestUtilsWalletStorage {
       whatsonchainApiKey,
       commissionsIdentity,
       devKeys: JSON.parse(DEV_KEYS) as Record<string, string>,
-      filePath,
       testIdentityKey,
-      testFilePath,
       cloudMySQLConnection
     }
   }
@@ -353,88 +339,61 @@ export abstract class TestUtilsWalletStorage {
   }
 
   /**
-   * Creates a wallet with both local sqlite and cloud stores, the local store is left active.
-   *
-   * Requires a valid .env file with chain matching testIdentityKey and testFilePath properties valid.
-   * Or `args` with those properties.
-   *
-   * Verifies wallet has at least 1000 satoshis in at least 10 change utxos.
-   *
-   * @param chain
-   *
-   * @returns {TestWalletNoSetup}
+   * Creates a wallet backed by the configured MySQL storage and optionally attaches the hosted storage client.
    */
   static async createTestWallet(args: Chain | CreateTestWalletArgs): Promise<TestWalletNoSetup> {
     let chain: Chain
     let rootKeyHex: string
-    let filePath: string
-    let addLocalBackup = false
     let setActiveClient = false
     let useMySQLConnectionForClient = false
+    let env: TuEnv
     if (typeof args === 'string') {
       chain = args
-      const env = _tu.getEnv(chain)
-      if (!env.testIdentityKey || !env.testFilePath) {
-        throw new WERR_INVALID_PARAMETER('env.testIdentityKey and env.testFilePath', 'valid')
+      env = _tu.getEnv(chain)
+      if (!env.testIdentityKey) {
+        throw new WERR_INVALID_PARAMETER('env.testIdentityKey', 'valid')
       }
       rootKeyHex = env.devKeys[env.testIdentityKey!]
-      filePath = env.testFilePath
     } else {
       chain = args.chain
       rootKeyHex = args.rootKeyHex
-      filePath = args.filePath
-      addLocalBackup = args.addLocalBackup === true
       setActiveClient = args.setActiveClient === true
       useMySQLConnectionForClient = args.useMySQLConnectionForClient === true
+      env = _tu.getEnv(chain)
     }
 
-    const databaseName = path.parse(filePath).name
-    const setup = await _tu.createSQLiteTestWallet({
-      filePath,
-      rootKeyHex,
-      databaseName,
+    if (!env.cloudMySQLConnection) throw new WERR_INVALID_PARAMETER('env.cloudMySQLConnection', 'valid')
+    const activeStorage = new StorageKnex({
+      ...StorageKnex.defaultOptions(),
+      knex: _tu.createMySQLFromConnection(JSON.parse(env.cloudMySQLConnection)),
       chain
     })
+    await activeStorage.makeAvailable()
+    const setup = (await _tu.createWalletOnly({
+      chain,
+      rootKeyHex,
+      active: activeStorage
+    })) as TestWalletNoSetup
     setup.localStorageIdentityKey = setup.storage.getActiveStore()
+    setup.activeStorage = activeStorage
+    setup.userId = verifyTruthy(await activeStorage.findUserByIdentityKey(setup.identityKey)).userId
 
-    let client: WalletStorageProvider
-    if (useMySQLConnectionForClient) {
-      const env = _tu.getEnv(chain)
-      if (!env.cloudMySQLConnection) throw new WERR_INVALID_PARAMETER('env.cloundMySQLConnection', 'valid')
-      const connection = JSON.parse(env.cloudMySQLConnection)
-      client = new StorageKnex({
-        ...StorageKnex.defaultOptions(),
-        knex: _tu.createMySQLFromConnection(connection),
-        chain: env.chain
-      })
-    } else {
+    if (!useMySQLConnectionForClient) {
       const endpointUrl =
         chain === 'main' ? 'https://storage.babbage.systems' : 'https://staging-storage.babbage.systems'
 
-      client = new StorageClient(setup.wallet, endpointUrl)
-    }
-    setup.clientStorageIdentityKey = (await client.makeAvailable()).storageIdentityKey
-    await setup.wallet.storage.addWalletStorageProvider(client)
-
-    if (addLocalBackup) {
-      const backupName = `${databaseName}_backup`
-      const backupPath = filePath.replace(databaseName, backupName)
-      const localBackup = new StorageKnex({
-        ...StorageKnex.defaultOptions(),
-        knex: _tu.createLocalSQLite(backupPath),
-        chain
-      })
-      await localBackup.migrate(backupName, randomBytesHex(33))
-      setup.localBackupStorageIdentityKey = (await localBackup.makeAvailable()).storageIdentityKey
-      await setup.wallet.storage.addWalletStorageProvider(localBackup)
+      const client: WalletStorageProvider = new StorageClient(setup.wallet, endpointUrl)
+      setup.clientStorageIdentityKey = (await client.makeAvailable()).storageIdentityKey
+      await setup.wallet.storage.addWalletStorageProvider(client)
     }
 
     // SETTING ACTIVE
     // SETTING ACTIVE
     // SETTING ACTIVE
-    const log = await setup.storage.setActive(
-      setActiveClient ? setup.clientStorageIdentityKey : setup.localStorageIdentityKey
-    )
+    const targetActive = setActiveClient && setup.clientStorageIdentityKey
+      ? setup.clientStorageIdentityKey
+      : setup.localStorageIdentityKey
+    const log = await setup.storage.setActive(targetActive)
     logger(log)
 
     let needsBackup = false
@@ -581,83 +540,6 @@ export abstract class TestUtilsWalletStorage {
     return dstPath
   }
 
-  static async copyFile(srcPath: string, dstPath: string): Promise<void> {
-    await fsp.copyFile(srcPath, dstPath)
-  }
-
-  static async existingDataFile(filename: string): Promise<string> {
-    const folder = './test/data/'
-    return folder + filename
-  }
-
-  static createLocalSQLite(filename: string): Knex {
-    const config: Knex.Config = {
-      client: 'better-sqlite3',
-      connection: { filename },
-      useNullAsDefault: true,
-      pool: {
-        min: 1,
-        max: 1,
-        // Keep the connection alive to ensure foreign key PRAGMA persists
-        acquireTimeoutMillis: 30000,
-        createTimeoutMillis: 30000,
-        destroyTimeoutMillis: 5000,
-        idleTimeoutMillis: 60000,
-        reapIntervalMillis: 1000,
-        createRetryIntervalMillis: 100,
-        // Enable foreign keys on every new connection
-        // PRAGMA foreign_keys is a per-connection setting in SQLite
-        afterCreate: (conn: any, done: Function) => {
-          conn.pragma('foreign_keys = ON')
-          done()
-        }
-      }
-    }
-    const knex = makeKnex(config)
-    return knex
-  }
-
-  /**
-   * Create an in-memory SQLite database for testing.
-   * Uses a unique file:memdb_xxx?mode=memory&cache=shared URI to create
-   * a completely isolated database per call while keeping it in memory.
-   * Must use min: 1 to keep the same connection (and thus the same db) alive.
-   *
-   * IMPORTANT: For in-memory SQLite, the connection must never be destroyed
-   * or the database will be lost. We set very high idle timeouts to prevent
-   * the pool from destroying the connection.
-   */
-  static createMemorySQLite(): Knex {
-    // Use a unique identifier to completely isolate this in-memory database
-    const uniqueId = `memdb_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
-    const config: Knex.Config = {
-      client: 'better-sqlite3',
-      connection: { filename: `file:${uniqueId}?mode=memory&cache=shared` },
-      useNullAsDefault: true,
-      pool: {
-        min: 1,
-        max: 1,
-        // Prevent the pool from destroying the connection - this is critical for
-        // in-memory SQLite because destroying the connection loses the database.
-        // Use very high timeouts to effectively disable idle connection destruction.
-        idleTimeoutMillis: 60 * 60 * 1000, // 1 hour
-        acquireTimeoutMillis: 30000,
-        createTimeoutMillis: 30000,
-        destroyTimeoutMillis: 5000,
-        reapIntervalMillis: 1000,
-        // Propagate errors from afterCreate
-        propagateCreateError: true,
-        // Enable foreign keys on every new connection
-        afterCreate: (conn: any, done: Function) => {
-          conn.pragma('foreign_keys = ON')
-          done()
-        }
-      }
-    }
-    const knex = makeKnex(config)
-    return knex
-  }
-
   static createMySQLFromConnection(connection: object): Knex {
     const config: Knex.Config = {
       client: 'mysql2',
@@ -719,48 +601,6 @@ export abstract class TestUtilsWalletStorage {
     })
   }
 
-  static async createSQLiteTestWallet(args: {
-    filePath?: string
-    databaseName: string
-    chain?: Chain
-    rootKeyHex?: string
-    dropAll?: boolean
-    privKeyHex?: string
-  }): Promise<TestWalletNoSetup> {
-    const localSQLiteFile = args.filePath || (await _tu.newTmpFile(`${args.databaseName}.sqlite`, false, false, false))
-    return await this.createKnexTestWallet({
-      ...args,
-      knex: _tu.createLocalSQLite(localSQLiteFile)
-    })
-  }
-
-  static async createSQLiteTestSetup1Wallet(args: {
-    databaseName: string
-    chain?: Chain
-    rootKeyHex?: string
-  }): Promise<TestWallet<TestSetup1>> {
-    const localSQLiteFile = await _tu.newTmpFile(`${args.databaseName}.sqlite`, false, false, false)
-    return await this.createKnexTestSetup1Wallet({
-      ...args,
-      dropAll: true,
-      knex: _tu.createLocalSQLite(localSQLiteFile)
-    })
-  }
-
-  static async createSQLiteTestSetup2Wallet(args: {
-    databaseName: string
-    mockData: MockData
-    chain?: Chain
-    rootKeyHex?: string
-  }): Promise<TestWallet<TestSetup2>> {
-    const localSQLiteFile = await _tu.newTmpFile(`${args.databaseName}.sqlite`, false, false, false)
-    return await this.createKnexTestSetup2Wallet({
-      ...args,
-      dropAll: true,
-      knex: _tu.createLocalSQLite(localSQLiteFile)
-    })
-  }
-
   static async createKnexTestWallet(args: {
     knex: Knex<any, any[]>
     databaseName: string
@@ -802,117 +642,6 @@ export abstract class TestUtilsWalletStorage {
         return _tu.createTestSetup2(storage, identityKey, args.mockData)
       }
     })
-  }
-
-  static async fileExists(file: string): Promise<boolean> {
-    try {
-      const f = await fsp.open(file, 'r')
-      await f.close()
-      return true
-    } catch (eu: unknown) {
-      return false
-    }
-  }
-
-  //if (await _tu.fileExists(walletFile))
-  static async createLegacyWalletSQLiteCopy(databaseName: string): Promise<TestWalletNoSetup> {
-    const walletFile = await _tu.newTmpFile(`${databaseName}.sqlite`, false, false, false)
-    const walletKnex = _tu.createLocalSQLite(walletFile)
-    return await _tu.createLegacyWalletCopy(databaseName, walletKnex, walletFile)
-  }
-
-  static async createLegacyWalletMySQLCopy(databaseName: string): Promise<TestWalletNoSetup> {
-    const walletKnex = _tu.createLocalMySQL(databaseName)
-    return await _tu.createLegacyWalletCopy(databaseName, walletKnex)
-  }
-
-  static async createLiveWalletSQLiteWARNING(
-    databaseFullPath: string = './test/data/walletLiveTestData.sqlite'
-  ): Promise<TestWalletNoSetup> {
-    return await this.createKnexTestWallet({
-      chain: 'test',
-      rootKeyHex: _tu.legacyRootKeyHex,
-      databaseName: 'walletLiveTestData',
-      knex: _tu.createLocalSQLite(databaseFullPath)
-    })
-  }
-
-  static async createWalletSQLite(
-    databaseFullPath: string = './test/data/tmp/walletNewTestData.sqlite',
-    databaseName: string = 'walletNewTestData'
-  ): Promise<TestWalletNoSetup> {
-    return await this.createSQLiteTestWallet({
-      filePath: databaseFullPath,
-      databaseName,
-      chain: 'test',
-      rootKeyHex: '1'.repeat(64),
-      dropAll: true
-    })
-  }
-
-  static legacyRootKeyHex = '153a3df216' + '686f55b253991c' + '7039da1f648' + 'ffc5bfe93d6ac2c25ac' + '2d4070918d'
-
-  static async createLegacyWalletCopy(
-    databaseName: string,
-    walletKnex: Knex<any, any[]>,
-    tryCopyToPath?: string
-  ): Promise<TestWalletNoSetup> {
-    const readerFile = await _tu.existingDataFile(`walletLegacyTestData.sqlite`)
-    let useReader = true
-    if (tryCopyToPath) {
-      await _tu.copyFile(readerFile, tryCopyToPath)
-      //console.log('USING FILE COPY INSTEAD OF SOURCE DB SYNC')
-      useReader = false
-    }
-    const chain: Chain = 'test'
-    const rootKeyHex = _tu.legacyRootKeyHex
-    const identityKey = '03ac2d10bdb0023f4145cc2eba2fcd2ad3070cb2107b0b48170c46a9440e4cc3fe'
-    const rootKey = PrivateKey.fromHex(rootKeyHex)
-    const keyDeriver = new CachedKeyDeriver(rootKey)
-    const activeStorage = new StorageKnex({
-      chain,
-      knex: walletKnex,
-      commissionSatoshis: 0,
-      commissionPubKeyHex: undefined,
-      feeModel: { model: 'sat/kb', value: 1 }
-    })
-    if (useReader) await activeStorage.dropAllData()
-    await activeStorage.migrate(databaseName, randomBytesHex(33))
-    await activeStorage.makeAvailable()
-    const storage = new WalletStorageManager(identityKey, activeStorage)
-    await storage.makeAvailable()
-    if (useReader) {
-      const readerKnex = _tu.createLocalSQLite(readerFile)
-      const reader = new StorageKnex({
-        chain,
-        knex: readerKnex,
-        commissionSatoshis: 0,
-        commissionPubKeyHex: undefined,
-        feeModel: { model: 'sat/kb', value: 1 }
-      })
-      await reader.makeAvailable()
-      await storage.syncFromReader(identityKey, new StorageSyncReader({ identityKey }, reader))
-      await reader.destroy()
-    }
-    const services = new Services(chain)
-    const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services)
-    const monitor = new Monitor(monopts)
-    const wallet = new Wallet({ chain, keyDeriver, storage, services, monitor })
-    const userId = verifyTruthy(await activeStorage.findUserByIdentityKey(identityKey)).userId
-    const r: TestWallet<{}> = {
-      rootKey,
-      identityKey,
-      keyDeriver,
-      chain,
-      activeStorage,
-      storage,
-      setup: {},
-      services,
-      monitor,
-      wallet,
-      userId
-    }
-    return r
   }
 
   static wrapProfiling(o: Object, name: string): Record<string, { count: number; totalMsecs: number }> {
@@ -1019,64 +748,6 @@ export abstract class TestUtilsWalletStorage {
     performanceWrapper(o, name, logger)
 
     return stats
-  }
-
-  static async createIdbLegacyWalletCopy(databaseName: string): Promise<TestWalletProviderNoSetup> {
-    const chain: Chain = 'test'
-
-    const readerFile = await _tu.existingDataFile(`walletLegacyTestData.sqlite`)
-    const readerKnex = _tu.createLocalSQLite(readerFile)
-    const reader = new StorageKnex({
-      chain,
-      knex: readerKnex,
-      commissionSatoshis: 0,
-      commissionPubKeyHex: undefined,
-      feeModel: { model: 'sat/kb', value: 1 }
-    })
-    await reader.makeAvailable()
-
-    const rootKeyHex = _tu.legacyRootKeyHex
-    const identityKey = '03ac2d10bdb0023f4145cc2eba2fcd2ad3070cb2107b0b48170c46a9440e4cc3fe'
-    const rootKey = PrivateKey.fromHex(rootKeyHex)
-    const keyDeriver = new CachedKeyDeriver(rootKey)
-
-    const activeStorage = new StorageIdb({
-      chain,
-      commissionSatoshis: 0,
-      commissionPubKeyHex: undefined,
-      feeModel: { model: 'sat/kb', value: 1 }
-    })
-
-    await activeStorage.dropAllData()
-    await activeStorage.migrate(databaseName, randomBytesHex(33))
-    await activeStorage.makeAvailable()
-
-    const storage = new WalletStorageManager(identityKey, activeStorage)
-    await storage.makeAvailable()
-
-    await storage.syncFromReader(identityKey, new StorageSyncReader({ identityKey }, reader))
-
-    await reader.destroy()
-
-    const services = new Services(chain)
-    const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services)
-    const monitor = new Monitor(monopts)
-    const wallet = new Wallet({ chain, keyDeriver, storage, services, monitor })
-    const userId = verifyTruthy(await activeStorage.findUserByIdentityKey(identityKey)).userId
-    const r: TestWalletProvider<{}> = {
-      rootKey,
-      identityKey,
-      keyDeriver,
-      chain,
-      activeStorage,
-      storage,
-      setup: {},
-      services,
-      monitor,
-      wallet,
-      userId
-    }
-    return r
   }
 
   static makeSampleCert(subject?: string): {
@@ -1690,15 +1361,6 @@ export abstract class TestUtilsWalletStorage {
     const env = Setup.getEnv(chain)
     const rootKeyHex = env.devKeys[env.identityKey]
 
-    if (env.filePath) {
-      return await _tu.createSQLiteTestWallet({
-        filePath: env.filePath,
-        databaseName: 'setupEnvWallet',
-        chain,
-        rootKeyHex
-      })
-    }
-
     return await _tu.createTestWalletWithStorageClient({
       chain,
       rootKeyHex
@@ -1889,24 +1551,6 @@ export interface MockData {
 
 export interface TestSetup2 extends MockData {}
 
-export interface TestWalletProvider<T> extends TestWalletOnly {
-  activeStorage: StorageProvider
-  setup?: T
-  userId: number
-
-  rootKey: PrivateKey
-  identityKey: string
-  keyDeriver: KeyDeriverApi
-  chain: Chain
-  storage: WalletStorageManager
-  services: Services
-  monitor: Monitor
-  wallet: Wallet
-  localStorageIdentityKey?: string
-  clientStorageIdentityKey?: string
-  localBackupStorageIdentityKey?: string
-}
-
 export interface TestWallet<T> extends TestWalletOnly {
   activeStorage: StorageKnex
   setup?: T
@@ -1943,7 +1587,6 @@ async function insertEmptySetup(storage: StorageKnex, identityKey: string): Prom
 export type TestSetup2Wallet = TestWallet<TestSetup2>
 export type TestSetup1Wallet = TestWallet<TestSetup1>
 export type TestWalletNoSetup = TestWallet<{}>
-export type TestWalletProviderNoSetup = TestWalletProvider<{}>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function expectToThrowWERR<R>(
@@ -2160,9 +1803,7 @@ export const logUniqueConstraintError = (
   columnNames: string[],
   logEnabled: boolean = false
 ): void => {
-  // The unique constraint error message differs between sqlite3 and better-sqlite3:
-  // - sqlite3: "SQLITE_CONSTRAINT: UNIQUE constraint failed: table.column"
-  // - better-sqlite3: "UNIQUE constraint failed: table.column"
+  // Match the stable part of the driver-specific unique constraint message.
   const constraintPart = `UNIQUE constraint failed: ${columnNames.map(col => `${tableName}.${col}`).join(', ')}`
 
   if (logEnabled) {
@@ -2202,9 +1843,7 @@ const logForeignConstraintError = (
   logEnabled: boolean = false
 ): void => {
   if (logEnabled) {
-    // The foreign key constraint error message differs between sqlite3 and better-sqlite3:
-    // - sqlite3: "SQLITE_CONSTRAINT: FOREIGN KEY constraint failed"
-    // - better-sqlite3: "FOREIGN KEY constraint failed"
+    // Match the stable part of the driver-specific foreign key constraint message.
     if (error.message.includes(`FOREIGN KEY constraint failed`)) {
       logger(`${columnName} constraint error caught as expected:`, error.message)
     } else {
@@ -2578,8 +2217,6 @@ export function logBasket(basket: TableOutputBasket): string {
 export interface CreateTestWalletArgs {
   chain: Chain
   rootKeyHex: string
-  filePath: string
-  addLocalBackup?: boolean
   setActiveClient?: boolean
   useMySQLConnectionForClient?: boolean
 }

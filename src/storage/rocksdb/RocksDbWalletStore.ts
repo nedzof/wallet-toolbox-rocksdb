@@ -36,6 +36,16 @@ export interface RocksDbWalletCompactArgs {
   prefix?: string
 }
 
+export interface RocksDbWalletSnapshotPreparationArgs {
+  compact?: boolean
+}
+
+export interface RocksDbWalletSnapshotPreparation {
+  path: string
+  preparedAt: Date
+  compacted: boolean
+}
+
 interface RocksDatabaseRuntimeConfig {
   blockCacheSize?: number
   compactOnClose?: boolean
@@ -50,6 +60,13 @@ export interface RocksDbWalletStoreOptions {
   disableWAL?: boolean
   enableStats?: boolean
   noBlockCache?: boolean
+  pessimistic?: boolean
+  readOnly?: boolean
+  statsLevel?: number
+  transactionLogMaxAgeThreshold?: number
+  transactionLogMaxSize?: number
+  transactionLogRetention?: number | string
+  transactionLogsPath?: string
   blockCacheSize?: number
   compactOnClose?: boolean
   metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery'>
@@ -86,17 +103,26 @@ export class RocksDbWalletStore {
 
   private constructor (
     private readonly db: RocksDatabase,
+    private readonly dbPath: string,
     private readonly namespace: string,
     private readonly parallelismThreads: number,
     private readonly disableWAL: boolean,
     private readonly enableStats: boolean,
     private readonly noBlockCache: boolean,
+    private readonly pessimistic: boolean | undefined,
+    private readonly readOnly: boolean | undefined,
+    private readonly statsLevel: number | undefined,
+    private readonly transactionLogMaxAgeThreshold: number | undefined,
+    private readonly transactionLogMaxSize: number | undefined,
+    private readonly transactionLogRetention: number | string | undefined,
+    private readonly transactionLogsPath: string | undefined,
     private readonly blockCacheSize: number | undefined,
     private readonly compactOnClose: boolean | undefined,
     private readonly metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery'>
   ) {}
 
   static async open (options: RocksDbWalletStoreOptions): Promise<RocksDbWalletStore> {
+    rejectUnsupportedRocksDbTuningOptions(options)
     const dbPath = String(options.path ?? '').trim()
     if (dbPath === '') throw new Error('ROCKSDB_WALLET_STORE_PATH_REQUIRED')
     if (options.createIfMissing !== false) await mkdir(path.dirname(dbPath), { recursive: true })
@@ -105,18 +131,33 @@ export class RocksDbWalletStore {
       parallelismThreads: options.parallelismThreads ?? RocksDbWalletStore.defaultParallelismThreads,
       disableWAL: options.disableWAL ?? false,
       enableStats: options.enableStats ?? false,
-      noBlockCache: options.noBlockCache ?? false
+      noBlockCache: options.noBlockCache ?? false,
+      pessimistic: options.pessimistic,
+      readOnly: options.readOnly,
+      statsLevel: options.statsLevel,
+      transactionLogMaxAgeThreshold: options.transactionLogMaxAgeThreshold,
+      transactionLogMaxSize: options.transactionLogMaxSize,
+      transactionLogRetention: options.transactionLogRetention,
+      transactionLogsPath: options.transactionLogsPath
     }, {
       blockCacheSize: options.blockCacheSize,
       compactOnClose: options.compactOnClose
     })
     return new RocksDbWalletStore(
       db,
+      dbPath,
       normalizeNamespace(options.namespace),
       options.parallelismThreads ?? RocksDbWalletStore.defaultParallelismThreads,
       options.disableWAL ?? false,
       options.enableStats ?? false,
       options.noBlockCache ?? false,
+      options.pessimistic,
+      options.readOnly,
+      options.statsLevel,
+      options.transactionLogMaxAgeThreshold,
+      options.transactionLogMaxSize,
+      options.transactionLogRetention,
+      options.transactionLogsPath,
       options.blockCacheSize,
       options.compactOnClose,
       options.metrics
@@ -232,6 +273,10 @@ export class RocksDbWalletStore {
     return await this.batch(writes)
   }
 
+  async updateOutput (output: TableOutput): Promise<RocksDbWalletPutResult[]> {
+    return await this.putOutput(output)
+  }
+
   async deleteOutput (outputId: number): Promise<RocksDbWalletPutResult[]> {
     const existing = await this.get<TableOutput>(outputPrimaryKey(outputId))
     if (existing == null) return []
@@ -242,11 +287,13 @@ export class RocksDbWalletStore {
   }
 
   async findOutputsByScriptHash (scriptHash: string, limit = Number.MAX_SAFE_INTEGER): Promise<TableOutput[]> {
+    const normalizedScriptHash = normalizeIndexPart(scriptHash)
     const records = await this.scan<RocksDbOutputIndexRecord>({
-      prefix: outputScriptHashPrefix(normalizeIndexPart(scriptHash)),
+      prefix: outputScriptHashPrefix(normalizedScriptHash),
       limit
     })
-    return await this.resolveOutputIndex(records)
+    const outputs = await this.resolveOutputIndex(records)
+    return outputs.filter(output => output.scriptHash === normalizedScriptHash)
   }
 
   async findSpendableOutputs (
@@ -258,7 +305,12 @@ export class RocksDbWalletStore {
       ? outputSpendableAllPrefix(userId)
       : outputSpendableBasketPrefix(userId, basketId)
     const records = await this.scan<RocksDbOutputIndexRecord>({ prefix, limit })
-    return await this.resolveOutputIndex(records)
+    const outputs = await this.resolveOutputIndex(records)
+    return outputs.filter(output =>
+      output.userId === userId &&
+      output.spendable === true &&
+      (basketId == null || output.basketId === basketId)
+    )
   }
 
   async findOutputsByOutpoints (
@@ -272,7 +324,7 @@ export class RocksDbWalletStore {
       if (index == null) return undefined
       const output = await this.get<TableOutput>(outputPrimaryKey(index.value.outputId))
       if (output == null) return undefined
-      if (output.value.txid === outpoint.txid && output.value.vout === outpoint.vout) {
+      if (output.value.userId === userId && output.value.txid === outpoint.txid && output.value.vout === outpoint.vout) {
         return { outpoint: `${outpoint.txid}.${outpoint.vout}`, output: output.value }
       }
       return undefined
@@ -286,7 +338,13 @@ export class RocksDbWalletStore {
   async rebuildOutputIndexes (): Promise<number> {
     const records = await this.scan<TableOutput>({ prefix: OUTPUT_PRIMARY_PREFIX, limit: Number.MAX_SAFE_INTEGER })
     const deletes = await this.collectOutputIndexDeletes()
-    const puts = records.flatMap(record => this.indexPutsForOutput(applyOutputScriptMetadata({ ...record.value })))
+    const puts = records.flatMap(record => {
+      const output = applyOutputScriptMetadata({ ...record.value })
+      return [
+        { key: record.key, value: output },
+        ...this.indexPutsForOutput(output)
+      ]
+    })
     await this.batch([...deletes, ...puts])
     return records.length
   }
@@ -296,6 +354,13 @@ export class RocksDbWalletStore {
     disableWAL: boolean
     enableStats: boolean
     noBlockCache: boolean
+    pessimistic?: boolean
+    readOnly?: boolean
+    statsLevel?: number
+    transactionLogMaxAgeThreshold?: number
+    transactionLogMaxSize?: number
+    transactionLogRetention?: number | string
+    transactionLogsPath?: string
     blockCacheSize?: number
     compactOnClose?: boolean
   } {
@@ -304,6 +369,13 @@ export class RocksDbWalletStore {
       disableWAL: boolean
       enableStats: boolean
       noBlockCache: boolean
+      pessimistic?: boolean
+      readOnly?: boolean
+      statsLevel?: number
+      transactionLogMaxAgeThreshold?: number
+      transactionLogMaxSize?: number
+      transactionLogRetention?: number | string
+      transactionLogsPath?: string
       blockCacheSize?: number
       compactOnClose?: boolean
     } = {
@@ -312,13 +384,22 @@ export class RocksDbWalletStore {
       enableStats: this.enableStats,
       noBlockCache: this.noBlockCache
     }
+    if (this.pessimistic !== undefined) tuning.pessimistic = this.pessimistic
+    if (this.readOnly !== undefined) tuning.readOnly = this.readOnly
+    if (this.statsLevel !== undefined) tuning.statsLevel = this.statsLevel
+    if (this.transactionLogMaxAgeThreshold !== undefined) tuning.transactionLogMaxAgeThreshold = this.transactionLogMaxAgeThreshold
+    if (this.transactionLogMaxSize !== undefined) tuning.transactionLogMaxSize = this.transactionLogMaxSize
+    if (this.transactionLogRetention !== undefined) tuning.transactionLogRetention = this.transactionLogRetention
+    if (this.transactionLogsPath !== undefined) tuning.transactionLogsPath = this.transactionLogsPath
     if (this.blockCacheSize !== undefined) tuning.blockCacheSize = this.blockCacheSize
     if (this.compactOnClose !== undefined) tuning.compactOnClose = this.compactOnClose
     return tuning
   }
 
   async flush (): Promise<void> {
-    await this.db.flush()
+    await this.recordStorageQuery('flush', async () => {
+      await this.db.flush()
+    })
   }
 
   async compact (args: RocksDbWalletCompactArgs = {}): Promise<void> {
@@ -327,6 +408,18 @@ export class RocksDbWalletStore {
       const start = this.storageKey(prefix)
       await this.db.compact({ start, end: `${start}\uffff` })
     })
+  }
+
+  async prepareForFilesystemSnapshot (
+    args: RocksDbWalletSnapshotPreparationArgs = {}
+  ): Promise<RocksDbWalletSnapshotPreparation> {
+    await this.flush()
+    if (args.compact === true) await this.compact()
+    return {
+      path: this.dbPath,
+      preparedAt: new Date(),
+      compacted: args.compact === true
+    }
   }
 
   close (): void {
@@ -450,6 +543,26 @@ const OUTPUT_PRIMARY_PREFIX = 'output!id!'
 const OUTPUT_SCRIPT_HASH_PREFIX = 'output!scriptHash!'
 const OUTPUT_SPENDABLE_PREFIX = 'output!spendable!'
 const OUTPUT_OUTPOINT_PREFIX = 'output!outpoint!'
+const UNSUPPORTED_SOURCE_TUNING_OPTIONS = [
+  'writeOptions',
+  'columnFamilies',
+  'writeBufferSize',
+  'maxWriteBufferNumber',
+  'level0FileNumCompactionTrigger',
+  'level0SlowdownWritesTrigger',
+  'level0StopWritesTrigger',
+  'maxBytesForLevelBase',
+  'targetFileSizeBase',
+  'maxCompactionBytes',
+  'compression',
+  'sync'
+]
+
+function rejectUnsupportedRocksDbTuningOptions (options: RocksDbWalletStoreOptions): void {
+  const runtimeOptions = options as unknown as Record<string, unknown>
+  const unsupported = UNSUPPORTED_SOURCE_TUNING_OPTIONS.find(key => runtimeOptions[key] !== undefined)
+  if (unsupported !== undefined) throw new Error(`ROCKSDB_WALLET_STORE_UNSUPPORTED_OPTION:${unsupported}`)
+}
 
 function outputPrimaryKey (outputId: number): string {
   return `${OUTPUT_PRIMARY_PREFIX}${padNumber(outputId)}`
@@ -502,7 +615,21 @@ function padNumber (value: number): string {
 
 async function openRocksDatabase (
   dbPath: string,
-  options: Pick<RocksDatabaseOptions, 'encoding' | 'parallelismThreads' | 'disableWAL' | 'enableStats' | 'noBlockCache'>,
+  options: Pick<
+  RocksDatabaseOptions,
+  | 'encoding'
+  | 'parallelismThreads'
+  | 'disableWAL'
+  | 'enableStats'
+  | 'noBlockCache'
+  | 'pessimistic'
+  | 'readOnly'
+  | 'statsLevel'
+  | 'transactionLogMaxAgeThreshold'
+  | 'transactionLogMaxSize'
+  | 'transactionLogRetention'
+  | 'transactionLogsPath'
+  >,
   config: RocksDatabaseRuntimeConfig = {}
 ): Promise<RocksDatabase> {
   const { RocksDatabase } = await import('@harperfast/rocksdb-js')

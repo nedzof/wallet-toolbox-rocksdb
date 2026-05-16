@@ -1,7 +1,6 @@
 import { Knex, knex as makeKnex } from 'knex'
 import { Chain } from '../../../sdk'
 import { ChaintracksOptions } from './Api/ChaintracksApi'
-import { ChaintracksFs } from './util/ChaintracksFs'
 import { ChaintracksStorageKnex, ChaintracksStorageKnexOptions } from './Storage/ChaintracksStorageKnex'
 import { ChaintracksFetch } from './util/ChaintracksFetch'
 import { ChaintracksFetchApi } from './Api/ChaintracksFetchApi'
@@ -16,7 +15,7 @@ import { buildChaintracksOptionsWithIngestors } from './configureChaintracksInge
  */
 export function createDefaultKnexChaintracksOptions (
   chain: Chain,
-  rootFolder: string = './data/',
+  _rootFolder: string = './data/',
   knexConfig?: Knex.Config,
   whatsonchainApiKey: string = '',
   maxPerFile: number = 100000,
@@ -40,11 +39,7 @@ export function createDefaultKnexChaintracksOptions (
   }
   const bulkFileDataManager = new BulkFileDataManager(bfo)
 
-  knexConfig ??= {
-    client: 'better-sqlite3',
-    connection: { filename: ChaintracksFs.pathJoin(rootFolder, `${chain}Net_chaintracks.sqlite`) },
-    useNullAsDefault: true
-  }
+  if (knexConfig == null) throw new Error('createDefaultKnexChaintracksOptions requires knexConfig; embedded file storage has been removed.')
   const knexInstance = makeKnex(knexConfig)
 
   const so: ChaintracksStorageKnexOptions = {

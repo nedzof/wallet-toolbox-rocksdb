@@ -41,6 +41,7 @@
     "depcheck:html": "depcruise --config .dependency-cruiser.js --output-type err-html src --output-to dependency-report.html",
     "depcheck:ci": "depcruise --config .dependency-cruiser.js --output-type json src --output-to dependency-report.json",
     "loadtest:single-instance": "npm run build && node out/test/performance/SingleInstanceThroughput.load.js",
+    "benchmark:rocksdb-indexes": "npm run build && node out/test/performance/RocksDbIndexBenchmark.load.js",
     "sync-versions": "node syncVersions.js"
   },
   "bugs": {
@@ -52,7 +53,6 @@
     "@bsv/payment-express-middleware": "^2.0.2",
     "@bsv/sdk": "^2.1.0",
     "@harperfast/rocksdb-js": "1.2.0",
-    "better-sqlite3": "^12.6.2",
     "eventemitter3": "^5.0.4",
     "express": "^4.21.2",
     "hash-wasm": "^4.12.0",

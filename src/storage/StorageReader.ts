@@ -106,20 +106,12 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     return await getSyncChunk(this, args)
   }
 
-  /**
-   * Force dates to strings on SQLite and Date objects on MySQL
-   * @param date
-   * @returns
-   */
   validateEntityDate (date: Date | string | number): Date | string {
     if (!this.dbtype) throw new sdk.WERR_INTERNAL('must call verifyReadyForDatabaseAccess first')
     let r: Date | string = this.validateDate(date)
     switch (this.dbtype) {
       case 'IndexedDB':
       case 'MySQL':
-        break
-      case 'SQLite':
-        r = r.toISOString()
         break
       default:
         throw new sdk.WERR_INTERNAL(`Invalid dateScheme ${this.dbtype}`)
@@ -143,9 +135,6 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     switch (this.dbtype) {
       case 'IndexedDB':
       case 'MySQL':
-        break
-      case 'SQLite':
-        if (r != null) r = r.toISOString()
         break
       default:
         throw new sdk.WERR_INTERNAL(`Invalid dateScheme ${this.dbtype}`)
@@ -175,9 +164,6 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
       case 'MySQL':
         r = vdate
         break
-      case 'SQLite':
-        r = vdate.toISOString()
-        break
       default:
         throw new sdk.WERR_INTERNAL(`Invalid dateScheme ${this.dbtype}`)
     }
@@ -189,7 +175,7 @@ export interface StorageReaderOptions {
   chain: sdk.Chain
 }
 
-export type DBType = 'SQLite' | 'MySQL' | 'IndexedDB'
+export type DBType = 'MySQL' | 'IndexedDB'
 
 type DbEntityTimeStamp<T extends sdk.EntityTimeStamp> = {
   [K in keyof T]: T[K] extends Date ? Date | string : T[K]

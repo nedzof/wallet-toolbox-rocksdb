@@ -19,7 +19,6 @@ const testDojoConnection = process.env.TEST_DOJO_CONNECTION || ''
 
 export interface MonitorDaemonSetup {
   chain?: Chain
-  sqliteFilename?: string
   mySQLConnection?: string
   knexConfig?: Knex.Config
   knex?: Knex<any, any[]>
@@ -52,14 +51,6 @@ export class MonitorDaemon {
 
     if (a.monitor == null) {
       a.chain ||= 'test'
-
-      if (a.sqliteFilename) {
-        a.knexConfig = {
-          client: 'better-sqlite3',
-          connection: { filename: a.sqliteFilename },
-          useNullAsDefault: true
-        }
-      }
 
       if (a.mySQLConnection) {
         a.knexConfig = {

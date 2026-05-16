@@ -99,7 +99,7 @@ export class Services implements WalletServices {
     this.ownsUtxoCache = this.options.utxoCache == null
     this.ownsBlockHeaderCache = this.options.blockHeaderCache == null
     this.ownsScriptHashCache = this.options.scriptHashCache == null
-    this.options.httpClient ??= createUndiciHttpClient()
+    this.options.httpClient ??= createUndiciHttpClient(this.options.httpClientOptions)
     this.postBeefMode = this.options.postBeefMode ?? 'PromiseAll'
     this.postBeefUntilSuccessSoftTimeoutMs = this.options.postBeefSoftTimeoutMs ?? this.postBeefUntilSuccessSoftTimeoutMs
     this.postBeefUntilSuccessSoftTimeoutPerKbMs = this.options.postBeefSoftTimeoutPerKbMs ?? this.postBeefUntilSuccessSoftTimeoutPerKbMs
@@ -698,6 +698,7 @@ export class Services implements WalletServices {
     const method = async () => {
       const header = await this.options.chaintracks!.findHeaderForHeight(height)
       if (header == null) throw new WERR_INVALID_PARAMETER('hash', `valid height '${height}' on mined chain ${this.chain}`)
+      validateHeaderMatchesHeight(header, height)
       return header
     }
     const header = await this.invokeChaintracksWithRetry(method)
@@ -723,6 +724,7 @@ export class Services implements WalletServices {
     let header = await this.invokeChaintracksWithRetry(method)
     header ??= await this.whatsonchain.getBlockHeaderByHash(hash)
     if (header == null) throw new WERR_INVALID_PARAMETER('hash', `valid blockhash '${hash}' on mined chain ${this.chain}`)
+    validateHeaderMatchesHash(header, hash)
     this.blockHeaderCache.set(header)
     return header
   }
@@ -916,6 +918,18 @@ export function validateScriptHash (output: string, outputFormat?: GetUtxoStatus
       throw new WERR_INVALID_PARAMETER('outputFormat', `not be ${outputFormat}`)
   }
   return asString(b)
+}
+
+function validateHeaderMatchesHeight (header: BlockHeader, height: number): void {
+  if (header.height !== height) {
+    throw new WERR_INTERNAL(`header service returned height ${header.height} for requested height ${height}`)
+  }
+}
+
+function validateHeaderMatchesHash (header: BlockHeader, hash: string): void {
+  if (header.hash.toLowerCase() !== hash.toLowerCase()) {
+    throw new WERR_INTERNAL(`header service returned hash ${header.hash} for requested hash ${hash}`)
+  }
 }
 
 /**

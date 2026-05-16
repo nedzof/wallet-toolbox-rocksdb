@@ -39,6 +39,29 @@ describe('provider HTTP client defaults', () => {
     expect((services.bitails as any).httpClient).toBe(services.options.httpClient)
   })
 
+  test('Services uses httpClientOptions when creating the shared pooled adapter', async () => {
+    const options = Services.createDefaultOptions('test')
+    delete options.httpClient
+    delete options.arcConfig.httpClient
+    delete options.arcGorillaPoolConfig!.httpClient
+    options.httpClientOptions = {
+      connections: 3,
+      pipelining: 2,
+      allowH2: false,
+      keepAliveTimeout: 1234
+    }
+
+    const services = new Services(options)
+
+    expect(services.options.httpClient).toBeInstanceOf(UndiciHttpClient)
+    expect((services.options.httpClient as any).connections).toBe(3)
+    expect((services.options.httpClient as any).pipelining).toBe(2)
+    expect((services.options.httpClient as any).allowH2).toBe(false)
+    expect((services.options.httpClient as any).keepAliveTimeout).toBe(1234)
+
+    await services.close()
+  })
+
   test('Services closes only HTTP clients it owns', async () => {
     const defaultOptionsServices = new Services(Services.createDefaultOptions('test'))
     const defaultOptionsClose = jest.spyOn(defaultOptionsServices.options.httpClient as any, 'close').mockResolvedValue(undefined)

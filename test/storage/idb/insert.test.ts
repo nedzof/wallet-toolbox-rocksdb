@@ -47,7 +47,7 @@ describe('idb insert tests', () => {
       ptx.provenTxId = 0
       ptx.txid = '4'.repeat(64)
       ptx.provenTxId = await storage.insertProvenTx(ptx)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(ptx.provenTxId).toBeGreaterThan(1)
     }
   })
@@ -77,7 +77,7 @@ describe('idb insert tests', () => {
       e.userId = 0
       e.identityKey = randomBytesHex(33)
       await storage.insertUser(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.userId).toBeGreaterThan(id)
     }
   })
@@ -92,7 +92,7 @@ describe('idb insert tests', () => {
       e.certificateId = 0
       e.serialNumber = randomBytesBase64(33)
       await storage.insertCertificate(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.certificateId).toBeGreaterThan(id)
     }
   })
@@ -108,7 +108,7 @@ describe('idb insert tests', () => {
       await expect(storage.insertCertificateField(e)).rejects.toThrow()
       e.fieldName = 'address'
       await storage.insertCertificateField(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.fieldName).toBe('address')
     }
   })
@@ -124,7 +124,7 @@ describe('idb insert tests', () => {
       e.basketId = 0
       e.name = randomBytesHex(10)
       await storage.insertOutputBasket(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.basketId).toBeGreaterThan(id)
     }
   })
@@ -140,7 +140,7 @@ describe('idb insert tests', () => {
       e.transactionId = 0
       e.reference = randomBytesBase64(10)
       await storage.insertTransaction(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.transactionId).toBeGreaterThan(id)
     }
   })
@@ -159,7 +159,7 @@ describe('idb insert tests', () => {
       e.transactionId = t2.transactionId
       e.userId = t2.userId
       await storage.insertCommission(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.commissionId).toBeGreaterThan(id)
     }
   })
@@ -179,7 +179,7 @@ describe('idb insert tests', () => {
       await expect(storage.insertOutput(e)).rejects.toThrow()
       e.vout = 1
       await storage.insertOutput(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.outputId).toBeGreaterThan(id)
     }
   })
@@ -197,7 +197,7 @@ describe('idb insert tests', () => {
       await expect(storage.insertOutputTag(e)).rejects.toThrow()
       e.tag = randomBytesHex(6)
       await storage.insertOutputTag(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.outputTagId).toBeGreaterThan(id)
     }
   })
@@ -230,7 +230,7 @@ describe('idb insert tests', () => {
       await expect(storage.insertTxLabel(e)).rejects.toThrow()
       e.label = randomBytesHex(6)
       await storage.insertTxLabel(e)
-      // MySQL counts the failed insertion as a used id, SQLite does not.
+      // Auto-increment sequences can advance after failed insertions.
       expect(e.txLabelId).toBeGreaterThan(id)
     }
   })

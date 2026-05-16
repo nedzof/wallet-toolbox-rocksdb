@@ -27,13 +27,14 @@ export function createDefaultWalletServicesOptions (
   // independent of the chain being used.
   const chaintracksFiatExchangeRatesUrl = 'https://mainnet-chaintracks.babbage.systems/getFiatExchangeRates'
 
-  const httpClient = markWalletToolboxOwnedHttpClient(createUndiciHttpClient({
+  const httpClientOptions = {
     connections: 50,
     pipelining: 10,
     keepAliveTimeout: 60000,
     keepAliveMaxTimeout: 300000,
     keepAliveTimeoutThreshold: 1000
-  }))
+  }
+  const httpClient = markWalletToolboxOwnedHttpClient(createUndiciHttpClient(httpClientOptions))
   chaintracks ||= new ChaintracksServiceClient(chain, chaintracksUrl, { httpClient })
 
   const o: WalletServicesOptions = {
@@ -64,6 +65,7 @@ export function createDefaultWalletServicesOptions (
     exchangeratesapiKey: undefined,
     chaintracksFiatExchangeRatesUrl,
     chaintracks,
+    httpClientOptions,
     httpClient,
     arcUrl: arcDefaultUrl(chain),
     arcConfig: {

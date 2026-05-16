@@ -35,7 +35,7 @@ npm install @bsv/wallet-toolbox
 
 ### Basic Usage
 
-Here's a simple example of using the toolbox to create and fund a testnet wallet using SQLite for persistent storage:
+Here's a simple example of using the toolbox to create and fund a testnet wallet using a remote storage service:
 
 ```ts
 import { InternalizeActionArgs, PrivateKey, Utils } from '@bsv/sdk'
@@ -44,11 +44,10 @@ import { Setup } from '@bsv/wallet-toolbox'
 const rootKeyHex = PrivateKey.fromRandom().toString()
 console.log(`MAKE A SECURE COPY OF YOUR WALLET PRIVATE ROOT KEY: ${rootKeyHex}`)
 
-const { wallet } = await Setup.createWalletSQLite({
-    filePath: './myTestWallet.sqlite',
-    databaseName: 'myTestWallet',
+const wallet = await Setup.createWalletClientNoEnv({
     chain: 'test',
-    rootKeyHex
+    rootKeyHex,
+    storageUrl: 'https://staging-storage.babbage.systems'
 })
 
 // Obtain a Wallet Payment for your new wallet from a testnet funding faucet.

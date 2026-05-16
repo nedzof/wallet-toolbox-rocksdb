@@ -31,4 +31,46 @@ describe('StorageProvider.confirmSpendableOutputs', () => {
     expect(result.invalidSpendableOutputs).toEqual([output])
     expect(statusCalls).toEqual([{ hash: 'hash:51', outpoint: 'abc.0', useNext: true }])
   })
+
+  test('checks spendable outputs with bounded parallelism', async () => {
+    const outputs = Array.from({ length: 60 }, (_, index) => ({
+      outputId: index + 1,
+      userId: 42,
+      basketId: 7,
+      spendable: true,
+      lockingScript: [0x51],
+      txid: `txid${index}`,
+      vout: 0
+    })) as TableOutput[]
+    const storage = Object.create(StorageProvider.prototype) as any
+    let active = 0
+    let maxActive = 0
+    let calls = 0
+
+    storage.findUsers = jest.fn(async () => [{ userId: 42 }])
+    storage.findOutputBaskets = jest.fn(async () => [{ basketId: 7, userId: 42, name: 'default' }])
+    storage.findOutputs = jest.fn(async () => outputs)
+    storage.getServices = jest.fn(() => ({
+      hashOutputScript: (script: string) => `hash:${script}`,
+      getUtxoStatus: async () => {
+        active++
+        maxActive = Math.max(maxActive, active)
+        calls++
+        await delay(5)
+        active--
+        return { isUtxo: true }
+      }
+    }))
+
+    const result = await storage.confirmSpendableOutputs()
+
+    expect(result.invalidSpendableOutputs).toEqual([])
+    expect(calls).toBe(60)
+    expect(maxActive).toBeGreaterThan(1)
+    expect(maxActive).toBeLessThanOrEqual(50)
+  })
 })
+
+async function delay (ms: number): Promise<void> {
+  await new Promise(resolve => setTimeout(resolve, ms))
+}

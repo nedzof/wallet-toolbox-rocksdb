@@ -127,7 +127,7 @@ attention to changes that materially alter behavior or extend functionality.
 **`mock` chain — full self-contained mock blockchain:**
 
 - Add new `src/mockchain/` module with `MockServices`, `MockChainTracker`, `MockMiner`, `MockChainStorage`, and merkle tree utilities.
-- `MockServices` implements the `WalletServices` interface against a local SQLite database (3 tables: `mockchain_block_headers`, `mockchain_transactions`, `mockchain_utxos`).
+- `MockServices` implements the `WalletServices` interface against local mockchain tables (`mockchain_block_headers`, `mockchain_transactions`, `mockchain_utxos`).
 - Transactions are validated with full script execution via `@bsv/sdk` `Transaction.verify()`.
 - Coinbase maturity rule enforced (100 block confirmations required before spending).
 - On-demand block mining via `MockServices.mineBlock()`.
@@ -181,7 +181,7 @@ Add StorageClient.man.test.ts to stress test storage.babbage.systems
 
 ## wallet-toolbox 2.0.5
 
-Change sqlite support to better-sqlite3, all tests resolved. Support for existing databases confirmed.
+Update legacy embedded Node storage support; all tests resolved and existing database compatibility confirmed.
 
 ## wallet-toolbox 2.0.4
 
@@ -195,13 +195,13 @@ Hide customInstructions from listActions results.
 
 ## wallet-toolbox 2.0.2
 
-Restore upgrade to better-sqlite3
+Restore legacy embedded Node storage upgrade
 
 ## wallet-toolbox 2.0.0
 
 Update to bsv/sdk 2.0.0
 
-Change sqlite support to better-sqlite3
+Change legacy embedded Node storage support
 
 Changes to improve computing balances (sum of satoshis) over various sets of wallet spendable outputs:
 

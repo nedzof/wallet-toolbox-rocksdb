@@ -25,8 +25,13 @@ export class BlockHeaderCache {
     this.removeHeaderIndexes(key, header)
   }
 
-  private readonly onBlockMined = (event?: { header?: BlockHeader }): void => {
-    if (event?.header != null) this.set(event.header)
+  private readonly onBlockMined = (event?: { blockHeight?: number, header?: BlockHeader }): void => {
+    if (event?.header != null) {
+      this.invalidateFromHeight(event.header.height)
+      this.set(event.header)
+    } else if (event?.blockHeight != null) {
+      this.invalidateFromHeight(event.blockHeight)
+    }
   }
 
   private readonly onReorg = (event?: { depth?: number, oldTip?: BlockHeader, deactivatedHeaders?: BlockHeader[] }): void => {
@@ -63,6 +68,10 @@ export class BlockHeaderCache {
     return header
   }
 
+  getHeader (height: number): BlockHeader | null {
+    return this.getByHeight(height) ?? null
+  }
+
   getByHash (hash: string): BlockHeader | undefined {
     const header = this.cache.get<BlockHeader>(hashKey(hash))
     if (header != null) this.hits++
@@ -70,6 +79,13 @@ export class BlockHeaderCache {
     this.metrics?.recordBlockHeaderCacheRequest(header != null ? 'hit' : 'miss', this.headerHashes.size)
     this.events?.emit(header != null ? 'blockHeaderCacheHit' : 'blockHeaderCacheMiss', { hash })
     return header
+  }
+
+  setHeader (height: number, header: BlockHeader): void {
+    if (header.height !== height) {
+      throw new Error(`BLOCK_HEADER_CACHE_HEIGHT_MISMATCH:${height}:${header.height}`)
+    }
+    this.set(header)
   }
 
   set (header: BlockHeader): void {

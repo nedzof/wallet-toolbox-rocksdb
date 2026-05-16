@@ -6,84 +6,75 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [AdminStatsResult](#interface-adminstatsresult) | [GenerateChangeSdkChangeOutput](#interface-generatechangesdkchangeoutput) | [SetupWalletIdbArgs](#interface-setupwalletidbargs) |
-| [ArcConfig](#interface-arcconfig) | [GenerateChangeSdkInput](#interface-generatechangesdkinput) | [SignActionResultX](#interface-signactionresultx) |
-| [ArcMinerGetTxData](#interface-arcminergettxdata) | [GenerateChangeSdkOutput](#interface-generatechangesdkoutput) | [StartAuthResponse](#interface-startauthresponse) |
-| [ArcSSEClientOptions](#interface-arcsseclientoptions) | [GenerateChangeSdkParams](#interface-generatechangesdkparams) | [StatusForTxidResult](#interface-statusfortxidresult) |
-| [ArcSSEEvent](#interface-arcsseevent) | [GenerateChangeSdkResult](#interface-generatechangesdkresult) | [StorageAdminStats](#interface-storageadminstats) |
-| [AuthId](#interface-authid) | [GenerateChangeSdkStorageChange](#interface-generatechangesdkstoragechange) | [StorageCreateActionResult](#interface-storagecreateactionresult) |
-| [AuthPayload](#interface-authpayload) | [GetHeaderByteFileLinksResult](#interface-getheaderbytefilelinksresult) | [StorageCreateTransactionSdkInput](#interface-storagecreatetransactionsdkinput) |
-| [BaseBlockHeader](#interface-baseblockheader) | [GetMerklePathResult](#interface-getmerklepathresult) | [StorageCreateTransactionSdkOutput](#interface-storagecreatetransactionsdkoutput) |
-| [BitailsConfig](#interface-bitailsconfig) | [GetRawTxResult](#interface-getrawtxresult) | [StorageFeeModel](#interface-storagefeemodel) |
-| [BitailsMerkleProof](#interface-bitailsmerkleproof) | [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail) | [StorageGetBeefOptions](#interface-storagegetbeefoptions) |
-| [BlockHeader](#interface-blockheader) | [GetReqsAndBeefResult](#interface-getreqsandbeefresult) | [StorageIdbOptions](#interface-storageidboptions) |
-| [BsvExchangeRate](#interface-bsvexchangerate) | [GetScriptHashHistory](#interface-getscripthashhistory) | [StorageIdbSchema](#interface-storageidbschema) |
-| [BulkFileDataManagerMergeResult](#interface-bulkfiledatamanagermergeresult) | [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult) | [StorageIdentity](#interface-storageidentity) |
-| [BulkFileDataManagerOptions](#interface-bulkfiledatamanageroptions) | [GetStatusForTxidsResult](#interface-getstatusfortxidsresult) | [StorageInternalizeActionResult](#interface-storageinternalizeactionresult) |
-| [BulkHeaderFileInfo](#interface-bulkheaderfileinfo) | [GetUtxoStatusDetails](#interface-getutxostatusdetails) | [StorageProcessActionArgs](#interface-storageprocessactionargs) |
-| [BulkHeaderFilesInfo](#interface-bulkheaderfilesinfo) | [GetUtxoStatusResult](#interface-getutxostatusresult) | [StorageProcessActionResults](#interface-storageprocessactionresults) |
-| [BulkIngestorApi](#interface-bulkingestorapi) | [GroupedPermissionRequest](#interface-groupedpermissionrequest) | [StorageProvenOrReq](#interface-storageprovenorreq) |
-| [BulkIngestorBaseOptions](#interface-bulkingestorbaseoptions) | [GroupedPermissions](#interface-groupedpermissions) | [StorageProviderOptions](#interface-storageprovideroptions) |
-| [BulkIngestorCDNOptions](#interface-bulkingestorcdnoptions) | [HeightRangeApi](#interface-heightrangeapi) | [StorageReaderOptions](#interface-storagereaderoptions) |
-| [BulkIngestorWhatsOnChainOptions](#interface-bulkingestorwhatsonchainoptions) | [HeightRanges](#interface-heightranges) | [StorageReaderWriterOptions](#interface-storagereaderwriteroptions) |
-| [BulkStorageApi](#interface-bulkstorageapi) | [KdfConfig](#interface-kdfconfig) | [StorageSyncReaderOptions](#interface-storagesyncreaderoptions) |
-| [BulkStorageBaseOptions](#interface-bulkstoragebaseoptions) | [KeyPair](#interface-keypair) | [SyncChunk](#interface-syncchunk) |
-| [BulkSyncResult](#interface-bulksyncresult) | [KeyPairAddress](#interface-keypairaddress) | [SyncError](#interface-syncerror) |
-| [CertOpsWallet](#interface-certopswallet) | [ListActionsSpecOp](#interface-listactionsspecop) | [SyncMap](#interface-syncmap) |
-| [Certifier](#interface-certifier) | [ListOutputsSpecOp](#interface-listoutputsspecop) | [TableCertificate](#interface-tablecertificate) |
-| [ChaintracksApi](#interface-chaintracksapi) | [LiveBlockHeader](#interface-liveblockheader) | [TableCertificateField](#interface-tablecertificatefield) |
-| [ChaintracksAppendableFileApi](#interface-chaintracksappendablefileapi) | [LiveIngestorApi](#interface-liveingestorapi) | [TableCertificateX](#interface-tablecertificatex) |
-| [ChaintracksChainTrackerOptions](#interface-chaintrackschaintrackeroptions) | [LiveIngestorBaseOptions](#interface-liveingestorbaseoptions) | [TableCommission](#interface-tablecommission) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [LiveIngestorWhatsOnChainOptions](#interface-liveingestorwhatsonchainoptions) | [TableMonitorEvent](#interface-tablemonitorevent) |
-| [ChaintracksFetchApi](#interface-chaintracksfetchapi) | [MockChainBlockHeaderRow](#interface-mockchainblockheaderrow) | [TableOutput](#interface-tableoutput) |
-| [ChaintracksFsApi](#interface-chaintracksfsapi) | [MockChainTransactionRow](#interface-mockchaintransactionrow) | [TableOutputBasket](#interface-tableoutputbasket) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [MockChainUtxoRow](#interface-mockchainutxorow) | [TableOutputTag](#interface-tableoutputtag) |
-| [ChaintracksIngestorParams](#interface-chaintracksingestorparams) | [MonitorOptions](#interface-monitoroptions) | [TableOutputTagMap](#interface-tableoutputtagmap) |
-| [ChaintracksManagementApi](#interface-chaintracksmanagementapi) | [OutPoint](#interface-outpoint) | [TableOutputX](#interface-tableoutputx) |
-| [ChaintracksOptions](#interface-chaintracksoptions) | [Paged](#interface-paged) | [TableProvenTx](#interface-tableproventx) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [ParsedOutpoint](#interface-parsedoutpoint) | [TableProvenTxReq](#interface-tableproventxreq) |
-| [ChaintracksReadableFileApi](#interface-chaintracksreadablefileapi) | [PendingSignAction](#interface-pendingsignaction) | [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics) |
-| [ChaintracksServiceClientOptions](#interface-chaintracksserviceclientoptions) | [PendingStorageInput](#interface-pendingstorageinput) | [TableSettings](#interface-tablesettings) |
-| [ChaintracksStorageApi](#interface-chaintracksstorageapi) | [PermissionRequest](#interface-permissionrequest) | [TableSyncState](#interface-tablesyncstate) |
-| [ChaintracksStorageBaseOptions](#interface-chaintracksstoragebaseoptions) | [PermissionToken](#interface-permissiontoken) | [TableTransaction](#interface-tabletransaction) |
-| [ChaintracksStorageBulkFileApi](#interface-chaintracksstoragebulkfileapi) | [PermissionsManagerConfig](#interface-permissionsmanagerconfig) | [TableTxLabel](#interface-tabletxlabel) |
-| [ChaintracksStorageIdbOptions](#interface-chaintracksstorageidboptions) | [PermissionsModule](#interface-permissionsmodule) | [TableTxLabelMap](#interface-tabletxlabelmap) |
-| [ChaintracksStorageIdbSchema](#interface-chaintracksstorageidbschema) | [PostBeefResult](#interface-postbeefresult) | [TableUser](#interface-tableuser) |
-| [ChaintracksStorageIngestApi](#interface-chaintracksstorageingestapi) | [PostBeefResultForTxidApi](#interface-postbeefresultfortxidapi) | [TaskPurgeParams](#interface-taskpurgeparams) |
-| [ChaintracksStorageNoDbOptions](#interface-chaintracksstoragenodboptions) | [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails) | [TrustSettings](#interface-trustsettings) |
-| [ChaintracksStorageQueryApi](#interface-chaintracksstoragequeryapi) | [PostReqsToNetworkResult](#interface-postreqstonetworkresult) | [TrxToken](#interface-trxtoken) |
-| [ChaintracksWritableFileApi](#interface-chaintrackswritablefileapi) | [PostTxResultForTxid](#interface-posttxresultfortxid) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
-| [CommitNewTxResults](#interface-commitnewtxresults) | [PostTxResultForTxidError](#interface-posttxresultfortxiderror) | [TxScriptOffsets](#interface-txscriptoffsets) |
-| [CompleteAuthResponse](#interface-completeauthresponse) | [PostTxsResult](#interface-posttxsresult) | [UMPToken](#interface-umptoken) |
-| [CounterpartyPermissionRequest](#interface-counterpartypermissionrequest) | [ProcessSyncChunkResult](#interface-processsyncchunkresult) | [UMPTokenInteractor](#interface-umptokeninteractor) |
-| [CounterpartyPermissions](#interface-counterpartypermissions) | [Profile](#interface-profile) | [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs) |
-| [CreateActionResultX](#interface-createactionresultx) | [ProvenOrRawTx](#interface-provenorrawtx) | [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult) |
-| [DeactivedHeader](#interface-deactivedheader) | [ProvenTransactionStatus](#interface-proventransactionstatus) | [ValidateGenerateChangeSdkParamsResult](#interface-validategeneratechangesdkparamsresult) |
-| [EntitySyncMap](#interface-entitysyncmap) | [ProvenTxFromTxidResult](#interface-proventxfromtxidresult) | [VerifyAndRepairBeefResult](#interface-verifyandrepairbeefresult) |
-| [EntityTimeStamp](#interface-entitytimestamp) | [ProvenTxReqHistory](#interface-proventxreqhistory) | [WalletArgs](#interface-walletargs) |
-| [ExchangeRatesIoApi](#interface-exchangeratesioapi) | [ProvenTxReqHistorySummaryApi](#interface-proventxreqhistorysummaryapi) | [WalletBalance](#interface-walletbalance) |
-| [ExtendedVerifiableCertificate](#interface-extendedverifiablecertificate) | [ProvenTxReqNotify](#interface-proventxreqnotify) | [WalletLoggerArgs](#interface-walletloggerargs) |
-| [FiatExchangeRates](#interface-fiatexchangerates) | [ProviderCallHistory](#interface-providercallhistory) | [WalletPermissionsManagerCallbacks](#interface-walletpermissionsmanagercallbacks) |
-| [FindCertificateFieldsArgs](#interface-findcertificatefieldsargs) | [PurgeParams](#interface-purgeparams) | [WalletServices](#interface-walletservices) |
-| [FindCertificatesArgs](#interface-findcertificatesargs) | [PurgeResults](#interface-purgeresults) | [WalletServicesOptions](#interface-walletservicesoptions) |
-| [FindCommissionsArgs](#interface-findcommissionsargs) | [ReorgResult](#interface-reorgresult) | [WalletSettings](#interface-walletsettings) |
-| [FindForUserSincePagedArgs](#interface-findforusersincepagedargs) | [ReproveHeaderResult](#interface-reproveheaderresult) | [WalletSettingsManagerConfig](#interface-walletsettingsmanagerconfig) |
-| [FindMonitorEventsArgs](#interface-findmonitoreventsargs) | [ReproveProvenResult](#interface-reproveprovenresult) | [WalletSigner](#interface-walletsigner) |
-| [FindOutputBasketsArgs](#interface-findoutputbasketsargs) | [RequestSyncChunkArgs](#interface-requestsyncchunkargs) | [WalletStorage](#interface-walletstorage) |
-| [FindOutputTagMapsArgs](#interface-findoutputtagmapsargs) | [ReviewActionResult](#interface-reviewactionresult) | [WalletStorageInfo](#interface-walletstorageinfo) |
-| [FindOutputTagsArgs](#interface-findoutputtagsargs) | [ReviewHeightRangeResult](#interface-reviewheightrangeresult) | [WalletStorageProvider](#interface-walletstorageprovider) |
-| [FindOutputsArgs](#interface-findoutputsargs) | [ScriptTemplateParamsBRC29](#interface-scripttemplateparamsbrc29) | [WalletStorageReader](#interface-walletstoragereader) |
-| [FindPartialSincePagedArgs](#interface-findpartialsincepagedargs) | [ScriptTemplateUnlock](#interface-scripttemplateunlock) | [WalletStorageSync](#interface-walletstoragesync) |
-| [FindProvenTxReqsArgs](#interface-findproventxreqsargs) | [ServiceCall](#interface-servicecall) | [WalletStorageSyncReader](#interface-walletstoragesyncreader) |
-| [FindProvenTxsArgs](#interface-findproventxsargs) | [ServiceCall](#interface-servicecall) | [WalletStorageWriter](#interface-walletstoragewriter) |
-| [FindSincePagedArgs](#interface-findsincepagedargs) | [ServiceCallHistory](#interface-servicecallhistory) | [WalletTheme](#interface-wallettheme) |
-| [FindStaleMerkleRootsArgs](#interface-findstalemerklerootsargs) | [ServiceCallHistoryCounts](#interface-servicecallhistorycounts) | [WhatsOnChainServicesOptions](#interface-whatsonchainservicesoptions) |
-| [FindSyncStatesArgs](#interface-findsyncstatesargs) | [ServiceToCall](#interface-servicetocall) | [WocChainInfo](#interface-wocchaininfo) |
-| [FindTransactionsArgs](#interface-findtransactionsargs) | [SetupClientWalletArgs](#interface-setupclientwalletargs) | [WocGetHeaderByteFileLinks](#interface-wocgetheaderbytefilelinks) |
-| [FindTxLabelMapsArgs](#interface-findtxlabelmapsargs) | [SetupClientWalletClientArgs](#interface-setupclientwalletclientargs) | [WocGetHeadersHeader](#interface-wocgetheadersheader) |
-| [FindTxLabelsArgs](#interface-findtxlabelsargs) | [SetupWallet](#interface-setupwallet) | [WocHeader](#interface-wocheader) |
-| [FindUsersArgs](#interface-findusersargs) | [SetupWalletClient](#interface-setupwalletclient) | [XValidCreateActionOutput](#interface-xvalidcreateactionoutput) |
-| [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput) | [SetupWalletIdb](#interface-setupwalletidb) |  |
+| [AdminStatsResult](#interface-adminstatsresult) | [GenerateChangeSdkChangeOutput](#interface-generatechangesdkchangeoutput) | [StorageAdminStats](#interface-storageadminstats) |
+| [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult) | [GenerateChangeSdkInput](#interface-generatechangesdkinput) | [StorageCreateActionResult](#interface-storagecreateactionresult) |
+| [ArcConfig](#interface-arcconfig) | [GenerateChangeSdkOutput](#interface-generatechangesdkoutput) | [StorageCreateTransactionSdkInput](#interface-storagecreatetransactionsdkinput) |
+| [ArcMinerGetTxData](#interface-arcminergettxdata) | [GenerateChangeSdkParams](#interface-generatechangesdkparams) | [StorageCreateTransactionSdkOutput](#interface-storagecreatetransactionsdkoutput) |
+| [ArcSSEClientOptions](#interface-arcsseclientoptions) | [GenerateChangeSdkResult](#interface-generatechangesdkresult) | [StorageFeeModel](#interface-storagefeemodel) |
+| [ArcSSEEvent](#interface-arcsseevent) | [GenerateChangeSdkStorageChange](#interface-generatechangesdkstoragechange) | [StorageGetBeefOptions](#interface-storagegetbeefoptions) |
+| [AuthId](#interface-authid) | [GetMerklePathResult](#interface-getmerklepathresult) | [StorageIdentity](#interface-storageidentity) |
+| [BaseBlockHeader](#interface-baseblockheader) | [GetRawTxResult](#interface-getrawtxresult) | [StorageInternalizeActionResult](#interface-storageinternalizeactionresult) |
+| [BitailsConfig](#interface-bitailsconfig) | [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail) | [StorageProcessActionArgs](#interface-storageprocessactionargs) |
+| [BitailsMerkleProof](#interface-bitailsmerkleproof) | [GetReqsAndBeefResult](#interface-getreqsandbeefresult) | [StorageProcessActionResults](#interface-storageprocessactionresults) |
+| [BlockEvent](#interface-blockevent) | [GetScriptHashHistory](#interface-getscripthashhistory) | [StorageProvenOrReq](#interface-storageprovenorreq) |
+| [BlockHeader](#interface-blockheader) | [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult) | [StorageProviderOptions](#interface-storageprovideroptions) |
+| [BlockHeaderCacheOptions](#interface-blockheadercacheoptions) | [GetStatusForTxidsResult](#interface-getstatusfortxidsresult) | [StorageReaderOptions](#interface-storagereaderoptions) |
+| [BsvExchangeRate](#interface-bsvexchangerate) | [GetUtxoStatusDetails](#interface-getutxostatusdetails) | [StorageReaderWriterOptions](#interface-storagereaderwriteroptions) |
+| [BulkFileDataManagerMergeResult](#interface-bulkfiledatamanagermergeresult) | [GetUtxoStatusResult](#interface-getutxostatusresult) | [StorageSyncReaderOptions](#interface-storagesyncreaderoptions) |
+| [BulkFileDataManagerOptions](#interface-bulkfiledatamanageroptions) | [HeightRangeApi](#interface-heightrangeapi) | [SyncChunk](#interface-syncchunk) |
+| [BulkHeaderFileInfo](#interface-bulkheaderfileinfo) | [HeightRanges](#interface-heightranges) | [SyncError](#interface-syncerror) |
+| [BulkHeaderFilesInfo](#interface-bulkheaderfilesinfo) | [KeyPair](#interface-keypair) | [SyncMap](#interface-syncmap) |
+| [BulkIngestorApi](#interface-bulkingestorapi) | [LiveBlockHeader](#interface-liveblockheader) | [TableCertificate](#interface-tablecertificate) |
+| [BulkIngestorBaseOptions](#interface-bulkingestorbaseoptions) | [LiveIngestorApi](#interface-liveingestorapi) | [TableCertificateField](#interface-tablecertificatefield) |
+| [BulkSyncResult](#interface-bulksyncresult) | [MerklePathNote](#interface-merklepathnote) | [TableCertificateX](#interface-tablecertificatex) |
+| [CertOpsWallet](#interface-certopswallet) | [MockChainBlockHeaderRow](#interface-mockchainblockheaderrow) | [TableCommission](#interface-tablecommission) |
+| [Certifier](#interface-certifier) | [MockChainTransactionRow](#interface-mockchaintransactionrow) | [TableMonitorEvent](#interface-tablemonitorevent) |
+| [ChaintracksApi](#interface-chaintracksapi) | [MockChainUtxoRow](#interface-mockchainutxorow) | [TableOutput](#interface-tableoutput) |
+| [ChaintracksAppendableFileApi](#interface-chaintracksappendablefileapi) | [MonitorOptions](#interface-monitoroptions) | [TableOutputBasket](#interface-tableoutputbasket) |
+| [ChaintracksChainTrackerOptions](#interface-chaintrackschaintrackeroptions) | [OutPoint](#interface-outpoint) | [TableOutputTag](#interface-tableoutputtag) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [Paged](#interface-paged) | [TableOutputTagMap](#interface-tableoutputtagmap) |
+| [ChaintracksFetchApi](#interface-chaintracksfetchapi) | [PendingSignAction](#interface-pendingsignaction) | [TableOutputX](#interface-tableoutputx) |
+| [ChaintracksFsApi](#interface-chaintracksfsapi) | [PendingStorageInput](#interface-pendingstorageinput) | [TableProvenTx](#interface-tableproventx) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [PostBeefResult](#interface-postbeefresult) | [TableProvenTxReq](#interface-tableproventxreq) |
+| [ChaintracksManagementApi](#interface-chaintracksmanagementapi) | [PostBeefResultForTxidApi](#interface-postbeefresultfortxidapi) | [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics) |
+| [ChaintracksOptions](#interface-chaintracksoptions) | [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails) | [TableSettings](#interface-tablesettings) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [PostReqsToNetworkResult](#interface-postreqstonetworkresult) | [TableSyncState](#interface-tablesyncstate) |
+| [ChaintracksReadableFileApi](#interface-chaintracksreadablefileapi) | [PostTxResultForTxid](#interface-posttxresultfortxid) | [TableTransaction](#interface-tabletransaction) |
+| [ChaintracksServiceClientOptions](#interface-chaintracksserviceclientoptions) | [PostTxResultForTxidError](#interface-posttxresultfortxiderror) | [TableTxLabel](#interface-tabletxlabel) |
+| [ChaintracksStorageApi](#interface-chaintracksstorageapi) | [PostTxsResult](#interface-posttxsresult) | [TableTxLabelMap](#interface-tabletxlabelmap) |
+| [ChaintracksStorageBaseOptions](#interface-chaintracksstoragebaseoptions) | [ProcessSyncChunkResult](#interface-processsyncchunkresult) | [TableUser](#interface-tableuser) |
+| [ChaintracksStorageBulkFileApi](#interface-chaintracksstoragebulkfileapi) | [ProvenOrRawTx](#interface-provenorrawtx) | [TaskPurgeParams](#interface-taskpurgeparams) |
+| [ChaintracksStorageIngestApi](#interface-chaintracksstorageingestapi) | [ProvenTransactionStatus](#interface-proventransactionstatus) | [TrustSettings](#interface-trustsettings) |
+| [ChaintracksStorageQueryApi](#interface-chaintracksstoragequeryapi) | [ProvenTxFromTxidResult](#interface-proventxfromtxidresult) | [TrxToken](#interface-trxtoken) |
+| [ChaintracksWritableFileApi](#interface-chaintrackswritablefileapi) | [ProvenTxReqHistory](#interface-proventxreqhistory) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
+| [CommitNewTxResults](#interface-commitnewtxresults) | [ProvenTxReqHistorySummaryApi](#interface-proventxreqhistorysummaryapi) | [TxScriptOffsets](#interface-txscriptoffsets) |
+| [CreateActionResultX](#interface-createactionresultx) | [ProvenTxReqNotify](#interface-proventxreqnotify) | [UndiciHttpClientOptions](#interface-undicihttpclientoptions) |
+| [DeactivedHeader](#interface-deactivedheader) | [ProviderCallHistory](#interface-providercallhistory) | [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs) |
+| [EntitySyncMap](#interface-entitysyncmap) | [PurgeParams](#interface-purgeparams) | [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult) |
+| [EntityTimeStamp](#interface-entitytimestamp) | [PurgeResults](#interface-purgeresults) | [UtxoCacheManagerOptions](#interface-utxocachemanageroptions) |
+| [ExchangeRatesIoApi](#interface-exchangeratesioapi) | [ReorgEvent](#interface-reorgevent) | [UtxoCacheQuery](#interface-utxocachequery) |
+| [ExtendedVerifiableCertificate](#interface-extendedverifiablecertificate) | [ReorgResult](#interface-reorgresult) | [UtxoInvalidationEvent](#interface-utxoinvalidationevent) |
+| [FiatExchangeRates](#interface-fiatexchangerates) | [ReproveHeaderResult](#interface-reproveheaderresult) | [ValidateGenerateChangeSdkParamsResult](#interface-validategeneratechangesdkparamsresult) |
+| [FindCertificateFieldsArgs](#interface-findcertificatefieldsargs) | [ReproveProvenResult](#interface-reproveprovenresult) | [VerifyAndRepairBeefResult](#interface-verifyandrepairbeefresult) |
+| [FindCertificatesArgs](#interface-findcertificatesargs) | [ReqHistoryNote](#interface-reqhistorynote) | [WalletArgs](#interface-walletargs) |
+| [FindCommissionsArgs](#interface-findcommissionsargs) | [RequestSyncChunkArgs](#interface-requestsyncchunkargs) | [WalletBalance](#interface-walletbalance) |
+| [FindForUserSincePagedArgs](#interface-findforusersincepagedargs) | [ReviewActionResult](#interface-reviewactionresult) | [WalletLoggerArgs](#interface-walletloggerargs) |
+| [FindMonitorEventsArgs](#interface-findmonitoreventsargs) | [ReviewHeightRangeResult](#interface-reviewheightrangeresult) | [WalletServices](#interface-walletservices) |
+| [FindOutputBasketsArgs](#interface-findoutputbasketsargs) | [ScriptHashCacheOptions](#interface-scripthashcacheoptions) | [WalletServicesOptions](#interface-walletservicesoptions) |
+| [FindOutputTagMapsArgs](#interface-findoutputtagmapsargs) | [ScriptHashHistoryResponse](#interface-scripthashhistoryresponse) | [WalletSettings](#interface-walletsettings) |
+| [FindOutputTagsArgs](#interface-findoutputtagsargs) | [ScriptTemplateParamsBRC29](#interface-scripttemplateparamsbrc29) | [WalletSettingsManagerConfig](#interface-walletsettingsmanagerconfig) |
+| [FindOutputsArgs](#interface-findoutputsargs) | [ScriptTemplateUnlock](#interface-scripttemplateunlock) | [WalletSigner](#interface-walletsigner) |
+| [FindPartialSincePagedArgs](#interface-findpartialsincepagedargs) | [ServiceCall](#interface-servicecall) | [WalletStorage](#interface-walletstorage) |
+| [FindProvenTxReqsArgs](#interface-findproventxreqsargs) | [ServiceCall](#interface-servicecall) | [WalletStorageInfo](#interface-walletstorageinfo) |
+| [FindProvenTxsArgs](#interface-findproventxsargs) | [ServiceCallHistory](#interface-servicecallhistory) | [WalletStorageProvider](#interface-walletstorageprovider) |
+| [FindSincePagedArgs](#interface-findsincepagedargs) | [ServiceCallHistoryCounts](#interface-servicecallhistorycounts) | [WalletStorageReader](#interface-walletstoragereader) |
+| [FindStaleMerkleRootsArgs](#interface-findstalemerklerootsargs) | [ServiceToCall](#interface-servicetocall) | [WalletStorageSync](#interface-walletstoragesync) |
+| [FindSyncStatesArgs](#interface-findsyncstatesargs) | [ServicesCallHistory](#interface-servicescallhistory) | [WalletStorageSyncReader](#interface-walletstoragesyncreader) |
+| [FindTransactionsArgs](#interface-findtransactionsargs) | [SignActionResultX](#interface-signactionresultx) | [WalletStorageWriter](#interface-walletstoragewriter) |
+| [FindTxLabelMapsArgs](#interface-findtxlabelmapsargs) | [SpvHeaderSource](#interface-spvheadersource) | [WalletTheme](#interface-wallettheme) |
+| [FindTxLabelsArgs](#interface-findtxlabelsargs) | [SpvHeaderSyncHandlers](#interface-spvheadersynchandlers) | [WocChainInfo](#interface-wocchaininfo) |
+| [FindUsersArgs](#interface-findusersargs) | [SpvHeaderSyncStartResult](#interface-spvheadersyncstartresult) | [WocHeader](#interface-wocheader) |
+| [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput) | [StatusForTxidResult](#interface-statusfortxidresult) | [XValidCreateActionOutput](#interface-xvalidcreateactionoutput) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -98,7 +89,37 @@ export interface AdminStatsResult extends StorageAdminStats {
 }
 ```
 
-See also: [ServicesCallHistory](./client.md#type-servicescallhistory), [StorageAdminStats](./storage.md#interface-storageadminstats)
+See also: [ServicesCallHistory](#interface-servicescallhistory), [StorageAdminStats](#interface-storageadminstats)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: AggregatePostBeefTxResult
+
+```ts
+export interface AggregatePostBeefTxResult {
+    txid: string;
+    txidResults: sdk.PostTxResultForTxid[];
+    status: AggregateStatus;
+    vreq: PostReqsToNetworkDetails;
+    successCount: number;
+    doubleSpendCount: number;
+    statusErrorCount: number;
+    serviceErrorCount: number;
+    providerAttempts: string[];
+    competingTxs: string[];
+}
+```
+
+See also: [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails), [PostTxResultForTxid](#interface-posttxresultfortxid)
+
+###### Property competingTxs
+
+Any competing double spend txids reported for this txid
+
+```ts
+competingTxs: string[]
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -186,7 +207,7 @@ export interface ArcMinerGetTxData {
 }
 ```
 
-See also: [blockHash](./services.md#function-blockhash)
+See also: [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -206,7 +227,7 @@ export interface ArcSSEClientOptions {
 }
 ```
 
-See also: [ArcSSEEvent](./services.md#interface-arcsseevent)
+See also: [ArcSSEEvent](#interface-arcsseevent)
 
 ###### Property EventSourceClass
 
@@ -263,7 +284,7 @@ Called for each status event received
 ```ts
 onEvent: (event: ArcSSEEvent) => void
 ```
-See also: [ArcSSEEvent](./services.md#interface-arcsseevent)
+See also: [ArcSSEEvent](#interface-arcsseevent)
 
 ###### Property onLastEventIdChanged
 
@@ -283,8 +304,12 @@ export interface ArcSSEEvent {
     txid: string;
     txStatus: string;
     timestamp: string;
+    blockHeight?: number;
+    blockHash?: string;
 }
 ```
+
+See also: [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -296,22 +321,6 @@ export interface AuthId {
     identityKey: string;
     userId?: number;
     isActive?: boolean;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: AuthPayload
-
-AuthMethodInteractor
-
-A base interface/class for client-side logic to interact with a server
-for a specific Auth Method's flow (start, complete).
-
-```ts
-export interface AuthPayload {
-    [key: string]: any;
 }
 ```
 
@@ -429,6 +438,22 @@ export interface BitailsMerkleProof {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Interface: BlockEvent
+
+```ts
+export interface BlockEvent {
+    blockHeight: number;
+    blockHash?: string;
+    timestamp: number;
+    header?: BlockHeader;
+}
+```
+
+See also: [BlockHeader](#interface-blockheader), [blockHash](#function-blockhash)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Interface: BlockHeader
 
 A `BaseBlockHeader` extended with its computed hash and height in its chain.
@@ -440,7 +465,7 @@ export interface BlockHeader extends BaseBlockHeader {
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader)
 
 ###### Property hash
 
@@ -457,6 +482,22 @@ Height of the header, starting from zero.
 ```ts
 height: number
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: BlockHeaderCacheOptions
+
+```ts
+export interface BlockHeaderCacheOptions {
+    ttlMs?: number;
+    maxEntries?: number;
+    events?: EventEmitter | EventBus;
+    metrics?: WalletToolboxMetrics;
+}
+```
+
+See also: [EventBus](#class-eventbus), [WalletToolboxMetrics](#class-wallettoolboxmetrics)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -485,7 +526,7 @@ export interface BulkFileDataManagerMergeResult {
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -502,7 +543,7 @@ export interface BulkFileDataManagerOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
+See also: [Chain](#type-chain), [ChaintracksFetchApi](#interface-chaintracksfetchapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -529,7 +570,7 @@ export interface BulkHeaderFileInfo {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property chain
 
@@ -538,7 +579,7 @@ Which chain: 'main' or 'test'
 ```ts
 chain?: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property count
 
@@ -644,7 +685,7 @@ export interface BulkHeaderFilesInfo {
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 ###### Property files
 
@@ -653,7 +694,7 @@ Array of information about each bulk block header file.
 ```ts
 files: BulkHeaderFileInfo[]
 ```
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 ###### Property headersPerFile
 
@@ -695,7 +736,7 @@ export interface BulkIngestorApi {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkSyncResult](./services.md#interface-bulksyncresult), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
+See also: [BlockHeader](#interface-blockheader), [BulkSyncResult](#interface-bulksyncresult), [ChaintracksStorageApi](#interface-chaintracksstorageapi), [HeightRange](#class-heightrange), [HeightRanges](#interface-heightranges)
 
 ###### Method fetchHeaders
 
@@ -708,7 +749,7 @@ The storage methods `insertBulkFile`, `updateBulkFile`, and `addBulkHeaders` sho
 ```ts
 fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
+See also: [BlockHeader](#interface-blockheader), [HeightRange](#class-heightrange), [HeightRanges](#interface-heightranges)
 
 Returns
 
@@ -745,7 +786,7 @@ Components requiring asynchronous setup can override base class implementation.
 ```ts
 setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void>
 ```
-See also: [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
+See also: [ChaintracksStorageApi](#interface-chaintracksstorageapi)
 
 ###### Method shutdown
 
@@ -764,7 +805,7 @@ A BulkIngestor has two potential goals:
 ```ts
 synchronize(presentHeight: number, before: HeightRanges, priorLiveHeaders: BlockHeader[]): Promise<BulkSyncResult>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkSyncResult](./services.md#interface-bulksyncresult), [HeightRanges](./services.md#interface-heightranges)
+See also: [BlockHeader](#interface-blockheader), [BulkSyncResult](#interface-bulksyncresult), [HeightRanges](#interface-heightranges)
 
 Returns
 
@@ -791,7 +832,7 @@ export interface BulkIngestorBaseOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property chain
 
@@ -800,7 +841,7 @@ The target chain: "main" or "test"
 ```ts
 chain: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property jsonResource
 
@@ -812,298 +853,6 @@ available bulk block header resources.
 ```ts
 jsonResource: string | undefined
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: BulkIngestorCDNOptions
-
-```ts
-export interface BulkIngestorCDNOptions extends BulkIngestorBaseOptions {
-    jsonResource: string | undefined;
-    cdnUrl: string | undefined;
-    maxPerFile: number | undefined;
-    fetch: ChaintracksFetchApi;
-}
-```
-
-See also: [BulkIngestorBaseOptions](./services.md#interface-bulkingestorbaseoptions), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
-
-###### Property cdnUrl
-
-Required.
-
-URL to CDN implementing the bulk ingestor CDN service protocol
-
-```ts
-cdnUrl: string | undefined
-```
-
-###### Property jsonResource
-
-Required.
-
-The name of the JSON resource to request from CDN which describes currently
-available bulk block header resources.
-
-```ts
-jsonResource: string | undefined
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: BulkIngestorWhatsOnChainOptions
-
-```ts
-export interface BulkIngestorWhatsOnChainOptions extends BulkIngestorBaseOptions, WhatsOnChainServicesOptions {
-    idleWait: number | undefined;
-    chain: Chain;
-    apiKey?: string;
-    timeout: number;
-    userAgent: string;
-    enableCache: boolean;
-    chainInfoMsecs: number;
-    fetch?: ChaintracksFetchApi;
-}
-```
-
-See also: [BulkIngestorBaseOptions](./services.md#interface-bulkingestorbaseoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [WhatsOnChainServicesOptions](./services.md#interface-whatsonchainservicesoptions)
-
-###### Property apiKey
-
-WhatsOnChain.com API Key
-https://docs.taal.com/introduction/get-an-api-key
-If unknown or empty, maximum request rate is limited.
-https://developers.whatsonchain.com/#rate-limits
-
-```ts
-apiKey?: string
-```
-
-###### Property chain
-
-Which chain is being tracked: main, test, or stn.
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
-
-###### Property chainInfoMsecs
-
-How long chainInfo is considered still valid before updating (msecs).
-
-```ts
-chainInfoMsecs: number
-```
-
-###### Property enableCache
-
-Enable WhatsOnChain client cache option.
-
-```ts
-enableCache: boolean
-```
-
-###### Property idleWait
-
-Maximum msecs of "normal" pause with no new data arriving.
-
-```ts
-idleWait: number | undefined
-```
-
-###### Property timeout
-
-Request timeout for GETs to https://api.whatsonchain.com/v1/bsv
-
-```ts
-timeout: number
-```
-
-###### Property userAgent
-
-User-Agent header value for requests to https://api.whatsonchain.com/v1/bsv
-
-```ts
-userAgent: string
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: BulkStorageApi
-
-Handles block header storage and retrieval older than the "live" portion of the chain.
-Height is the primary and only indexing field required.
-Only stores headers on the active chain; no orphans, no forks, no reorgs.
-
-```ts
-export interface BulkStorageApi {
-    shutdown(): Promise<void>;
-    getMaxHeight(): Promise<number>;
-    getHeightRange(): Promise<HeightRange>;
-    appendHeaders(minHeight: number, count: number, headers: Uint8Array): Promise<void>;
-    findHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined>;
-    findHeaderForHeight(height: number): Promise<BlockHeader>;
-    headersToBuffer(height: number, count: number): Promise<Uint8Array>;
-    exportBulkHeaders(rootFolder: string, jsonFilename: string, maxPerFile: number): Promise<void>;
-    setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void>;
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi), [HeightRange](./services.md#class-heightrange)
-
-###### Method appendHeaders
-
-Append new Block Headers to BulkStorage.
-Requires that these headers directly extend existing headers.
-maxHeight of existing plus one equals minHeight of `headers`.
-hash of last existing equals previousHash of first in `headers`.
-Checks that all `headers` are valid (hash, previousHash)
-
-Duplicate headers must be ignored.
-
-```ts
-appendHeaders(minHeight: number, count: number, headers: Uint8Array): Promise<void>
-```
-
-Argument Details
-
-+ **minHeight**
-  + must match height of first header in buffer
-+ **count**
-  + times 80 must equal headers.length
-+ **headers**
-  + encoded as packed array of 80 byte serialized block headers
-
-###### Method exportBulkHeaders
-
-Exports current bulk headers, including all ingests, excluding live headers to static header files.
-
-```ts
-exportBulkHeaders(rootFolder: string, jsonFilename: string, maxPerFile: number): Promise<void>
-```
-
-Argument Details
-
-+ **rootFolder**
-  + Where the json and headers files will be written
-+ **jsonFilename**
-  + The name of the json file.
-+ **maxPerFile**
-  + The maximum headers per file.
-
-###### Method findHeaderForHeight
-
-Returns block header for a given block height on active chain.
-Throws if not found.
-
-```ts
-findHeaderForHeight(height: number): Promise<BlockHeader>
-```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Argument Details
-
-+ **hash**
-  + block hash
-
-###### Method findHeaderForHeightOrUndefined
-
-Returns block header for a given block height on active chain.
-
-```ts
-findHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined>
-```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Argument Details
-
-+ **hash**
-  + block hash
-
-###### Method getHeightRange
-
-```ts
-getHeightRange(): Promise<HeightRange>
-```
-See also: [HeightRange](./services.md#class-heightrange)
-
-Returns
-
-available bulk block header height range: `(0, getMaxHeight())`
-
-###### Method getMaxHeight
-
-```ts
-getMaxHeight(): Promise<number>
-```
-
-Returns
-
-the height of the most recent header in bulk storage or -1 if empty.
-
-###### Method headersToBuffer
-
-Adds headers in 80 byte serialized format to a buffer.
-Only adds active headers.
-returned array length divided by 80 is the actual number returned.
-
-Returns the buffer.
-
-```ts
-headersToBuffer(height: number, count: number): Promise<Uint8Array>
-```
-
-Argument Details
-
-+ **height**
-  + of first header
-+ **count**
-  + of headers
-
-###### Method setStorage
-
-Called before first Synchronize with reference to storage.
-Components requiring asynchronous setup can override base class implementation.
-
-```ts
-setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void>
-```
-See also: [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
-
-###### Method shutdown
-
-Close and release all resources.
-
-```ts
-shutdown(): Promise<void>
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: BulkStorageBaseOptions
-
-```ts
-export interface BulkStorageBaseOptions {
-    chain: Chain;
-    fs: ChaintracksFsApi;
-}
-```
-
-See also: [Chain](./client.md#type-chain), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi)
-
-###### Property chain
-
-The target chain: "main" or "test"
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1119,7 +868,7 @@ export interface BulkSyncResult {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRange](./services.md#class-heightrange)
+See also: [BlockHeader](#interface-blockheader), [HeightRange](#class-heightrange)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1128,9 +877,9 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface CertOpsWallet {
-    getPublicKey(args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetPublicKeyResult>;
-    encrypt(args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletEncryptResult>;
-    decrypt(args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletDecryptResult>;
+    getPublicKey: (args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes) => Promise<GetPublicKeyResult>;
+    encrypt: (args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes) => Promise<WalletEncryptResult>;
+    decrypt: (args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes) => Promise<WalletDecryptResult>;
 }
 ```
 
@@ -1163,7 +912,7 @@ export interface ChaintracksApi extends ChaintracksClientApi {
 }
 ```
 
-See also: [ChaintracksClientApi](./services.md#interface-chaintracksclientapi)
+See also: [ChaintracksClientApi](#interface-chaintracksclientapi)
 
 ###### Method startListening
 
@@ -1204,7 +953,7 @@ export interface ChaintracksAppendableFileApi extends ChaintracksReadableFileApi
 }
 ```
 
-See also: [ChaintracksReadableFileApi](./services.md#interface-chaintracksreadablefileapi)
+See also: [ChaintracksReadableFileApi](#interface-chaintracksreadablefileapi)
 
 ###### Method append
 
@@ -1258,7 +1007,7 @@ export interface ChaintracksClientApi extends ChainTracker {
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi), [HeaderListener](./services.md#type-headerlistener), [ReorgListener](./services.md#type-reorglistener)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [Chain](#type-chain), [ChaintracksInfoApi](#interface-chaintracksinfoapi), [HeaderListener](#type-headerlistener), [ReorgListener](#type-reorglistener)
 
 ###### Method addHeader
 
@@ -1272,7 +1021,7 @@ is considered for insertion.
 ```ts
 addHeader(header: BaseBlockHeader): Promise<void>
 ```
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader)
 
 Returns
 
@@ -1293,7 +1042,7 @@ Returns the active chain tip header
 ```ts
 findChainTipHeader(): Promise<BlockHeader>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method findHeaderForBlockHash
 
@@ -1302,7 +1051,7 @@ Returns block header for a given recent block hash or undefined.
 ```ts
 findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method findHeaderForHeight
 
@@ -1311,7 +1060,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method getChain
 
@@ -1320,7 +1069,7 @@ Confirms the chain
 ```ts
 getChain(): Promise<Chain>
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Method getHeaders
 
@@ -1348,7 +1097,7 @@ Argument Details
 ```ts
 getInfo(): Promise<ChaintracksInfoApi>
 ```
-See also: [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi)
+See also: [ChaintracksInfoApi](#interface-chaintracksinfoapi)
 
 Returns
 
@@ -1413,7 +1162,7 @@ Subscribe to "header" events.
 ```ts
 subscribeHeaders(listener: HeaderListener): Promise<string>
 ```
-See also: [HeaderListener](./services.md#type-headerlistener)
+See also: [HeaderListener](#type-headerlistener)
 
 Returns
 
@@ -1430,7 +1179,7 @@ Subscribe to "reorganization" events.
 ```ts
 subscribeReorgs(listener: ReorgListener): Promise<string>
 ```
-See also: [ReorgListener](./services.md#type-reorglistener)
+See also: [ReorgListener](#type-reorglistener)
 
 Returns
 
@@ -1499,7 +1248,7 @@ export interface ChaintracksFsApi {
 }
 ```
 
-See also: [ChaintracksAppendableFileApi](./services.md#interface-chaintracksappendablefileapi), [ChaintracksReadableFileApi](./services.md#interface-chaintracksreadablefileapi), [ChaintracksWritableFileApi](./services.md#interface-chaintrackswritablefileapi)
+See also: [ChaintracksAppendableFileApi](#interface-chaintracksappendablefileapi), [ChaintracksReadableFileApi](#interface-chaintracksreadablefileapi), [ChaintracksWritableFileApi](#interface-chaintrackswritablefileapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1518,27 +1267,7 @@ export interface ChaintracksInfoApi {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [ChaintracksPackageInfoApi](./services.md#interface-chaintrackspackageinfoapi)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: ChaintracksIngestorParams
-
-Shared parameters for configuring Chaintracks ingestors.
-
-```ts
-export interface ChaintracksIngestorParams {
-    chain: Chain;
-    whatsonchainApiKey: string;
-    maxPerFile: number;
-    fetch: ChaintracksFetchApi;
-    cdnUrl: string;
-    addLiveRecursionLimit: number;
-}
-```
-
-See also: [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
+See also: [Chain](#type-chain), [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1553,7 +1282,7 @@ export interface ChaintracksManagementApi extends ChaintracksApi {
 }
 ```
 
-See also: [ChaintracksApi](./services.md#interface-chaintracksapi), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi)
+See also: [ChaintracksApi](#interface-chaintracksapi), [ChaintracksFsApi](#interface-chaintracksfsapi)
 
 ###### Method destroy
 
@@ -1572,7 +1301,7 @@ Useful for bulk ingestors such as those derived from BulkIngestorCDN.
 ```ts
 exportBulkHeaders(toFolder: string, toFs: ChaintracksFsApi, sourceUrl?: string, toHeadersPerFile?: number, maxHeight?: number): Promise<void>
 ```
-See also: [ChaintracksFsApi](./services.md#interface-chaintracksfsapi)
+See also: [ChaintracksFsApi](#interface-chaintracksfsapi)
 
 Argument Details
 
@@ -1617,7 +1346,7 @@ export interface ChaintracksOptions {
 }
 ```
 
-See also: [BulkIngestorApi](./services.md#interface-bulkingestorapi), [Chain](./client.md#type-chain), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi), [LiveIngestorApi](./services.md#interface-liveingestorapi)
+See also: [BulkIngestorApi](#interface-bulkingestorapi), [Chain](#type-chain), [ChaintracksStorageApi](#interface-chaintracksstorageapi), [LiveIngestorApi](#interface-liveingestorapi)
 
 ###### Property addLiveRecursionLimit
 
@@ -1701,6 +1430,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface ChaintracksServiceClientOptions {
+    useAuthrite?: boolean;
+    httpClient?: HttpClient;
 }
 ```
 
@@ -1717,7 +1448,7 @@ export interface ChaintracksStorageApi extends ChaintracksStorageQueryApi, Chain
 }
 ```
 
-See also: [BulkFileDataManager](./services.md#class-bulkfiledatamanager), [ChaintracksStorageIngestApi](./services.md#interface-chaintracksstorageingestapi), [ChaintracksStorageQueryApi](./services.md#interface-chaintracksstoragequeryapi)
+See also: [BulkFileDataManager](#class-bulkfiledatamanager), [ChaintracksStorageIngestApi](#interface-chaintracksstorageingestapi), [ChaintracksStorageQueryApi](#interface-chaintracksstoragequeryapi)
 
 ###### Method destroy
 
@@ -1743,7 +1474,7 @@ export interface ChaintracksStorageBaseOptions {
 }
 ```
 
-See also: [BulkFileDataManager](./services.md#class-bulkfiledatamanager), [Chain](./client.md#type-chain)
+See also: [BulkFileDataManager](#class-bulkfiledatamanager), [Chain](#type-chain)
 
 ###### Property batchInsertLimit
 
@@ -1760,7 +1491,7 @@ Controls in memory caching and retrieval of missing bulk header data.
 ```ts
 bulkFileDataManager: BulkFileDataManager | undefined
 ```
-See also: [BulkFileDataManager](./services.md#class-bulkfiledatamanager)
+See also: [BulkFileDataManager](#class-bulkfiledatamanager)
 
 ###### Property bulkMigrationChunkSize
 
@@ -1778,7 +1509,7 @@ Which chain is being tracked: main, test, or stn.
 ```ts
 chain: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property liveHeightThreshold
 
@@ -1823,53 +1554,7 @@ export interface ChaintracksStorageBulkFileApi {
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: ChaintracksStorageIdbOptions
-
-```ts
-export interface ChaintracksStorageIdbOptions extends ChaintracksStorageBaseOptions {
-}
-```
-
-See also: [ChaintracksStorageBaseOptions](./services.md#interface-chaintracksstoragebaseoptions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: ChaintracksStorageIdbSchema
-
-```ts
-export interface ChaintracksStorageIdbSchema {
-    liveHeaders: {
-        key: number;
-        value: LiveBlockHeader;
-        indexes: {
-            hash: string;
-            previousHash: string;
-            previousHeaderId: number | null;
-            isActive: boolean;
-            activeTip: [
-                boolean,
-                boolean
-            ];
-            height: number;
-        };
-    };
-    bulkHeaders: {
-        key: number;
-        value: BulkHeaderFileInfo;
-        indexes: {
-            firstHeight: number;
-        };
-    };
-}
-```
-
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1890,7 +1575,7 @@ export interface ChaintracksStorageIngestApi {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [InsertHeaderResult](./services.md#type-insertheaderresult), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BlockHeader](#interface-blockheader), [InsertHeaderResult](#type-insertheaderresult), [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method deleteOlderLiveBlockHeaders
 
@@ -1938,7 +1623,7 @@ Implementation must call `pruneLiveBlockHeaders` after adding new header.
 ```ts
 insertHeader(header: BlockHeader, prev?: LiveBlockHeader): Promise<InsertHeaderResult>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [InsertHeaderResult](./services.md#type-insertheaderresult), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BlockHeader](#interface-blockheader), [InsertHeaderResult](#type-insertheaderresult), [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2011,18 +1696,6 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: ChaintracksStorageNoDbOptions
-
-```ts
-export interface ChaintracksStorageNoDbOptions extends ChaintracksStorageBaseOptions {
-}
-```
-
-See also: [ChaintracksStorageBaseOptions](./services.md#interface-chaintracksstoragebaseoptions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: ChaintracksStorageQueryApi
 
 ```ts
@@ -2059,7 +1732,7 @@ export interface ChaintracksStorageQueryApi {
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [HeightRange](./services.md#class-heightrange), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [Chain](#type-chain), [HeightRange](#class-heightrange), [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Property batchInsertLimit
 
@@ -2085,7 +1758,7 @@ Which chain is being tracked: "main" or "test".
 ```ts
 chain: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property liveHeightThreshold
 
@@ -2127,7 +1800,7 @@ Throws an error if there is no tip.
 ```ts
 findChainTipHeader(): Promise<LiveBlockHeader>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method findChainTipHeaderOrUndefined
 
@@ -2136,7 +1809,7 @@ Returns the active chain tip header or undefined if there is no tip.
 ```ts
 findChainTipHeaderOrUndefined(): Promise<LiveBlockHeader | undefined>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method findChainTipWork
 
@@ -2154,7 +1827,7 @@ return their common ancestor header.
 ```ts
 findCommonAncestor(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<LiveBlockHeader>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2170,7 +1843,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findHeaderForHeight(height: number): Promise<LiveBlockHeader | BlockHeader>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2184,7 +1857,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findHeaderForHeightOrUndefined(height: number): Promise<LiveBlockHeader | BlockHeader | undefined>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2200,7 +1873,7 @@ Returns null if not found.
 ```ts
 findLiveHeaderForBlockHash(hash: string): Promise<LiveBlockHeader | null>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2216,7 +1889,7 @@ Only from the "live" portion of the chain.
 ```ts
 findLiveHeaderForHeaderId(headerId: number): Promise<LiveBlockHeader>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method findLiveHeaderForHeight
 
@@ -2225,7 +1898,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findLiveHeaderForHeight(height: number): Promise<LiveBlockHeader | null>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 Argument Details
 
@@ -2240,14 +1913,14 @@ Only from the "live" portion of the chain.
 ```ts
 findLiveHeaderForMerkleRoot(merkleRoot: string): Promise<LiveBlockHeader | null>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method findLiveHeightRange
 
 ```ts
 findLiveHeightRange(): Promise<HeightRange>
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 Returns
 
@@ -2273,7 +1946,7 @@ headers, minus the height of their last common ancestor)
 ```ts
 findReorgDepth(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<number>
 ```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method getAvailableHeightRanges
 
@@ -2290,7 +1963,7 @@ getAvailableHeightRanges(): Promise<{
     live: HeightRange;
 }>
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method getBulkHeaders
 
@@ -2299,7 +1972,7 @@ Returns serialized bulk headers in the given range.
 ```ts
 getBulkHeaders(range: HeightRange): Promise<Uint8Array>
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 Returns
 
@@ -2313,7 +1986,7 @@ Only adds bulk and active live headers.
 ```ts
 getHeaders(height: number, count: number): Promise<BaseBlockHeader[]>
 ```
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader)
 
 Returns
 
@@ -2353,7 +2026,7 @@ Returns active `LiveBlockHeaders` with height in the given range.
 ```ts
 getLiveHeaders(range: HeightRange): Promise<LiveBlockHeader[]>
 ```
-See also: [HeightRange](./services.md#class-heightrange), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [HeightRange](#class-heightrange), [LiveBlockHeader](#interface-liveblockheader)
 
 Returns
 
@@ -2412,53 +2085,7 @@ export interface CommitNewTxResults {
 }
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: CompleteAuthResponse
-
-```ts
-export interface CompleteAuthResponse {
-    success: boolean;
-    message?: string;
-    presentationKey?: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: CounterpartyPermissionRequest
-
-```ts
-export interface CounterpartyPermissionRequest {
-    originator: string;
-    requestID: string;
-    counterparty: PubKeyHex;
-    counterpartyLabel?: string;
-    permissions: CounterpartyPermissions;
-}
-```
-
-See also: [CounterpartyPermissions](./client.md#interface-counterpartypermissions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: CounterpartyPermissions
-
-```ts
-export interface CounterpartyPermissions {
-    description?: string;
-    protocols: Array<{
-        protocolName: string;
-        protocolID?: WalletProtocol;
-        description?: string;
-    }>;
-}
-```
+See also: [EntityProvenTxReq](#class-entityproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2476,7 +2103,7 @@ export interface CreateActionResultX extends CreateActionResult {
 }
 ```
 
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2491,7 +2118,7 @@ export interface DeactivedHeader {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Property header
 
@@ -2500,7 +2127,7 @@ The deactivated block header.
 ```ts
 header: BlockHeader
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Property tries
 
@@ -2615,7 +2242,7 @@ export interface FiatExchangeRates {
 }
 ```
 
-See also: [FiatCurrencyCode](./client.md#type-fiatcurrencycode)
+See also: [FiatCurrencyCode](#type-fiatcurrencycode)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2628,7 +2255,7 @@ export interface FindCertificateFieldsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableCertificateField](./storage.md#interface-tablecertificatefield)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableCertificateField](#interface-tablecertificatefield)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2644,7 +2271,7 @@ export interface FindCertificatesArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableCertificate](./storage.md#interface-tablecertificate)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableCertificate](#interface-tablecertificate)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2657,7 +2284,7 @@ export interface FindCommissionsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableCommission](./storage.md#interface-tablecommission)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableCommission](#interface-tablecommission)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2670,7 +2297,7 @@ export interface FindForUserSincePagedArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2683,7 +2310,7 @@ export interface FindMonitorEventsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableMonitorEvent](./storage.md#interface-tablemonitorevent)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableMonitorEvent](#interface-tablemonitorevent)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2696,7 +2323,7 @@ export interface FindOutputBasketsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableOutputBasket](./storage.md#interface-tableoutputbasket)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableOutputBasket](#interface-tableoutputbasket)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2710,7 +2337,7 @@ export interface FindOutputTagMapsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableOutputTagMap](#interface-tableoutputtagmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2723,7 +2350,7 @@ export interface FindOutputTagsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableOutputTag](./storage.md#interface-tableoutputtag)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableOutputTag](#interface-tableoutputtag)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2738,7 +2365,7 @@ export interface FindOutputsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableOutput](./storage.md#interface-tableoutput), [TransactionStatus](./client.md#type-transactionstatus)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableOutput](#interface-tableoutput), [TransactionStatus](#type-transactionstatus)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2751,7 +2378,7 @@ export interface FindPartialSincePagedArgs<T extends object> extends FindSincePa
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2766,7 +2393,7 @@ export interface FindProvenTxReqsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [ProvenTxReqStatus](#type-proventxreqstatus), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2779,7 +2406,7 @@ export interface FindProvenTxsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableProvenTx](#interface-tableproventx)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2795,7 +2422,7 @@ export interface FindSincePagedArgs {
 }
 ```
 
-See also: [Paged](./client.md#interface-paged), [TrxToken](./client.md#interface-trxtoken)
+See also: [Paged](#interface-paged), [TrxToken](#interface-trxtoken)
 
 ###### Property orderDescending
 
@@ -2819,7 +2446,7 @@ export interface FindStaleMerkleRootsArgs {
 }
 ```
 
-See also: [TrxToken](./client.md#interface-trxtoken)
+See also: [TrxToken](#interface-trxtoken)
 
 ###### Property merkleRoot
 
@@ -2841,7 +2468,7 @@ export interface FindSyncStatesArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableSyncState](./storage.md#interface-tablesyncstate)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableSyncState](#interface-tablesyncstate)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2858,7 +2485,7 @@ export interface FindTransactionsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableTransaction](./storage.md#interface-tabletransaction), [TransactionStatus](./client.md#type-transactionstatus)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableTransaction](#interface-tabletransaction), [TransactionStatus](#type-transactionstatus)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2872,7 +2499,7 @@ export interface FindTxLabelMapsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableTxLabelMap](#interface-tabletxlabelmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2885,7 +2512,7 @@ export interface FindTxLabelsArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableTxLabel](./storage.md#interface-tabletxlabel)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableTxLabel](#interface-tabletxlabel)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2898,7 +2525,7 @@ export interface FindUsersArgs extends FindSincePagedArgs {
 }
 ```
 
-See also: [FindSincePagedArgs](./client.md#interface-findsincepagedargs), [TableUser](./storage.md#interface-tableuser)
+See also: [FindSincePagedArgs](#interface-findsincepagedargs), [TableUser](#interface-tableuser)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2970,7 +2597,7 @@ export interface GenerateChangeSdkParams {
 }
 ```
 
-See also: [GenerateChangeSdkInput](./storage.md#interface-generatechangesdkinput), [GenerateChangeSdkOutput](./storage.md#interface-generatechangesdkoutput), [StorageFeeModel](./client.md#interface-storagefeemodel)
+See also: [GenerateChangeSdkInput](#interface-generatechangesdkinput), [GenerateChangeSdkOutput](#interface-generatechangesdkoutput), [StorageFeeModel](#interface-storagefeemodel)
 
 ###### Property changeFirstSatoshis
 
@@ -3051,7 +2678,7 @@ export interface GenerateChangeSdkResult {
 }
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput), [GenerateChangeSdkChangeOutput](./storage.md#interface-generatechangesdkchangeoutput)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput), [GenerateChangeSdkChangeOutput](#interface-generatechangesdkchangeoutput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3064,23 +2691,7 @@ export interface GenerateChangeSdkStorageChange extends GenerateChangeSdkChangeI
 }
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: GetHeaderByteFileLinksResult
-
-```ts
-export interface GetHeaderByteFileLinksResult {
-    sourceUrl: string;
-    fileName: string;
-    range: HeightRange;
-    data: Uint8Array | undefined;
-}
-```
-
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3099,7 +2710,7 @@ export interface GetMerklePathResult {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [ReqHistoryNote](./client.md#type-reqhistorynote), [WalletError](./client.md#class-walleterror)
+See also: [BlockHeader](#interface-blockheader), [ReqHistoryNote](#interface-reqhistorynote), [WalletError](#class-walleterror)
 
 ###### Property error
 
@@ -3108,7 +2719,7 @@ The first exception error that occurred during processing, if any.
 ```ts
 error?: WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property merklePath
 
@@ -3143,7 +2754,7 @@ export interface GetRawTxResult {
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property error
 
@@ -3152,7 +2763,7 @@ The first exception error that occurred during processing, if any.
 ```ts
 error?: WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property name
 
@@ -3194,7 +2805,7 @@ export interface GetReqsAndBeefDetail {
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3208,7 +2819,7 @@ export interface GetReqsAndBeefResult {
 }
 ```
 
-See also: [GetReqsAndBeefDetail](./storage.md#interface-getreqsandbeefdetail)
+See also: [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3236,7 +2847,7 @@ export interface GetScriptHashHistoryResult {
 }
 ```
 
-See also: [GetScriptHashHistory](./client.md#interface-getscripthashhistory), [WalletError](./client.md#class-walleterror)
+See also: [GetScriptHashHistory](#interface-getscripthashhistory), [WalletError](#class-walleterror)
 
 ###### Property error
 
@@ -3245,7 +2856,7 @@ When status is 'error', provides code and description
 ```ts
 error?: WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property history
 
@@ -3254,7 +2865,7 @@ Transaction txid (and height if mined) that consumes the script hash. May not be
 ```ts
 history: GetScriptHashHistory[]
 ```
-See also: [GetScriptHashHistory](./client.md#interface-getscripthashhistory)
+See also: [GetScriptHashHistory](#interface-getscripthashhistory)
 
 ###### Property name
 
@@ -3287,7 +2898,7 @@ export interface GetStatusForTxidsResult {
 }
 ```
 
-See also: [StatusForTxidResult](./client.md#interface-statusfortxidresult), [WalletError](./client.md#class-walleterror)
+See also: [StatusForTxidResult](#interface-statusfortxidresult), [WalletError](#class-walleterror)
 
 ###### Property error
 
@@ -3296,7 +2907,7 @@ The first exception error that occurred during processing, if any.
 ```ts
 error?: WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property name
 
@@ -3375,7 +2986,7 @@ export interface GetUtxoStatusResult {
 }
 ```
 
-See also: [GetUtxoStatusDetails](./client.md#interface-getutxostatusdetails), [WalletError](./client.md#class-walleterror)
+See also: [GetUtxoStatusDetails](#interface-getutxostatusdetails), [WalletError](#class-walleterror)
 
 ###### Property details
 
@@ -3387,7 +2998,7 @@ there could be more than one block in which it is a valid utxo.
 ```ts
 details: GetUtxoStatusDetails[]
 ```
-See also: [GetUtxoStatusDetails](./client.md#interface-getutxostatusdetails)
+See also: [GetUtxoStatusDetails](#interface-getutxostatusdetails)
 
 ###### Property error
 
@@ -3396,7 +3007,7 @@ When status is 'error', provides code and description
 ```ts
 error?: WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Property isUtxo
 
@@ -3426,56 +3037,6 @@ status: "success" | "error"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: GroupedPermissionRequest
-
-The object passed to the UI when a grouped permission is requested.
-
-```ts
-export interface GroupedPermissionRequest {
-    originator: string;
-    requestID: string;
-    permissions: GroupedPermissions;
-}
-```
-
-See also: [GroupedPermissions](./client.md#interface-groupedpermissions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: GroupedPermissions
-
-Describes a group of permissions that can be requested together.
-This structure is based on BRC-73.
-
-```ts
-export interface GroupedPermissions {
-    description?: string;
-    spendingAuthorization?: {
-        amount: number;
-        description: string;
-    };
-    protocolPermissions?: Array<{
-        protocolID: WalletProtocol;
-        counterparty?: string;
-        description: string;
-    }>;
-    basketAccess?: Array<{
-        basket: string;
-        description: string;
-    }>;
-    certificateAccess?: Array<{
-        type: string;
-        fields: string[];
-        verifierPublicKey: string;
-        description: string;
-    }>;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: HeightRangeApi
 
 ```ts
@@ -3497,64 +3058,7 @@ export interface HeightRanges {
 }
 ```
 
-See also: [HeightRange](./services.md#class-heightrange)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: KdfConfig
-
-Configuration options for KDF (Key Derivation Function) used in UMP tokens.
-
-```ts
-export interface KdfConfig {
-    algorithm?: "pbkdf2-sha512" | "argon2id";
-    iterations?: number;
-    memoryKiB?: number;
-    parallelism?: number;
-    hashLength?: number;
-}
-```
-
-###### Property algorithm
-
-Algorithm to use for new UMP tokens.
-
-```ts
-algorithm?: "pbkdf2-sha512" | "argon2id"
-```
-
-###### Property hashLength
-
-Hash output length in bytes.
-
-```ts
-hashLength?: number
-```
-
-###### Property iterations
-
-Number of iterations/rounds.
-
-```ts
-iterations?: number
-```
-
-###### Property memoryKiB
-
-Memory size in KiB (Argon2id only).
-
-```ts
-memoryKiB?: number
-```
-
-###### Property parallelism
-
-Degree of parallelism (Argon2id only).
-
-```ts
-parallelism?: number
-```
+See also: [HeightRange](#class-heightrange)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3566,94 +3070,6 @@ export interface KeyPair {
     privateKey: string;
     publicKey: string;
 }
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: KeyPairAddress
-
-```ts
-export interface KeyPairAddress {
-    privateKey: PrivateKey;
-    publicKey: PublicKey;
-    address: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: ListActionsSpecOp
-
-```ts
-export interface ListActionsSpecOp {
-    name: string;
-    labelsToIntercept?: string[];
-    setStatusFilter?: () => TransactionStatus[];
-    postProcess?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]) => Promise<void>;
-}
-```
-
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider), [TableTransaction](./storage.md#interface-tabletransaction), [TransactionStatus](./client.md#type-transactionstatus)
-
-###### Property labelsToIntercept
-
-undefined to intercept no labels from vargs,
-empty array to intercept all labels,
-or an explicit array of labels to intercept.
-
-```ts
-labelsToIntercept?: string[]
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: ListOutputsSpecOp
-
-```ts
-export interface ListOutputsSpecOp {
-    name: string;
-    useBasket?: string;
-    ignoreLimit?: boolean;
-    includeOutputScripts?: boolean;
-    includeSpent?: boolean;
-    totalOutputsIsSumOfSatoshis?: boolean;
-    resultFromTags?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListOutputsArgs, specOpTags: string[]) => Promise<ListOutputsResult>;
-    resultFromOutputs?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListOutputsArgs, specOpTags: string[], outputs: TableOutput[]) => Promise<ListOutputsResult>;
-    filterOutputs?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListOutputsArgs, specOpTags: string[], outputs: TableOutput[]) => Promise<TableOutput[]>;
-    tagsToIntercept?: string[];
-    tagsParamsCount?: number;
-}
-```
-
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider), [TableOutput](./storage.md#interface-tableoutput)
-
-###### Property tagsParamsCount
-
-How many positional tags to intercept.
-
-```ts
-tagsParamsCount?: number
-```
-
-###### Property tagsToIntercept
-
-undefined to intercept no tags from vargs,
-empty array to intercept all tags,
-or an explicit array of tags to intercept.
-
-```ts
-tagsToIntercept?: string[]
-```
-
-###### Property totalOutputsIsSumOfSatoshis
-
-If true, and supported by storage, maximum performance optimization, computing balance done in the query itself.
-
-```ts
-totalOutputsIsSumOfSatoshis?: boolean
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -3674,7 +3090,7 @@ export interface LiveBlockHeader extends BlockHeader {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Property chainWork
 
@@ -3738,7 +3154,7 @@ export interface LiveIngestorApi {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
+See also: [BlockHeader](#interface-blockheader), [ChaintracksStorageApi](#interface-chaintracksstorageapi)
 
 ###### Method setStorage
 
@@ -3748,7 +3164,7 @@ Components requiring asynchronous setup can override base class implementation.
 ```ts
 setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void>
 ```
-See also: [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
+See also: [ChaintracksStorageApi](#interface-chaintracksstorageapi)
 
 ###### Method shutdown
 
@@ -3761,103 +3177,22 @@ shutdown(): Promise<void>
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: LiveIngestorBaseOptions
+##### Interface: MerklePathNote
 
 ```ts
-export interface LiveIngestorBaseOptions {
-    chain: Chain;
+export interface MerklePathNote {
+    what: MerklePathNoteWhat;
+    name: string;
+    status?: number;
+    statusText?: string;
+    target?: string;
+    code?: string;
+    description?: string;
+    [key: string]: boolean | string | number | undefined;
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
-
-###### Property chain
-
-The target chain: "main" or "test"
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: LiveIngestorWhatsOnChainOptions
-
-```ts
-export interface LiveIngestorWhatsOnChainOptions extends LiveIngestorBaseOptions, WhatsOnChainServicesOptions {
-    idleWait: number | undefined;
-    chain: Chain;
-    apiKey?: string;
-    timeout: number;
-    userAgent: string;
-    enableCache: boolean;
-    chainInfoMsecs: number;
-}
-```
-
-See also: [Chain](./client.md#type-chain), [LiveIngestorBaseOptions](./services.md#interface-liveingestorbaseoptions), [WhatsOnChainServicesOptions](./services.md#interface-whatsonchainservicesoptions)
-
-###### Property apiKey
-
-WhatsOnChain.com API Key
-https://docs.taal.com/introduction/get-an-api-key
-If unknown or empty, maximum request rate is limited.
-https://developers.whatsonchain.com/#rate-limits
-
-```ts
-apiKey?: string
-```
-
-###### Property chain
-
-Which chain is being tracked: main, test, or stn.
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
-
-###### Property chainInfoMsecs
-
-How long chainInfo is considered still valid before updating (msecs).
-
-```ts
-chainInfoMsecs: number
-```
-
-###### Property enableCache
-
-Enable WhatsOnChain client cache option.
-
-```ts
-enableCache: boolean
-```
-
-###### Property idleWait
-
-Maximum msces of "normal" time with no ping received from connected WoC service.
-
-```ts
-idleWait: number | undefined
-```
-
-###### Property timeout
-
-Request timeout for GETs to https://api.whatsonchain.com/v1/bsv
-
-```ts
-timeout: number
-```
-
-###### Property userAgent
-
-User-Agent header value for requests to https://api.whatsonchain.com/v1/bsv
-
-```ts
-userAgent: string
-```
+See also: [MerklePathNoteWhat](#type-merklepathnotewhat)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3929,20 +3264,23 @@ export interface MonitorOptions {
     startupTaskMode?: MonitorStartupTaskMode;
     msecsWaitPerMerkleProofServiceReq: number;
     taskRunWaitMsecs: number;
+    taskRunConcurrency?: number;
     abandonedMsecs: number;
     unprovenAttemptsLimitTest: number;
     unprovenAttemptsLimitMain: number;
+    maxRebroadcastAttempts: number;
     callbackToken?: string;
     loadLastSSEEventId?: () => Promise<string | undefined>;
     saveLastSSEEventId?: (lastEventId: string) => Promise<void>;
     EventSourceClass?: any;
+    eventBus?: EventBus;
     onTransactionBroadcasted?: (broadcastResult: ReviewActionResult) => Promise<void>;
     onTransactionProven?: (txStatus: ProvenTransactionStatus) => Promise<void>;
     onTransactionStatusChanged?: (txid: string, newStatus: string) => Promise<void>;
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [Chaintracks](./services.md#class-chaintracks), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [MonitorStartupTaskMode](./monitor.md#type-monitorstartuptaskmode), [MonitorStorage](./monitor.md#type-monitorstorage), [ProvenTransactionStatus](./client.md#interface-proventransactionstatus), [ReviewActionResult](./client.md#interface-reviewactionresult), [Services](./services.md#class-services), [WalletServices](./client.md#interface-walletservices)
+See also: [Chain](#type-chain), [Chaintracks](#class-chaintracks), [ChaintracksClientApi](#interface-chaintracksclientapi), [EventBus](#class-eventbus), [MonitorStartupTaskMode](#type-monitorstartuptaskmode), [MonitorStorage](#type-monitorstorage), [ProvenTransactionStatus](#interface-proventransactionstatus), [ReviewActionResult](#interface-reviewactionresult), [Services](#class-services), [WalletServices](#interface-walletservices)
 
 ###### Property EventSourceClass
 
@@ -3965,10 +3303,23 @@ callbackToken?: string
 
 ###### Property loadLastSSEEventId
 
-Load persisted SSE lastEventId (e.g. from SQLite) for catchup on startup
+Load persisted SSE lastEventId for catchup on startup
 
 ```ts
 loadLastSSEEventId?: () => Promise<string | undefined>
+```
+
+###### Property maxRebroadcastAttempts
+
+Maximum number of times a broadcast transaction may be reset to 'unsent' for
+rebroadcast after proof check timeout (circuit breaker).
+
+Default 0 means unlimited — the tx is rebroadcast indefinitely until a proof
+is found. Set to a positive integer to cap rebroadcast cycles; once the limit
+is reached the req is marked 'invalid'.
+
+```ts
+maxRebroadcastAttempts: number
 ```
 
 ###### Property msecsWaitPerMerkleProofServiceReq
@@ -3986,7 +3337,7 @@ These are hooks for a wallet-toolbox client to get transaction updates.
 ```ts
 onTransactionBroadcasted?: (broadcastResult: ReviewActionResult) => Promise<void>
 ```
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 ###### Property saveLastSSEEventId
 
@@ -4041,19 +3392,6 @@ export interface Paged {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: ParsedOutpoint
-
-```ts
-export interface ParsedOutpoint {
-    outpoint: string;
-    txid: string;
-    vout: number;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: PendingSignAction
 
 ```ts
@@ -4067,7 +3405,7 @@ export interface PendingSignAction {
 }
 ```
 
-See also: [PendingStorageInput](./client.md#interface-pendingstorageinput), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult)
+See also: [PendingStorageInput](#interface-pendingstorageinput), [StorageCreateActionResult](#interface-storagecreateactionresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4088,545 +3426,6 @@ export interface PendingStorageInput {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: PermissionRequest
-
-Describes a single requested permission that the user must either grant or deny.
-
-Four categories of permission are supported, each with a unique protocol:
- 1) protocol - "DPACP" (Domain Protocol Access Control Protocol)
- 2) basket   - "DBAP"  (Domain Basket Access Protocol)
- 3) certificate - "DCAP" (Domain Certificate Access Protocol)
- 4) spending - "DSAP"  (Domain Spending Authorization Protocol)
-
-This model underpins "requests" made to the user for permission, which the user can
-either grant or deny. The manager can then create on-chain tokens (PushDrop outputs)
-if permission is granted. Denying requests cause the underlying operation to throw,
-and no token is created. An "ephemeral" grant is also possible, denoting a one-time
-authorization without an associated persistent on-chain token.
-
-```ts
-export interface PermissionRequest {
-    type: "protocol" | "basket" | "certificate" | "spending";
-    originator: string;
-    displayOriginator?: string;
-    usageType?: string;
-    privileged?: boolean;
-    protocolID?: WalletProtocol;
-    counterparty?: string;
-    basket?: string;
-    certificate?: {
-        verifier: string;
-        certType: string;
-        fields: string[];
-    };
-    spending?: {
-        satoshis: number;
-        lineItems?: Array<{
-            type: "input" | "output" | "fee";
-            description: string;
-            satoshis: number;
-        }>;
-    };
-    reason?: string;
-    renewal?: boolean;
-    previousToken?: PermissionToken;
-}
-```
-
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: PermissionToken
-
-Data structure representing an on-chain permission token.
-It is typically stored as a single unspent PushDrop output in a special "internal" admin basket belonging to
-the user, held in their underlying wallet.
-
-It can represent any of the four permission categories by having the relevant fields:
- - DPACP: originator, privileged, protocol, securityLevel, counterparty
- - DBAP:  originator, basketName
- - DCAP:  originator, privileged, verifier, certType, certFields
- - DSAP:  originator, authorizedAmount
-
-```ts
-export interface PermissionToken {
-    txid: string;
-    tx: number[];
-    outputIndex: number;
-    outputScript: string;
-    satoshis: number;
-    originator: string;
-    rawOriginator?: string;
-    expiry: number;
-    privileged?: boolean;
-    protocol?: string;
-    securityLevel?: 0 | 1 | 2;
-    counterparty?: string;
-    basketName?: string;
-    certType?: string;
-    certFields?: string[];
-    verifier?: string;
-    authorizedAmount?: number;
-}
-```
-
-###### Property authorizedAmount
-
-For DSAP, the maximum authorized spending for the month.
-
-```ts
-authorizedAmount?: number
-```
-
-###### Property basketName
-
-The name of a basket, if this is a DBAP token.
-
-```ts
-basketName?: string
-```
-
-###### Property certFields
-
-The certificate fields that this token covers, if DCAP token.
-
-```ts
-certFields?: string[]
-```
-
-###### Property certType
-
-The certificate type, if this is a DCAP token.
-
-```ts
-certType?: string
-```
-
-###### Property counterparty
-
-The counterparty, for DPACP.
-
-```ts
-counterparty?: string
-```
-
-###### Property expiry
-
-The expiration time for this token in UNIX epoch seconds. (0 or omitted for spending authorizations, which are indefinite)
-
-```ts
-expiry: number
-```
-
-###### Property originator
-
-The originator domain or FQDN that is allowed to use this permission.
-
-```ts
-originator: string
-```
-
-###### Property outputIndex
-
-The output index within that transaction.
-
-```ts
-outputIndex: number
-```
-
-###### Property outputScript
-
-The exact script hex for the locking script.
-
-```ts
-outputScript: string
-```
-
-###### Property privileged
-
-Whether this token grants privileged usage (for protocol or certificate).
-
-```ts
-privileged?: boolean
-```
-
-###### Property protocol
-
-The protocol name, if this is a DPACP token.
-
-```ts
-protocol?: string
-```
-
-###### Property rawOriginator
-
-The raw, unnormalized originator string captured at the time the permission
-token was created. This is preserved so we can continue to recognize legacy
-permissions that were stored with different casing or explicit default ports.
-
-```ts
-rawOriginator?: string
-```
-
-###### Property satoshis
-
-The amount of satoshis assigned to the permission output (often 1).
-
-```ts
-satoshis: number
-```
-
-###### Property securityLevel
-
-The security level (0,1,2) for DPACP.
-
-```ts
-securityLevel?: 0 | 1 | 2
-```
-
-###### Property tx
-
-The current transaction encapsulating the token.
-
-```ts
-tx: number[]
-```
-
-###### Property txid
-
-The transaction ID where this token resides.
-
-```ts
-txid: string
-```
-
-###### Property verifier
-
-The "verifier" public key string, if DCAP.
-
-```ts
-verifier?: string
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: PermissionsManagerConfig
-
-Configuration object for the WalletPermissionsManager. If a given option is `false`,
-the manager will skip or alter certain permission checks or behaviors.
-
-By default, all of these are `true` unless specified otherwise. This is the most secure configuration.
-
-```ts
-export interface PermissionsManagerConfig {
-    permissionModules?: Record<string, PermissionsModule>;
-    seekProtocolPermissionsForSigning?: boolean;
-    seekProtocolPermissionsForEncrypting?: boolean;
-    seekProtocolPermissionsForHMAC?: boolean;
-    seekPermissionsForKeyLinkageRevelation?: boolean;
-    seekPermissionsForPublicKeyRevelation?: boolean;
-    seekPermissionsForIdentityKeyRevelation?: boolean;
-    seekPermissionsForIdentityResolution?: boolean;
-    seekBasketInsertionPermissions?: boolean;
-    seekBasketRemovalPermissions?: boolean;
-    seekBasketListingPermissions?: boolean;
-    seekPermissionWhenApplyingActionLabels?: boolean;
-    seekPermissionWhenListingActionsByLabel?: boolean;
-    seekCertificateDisclosurePermissions?: boolean;
-    seekCertificateAcquisitionPermissions?: boolean;
-    seekCertificateRelinquishmentPermissions?: boolean;
-    seekCertificateListingPermissions?: boolean;
-    encryptWalletMetadata?: boolean;
-    seekSpendingPermissions?: boolean;
-    seekGroupedPermission?: boolean;
-    differentiatePrivilegedOperations?: boolean;
-    whitelistedCounterparties?: {
-        [counterparty: PubKeyHex]: string[];
-    };
-}
-```
-
-See also: [PermissionsModule](./client.md#interface-permissionsmodule)
-
-###### Property differentiatePrivilegedOperations
-
-If false, permissions are checked without regard for whether we are in
-privileged mode. Privileged status is ignored with respect to whether
-permissions are granted. Internally, they are always sought and checked
-with privileged=false, regardless of the actual value.
-
-```ts
-differentiatePrivilegedOperations?: boolean
-```
-
-###### Property encryptWalletMetadata
-
-Should transaction descriptions, input descriptions, and output descriptions be encrypted
-when before they are passed to the underlying wallet, and transparently decrypted when retrieved?
-
-```ts
-encryptWalletMetadata?: boolean
-```
-
-###### Property permissionModules
-
-A map of P-basket/protocol permission scheme modules.
-
-Keys are scheme IDs (e.g., "btms"), values are PermissionsModule instances.
-
-Each module handles basket/protocol names of the form: `p <schemeID> <rest...>`
-
-The WalletPermissionManager detects P-prefix baskets/protocols and delegates
-request/response transformation to the corresponding module.
-
-If no module exists for a given schemeID, the wallet will reject access.
-
-```ts
-permissionModules?: Record<string, PermissionsModule>
-```
-See also: [PermissionsModule](./client.md#interface-permissionsmodule)
-
-###### Property seekBasketInsertionPermissions
-
-When we do internalizeAction with `basket insertion`, or include outputs in baskets
-with `createAction, do we ask for basket permission?
-
-```ts
-seekBasketInsertionPermissions?: boolean
-```
-
-###### Property seekBasketListingPermissions
-
-When listOutputs is called, do we ask for basket permission?
-
-```ts
-seekBasketListingPermissions?: boolean
-```
-
-###### Property seekBasketRemovalPermissions
-
-When relinquishOutput is called, do we ask for basket permission?
-
-```ts
-seekBasketRemovalPermissions?: boolean
-```
-
-###### Property seekCertificateAcquisitionPermissions
-
-If acquiring a certificate (acquireCertificate), do we require a permission check?
-
-```ts
-seekCertificateAcquisitionPermissions?: boolean
-```
-
-###### Property seekCertificateDisclosurePermissions
-
-If proving a certificate (proveCertificate) or revealing certificate fields,
-do we require a "certificate access" permission?
-
-```ts
-seekCertificateDisclosurePermissions?: boolean
-```
-
-###### Property seekCertificateListingPermissions
-
-If listing a user's certificates (listCertificates), do we require a permission check?
-
-```ts
-seekCertificateListingPermissions?: boolean
-```
-
-###### Property seekCertificateRelinquishmentPermissions
-
-If relinquishing a certificate (relinquishCertificate), do we require a permission check?
-
-```ts
-seekCertificateRelinquishmentPermissions?: boolean
-```
-
-###### Property seekGroupedPermission
-
-If true, triggers a grouped permission request flow based on the originator's `manifest.json`.
-
-```ts
-seekGroupedPermission?: boolean
-```
-
-###### Property seekPermissionWhenApplyingActionLabels
-
-When createAction is called with labels, do we ask for "label usage" permission?
-
-```ts
-seekPermissionWhenApplyingActionLabels?: boolean
-```
-
-###### Property seekPermissionWhenListingActionsByLabel
-
-When listActions is called with labels, do we ask for "label usage" permission?
-
-```ts
-seekPermissionWhenListingActionsByLabel?: boolean
-```
-
-###### Property seekPermissionsForIdentityKeyRevelation
-
-If getPublicKey is requested with `identityKey=true`, do we require permission?
-
-```ts
-seekPermissionsForIdentityKeyRevelation?: boolean
-```
-
-###### Property seekPermissionsForIdentityResolution
-
-If discoverByIdentityKey / discoverByAttributes are called, do we require permission
-for "identity resolution" usage?
-
-```ts
-seekPermissionsForIdentityResolution?: boolean
-```
-
-###### Property seekPermissionsForKeyLinkageRevelation
-
-For revealing counterparty-level or specific key linkage revelation information,
-should we require permission?
-
-```ts
-seekPermissionsForKeyLinkageRevelation?: boolean
-```
-
-###### Property seekPermissionsForPublicKeyRevelation
-
-For revealing any user public key (getPublicKey) **other** than the identity key,
-should we require permission?
-
-```ts
-seekPermissionsForPublicKeyRevelation?: boolean
-```
-
-###### Property seekProtocolPermissionsForEncrypting
-
-For methods that perform encryption (encrypt/decrypt), require
-a "protocol usage" permission check?
-
-```ts
-seekProtocolPermissionsForEncrypting?: boolean
-```
-
-###### Property seekProtocolPermissionsForHMAC
-
-For methods that perform HMAC creation or verification (createHmac, verifyHmac),
-require a "protocol usage" permission check?
-
-```ts
-seekProtocolPermissionsForHMAC?: boolean
-```
-
-###### Property seekProtocolPermissionsForSigning
-
-For `createSignature` and `verifySignature`,
-require a "protocol usage" permission check?
-
-```ts
-seekProtocolPermissionsForSigning?: boolean
-```
-
-###### Property seekSpendingPermissions
-
-If the originator tries to spend wallet funds (netSpent > 0 in createAction),
-do we seek spending authorization?
-
-```ts
-seekSpendingPermissions?: boolean
-```
-
-###### Property whitelistedCounterparties
-
-An allowlist mapping counterparty identity public keys (hex)
-to protocol names that are automatically permitted
-without prompting the user.
-
-```ts
-whitelistedCounterparties?: {
-    [counterparty: PubKeyHex]: string[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: PermissionsModule
-
-A permissions module handles request/response transformation for a specific P-protocol or P-basket scheme under BRC-98/99.
-Modules are registered in the config mapped by their scheme ID.
-
-```ts
-export interface PermissionsModule {
-    onRequest(req: {
-        method: string;
-        args: object;
-        originator: string;
-    }): Promise<{
-        args: object;
-    }>;
-    onResponse(res: any, context: {
-        method: string;
-        originator: string;
-    }): Promise<any>;
-}
-```
-
-###### Method onRequest
-
-Transforms the request before it's passed to the underlying wallet.
-Can check and enforce permissions, throw errors, or modify any arguments as needed prior to invocation.
-
-```ts
-onRequest(req: {
-    method: string;
-    args: object;
-    originator: string;
-}): Promise<{
-    args: object;
-}>
-```
-
-Returns
-
-Transformed arguments that will be passed to the underlying wallet
-
-Argument Details
-
-+ **req**
-  + The incoming request with method, args, and originator
-
-###### Method onResponse
-
-Transforms the response from the underlying wallet before returning to caller.
-
-```ts
-onResponse(res: any, context: {
-    method: string;
-    originator: string;
-}): Promise<any>
-```
-
-Returns
-
-Transformed response to return to the caller
-
-Argument Details
-
-+ **res**
-  + The response from the underlying wallet
-+ **context**
-  + Metadata about the original request (method, originator)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: PostBeefResult
 
 ```ts
@@ -4634,7 +3433,7 @@ export interface PostBeefResult extends PostTxsResult {
 }
 ```
 
-See also: [PostTxsResult](./client.md#interface-posttxsresult)
+See also: [PostTxsResult](#interface-posttxsresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4652,7 +3451,7 @@ export interface PostBeefResultForTxidApi {
 }
 ```
 
-See also: [blockHash](./services.md#function-blockhash)
+See also: [blockHash](#function-blockhash)
 
 ###### Property alreadyKnown
 
@@ -4686,7 +3485,7 @@ export interface PostReqsToNetworkDetails {
 }
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq), [PostReqsToNetworkDetailsStatus](./storage.md#type-postreqstonetworkdetailsstatus)
+See also: [EntityProvenTxReq](#class-entityproventxreq), [PostReqsToNetworkDetailsStatus](#type-postreqstonetworkdetailsstatus)
 
 ###### Property competingTxs
 
@@ -4710,7 +3509,7 @@ export interface PostReqsToNetworkResult {
 }
 ```
 
-See also: [PostReqsToNetworkDetails](./storage.md#interface-postreqstonetworkdetails)
+See also: [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4733,7 +3532,7 @@ export interface PostTxResultForTxid {
 }
 ```
 
-See also: [PostTxResultForTxidError](./client.md#interface-posttxresultfortxiderror), [ReqHistoryNote](./client.md#type-reqhistorynote), [blockHash](./services.md#function-blockhash)
+See also: [PostTxResultForTxidError](#interface-posttxresultfortxiderror), [ReqHistoryNote](#interface-reqhistorynote), [blockHash](#function-blockhash)
 
 ###### Property alreadyKnown
 
@@ -4801,7 +3600,7 @@ export interface PostTxsResult {
 }
 ```
 
-See also: [PostTxResultForTxid](./client.md#interface-posttxresultfortxid), [ReqHistoryNote](./client.md#type-reqhistorynote), [WalletError](./client.md#class-walleterror)
+See also: [PostTxResultForTxid](#interface-posttxresultfortxid), [ReqHistoryNote](#interface-reqhistorynote), [WalletError](#class-walleterror)
 
 ###### Property data
 
@@ -4843,64 +3642,7 @@ export interface ProcessSyncChunkResult {
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: Profile
-
-Describes the structure of a user profile within the wallet.
-
-```ts
-export interface Profile {
-    name: string;
-    id: number[];
-    primaryPad: number[];
-    privilegedPad: number[];
-    createdAt: number;
-}
-```
-
-###### Property createdAt
-
-Timestamp (seconds since epoch) when the profile was created.
-
-```ts
-createdAt: number
-```
-
-###### Property id
-
-Unique 16-byte identifier for the profile.
-
-```ts
-id: number[]
-```
-
-###### Property name
-
-User-defined name for the profile.
-
-```ts
-name: string
-```
-
-###### Property primaryPad
-
-32-byte random pad XOR'd with the root primary key to derive the profile's primary key.
-
-```ts
-primaryPad: number[]
-```
-
-###### Property privilegedPad
-
-32-byte random pad XOR'd with the root privileged key to derive the profile's privileged key.
-
-```ts
-privilegedPad: number[]
-```
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4915,7 +3657,7 @@ export interface ProvenOrRawTx {
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4935,7 +3677,7 @@ export interface ProvenTransactionStatus {
 }
 ```
 
-See also: [blockHash](./services.md#function-blockhash)
+See also: [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4949,7 +3691,7 @@ export interface ProvenTxFromTxidResult {
 }
 ```
 
-See also: [EntityProvenTx](./storage.md#class-entityproventx)
+See also: [EntityProvenTx](#class-entityproventx)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4962,7 +3704,7 @@ export interface ProvenTxReqHistory {
 }
 ```
 
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
+See also: [ReqHistoryNote](#interface-reqhistorynote)
 
 ###### Property notes
 
@@ -4972,7 +3714,7 @@ Values are a description of what happened.
 ```ts
 notes?: ReqHistoryNote[]
 ```
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
+See also: [ReqHistoryNote](#interface-reqhistorynote)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5018,7 +3760,7 @@ export interface ProviderCallHistory {
 }
 ```
 
-See also: [ServiceCall](./services.md#interface-servicecall), [ServiceCallHistoryCounts](./client.md#interface-servicecallhistorycounts)
+See also: [ServiceCall](#interface-servicecall), [ServiceCallHistoryCounts](#interface-servicecallhistorycounts)
 
 ###### Property calls
 
@@ -5028,7 +3770,7 @@ Array length is limited by Services configuration.
 ```ts
 calls: ServiceCall[]
 ```
-See also: [ServiceCall](./services.md#interface-servicecall)
+See also: [ServiceCall](#interface-servicecall)
 
 ###### Property resetCounts
 
@@ -5039,7 +3781,7 @@ Array length is limited by Services configuration.
 ```ts
 resetCounts: ServiceCallHistoryCounts[]
 ```
-See also: [ServiceCallHistoryCounts](./client.md#interface-servicecallhistorycounts)
+See also: [ServiceCallHistoryCounts](#interface-servicecallhistorycounts)
 
 ###### Property totalCounts
 
@@ -5048,7 +3790,7 @@ Counts since creation of Services instance.
 ```ts
 totalCounts: ServiceCallHistoryCounts
 ```
-See also: [ServiceCallHistoryCounts](./client.md#interface-servicecallhistorycounts)
+See also: [ServiceCallHistoryCounts](#interface-servicecallhistorycounts)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5108,6 +3850,22 @@ export interface PurgeResults {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Interface: ReorgEvent
+
+```ts
+export interface ReorgEvent {
+    depth: number;
+    oldTip: BlockHeader;
+    newTip: BlockHeader;
+    deactivatedHeaders?: BlockHeader[];
+}
+```
+
+See also: [BlockHeader](#interface-blockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Interface: ReorgResult
 
 ```ts
@@ -5118,7 +3876,7 @@ export interface ReorgResult {
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5130,17 +3888,17 @@ Returned results from WalletStorageManager reproveHeader method.
 ```ts
 export interface ReproveHeaderResult {
     log: string;
-    updated: {
+    updated: Array<{
         was: TableProvenTx;
         update: Partial<TableProvenTx>;
         logUpdate: string;
-    }[];
+    }>;
     unchanged: TableProvenTx[];
     unavailable: TableProvenTx[];
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 ###### Property log
 
@@ -5157,7 +3915,7 @@ List of proven_txs records that were checked but currently proof data is unavail
 ```ts
 unavailable: TableProvenTx[]
 ```
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 ###### Property unchanged
 
@@ -5166,20 +3924,20 @@ List of proven_txs records that were checked but currently available proof is un
 ```ts
 unchanged: TableProvenTx[]
 ```
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 ###### Property updated
 
 List of proven_txs records that were updated with new proof data.
 
 ```ts
-updated: {
+updated: Array<{
     was: TableProvenTx;
     update: Partial<TableProvenTx>;
     logUpdate: string;
-}[]
+}>
 ```
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5200,7 +3958,7 @@ export interface ReproveProvenResult {
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
 
 ###### Property log
 
@@ -5236,7 +3994,20 @@ updated?: {
     logUpdate: string;
 }
 ```
-See also: [TableProvenTx](./storage.md#interface-tableproventx)
+See also: [TableProvenTx](#interface-tableproventx)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: ReqHistoryNote
+
+```ts
+export interface ReqHistoryNote {
+    when?: string;
+    what: string;
+    [key: string]: boolean | string | number | undefined;
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5251,10 +4022,10 @@ export interface RequestSyncChunkArgs {
     since?: Date;
     maxRoughSize: number;
     maxItems: number;
-    offsets: {
+    offsets: Array<{
         name: string;
         offset: number;
-    }[];
+    }>;
 }
 ```
 
@@ -5311,10 +4082,10 @@ The entity order is:
 11 CertificateFields
 
 ```ts
-offsets: {
+offsets: Array<{
     name: string;
     offset: number;
-}[]
+}>
 ```
 
 ###### Property since
@@ -5350,7 +4121,7 @@ export interface ReviewActionResult {
 }
 ```
 
-See also: [ReviewActionResultStatus](./client.md#type-reviewactionresultstatus)
+See also: [ReviewActionResultStatus](#type-reviewactionresultstatus)
 
 ###### Property competingBeef
 
@@ -5386,6 +4157,38 @@ export interface ReviewHeightRangeResult {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Interface: ScriptHashCacheOptions
+
+```ts
+export interface ScriptHashCacheOptions {
+    max?: number;
+    ttlMs?: number;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: ScriptHashHistoryResponse
+
+```ts
+export interface ScriptHashHistoryResponse {
+    ok: boolean;
+    status: number;
+    statusText: string;
+    data?: {
+        result: Array<{
+            tx_hash: string;
+            height?: number;
+        }>;
+        error?: string;
+    };
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Interface: ScriptTemplateParamsBRC29
 
 ```ts
@@ -5412,6 +4215,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 ##### Interface: ServiceCall
+
+Minimum data tracked for each service call.
 
 ```ts
 export interface ServiceCall {
@@ -5466,8 +4271,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 ##### Interface: ServiceCall
-
-Minimum data tracked for each service call.
 
 ```ts
 export interface ServiceCall {
@@ -5532,7 +4335,7 @@ export interface ServiceCallHistory {
 }
 ```
 
-See also: [ProviderCallHistory](./client.md#interface-providercallhistory)
+See also: [ProviderCallHistory](#interface-providercallhistory)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5607,255 +4410,29 @@ export interface ServiceToCall<T> {
 }
 ```
 
-See also: [ServiceCall](./services.md#interface-servicecall)
+See also: [ServiceCall](#interface-servicecall)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: SetupClientWalletArgs
+##### Interface: ServicesCallHistory
 
-Arguments used by `createWallet` to construct a `SetupWallet`.
-
-Extension `SetupWalletClientArgs` used by `createWalletClient` to construct a `SetupWalletClient`.
-
-Extension `SetupWalletIdbArgs` used by `createWalletIdb` to construct a `SetupWalletIdb`.
+Type for the service call history returned by Services.getServicesCallHistory.
 
 ```ts
-export interface SetupClientWalletArgs {
-    chain: Chain;
-    rootKeyHex: string;
-    privilegedKeyGetter?: () => Promise<PrivateKey>;
-    active?: WalletStorageProvider;
-    backups?: WalletStorageProvider[];
-    taalApiKey?: string;
+export interface ServicesCallHistory {
+    version: number;
+    getMerklePath: ServiceCallHistory;
+    getRawTx: ServiceCallHistory;
+    postBeef: ServiceCallHistory;
+    getUtxoStatus: ServiceCallHistory;
+    getStatusForTxids: ServiceCallHistory;
+    getScriptHashHistory: ServiceCallHistory;
+    updateFiatExchangeRates: ServiceCallHistory;
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [WalletStorageProvider](./client.md#interface-walletstorageprovider)
-
-###### Property active
-
-Optional. Active wallet storage. Can be added later.
-
-```ts
-active?: WalletStorageProvider
-```
-See also: [WalletStorageProvider](./client.md#interface-walletstorageprovider)
-
-###### Property backups
-
-Optional. One or more storage providers managed as backup destinations. Can be added later.
-
-```ts
-backups?: WalletStorageProvider[]
-```
-See also: [WalletStorageProvider](./client.md#interface-walletstorageprovider)
-
-###### Property privilegedKeyGetter
-
-Optional. The privileged private key getter used to initialize the `PrivilegedKeyManager`.
-Defaults to undefined.
-
-```ts
-privilegedKeyGetter?: () => Promise<PrivateKey>
-```
-
-###### Property rootKeyHex
-
-The non-privileged private key used to initialize the `KeyDeriver` and determine the `identityKey`.
-
-```ts
-rootKeyHex: string
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: SetupClientWalletClientArgs
-
-Extension `SetupWalletClientArgs` of `SetupWalletArgs` is used by `createWalletClient`
-to construct a `SetupWalletClient`.
-
-```ts
-export interface SetupClientWalletClientArgs extends SetupClientWalletArgs {
-    endpointUrl?: string;
-}
-```
-
-See also: [SetupClientWalletArgs](./setup.md#interface-setupclientwalletargs)
-
-###### Property endpointUrl
-
-The endpoint URL of a service hosting the `StorageServer` JSON-RPC service to
-which a `StorageClient` instance should connect to function as
-the active storage provider of the newly created wallet.
-
-```ts
-endpointUrl?: string
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: SetupWallet
-
-When creating a BRC-100 compatible `Wallet`, many components come into play.
-
-All of the `createWallet` functions in the `Setup` and `SetupClient` classes return
-an object with direct access to each component to facilitate experimentation, testing
-and customization.
-
-```ts
-export interface SetupWallet {
-    rootKey: PrivateKey;
-    identityKey: string;
-    keyDeriver: KeyDeriverApi;
-    chain: Chain;
-    storage: WalletStorageManager;
-    services: Services;
-    monitor: Monitor;
-    wallet: Wallet;
-}
-```
-
-See also: [Chain](./client.md#type-chain), [Monitor](./monitor.md#class-monitor), [Services](./services.md#class-services), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager)
-
-###### Property chain
-
-The chain ('main' or 'test') which the wallet accesses.
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
-
-###### Property identityKey
-
-The pubilc key associated with the `rootKey` which also serves as the wallet's identity.
-
-```ts
-identityKey: string
-```
-
-###### Property keyDeriver
-
-The `KeyDeriver` component used by the wallet for key derivation and cryptographic functions.
-
-```ts
-keyDeriver: KeyDeriverApi
-```
-
-###### Property monitor
-
-The background task `Monitor` component available to the wallet to offload tasks
-that speed up wallet operations and maintain data integrity.
-
-```ts
-monitor: Monitor
-```
-See also: [Monitor](./monitor.md#class-monitor)
-
-###### Property rootKey
-
-The rootKey of the `KeyDeriver`. The private key from which other keys are derived.
-
-```ts
-rootKey: PrivateKey
-```
-
-###### Property services
-
-The network `Services` component which provides the wallet with access to external services hosted
-on the public network.
-
-```ts
-services: Services
-```
-See also: [Services](./services.md#class-services)
-
-###### Property storage
-
-The `WalletStorageManager` that manages all the configured storage providers (active and backups)
-accessed by the wallet.
-
-```ts
-storage: WalletStorageManager
-```
-See also: [WalletStorageManager](./storage.md#class-walletstoragemanager)
-
-###### Property wallet
-
-The actual BRC-100 `Wallet` to which all the other properties and components contribute.
-
-Note that internally, the wallet is itself linked to all these properties and components.
-They are included in this interface to facilitate access after wallet construction for
-experimentation, testing and customization. Any changes made to the configuration of these
-components after construction may disrupt the normal operation of the wallet.
-
-```ts
-wallet: Wallet
-```
-See also: [Wallet](./client.md#class-wallet)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: SetupWalletClient
-
-Extension `SetupWalletClient` of `SetupWallet` is returned by `createWalletClient`
-
-```ts
-export interface SetupWalletClient extends SetupWallet {
-    endpointUrl: string;
-}
-```
-
-See also: [SetupWallet](./setup.md#interface-setupwallet)
-
-###### Property endpointUrl
-
-The endpoint URL of the service hosting the `StorageServer` JSON-RPC service to
-which a `StorageClient` instance is connected to function as
-the active storage provider of the wallet.
-
-```ts
-endpointUrl: string
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: SetupWalletIdb
-
-```ts
-export interface SetupWalletIdb extends SetupWallet {
-    activeStorage: StorageIdb;
-    userId: number;
-    rootKey: PrivateKey;
-    identityKey: string;
-    keyDeriver: KeyDeriverApi;
-    chain: Chain;
-    storage: WalletStorageManager;
-    services: Services;
-    monitor: Monitor;
-    wallet: Wallet;
-}
-```
-
-See also: [Chain](./client.md#type-chain), [Monitor](./monitor.md#class-monitor), [Services](./services.md#class-services), [SetupWallet](./setup.md#interface-setupwallet), [StorageIdb](./storage.md#class-storageidb), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: SetupWalletIdbArgs
-
-```ts
-export interface SetupWalletIdbArgs extends SetupClientWalletArgs {
-    databaseName: string;
-}
-```
-
-See also: [SetupClientWalletArgs](./setup.md#interface-setupclientwalletargs)
+See also: [ServiceCallHistory](#interface-servicecallhistory)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5871,18 +4448,46 @@ export interface SignActionResultX extends SignActionResult {
 }
 ```
 
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: StartAuthResponse
+##### Interface: SpvHeaderSource
 
 ```ts
-export interface StartAuthResponse {
-    success: boolean;
-    message?: string;
-    data?: any;
+export interface SpvHeaderSource {
+    subscribeHeaders: (listener: HeaderListener) => Promise<string>;
+    subscribeReorgs: (listener: ReorgListener) => Promise<string>;
+    unsubscribe: (subscriptionId: string) => Promise<boolean>;
+}
+```
+
+See also: [HeaderListener](#type-headerlistener), [ReorgListener](#type-reorglistener)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: SpvHeaderSyncHandlers
+
+```ts
+export interface SpvHeaderSyncHandlers {
+    onHeader?: HeaderListener;
+    onReorg?: ReorgListener;
+}
+```
+
+See also: [HeaderListener](#type-headerlistener), [ReorgListener](#type-reorglistener)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: SpvHeaderSyncStartResult
+
+```ts
+export interface SpvHeaderSyncStartResult {
+    headerSubscriptionId: string;
+    reorgSubscriptionId: string;
 }
 ```
 
@@ -6015,7 +4620,7 @@ export interface StorageCreateActionResult {
 }
 ```
 
-See also: [StorageCreateTransactionSdkInput](./client.md#interface-storagecreatetransactionsdkinput), [StorageCreateTransactionSdkOutput](./client.md#interface-storagecreatetransactionsdkoutput)
+See also: [StorageCreateTransactionSdkInput](#interface-storagecreatetransactionsdkinput), [StorageCreateTransactionSdkOutput](#interface-storagecreatetransactionsdkoutput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6040,7 +4645,7 @@ export interface StorageCreateTransactionSdkInput {
 }
 ```
 
-See also: [StorageProvidedBy](./client.md#type-storageprovidedby)
+See also: [StorageProvidedBy](#type-storageprovidedby)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6056,7 +4661,7 @@ export interface StorageCreateTransactionSdkOutput extends Validation.ValidCreat
 }
 ```
 
-See also: [StorageProvidedBy](./client.md#type-storageprovidedby)
+See also: [StorageProvidedBy](#type-storageprovidedby)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6185,175 +4790,6 @@ trustSelf?: "known"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: StorageIdbOptions
-
-```ts
-export interface StorageIdbOptions extends StorageProviderOptions {
-}
-```
-
-See also: [StorageProviderOptions](./storage.md#interface-storageprovideroptions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: StorageIdbSchema
-
-```ts
-export interface StorageIdbSchema {
-    certificates: {
-        key: number;
-        value: TableCertificate;
-        indexes: {
-            userId: number;
-            userId_type_certifier_serialNumber: [
-                number,
-                Base64String,
-                PubKeyHex,
-                Base64String
-            ];
-        };
-    };
-    certificateFields: {
-        key: number;
-        value: TableCertificateField;
-        indexes: {
-            userId: number;
-            certificateId: number;
-        };
-    };
-    commissions: {
-        key: number;
-        value: TableCommission;
-        indexes: {
-            userId: number;
-            transactionId: number;
-        };
-    };
-    monitorEvents: {
-        key: number;
-        value: TableMonitorEvent;
-    };
-    outputs: {
-        key: number;
-        value: TableOutput;
-        indexes: {
-            userId: number;
-            transactionId: number;
-            basketId: number;
-            spentBy: string;
-            transactionId_vout_userId: [
-                number,
-                number,
-                number
-            ];
-        };
-    };
-    outputBaskets: {
-        key: number;
-        value: TableOutputBasket;
-        indexes: {
-            userId: number;
-            name_userId: [
-                string,
-                number
-            ];
-        };
-    };
-    outputTags: {
-        key: number;
-        value: TableOutputTag;
-        indexes: {
-            userId: number;
-            tag_userId: [
-                string,
-                number
-            ];
-        };
-    };
-    outputTagMaps: {
-        key: number;
-        value: TableOutputTagMap;
-        indexes: {
-            outputTagId: number;
-            outputId: number;
-        };
-    };
-    provenTxs: {
-        key: number;
-        value: TableProvenTx;
-        indexes: {
-            txid: HexString;
-        };
-    };
-    provenTxReqs: {
-        key: number;
-        value: TableProvenTxReq;
-        indexes: {
-            provenTxId: number;
-            txid: HexString;
-            status: ProvenTxReqStatus;
-            batch: string;
-        };
-    };
-    syncStates: {
-        key: number;
-        value: TableSyncState;
-        indexes: {
-            userId: number;
-            refNum: string;
-            status: SyncStatus;
-        };
-    };
-    settings: {
-        key: number;
-        value: TableSettings;
-        indexes: Record<string, never>;
-    };
-    transactions: {
-        key: number;
-        value: TableTransaction;
-        indexes: {
-            userId: number;
-            provenTxId: number;
-            reference: string;
-            status: TransactionStatus;
-        };
-    };
-    txLabels: {
-        key: number;
-        value: TableTxLabel;
-        indexes: {
-            userId: number;
-            label_userId: [
-                string,
-                number
-            ];
-        };
-    };
-    txLabelMaps: {
-        key: number;
-        value: TableTxLabelMap;
-        indexes: {
-            transactionId: number;
-            txLabelId: number;
-        };
-    };
-    users: {
-        key: number;
-        value: TableUser;
-        indexes: {
-            identityKey: string;
-        };
-    };
-}
-```
-
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [SyncStatus](./client.md#type-syncstatus), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TransactionStatus](./client.md#type-transactionstatus)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: StorageIdentity
 
 ```ts
@@ -6394,7 +4830,7 @@ export interface StorageInternalizeActionResult extends InternalizeActionResult 
 }
 ```
 
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 ###### Property isMerge
 
@@ -6411,7 +4847,7 @@ valid iff not isMerge and txid was unknown to storage and non-delayed broadcast 
 ```ts
 notDelayedResults?: ReviewActionResult[]
 ```
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 ###### Property satoshis
 
@@ -6456,7 +4892,7 @@ export interface StorageProcessActionArgs {
 }
 ```
 
-See also: [logger](./client.md#variable-logger)
+See also: [logger](#variable-logger)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6471,7 +4907,7 @@ export interface StorageProcessActionResults {
 }
 ```
 
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6486,7 +4922,7 @@ export interface StorageProvenOrReq {
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6502,7 +4938,7 @@ export interface StorageProviderOptions extends StorageReaderWriterOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [StorageFeeModel](./client.md#interface-storagefeemodel), [StorageReaderWriterOptions](./storage.md#interface-storagereaderwriteroptions)
+See also: [Chain](#type-chain), [StorageFeeModel](#interface-storagefeemodel), [StorageReaderWriterOptions](#interface-storagereaderwriteroptions)
 
 ###### Property commissionPubKeyHex
 
@@ -6534,7 +4970,7 @@ export interface StorageReaderOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6546,7 +4982,7 @@ export interface StorageReaderWriterOptions extends StorageReaderOptions {
 }
 ```
 
-See also: [StorageReaderOptions](./storage.md#interface-storagereaderoptions)
+See also: [StorageReaderOptions](#interface-storagereaderoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6559,7 +4995,7 @@ export interface StorageSyncReaderOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6593,7 +5029,7 @@ export interface SyncChunk {
 }
 ```
 
-See also: [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCommission](./storage.md#interface-tablecommission), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser)
+See also: [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCommission](#interface-tablecommission), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6630,7 +5066,7 @@ export interface SyncMap {
 }
 ```
 
-See also: [EntitySyncMap](./storage.md#interface-entitysyncmap)
+See also: [EntitySyncMap](#interface-entitysyncmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6654,7 +5090,7 @@ export interface TableCertificate extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6673,7 +5109,7 @@ export interface TableCertificateField extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6686,7 +5122,7 @@ export interface TableCertificateX extends TableCertificate {
 }
 ```
 
-See also: [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield)
+See also: [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6707,7 +5143,7 @@ export interface TableCommission extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6724,7 +5160,7 @@ export interface TableMonitorEvent extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6758,10 +5194,12 @@ export interface TableOutput extends sdk.EntityTimeStamp {
     scriptLength?: number;
     scriptOffset?: number;
     lockingScript?: number[];
+    scriptHash?: string;
+    cacheUpdatedAt?: Date;
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [StorageProvidedBy](./client.md#type-storageprovidedby)
+See also: [EntityTimeStamp](#interface-entitytimestamp), [StorageProvidedBy](#type-storageprovidedby)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6781,7 +5219,7 @@ export interface TableOutputBasket extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6799,7 +5237,7 @@ export interface TableOutputTag extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6816,7 +5254,7 @@ export interface TableOutputTagMap extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6830,7 +5268,7 @@ export interface TableOutputX extends TableOutput {
 }
 ```
 
-See also: [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag)
+See also: [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6852,7 +5290,7 @@ export interface TableProvenTx extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [blockHash](./services.md#function-blockhash)
+See also: [EntityTimeStamp](#interface-entitytimestamp), [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6874,10 +5312,12 @@ export interface TableProvenTxReq extends TableProvenTxReqDynamics {
     notify: string;
     rawTx: number[];
     inputBEEF?: number[];
+    wasBroadcast?: boolean;
+    rebroadcastAttempts?: number;
 }
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [TableProvenTxReqDynamics](./storage.md#interface-tableproventxreqdynamics)
+See also: [ProvenTxReqStatus](#type-proventxreqstatus), [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics)
 
 ###### Property attempts
 
@@ -6919,6 +5359,27 @@ Parses to `ProvenTxReqNotifyApi`.
 
 ```ts
 notify: string
+```
+
+###### Property rebroadcastAttempts
+
+Count of how many times this req has been reset to 'unsent' for rebroadcast
+after proof check timeout. Used by the circuit-breaker (maxRebroadcastAttempts).
+Defaults to 0 (added by migration 2026-04-30-001).
+
+```ts
+rebroadcastAttempts?: number
+```
+
+###### Property wasBroadcast
+
+Set to true the first time this req transitions to 'unmined' or 'callback' status,
+indicating the transaction was successfully broadcast to the network.
+Used to distinguish rebroadcast candidates from transactions that were never sent.
+Defaults to false (added by migration 2026-04-30-001).
+
+```ts
+wasBroadcast?: boolean
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -6938,10 +5399,12 @@ export interface TableProvenTxReqDynamics extends sdk.EntityTimeStamp {
     batch?: string;
     history: string;
     notify: string;
+    wasBroadcast?: boolean;
+    rebroadcastAttempts?: number;
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [ProvenTxReqStatus](./client.md#type-proventxreqstatus)
+See also: [EntityTimeStamp](#interface-entitytimestamp), [ProvenTxReqStatus](#type-proventxreqstatus)
 
 ###### Property attempts
 
@@ -6985,6 +5448,24 @@ Parses to `ProvenTxReqNotifyApi`.
 notify: string
 ```
 
+###### Property rebroadcastAttempts
+
+Count of rebroadcast cycles for this req. Used by the circuit-breaker.
+Defaults to 0 (added by migration 2026-04-30-001).
+
+```ts
+rebroadcastAttempts?: number
+```
+
+###### Property wasBroadcast
+
+Set to true the first time this req transitions to 'unmined' or 'callback' status.
+Defaults to false (added by migration 2026-04-30-001).
+
+```ts
+wasBroadcast?: boolean
+```
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -6997,12 +5478,12 @@ export interface TableSettings extends sdk.StorageIdentity, sdk.EntityTimeStamp 
     storageIdentityKey: string;
     storageName: string;
     chain: sdk.Chain;
-    dbtype: "SQLite" | "MySQL" | "IndexedDB";
+    dbtype: "MySQL" | "IndexedDB";
     maxOutputScript: number;
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [EntityTimeStamp](./client.md#interface-entitytimestamp), [StorageIdentity](./client.md#interface-storageidentity)
+See also: [Chain](#type-chain), [EntityTimeStamp](#interface-entitytimestamp), [StorageIdentity](#interface-storageidentity)
 
 ###### Property storageIdentityKey
 
@@ -7044,7 +5525,7 @@ export interface TableSyncState extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [SyncStatus](./client.md#type-syncstatus)
+See also: [EntityTimeStamp](#interface-entitytimestamp), [SyncStatus](#type-syncstatus)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7071,7 +5552,7 @@ export interface TableTransaction extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [TransactionStatus](./client.md#type-transactionstatus)
+See also: [EntityTimeStamp](#interface-entitytimestamp), [TransactionStatus](#type-transactionstatus)
 
 ###### Property isOutgoing
 
@@ -7125,7 +5606,7 @@ export interface TableTxLabel extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7142,7 +5623,7 @@ export interface TableTxLabelMap extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7159,7 +5640,7 @@ export interface TableUser extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 ###### Property activeStorage
 
@@ -7212,7 +5693,7 @@ export interface TaskPurgeParams extends PurgeParams {
 }
 ```
 
-See also: [PurgeParams](./client.md#interface-purgeparams)
+See also: [PurgeParams](#interface-purgeparams)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7226,7 +5707,7 @@ export interface TrustSettings {
 }
 ```
 
-See also: [Certifier](./client.md#interface-certifier)
+See also: [Certifier](#interface-certifier)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7260,225 +5741,34 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface TxScriptOffsets {
-    inputs: {
+    inputs: Array<{
         vin: number;
         offset: number;
         length: number;
-    }[];
-    outputs: {
+    }>;
+    outputs: Array<{
         vout: number;
         offset: number;
         length: number;
-    }[];
+    }>;
 }
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: UMPToken
-
-Describes the structure of a User Management Protocol (UMP) token.
+##### Interface: UndiciHttpClientOptions
 
 ```ts
-export interface UMPToken {
-    passwordPresentationPrimary: number[];
-    passwordRecoveryPrimary: number[];
-    presentationRecoveryPrimary: number[];
-    passwordPrimaryPrivileged: number[];
-    presentationRecoveryPrivileged: number[];
-    presentationHash: number[];
-    passwordSalt: number[];
-    recoveryHash: number[];
-    presentationKeyEncrypted: number[];
-    recoveryKeyEncrypted: number[];
-    passwordKeyEncrypted: number[];
-    profilesEncrypted?: number[];
-    umpVersion?: number;
-    passwordKdf?: {
-        algorithm: "pbkdf2-sha512" | "argon2id";
-        iterations: number;
-        memoryKiB?: number;
-        parallelism?: number;
-        hashLength?: number;
-    };
-    currentOutpoint?: OutpointString;
+export interface UndiciHttpClientOptions {
+    connections?: number;
+    pipelining?: number;
+    allowH2?: boolean;
+    keepAliveTimeout?: number;
+    keepAliveMaxTimeout?: number;
+    keepAliveTimeoutThreshold?: number;
 }
 ```
-
-###### Property currentOutpoint
-
-Describes the token's location on-chain, if it's already been published.
-
-```ts
-currentOutpoint?: OutpointString
-```
-
-###### Property passwordKdf
-
-Password-based key derivation function metadata.
-Present for UMP v3 tokens; absent for legacy tokens.
-
-```ts
-passwordKdf?: {
-    algorithm: "pbkdf2-sha512" | "argon2id";
-    iterations: number;
-    memoryKiB?: number;
-    parallelism?: number;
-    hashLength?: number;
-}
-```
-
-###### Property passwordKeyEncrypted
-
-A copy of the password key encrypted with the root privileged key.
-
-```ts
-passwordKeyEncrypted: number[]
-```
-
-###### Property passwordPresentationPrimary
-
-Root Primary key encrypted by the XOR of the password and presentation keys.
-
-```ts
-passwordPresentationPrimary: number[]
-```
-
-###### Property passwordPrimaryPrivileged
-
-Root Privileged key encrypted by the XOR of the password and primary keys.
-
-```ts
-passwordPrimaryPrivileged: number[]
-```
-
-###### Property passwordRecoveryPrimary
-
-Root Primary key encrypted by the XOR of the password and recovery keys.
-
-```ts
-passwordRecoveryPrimary: number[]
-```
-
-###### Property passwordSalt
-
-PBKDF2 salt used in conjunction with the password to derive the password key.
-
-```ts
-passwordSalt: number[]
-```
-
-###### Property presentationHash
-
-Hash of the presentation key.
-
-```ts
-presentationHash: number[]
-```
-
-###### Property presentationKeyEncrypted
-
-A copy of the presentation key encrypted with the root privileged key.
-
-```ts
-presentationKeyEncrypted: number[]
-```
-
-###### Property presentationRecoveryPrimary
-
-Root Primary key encrypted by the XOR of the presentation and recovery keys.
-
-```ts
-presentationRecoveryPrimary: number[]
-```
-
-###### Property presentationRecoveryPrivileged
-
-Root Privileged key encrypted by the XOR of the presentation and recovery keys.
-
-```ts
-presentationRecoveryPrivileged: number[]
-```
-
-###### Property profilesEncrypted
-
-Optional field containing the encrypted profile data.
-JSON string -> Encrypted Bytes using root privileged key.
-
-```ts
-profilesEncrypted?: number[]
-```
-
-###### Property recoveryHash
-
-Hash of the recovery key.
-
-```ts
-recoveryHash: number[]
-```
-
-###### Property recoveryKeyEncrypted
-
-A copy of the recovery key encrypted with the root privileged key.
-
-```ts
-recoveryKeyEncrypted: number[]
-```
-
-###### Property umpVersion
-
-On-chain UMP protocol version (3 for tokens with KDF metadata).
-
-```ts
-umpVersion?: number
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: UMPTokenInteractor
-
-Describes a system capable of finding and updating UMP tokens on the blockchain.
-
-```ts
-export interface UMPTokenInteractor {
-    findByPresentationKeyHash: (hash: number[]) => Promise<UMPToken | undefined>;
-    findByRecoveryKeyHash: (hash: number[]) => Promise<UMPToken | undefined>;
-    buildAndSend: (wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes, token: UMPToken, oldTokenToConsume?: UMPToken) => Promise<OutpointString>;
-}
-```
-
-See also: [UMPToken](./client.md#interface-umptoken)
-
-###### Property buildAndSend
-
-Creates (and optionally consumes the previous version of) a UMP token on-chain.
-
-```ts
-buildAndSend: (wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes, token: UMPToken, oldTokenToConsume?: UMPToken) => Promise<OutpointString>
-```
-See also: [UMPToken](./client.md#interface-umptoken)
-
-###### Property findByPresentationKeyHash
-
-Locates the latest valid copy of a UMP token (including its outpoint)
-based on the presentation key hash.
-
-```ts
-findByPresentationKeyHash: (hash: number[]) => Promise<UMPToken | undefined>
-```
-See also: [UMPToken](./client.md#interface-umptoken)
-
-###### Property findByRecoveryKeyHash
-
-Locates the latest valid copy of a UMP token (including its outpoint)
-based on the recovery key hash.
-
-```ts
-findByRecoveryKeyHash: (hash: number[]) => Promise<UMPToken | undefined>
-```
-See also: [UMPToken](./client.md#interface-umptoken)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7500,7 +5790,7 @@ export interface UpdateProvenTxReqWithNewProvenTxArgs {
 }
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [blockHash](./services.md#function-blockhash)
+See also: [ProvenTxReqStatus](#type-proventxreqstatus), [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7516,7 +5806,50 @@ export interface UpdateProvenTxReqWithNewProvenTxResult {
 }
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus)
+See also: [ProvenTxReqStatus](#type-proventxreqstatus)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: UtxoCacheManagerOptions
+
+```ts
+export interface UtxoCacheManagerOptions {
+    max?: number;
+    ttlMs?: number;
+    events?: EventEmitter | EventBus;
+    metrics?: WalletToolboxMetrics;
+}
+```
+
+See also: [EventBus](#class-eventbus), [WalletToolboxMetrics](#class-wallettoolboxmetrics)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: UtxoCacheQuery
+
+```ts
+export interface UtxoCacheQuery {
+    output: string;
+    outputFormat?: GetUtxoStatusOutputFormat;
+    outpoint: string;
+}
+```
+
+See also: [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: UtxoInvalidationEvent
+
+```ts
+export interface UtxoInvalidationEvent {
+    outpoints: string[];
+    blockHeight?: number;
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7546,7 +5879,7 @@ export interface VerifyAndRepairBeefResult {
 }
 ```
 
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
+See also: [ReproveHeaderResult](#interface-reproveheaderresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7569,7 +5902,7 @@ export interface WalletArgs {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [Monitor](./monitor.md#class-monitor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [WalletServices](./client.md#interface-walletservices), [WalletSettingsManager](./client.md#class-walletsettingsmanager), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [Chain](#type-chain), [Monitor](#class-monitor), [PrivilegedKeyManager](#class-privilegedkeymanager), [WalletServices](#interface-walletservices), [WalletSettingsManager](#class-walletsettingsmanager), [WalletStorageManager](#class-walletstoragemanager)
 
 ###### Property makeLogger
 
@@ -7593,10 +5926,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface WalletBalance {
     total: number;
-    utxos: {
+    utxos: Array<{
         satoshis: number;
         outpoint: string;
-    }[];
+    }>;
 }
 ```
 
@@ -7666,27 +5999,6 @@ logs?: WalletLoggerLog[]
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: WalletPermissionsManagerCallbacks
-
-The set of callbacks that external code can bind to, e.g. to display UI prompts or logs
-when a permission is requested.
-
-```ts
-export interface WalletPermissionsManagerCallbacks {
-    onProtocolPermissionRequested?: PermissionEventHandler[];
-    onBasketAccessRequested?: PermissionEventHandler[];
-    onCertificateAccessRequested?: PermissionEventHandler[];
-    onSpendingAuthorizationRequested?: PermissionEventHandler[];
-    onGroupedPermissionRequested?: GroupedPermissionEventHandler[];
-    onCounterpartyPermissionRequested?: CounterpartyPermissionEventHandler[];
-}
-```
-
-See also: [CounterpartyPermissionEventHandler](./client.md#type-counterpartypermissioneventhandler), [GroupedPermissionEventHandler](./client.md#type-groupedpermissioneventhandler), [PermissionEventHandler](./client.md#type-permissioneventhandler)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Interface: WalletServices
 
 Defines standard interfaces to access functionality implemented by external transaction processing services.
@@ -7694,27 +6006,30 @@ Defines standard interfaces to access functionality implemented by external tran
 ```ts
 export interface WalletServices {
     chain: Chain;
-    getChainTracker(): Promise<ChainTracker>;
-    getHeaderForHeight(height: number): Promise<number[]>;
-    getHeight(): Promise<number>;
-    getBsvExchangeRate(): Promise<number>;
-    getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number>;
-    getRawTx(txid: string, useNext?: boolean): Promise<GetRawTxResult>;
-    getMerklePath(txid: string, useNext?: boolean): Promise<GetMerklePathResult>;
-    postBeef(beef: Beef, txids: string[], logger?: WalletLoggerInterface): Promise<PostBeefResult[]>;
-    hashOutputScript(script: string): string;
-    getStatusForTxids(txids: string[], useNext?: boolean): Promise<GetStatusForTxidsResult>;
-    isUtxo(output: TableOutput): Promise<boolean>;
-    getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean): Promise<GetUtxoStatusResult>;
-    getScriptHashHistory(hash: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetScriptHashHistoryResult>;
-    hashToHeader(hash: string): Promise<BlockHeader>;
-    nLockTimeIsFinal(txOrLockTime: string | number[] | BsvTransaction | number): Promise<boolean>;
-    getBeefForTxid(txid: string): Promise<Beef>;
-    getServicesCallHistory(reset?: boolean): ServicesCallHistory;
+    eventBus?: EventBus;
+    metrics?: WalletToolboxMetrics;
+    getChainTracker: () => Promise<ChainTracker>;
+    getHeaderForHeight: (height: number) => Promise<number[]>;
+    getHeight: () => Promise<number>;
+    getBsvExchangeRate: () => Promise<number>;
+    getFiatExchangeRate: (currency: FiatCurrencyCode, base?: FiatCurrencyCode) => Promise<number>;
+    getRawTx: (txid: string, useNext?: boolean) => Promise<GetRawTxResult>;
+    getMerklePath: (txid: string, useNext?: boolean) => Promise<GetMerklePathResult>;
+    postBeef: (beef: Beef, txids: string[], logger?: WalletLoggerInterface) => Promise<PostBeefResult[]>;
+    hashOutputScript: (script: string) => string;
+    getStatusForTxids: (txids: string[], useNext?: boolean) => Promise<GetStatusForTxidsResult>;
+    isUtxo: (output: TableOutput, useNext?: boolean) => Promise<boolean>;
+    getUtxoStatus: (output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean) => Promise<GetUtxoStatusResult>;
+    getScriptHashHistory: (hash: string, useNext?: boolean, logger?: WalletLoggerInterface) => Promise<GetScriptHashHistoryResult>;
+    hashToHeader: (hash: string) => Promise<BlockHeader>;
+    nLockTimeIsFinal: (txOrLockTime: string | number[] | BsvTransaction | number) => Promise<boolean>;
+    getBeefForTxid: (txid: string) => Promise<Beef>;
+    getServicesCallHistory: (reset?: boolean) => ServicesCallHistory;
+    close?: () => Promise<void>;
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [FiatCurrencyCode](./client.md#type-fiatcurrencycode), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [GetRawTxResult](./client.md#interface-getrawtxresult), [GetScriptHashHistoryResult](./client.md#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult), [PostBeefResult](./client.md#interface-postbeefresult), [ServicesCallHistory](./client.md#type-servicescallhistory), [TableOutput](./storage.md#interface-tableoutput), [getBeefForTxid](./services.md#function-getbeeffortxid), [logger](./client.md#variable-logger)
+See also: [BlockHeader](#interface-blockheader), [Chain](#type-chain), [EventBus](#class-eventbus), [FiatCurrencyCode](#type-fiatcurrencycode), [GetMerklePathResult](#interface-getmerklepathresult), [GetRawTxResult](#interface-getrawtxresult), [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult), [PostBeefResult](#interface-postbeefresult), [ServicesCallHistory](#interface-servicescallhistory), [TableOutput](#interface-tableoutput), [WalletToolboxMetrics](#class-wallettoolboxmetrics), [getBeefForTxid](#function-getbeeffortxid), [logger](#variable-logger)
 
 ###### Property chain
 
@@ -7723,9 +6038,29 @@ The chain being serviced.
 ```ts
 chain: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
-###### Method getBeefForTxid
+###### Property close
+
+Optional lifecycle hook for implementations that own pooled network
+resources.
+
+```ts
+close?: () => Promise<void>
+```
+
+###### Property eventBus
+
+Optional in-process event bus for cache invalidation and runtime
+instrumentation. Implementations may omit it; callers must treat storage
+state as authoritative regardless of cache events.
+
+```ts
+eventBus?: EventBus
+```
+See also: [EventBus](#class-eventbus)
+
+###### Property getBeefForTxid
 
 Constructs a `Beef` for the given `txid` using only external data retrieval services.
 
@@ -7733,64 +6068,29 @@ In most cases, the `getBeefForTransaction` method of the `StorageProvider` class
 used instead to avoid redundantly retrieving data.
 
 ```ts
-getBeefForTxid(txid: string): Promise<Beef>
+getBeefForTxid: (txid: string) => Promise<Beef>
 ```
 
-Throws
-
-errors if txid does not correspond to a valid transaction as determined by the
-configured services.
-
-###### Method getBsvExchangeRate
+###### Property getBsvExchangeRate
 
 Approximate exchange rate US Dollar / BSV, USD / BSV
 
 This is the US Dollar price of one BSV
 
 ```ts
-getBsvExchangeRate(): Promise<number>
+getBsvExchangeRate: () => Promise<number>
 ```
 
-###### Method getChainTracker
-
-```ts
-getChainTracker(): Promise<ChainTracker>
-```
-
-Returns
-
-standard `ChainTracker` service which requires `options.chaintracks` be valid.
-
-###### Method getFiatExchangeRate
+###### Property getFiatExchangeRate
 
 Approximate exchange rate currency per base.
 
 ```ts
-getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number>
+getFiatExchangeRate: (currency: FiatCurrencyCode, base?: FiatCurrencyCode) => Promise<number>
 ```
-See also: [FiatCurrencyCode](./client.md#type-fiatcurrencycode)
+See also: [FiatCurrencyCode](#type-fiatcurrencycode)
 
-###### Method getHeaderForHeight
-
-```ts
-getHeaderForHeight(height: number): Promise<number[]>
-```
-
-Returns
-
-serialized block header for height on active chain
-
-###### Method getHeight
-
-```ts
-getHeight(): Promise<number>
-```
-
-Returns
-
-the height of the active chain
-
-###### Method getMerklePath
+###### Property getMerklePath
 
 Attempts to obtain the merkle proof associated with a 32 byte transaction hash (txid).
 
@@ -7809,18 +6109,11 @@ Result error will be the first error thrown (service name and CwiError), or null
 Increments to next configured service and tries again until all services have been tried.
 
 ```ts
-getMerklePath(txid: string, useNext?: boolean): Promise<GetMerklePathResult>
+getMerklePath: (txid: string, useNext?: boolean) => Promise<GetMerklePathResult>
 ```
-See also: [GetMerklePathResult](./client.md#interface-getmerklepathresult)
+See also: [GetMerklePathResult](#interface-getmerklepathresult)
 
-Argument Details
-
-+ **txid**
-  + transaction hash for which proof is requested
-+ **useNext**
-  + optional, forces skip to next service before starting service requests cycle.
-
-###### Method getRawTx
+###### Property getRawTx
 
 Attempts to obtain the raw transaction bytes associated with a 32 byte transaction hash (txid).
 
@@ -7839,34 +6132,11 @@ Result error will be the first error thrown (service name and CwiError), or null
 Increments to next configured service and tries again until all services have been tried.
 
 ```ts
-getRawTx(txid: string, useNext?: boolean): Promise<GetRawTxResult>
+getRawTx: (txid: string, useNext?: boolean) => Promise<GetRawTxResult>
 ```
-See also: [GetRawTxResult](./client.md#interface-getrawtxresult)
+See also: [GetRawTxResult](#interface-getrawtxresult)
 
-Argument Details
-
-+ **txid**
-  + transaction hash for which raw transaction bytes are requested
-+ **useNext**
-  + optional, forces skip to next service before starting service requests cycle.
-
-###### Method getServicesCallHistory
-
-```ts
-getServicesCallHistory(reset?: boolean): ServicesCallHistory
-```
-See also: [ServicesCallHistory](./client.md#type-servicescallhistory)
-
-Returns
-
-a history of service calls made to the configured services.
-
-Argument Details
-
-+ **reset**
-  + if true, ends current interval and starts a new one.
-
-###### Method getStatusForTxids
+###### Property getStatusForTxids
 
 For an array of one or more txids, returns for each wether it is a 'known', 'mined', or 'unknown' transaction.
 
@@ -7875,97 +6145,40 @@ Primarily useful for determining if a recently broadcast transaction is known to
 Also returns the current depth from chain tip if 'mined'.
 
 ```ts
-getStatusForTxids(txids: string[], useNext?: boolean): Promise<GetStatusForTxidsResult>
+getStatusForTxids: (txids: string[], useNext?: boolean) => Promise<GetStatusForTxidsResult>
 ```
-See also: [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult)
+See also: [GetStatusForTxidsResult](#interface-getstatusfortxidsresult)
 
-###### Method getUtxoStatus
+###### Property getUtxoStatus
 
 Attempts to determine the UTXO status of a transaction output.
 
 Cycles through configured transaction processing services attempting to get a valid response.
 
 ```ts
-getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean): Promise<GetUtxoStatusResult>
+getUtxoStatus: (output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean) => Promise<GetUtxoStatusResult>
 ```
-See also: [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult)
+See also: [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult)
 
-Argument Details
-
-+ **output**
-  + transaction output identifier in format determined by `outputFormat`.
-+ **chain**
-  + which chain to post to, all of rawTx's inputs must be unspent on this chain.
-+ **outputFormat**
-  + optional, supported values:
-'hashLE' little-endian sha256 hash of output script
-'hashBE' big-endian sha256 hash of output script
-'script' entire transaction output script
-undefined if length of `output` is 32 hex bytes then 'hashBE`, otherwise 'script'.
-+ **outpoint**
-  + if valid, result isUtxo is true only if this txid and vout match an unspent occurance of output script. `${txid}.${vout}` format.
-+ **useNext**
-  + optional, forces skip to next service before starting service requests cycle.
-
-###### Method hashOutputScript
-
-```ts
-hashOutputScript(script: string): string
-```
-
-Returns
-
-script hash in 'hashLE' format, which is the default.
-
-Argument Details
-
-+ **script**
-  + Output script to be hashed for `getUtxoStatus` default `outputFormat`
-
-###### Method hashToHeader
-
-```ts
-hashToHeader(hash: string): Promise<BlockHeader>
-```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Returns
-
-a block header
-
-Argument Details
-
-+ **hash**
-  + block hash
-
-###### Method isUtxo
+###### Property isUtxo
 
 Calls getUtxoStatus with the hash of the output's lockingScript,
 and ensures that the output's outpoint matches an unspent use of that script.
 
 ```ts
-isUtxo(output: TableOutput): Promise<boolean>
+isUtxo: (output: TableOutput, useNext?: boolean) => Promise<boolean>
 ```
-See also: [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
-Returns
+###### Property metrics
 
-true if the output appears to currently be spendable.
-
-###### Method nLockTimeIsFinal
+Optional in-process metrics registry for cache, broadcast, and storage
+instrumentation.
 
 ```ts
-nLockTimeIsFinal(txOrLockTime: string | number[] | BsvTransaction | number): Promise<boolean>
+metrics?: WalletToolboxMetrics
 ```
-
-Returns
-
-whether the locktime value allows the transaction to be mined at the current chain height
-
-Argument Details
-
-+ **txOrLockTime**
-  + either a bitcoin locktime value or hex, binary, un-encoded Transaction
+See also: [WalletToolboxMetrics](#class-wallettoolboxmetrics)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7990,10 +6203,27 @@ export interface WalletServicesOptions {
     arcConfig: ArcConfig;
     arcGorillaPoolUrl?: string;
     arcGorillaPoolConfig?: ArcConfig;
+    httpClient?: HttpClient;
+    postBeefMode?: PostBeefMode;
+    postBeefSoftTimeoutMs?: number;
+    postBeefSoftTimeoutPerKbMs?: number;
+    postBeefSoftTimeoutMaxMs?: number;
+    eventBus?: EventBus;
+    metrics?: WalletToolboxMetrics;
+    utxoCache?: UtxoCacheManager;
+    blockHeaderCache?: BlockHeaderCache;
+    scriptHashCache?: ScriptHashCache;
+    utxoStatusCacheMaxEntries?: number;
+    utxoStatusCacheTtlMs?: number;
+    blockHeaderCacheMaxEntries?: number;
+    blockHeaderCacheTtlMs?: number;
+    scriptHashCacheMaxEntries?: number;
+    scriptHashCacheTtlMs?: number;
+    postBeefQueueConcurrency?: number;
 }
 ```
 
-See also: [ArcConfig](./services.md#interface-arcconfig), [BsvExchangeRate](./client.md#interface-bsvexchangerate), [Chain](./client.md#type-chain), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [FiatExchangeRates](./client.md#interface-fiatexchangerates), [arcGorillaPoolUrl](./services.md#function-arcgorillapoolurl)
+See also: [ArcConfig](#interface-arcconfig), [BlockHeaderCache](#class-blockheadercache), [BsvExchangeRate](#interface-bsvexchangerate), [Chain](#type-chain), [ChaintracksClientApi](#interface-chaintracksclientapi), [EventBus](#class-eventbus), [FiatExchangeRates](#interface-fiatexchangerates), [PostBeefMode](#type-postbeefmode), [ScriptHashCache](#class-scripthashcache), [UtxoCacheManager](#class-utxocachemanager), [WalletToolboxMetrics](#class-wallettoolboxmetrics), [arcGorillaPoolUrl](#function-arcgorillapoolurl)
 
 ###### Property arcConfig
 
@@ -8009,7 +6239,7 @@ callbackToken Default is undefined.
 ```ts
 arcConfig: ArcConfig
 ```
-See also: [ArcConfig](./services.md#interface-arcconfig)
+See also: [ArcConfig](#interface-arcconfig)
 
 ###### Property arcGorillaPoolConfig
 
@@ -8025,7 +6255,7 @@ callbackToken Default is undefined.
 ```ts
 arcGorillaPoolConfig?: ArcConfig
 ```
-See also: [ArcConfig](./services.md#interface-arcconfig)
+See also: [ArcConfig](#interface-arcconfig)
 
 ###### Property arcGorillaPoolUrl
 
@@ -8059,6 +6289,16 @@ testnet: `https://test-api.bitails.io/`
 bitailsApiKey?: string
 ```
 
+###### Property blockHeaderCache
+
+Optional injected block header cache. If omitted, Services creates an
+in-memory node-cache instance.
+
+```ts
+blockHeaderCache?: BlockHeaderCache
+```
+See also: [BlockHeaderCache](#class-blockheadercache)
+
 ###### Property bsvExchangeRate
 
 The initial approximate BSV/USD exchange rate.
@@ -8066,7 +6306,7 @@ The initial approximate BSV/USD exchange rate.
 ```ts
 bsvExchangeRate: BsvExchangeRate
 ```
-See also: [BsvExchangeRate](./client.md#interface-bsvexchangerate)
+See also: [BsvExchangeRate](#interface-bsvexchangerate)
 
 ###### Property bsvUpdateMsecs
 
@@ -8084,7 +6324,7 @@ bsvUpdateMsecs: number
 ```ts
 chain: Chain
 ```
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 ###### Property chaintracks
 
@@ -8096,7 +6336,7 @@ testnet: `https://testnet-chaintracks.babbage.systems`
 ```ts
 chaintracks?: ChaintracksClientApi
 ```
-See also: [ChaintracksClientApi](./services.md#interface-chaintracksclientapi)
+See also: [ChaintracksClientApi](#interface-chaintracksclientapi)
 
 ###### Property chaintracksFiatExchangeRatesUrl
 
@@ -8118,6 +6358,16 @@ MAPI callbacks are deprecated at this time.
 disableMapiCallback?: boolean
 ```
 
+###### Property eventBus
+
+Shared in-process event bus used for cache invalidation and runtime
+instrumentation. Defaults to a new EventBus per Services instance.
+
+```ts
+eventBus?: EventBus
+```
+See also: [EventBus](#class-eventbus)
+
 ###### Property exchangeratesapiKey
 
 API key for use accessing fiat exchange rates API at
@@ -8137,7 +6387,7 @@ The initial approximate fiat exchange rates with USD as base.
 ```ts
 fiatExchangeRates: FiatExchangeRates
 ```
-See also: [FiatExchangeRates](./client.md#interface-fiatexchangerates)
+See also: [FiatExchangeRates](#interface-fiatexchangerates)
 
 ###### Property fiatUpdateMsecs
 
@@ -8148,6 +6398,72 @@ Default is 24 hours.
 fiatUpdateMsecs: number
 ```
 
+###### Property httpClient
+
+Shared HTTP client for default external providers. Defaults to an undici
+pooled client in Node runtimes.
+
+```ts
+httpClient?: HttpClient
+```
+
+###### Property metrics
+
+Prometheus metrics registry and instruments for service/cache behavior.
+Defaults to a new metrics set per Services instance.
+
+```ts
+metrics?: WalletToolboxMetrics
+```
+See also: [WalletToolboxMetrics](#class-wallettoolboxmetrics)
+
+###### Property postBeefMode
+
+Controls transaction broadcast provider orchestration.
+
+PromiseAll broadcasts the same BEEF and txid set to every configured provider
+concurrently and records every provider result. UntilSuccess preserves the
+older sequential failover behavior.
+
+```ts
+postBeefMode?: PostBeefMode
+```
+See also: [PostBeefMode](#type-postbeefmode)
+
+###### Property postBeefSoftTimeoutMaxMs
+
+Upper bound for adaptive postBeef soft timeout.
+
+```ts
+postBeefSoftTimeoutMaxMs?: number
+```
+
+###### Property postBeefSoftTimeoutMs
+
+Soft timeout used for each postBeef provider call.
+
+```ts
+postBeefSoftTimeoutMs?: number
+```
+
+###### Property postBeefSoftTimeoutPerKbMs
+
+Additional soft-timeout budget per KiB of serialized BEEF payload.
+
+```ts
+postBeefSoftTimeoutPerKbMs?: number
+```
+
+###### Property scriptHashCache
+
+Optional injected output-script hash cache. If omitted, Services creates an
+in-memory LRU cache for repeated script-hash derivation.
+
+```ts
+scriptHashCache?: ScriptHashCache
+```
+See also: [ScriptHashCache](#class-scripthashcache)
+
 ###### Property taalApiKey
 
 As of 2025-08-31 the `taalApiKey` is unused for default configured services.
@@ -8156,6 +6472,17 @@ See `arcConfig` instead.
 ```ts
 taalApiKey?: string
 ```
+
+###### Property utxoCache
+
+Optional injected UTXO status cache. If omitted, Services creates an
+in-memory LRU cache. The cache is only a provider-read accelerator; wallet
+storage remains authoritative for spend selection and signing.
+
+```ts
+utxoCache?: UtxoCacheManager
+```
+See also: [UtxoCacheManager](#class-utxocachemanager)
 
 ###### Property whatsOnChainApiKey
 
@@ -8181,7 +6508,7 @@ export interface WalletSettings {
 }
 ```
 
-See also: [TrustSettings](./client.md#interface-trustsettings), [WalletTheme](./client.md#interface-wallettheme)
+See also: [TrustSettings](#interface-trustsettings), [WalletTheme](#interface-wallettheme)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8194,7 +6521,7 @@ export interface WalletSettingsManagerConfig {
 }
 ```
 
-See also: [WalletSettings](./client.md#interface-walletsettings)
+See also: [WalletSettings](#interface-walletsettings)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8209,7 +6536,7 @@ export interface WalletSigner {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8224,48 +6551,38 @@ and it is left to the providers: physical access or remote channel authenticatio
 
 ```ts
 export interface WalletStorage {
-    isStorageProvider(): boolean;
-    isAvailable(): boolean;
-    makeAvailable(): Promise<TableSettings>;
-    migrate(storageName: string, storageIdentityKey: string): Promise<string>;
-    destroy(): Promise<void>;
-    setServices(v: WalletServices): void;
-    getServices(): WalletServices;
-    getSettings(): TableSettings;
-    getAuth(): Promise<AuthId>;
-    findOrInsertUser(identityKey: string): Promise<{
+    isStorageProvider: () => boolean;
+    isAvailable: () => boolean;
+    makeAvailable: () => Promise<TableSettings>;
+    migrate: (storageName: string, storageIdentityKey: string) => Promise<string>;
+    destroy: () => Promise<void>;
+    setServices: (v: WalletServices) => void;
+    getServices: () => WalletServices;
+    getSettings: () => TableSettings;
+    getAuth: () => Promise<AuthId>;
+    findOrInsertUser: (identityKey: string) => Promise<{
         user: TableUser;
         isNew: boolean;
     }>;
-    abortAction(args: AbortActionArgs): Promise<AbortActionResult>;
-    createAction(args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>;
-    processAction(args: StorageProcessActionArgs): Promise<StorageProcessActionResults>;
-    internalizeAction(args: InternalizeActionArgs): Promise<InternalizeActionResult>;
-    findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]>;
-    findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>;
-    findOutputs(args: FindOutputsArgs): Promise<TableOutput[]>;
-    findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>;
-    listActions(args: ListActionsArgs): Promise<ListActionsResult>;
-    listCertificates(args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>;
-    listOutputs(args: ListOutputsArgs): Promise<ListOutputsResult>;
-    insertCertificate(certificate: TableCertificateX): Promise<number>;
-    relinquishCertificate(args: RelinquishCertificateArgs): Promise<number>;
-    relinquishOutput(args: RelinquishOutputArgs): Promise<number>;
-    getStores(): WalletStorageInfo[];
+    abortAction: (args: AbortActionArgs) => Promise<AbortActionResult>;
+    createAction: (args: Validation.ValidCreateActionArgs) => Promise<StorageCreateActionResult>;
+    processAction: (args: StorageProcessActionArgs) => Promise<StorageProcessActionResults>;
+    internalizeAction: (args: InternalizeActionArgs) => Promise<InternalizeActionResult>;
+    findCertificates: (args: FindCertificatesArgs) => Promise<TableCertificateX[]>;
+    findOutputBaskets: (args: FindOutputBasketsArgs) => Promise<TableOutputBasket[]>;
+    findOutputs: (args: FindOutputsArgs) => Promise<TableOutput[]>;
+    findProvenTxReqs: (args: FindProvenTxReqsArgs) => Promise<TableProvenTxReq[]>;
+    listActions: (args: ListActionsArgs) => Promise<ListActionsResult>;
+    listCertificates: (args: Validation.ValidListCertificatesArgs) => Promise<ListCertificatesResult>;
+    listOutputs: (args: ListOutputsArgs) => Promise<ListOutputsResult>;
+    insertCertificate: (certificate: TableCertificateX) => Promise<number>;
+    relinquishCertificate: (args: RelinquishCertificateArgs) => Promise<number>;
+    relinquishOutput: (args: RelinquishOutputArgs) => Promise<number>;
+    getStores: () => WalletStorageInfo[];
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableUser](./storage.md#interface-tableuser), [WalletServices](./client.md#interface-walletservices), [WalletStorageInfo](./client.md#interface-walletstorageinfo), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [processAction](./storage.md#function-processaction)
-
-###### Method isStorageProvider
-
-```ts
-isStorageProvider(): boolean
-```
-
-Returns
-
-false
+See also: [AuthId](#interface-authid), [FindCertificatesArgs](#interface-findcertificatesargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableUser](#interface-tableuser), [WalletServices](#interface-walletservices), [WalletStorageInfo](#interface-walletstorageinfo), [createAction](#function-createaction), [internalizeAction](#function-internalizeaction), [listCertificates](#function-listcertificates), [processAction](#function-processaction)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8298,22 +6615,12 @@ is the actual minimal interface implemented by storage and remoted storage provi
 
 ```ts
 export interface WalletStorageProvider extends WalletStorageSync {
-    isStorageProvider(): boolean;
-    setServices(v: WalletServices): void;
+    isStorageProvider: () => boolean;
+    setServices: (v: WalletServices) => void;
 }
 ```
 
-See also: [WalletServices](./client.md#interface-walletservices), [WalletStorageSync](./client.md#interface-walletstoragesync)
-
-###### Method isStorageProvider
-
-```ts
-isStorageProvider(): boolean
-```
-
-Returns
-
-true if this object's interface can be extended to the full `StorageProvider` interface
+See also: [WalletServices](#interface-walletservices), [WalletStorageSync](#interface-walletstoragesync)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8322,20 +6629,20 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface WalletStorageReader {
-    isAvailable(): boolean;
-    getServices(): WalletServices;
-    getSettings(): TableSettings;
-    findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>;
-    findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>;
-    findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>;
-    findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>;
-    listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>;
-    listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>;
-    listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>;
+    isAvailable: () => boolean;
+    getServices: () => WalletServices;
+    getSettings: () => TableSettings;
+    findCertificatesAuth: (auth: AuthId, args: FindCertificatesArgs) => Promise<TableCertificateX[]>;
+    findOutputBasketsAuth: (auth: AuthId, args: FindOutputBasketsArgs) => Promise<TableOutputBasket[]>;
+    findOutputsAuth: (auth: AuthId, args: FindOutputsArgs) => Promise<TableOutput[]>;
+    findProvenTxReqs: (args: FindProvenTxReqsArgs) => Promise<TableProvenTxReq[]>;
+    listActions: (auth: AuthId, vargs: Validation.ValidListActionsArgs) => Promise<ListActionsResult>;
+    listCertificates: (auth: AuthId, vargs: Validation.ValidListCertificatesArgs) => Promise<ListCertificatesResult>;
+    listOutputs: (auth: AuthId, vargs: Validation.ValidListOutputsArgs) => Promise<ListOutputsResult>;
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [WalletServices](./client.md#interface-walletservices), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs)
+See also: [AuthId](#interface-authid), [FindCertificatesArgs](#interface-findcertificatesargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [WalletServices](#interface-walletservices), [listCertificates](#function-listcertificates)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8344,26 +6651,26 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface WalletStorageSync extends WalletStorageWriter {
-    findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
+    findOrInsertSyncStateAuth: (auth: AuthId, storageIdentityKey: string, storageName: string) => Promise<{
         syncState: TableSyncState;
         isNew: boolean;
     }>;
-    setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>;
-    getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>;
-    processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>;
+    setActive: (auth: AuthId, newActiveStorageIdentityKey: string) => Promise<number>;
+    getSyncChunk: (args: RequestSyncChunkArgs) => Promise<SyncChunk>;
+    processSyncChunk: (args: RequestSyncChunkArgs, chunk: SyncChunk) => Promise<ProcessSyncChunkResult>;
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk), [TableSyncState](./storage.md#interface-tablesyncstate), [WalletStorageWriter](./client.md#interface-walletstoragewriter), [getSyncChunk](./storage.md#function-getsyncchunk)
+See also: [AuthId](#interface-authid), [ProcessSyncChunkResult](#interface-processsyncchunkresult), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [SyncChunk](#interface-syncchunk), [TableSyncState](#interface-tablesyncstate), [WalletStorageWriter](#interface-walletstoragewriter), [getSyncChunk](#function-getsyncchunk)
 
-###### Method setActive
+###### Property setActive
 
 Updagte the `activeStorage` property of the authenticated user by their `userId`.
 
 ```ts
-setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
+setActive: (auth: AuthId, newActiveStorageIdentityKey: string) => Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8374,12 +6681,12 @@ This is the minimal interface required for a WalletStorageProvider to export dat
 
 ```ts
 export interface WalletStorageSyncReader {
-    makeAvailable(): Promise<TableSettings>;
-    getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>;
+    makeAvailable: () => Promise<TableSettings>;
+    getSyncChunk: (args: RequestSyncChunkArgs) => Promise<SyncChunk>;
 }
 ```
 
-See also: [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk), [TableSettings](./storage.md#interface-tablesettings), [getSyncChunk](./storage.md#function-getsyncchunk)
+See also: [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [SyncChunk](#interface-syncchunk), [TableSettings](#interface-tablesettings), [getSyncChunk](#function-getsyncchunk)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8388,24 +6695,24 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface WalletStorageWriter extends WalletStorageReader {
-    makeAvailable(): Promise<TableSettings>;
-    migrate(storageName: string, storageIdentityKey: string): Promise<string>;
-    destroy(): Promise<void>;
-    findOrInsertUser(identityKey: string): Promise<{
+    makeAvailable: () => Promise<TableSettings>;
+    migrate: (storageName: string, storageIdentityKey: string) => Promise<string>;
+    destroy: () => Promise<void>;
+    findOrInsertUser: (identityKey: string) => Promise<{
         user: TableUser;
         isNew: boolean;
     }>;
-    abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>;
-    createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>;
-    processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>;
-    internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>;
-    insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>;
-    relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>;
-    relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>;
+    abortAction: (auth: AuthId, args: AbortActionArgs) => Promise<AbortActionResult>;
+    createAction: (auth: AuthId, args: Validation.ValidCreateActionArgs) => Promise<StorageCreateActionResult>;
+    processAction: (auth: AuthId, args: StorageProcessActionArgs) => Promise<StorageProcessActionResults>;
+    internalizeAction: (auth: AuthId, args: InternalizeActionArgs) => Promise<StorageInternalizeActionResult>;
+    insertCertificateAuth: (auth: AuthId, certificate: TableCertificateX) => Promise<number>;
+    relinquishCertificate: (auth: AuthId, args: RelinquishCertificateArgs) => Promise<number>;
+    relinquishOutput: (auth: AuthId, args: RelinquishOutputArgs) => Promise<number>;
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableSettings](./storage.md#interface-tablesettings), [TableUser](./storage.md#interface-tableuser), [WalletStorageReader](./client.md#interface-walletstoragereader), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [processAction](./storage.md#function-processaction)
+See also: [AuthId](#interface-authid), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [TableCertificateX](#interface-tablecertificatex), [TableSettings](#interface-tablesettings), [TableUser](#interface-tableuser), [WalletStorageReader](#interface-walletstoragereader), [createAction](#function-createaction), [internalizeAction](#function-internalizeaction), [processAction](#function-processaction)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8416,76 +6723,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export interface WalletTheme {
     mode: string;
 }
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: WhatsOnChainServicesOptions
-
-```ts
-export interface WhatsOnChainServicesOptions {
-    chain: Chain;
-    apiKey?: string;
-    timeout: number;
-    userAgent: string;
-    enableCache: boolean;
-    chainInfoMsecs: number;
-}
-```
-
-See also: [Chain](./client.md#type-chain)
-
-###### Property apiKey
-
-WhatsOnChain.com API Key
-https://docs.taal.com/introduction/get-an-api-key
-If unknown or empty, maximum request rate is limited.
-https://developers.whatsonchain.com/#rate-limits
-
-```ts
-apiKey?: string
-```
-
-###### Property chain
-
-Which chain is being tracked: main, test, or stn.
-
-```ts
-chain: Chain
-```
-See also: [Chain](./client.md#type-chain)
-
-###### Property chainInfoMsecs
-
-How long chainInfo is considered still valid before updating (msecs).
-
-```ts
-chainInfoMsecs: number
-```
-
-###### Property enableCache
-
-Enable WhatsOnChain client cache option.
-
-```ts
-enableCache: boolean
-```
-
-###### Property timeout
-
-Request timeout for GETs to https://api.whatsonchain.com/v1/bsv
-
-```ts
-timeout: number
-```
-
-###### Property userAgent
-
-User-Agent header value for requests to https://api.whatsonchain.com/v1/bsv
-
-```ts
-userAgent: string
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -8504,44 +6741,6 @@ export interface WocChainInfo {
     verificationprogress: number;
     pruned: boolean;
     chainwork: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: WocGetHeaderByteFileLinks
-
-```ts
-export interface WocGetHeaderByteFileLinks {
-    files: string[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Interface: WocGetHeadersHeader
-
-```ts
-export interface WocGetHeadersHeader {
-    hash: string;
-    confirmations: number;
-    size: number;
-    height: number;
-    version: number;
-    versionHex: string;
-    merkleroot: string;
-    time: number;
-    mediantime: number;
-    nonce: number;
-    bits: string;
-    difficulty: number;
-    chainwork: string;
-    previousblockhash: string;
-    nextblockhash: string;
-    nTx: number;
-    num_tx: number;
 }
 ```
 
@@ -8586,7 +6785,7 @@ export interface XValidCreateActionOutput extends Validation.ValidCreateActionOu
 }
 ```
 
-See also: [StorageProvidedBy](./client.md#type-storageprovidedby)
+See also: [StorageProvidedBy](#type-storageprovidedby)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8595,44 +6794,34 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [ARC](#class-arc) | [EntitySyncState](#class-entitysyncstate) | [TaskNewHeader](#class-tasknewheader) |
-| [ArcSSEClient](#class-arcsseclient) | [EntityTransaction](#class-entitytransaction) | [TaskPurge](#class-taskpurge) |
-| [AuthMethodInteractor](#class-authmethodinteractor) | [EntityTxLabel](#class-entitytxlabel) | [TaskReorg](#class-taskreorg) |
-| [BHServiceClient](#class-bhserviceclient) | [EntityTxLabelMap](#class-entitytxlabelmap) | [TaskReviewDoubleSpends](#class-taskreviewdoublespends) |
-| [Bitails](#class-bitails) | [EntityUser](#class-entityuser) | [TaskReviewProvenTxs](#class-taskreviewproventxs) |
-| [BulkFileDataManager](#class-bulkfiledatamanager) | [HeightRange](#class-heightrange) | [TaskReviewStatus](#class-taskreviewstatus) |
-| [BulkFileDataReader](#class-bulkfiledatareader) | [LiveIngestorBase](#class-liveingestorbase) | [TaskReviewUtxos](#class-taskreviewutxos) |
-| [BulkFilesReader](#class-bulkfilesreader) | [LiveIngestorWhatsOnChainPoll](#class-liveingestorwhatsonchainpoll) | [TaskSendWaiting](#class-tasksendwaiting) |
-| [BulkFilesReaderFs](#class-bulkfilesreaderfs) | [MergeEntity](#class-mergeentity) | [TaskUnFail](#class-taskunfail) |
-| [BulkFilesReaderStorage](#class-bulkfilesreaderstorage) | [MockChainMigrations](#class-mockchainmigrations) | [TwilioPhoneInteractor](#class-twiliophoneinteractor) |
-| [BulkHeaderFile](#class-bulkheaderfile) | [MockChainStorage](#class-mockchainstorage) | [WABClient](#class-wabclient) |
-| [BulkHeaderFileFs](#class-bulkheaderfilefs) | [MockChainTracker](#class-mockchaintracker) | [WERR_BAD_REQUEST](#class-werr_bad_request) |
-| [BulkHeaderFileStorage](#class-bulkheaderfilestorage) | [MockMiner](#class-mockminer) | [WERR_BROADCAST_UNAVAILABLE](#class-werr_broadcast_unavailable) |
-| [BulkHeaderFiles](#class-bulkheaderfiles) | [MockServices](#class-mockservices) | [WERR_INSUFFICIENT_FUNDS](#class-werr_insufficient_funds) |
-| [BulkIngestorBase](#class-bulkingestorbase) | [Monitor](#class-monitor) | [WERR_INTERNAL](#class-werr_internal) |
-| [BulkIngestorCDN](#class-bulkingestorcdn) | [OverlayUMPTokenInteractor](#class-overlayumptokeninteractor) | [WERR_INVALID_MERKLE_ROOT](#class-werr_invalid_merkle_root) |
-| [BulkIngestorCDNBabbage](#class-bulkingestorcdnbabbage) | [PersonaIDInteractor](#class-personaidinteractor) | [WERR_INVALID_OPERATION](#class-werr_invalid_operation) |
-| [BulkIngestorWhatsOnChainCdn](#class-bulkingestorwhatsonchaincdn) | [PrivilegedKeyManager](#class-privilegedkeymanager) | [WERR_INVALID_PARAMETER](#class-werr_invalid_parameter) |
-| [BulkStorageBase](#class-bulkstoragebase) | [ScriptTemplateBRC29](#class-scripttemplatebrc29) | [WERR_INVALID_PUBLIC_KEY](#class-werr_invalid_public_key) |
-| [CWIStyleWalletManager](#class-cwistylewalletmanager) | [SdkWhatsOnChain](#class-sdkwhatsonchain) | [WERR_MISSING_PARAMETER](#class-werr_missing_parameter) |
-| [Chaintracks](#class-chaintracks) | [ServiceCollection](#class-servicecollection) | [WERR_NETWORK_CHAIN](#class-werr_network_chain) |
-| [ChaintracksChainTracker](#class-chaintrackschaintracker) | [Services](#class-services) | [WERR_NOT_ACTIVE](#class-werr_not_active) |
-| [ChaintracksFetch](#class-chaintracksfetch) | [SetupClient](#class-setupclient) | [WERR_NOT_IMPLEMENTED](#class-werr_not_implemented) |
-| [ChaintracksServiceClient](#class-chaintracksserviceclient) | [SimpleWalletManager](#class-simplewalletmanager) | [WERR_REVIEW_ACTIONS](#class-werr_review_actions) |
-| [ChaintracksStorageBase](#class-chaintracksstoragebase) | [SingleWriterMultiReaderLock](#class-singlewritermultireaderlock) | [WERR_UNAUTHORIZED](#class-werr_unauthorized) |
-| [ChaintracksStorageIdb](#class-chaintracksstorageidb) | [StorageClient](#class-storageclient) | [Wallet](#class-wallet) |
-| [ChaintracksStorageNoDb](#class-chaintracksstoragenodb) | [StorageIdb](#class-storageidb) | [WalletAuthenticationManager](#class-walletauthenticationmanager) |
-| [DevConsoleInteractor](#class-devconsoleinteractor) | [StorageProvider](#class-storageprovider) | [WalletError](#class-walleterror) |
-| [EntityBase](#class-entitybase) | [StorageReader](#class-storagereader) | [WalletLogger](#class-walletlogger) |
-| [EntityCertificate](#class-entitycertificate) | [StorageReaderWriter](#class-storagereaderwriter) | [WalletMonitorTask](#class-walletmonitortask) |
-| [EntityCertificateField](#class-entitycertificatefield) | [StorageSyncReader](#class-storagesyncreader) | [WalletPermissionsManager](#class-walletpermissionsmanager) |
-| [EntityCommission](#class-entitycommission) | [TaskArcadeSSE](#class-taskarcadesse) | [WalletSettingsManager](#class-walletsettingsmanager) |
-| [EntityOutput](#class-entityoutput) | [TaskCheckForProofs](#class-taskcheckforproofs) | [WalletSigner](#class-walletsigner) |
-| [EntityOutputBasket](#class-entityoutputbasket) | [TaskCheckNoSends](#class-taskchecknosends) | [WalletStorageManager](#class-walletstoragemanager) |
-| [EntityOutputTag](#class-entityoutputtag) | [TaskClock](#class-taskclock) | [WhatsOnChain](#class-whatsonchain) |
-| [EntityOutputTagMap](#class-entityoutputtagmap) | [TaskFailAbandoned](#class-taskfailabandoned) | [WhatsOnChainNoServices](#class-whatsonchainnoservices) |
-| [EntityProvenTx](#class-entityproventx) | [TaskMineBlock](#class-taskmineblock) | [WhatsOnChainServices](#class-whatsonchainservices) |
-| [EntityProvenTxReq](#class-entityproventxreq) | [TaskMonitorCallHistory](#class-taskmonitorcallhistory) |  |
+| [ARC](#class-arc) | [Monitor](#class-monitor) | [TaskSendWaiting](#class-tasksendwaiting) |
+| [ArcSSEClient](#class-arcsseclient) | [PrivilegedKeyManager](#class-privilegedkeymanager) | [TaskUnFail](#class-taskunfail) |
+| [Bitails](#class-bitails) | [ScriptHashCache](#class-scripthashcache) | [UndiciHttpClient](#class-undicihttpclient) |
+| [BlockHeaderCache](#class-blockheadercache) | [ScriptTemplateBRC29](#class-scripttemplatebrc29) | [UtxoCacheManager](#class-utxocachemanager) |
+| [BulkFileDataManager](#class-bulkfiledatamanager) | [SdkWhatsOnChain](#class-sdkwhatsonchain) | [WERR_BAD_REQUEST](#class-werr_bad_request) |
+| [BulkFileDataReader](#class-bulkfiledatareader) | [ServiceCollection](#class-servicecollection) | [WERR_BROADCAST_UNAVAILABLE](#class-werr_broadcast_unavailable) |
+| [BulkFilesReader](#class-bulkfilesreader) | [Services](#class-services) | [WERR_INSUFFICIENT_FUNDS](#class-werr_insufficient_funds) |
+| [BulkFilesReaderFs](#class-bulkfilesreaderfs) | [SingleWriterMultiReaderLock](#class-singlewritermultireaderlock) | [WERR_INTERNAL](#class-werr_internal) |
+| [BulkFilesReaderStorage](#class-bulkfilesreaderstorage) | [SpvHeaderSync](#class-spvheadersync) | [WERR_INVALID_MERKLE_ROOT](#class-werr_invalid_merkle_root) |
+| [BulkHeaderFile](#class-bulkheaderfile) | [StorageClient](#class-storageclient) | [WERR_INVALID_OPERATION](#class-werr_invalid_operation) |
+| [BulkHeaderFileFs](#class-bulkheaderfilefs) | [StorageClientBase](#class-storageclientbase) | [WERR_INVALID_PARAMETER](#class-werr_invalid_parameter) |
+| [BulkHeaderFileStorage](#class-bulkheaderfilestorage) | [StorageProvider](#class-storageprovider) | [WERR_INVALID_PUBLIC_KEY](#class-werr_invalid_public_key) |
+| [BulkHeaderFiles](#class-bulkheaderfiles) | [StorageReader](#class-storagereader) | [WERR_MISSING_PARAMETER](#class-werr_missing_parameter) |
+| [Chaintracks](#class-chaintracks) | [StorageReaderWriter](#class-storagereaderwriter) | [WERR_NETWORK_CHAIN](#class-werr_network_chain) |
+| [ChaintracksChainTracker](#class-chaintrackschaintracker) | [TaskArcadeSSE](#class-taskarcadesse) | [WERR_NOT_ACTIVE](#class-werr_not_active) |
+| [ChaintracksFetch](#class-chaintracksfetch) | [TaskCheckForProofs](#class-taskcheckforproofs) | [WERR_NOT_IMPLEMENTED](#class-werr_not_implemented) |
+| [ChaintracksServiceClient](#class-chaintracksserviceclient) | [TaskCheckNoSends](#class-taskchecknosends) | [WERR_REVIEW_ACTIONS](#class-werr_review_actions) |
+| [ChaintracksStorageBase](#class-chaintracksstoragebase) | [TaskClock](#class-taskclock) | [WERR_UNAUTHORIZED](#class-werr_unauthorized) |
+| [EntityBase](#class-entitybase) | [TaskFailAbandoned](#class-taskfailabandoned) | [Wallet](#class-wallet) |
+| [EntityProvenTx](#class-entityproventx) | [TaskMineBlock](#class-taskmineblock) | [WalletError](#class-walleterror) |
+| [EntityProvenTxReq](#class-entityproventxreq) | [TaskMonitorCallHistory](#class-taskmonitorcallhistory) | [WalletLogger](#class-walletlogger) |
+| [EventBus](#class-eventbus) | [TaskNewHeader](#class-tasknewheader) | [WalletMonitorTask](#class-walletmonitortask) |
+| [HeightRange](#class-heightrange) | [TaskPurge](#class-taskpurge) | [WalletSettingsManager](#class-walletsettingsmanager) |
+| [MockChainMigrations](#class-mockchainmigrations) | [TaskReorg](#class-taskreorg) | [WalletSigner](#class-walletsigner) |
+| [MockChainStorage](#class-mockchainstorage) | [TaskReviewDoubleSpends](#class-taskreviewdoublespends) | [WalletStorageManager](#class-walletstoragemanager) |
+| [MockChainTracker](#class-mockchaintracker) | [TaskReviewProvenTxs](#class-taskreviewproventxs) | [WalletToolboxMetrics](#class-wallettoolboxmetrics) |
+| [MockMiner](#class-mockminer) | [TaskReviewStatus](#class-taskreviewstatus) | [WhatsOnChain](#class-whatsonchain) |
+| [MockServices](#class-mockservices) | [TaskReviewUtxos](#class-taskreviewutxos) | [WhatsOnChainNoServices](#class-whatsonchainnoservices) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8653,14 +6842,14 @@ export class ARC {
     readonly headers: Record<string, string> | undefined;
     constructor(URL: string, config?: ArcConfig, name?: string);
     constructor(URL: string, apiKey?: string, name?: string);
-    constructor(URL: string, config?: string | ArcConfig, name?: string) 
-    async postRawTx(rawTx: HexString, txids?: string[]): Promise<PostTxResultForTxid> 
-    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
-    async getTxData(txid: string): Promise<ArcMinerGetTxData> 
+    constructor(URL: string, config?: string | ArcConfig, name?: string)
+    async postRawTx(rawTx: HexString, txids?: string[]): Promise<PostTxResultForTxid>
+    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
+    async getTxData(txid: string): Promise<ArcMinerGetTxData>
 }
 ```
 
-See also: [ArcConfig](./services.md#interface-arcconfig), [ArcMinerGetTxData](./services.md#interface-arcminergettxdata), [PostBeefResult](./client.md#interface-postbeefresult), [PostTxResultForTxid](./client.md#interface-posttxresultfortxid)
+See also: [ArcConfig](#interface-arcconfig), [ArcMinerGetTxData](#interface-arcminergettxdata), [PostBeefResult](#interface-postbeefresult), [PostTxResultForTxid](#interface-posttxresultfortxid)
 
 ###### Constructor
 
@@ -8669,7 +6858,7 @@ Constructs an instance of the ARC broadcaster.
 ```ts
 constructor(URL: string, config?: ArcConfig, name?: string)
 ```
-See also: [ArcConfig](./services.md#interface-arcconfig)
+See also: [ArcConfig](#interface-arcconfig)
 
 Argument Details
 
@@ -8698,9 +6887,9 @@ Argument Details
 This seems to only work for recently submitted txids...but that's all we need to complete postBeef!
 
 ```ts
-async getTxData(txid: string): Promise<ArcMinerGetTxData> 
+async getTxData(txid: string): Promise<ArcMinerGetTxData>
 ```
-See also: [ArcMinerGetTxData](./services.md#interface-arcminergettxdata)
+See also: [ArcMinerGetTxData](#interface-arcminergettxdata)
 
 ###### Method postBeef
 
@@ -8710,9 +6899,9 @@ It does process multiple new transactions, however, which allows results for all
 to be collected by the `/v1/tx/${txid}` endpoint.
 
 ```ts
-async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
+async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
 ```
-See also: [PostBeefResult](./client.md#interface-postbeefresult)
+See also: [PostBeefResult](#interface-postbeefresult)
 
 ###### Method postRawTx
 
@@ -8725,9 +6914,9 @@ The ARC '/v1/tx' endpoint, as of 2025-02-17 DOES NOT support the following hex s
   1. V2 serialized Beef
 
 ```ts
-async postRawTx(rawTx: HexString, txids?: string[]): Promise<PostTxResultForTxid> 
+async postRawTx(rawTx: HexString, txids?: string[]): Promise<PostTxResultForTxid>
 ```
-See also: [PostTxResultForTxid](./client.md#interface-posttxresultfortxid)
+See also: [PostTxResultForTxid](#interface-posttxresultfortxid)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8736,22 +6925,22 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class ArcSSEClient {
-    constructor(private readonly options: ArcSSEClientOptions) 
-    get lastEventId(): string | undefined 
-    connect(): void 
-    close(): void 
-    async fetchEvents(): Promise<number> 
+    constructor(private readonly options: ArcSSEClientOptions)
+    get lastEventId(): string | undefined
+    connect(): void
+    close(): void
+    async fetchEvents(): Promise<number>
 }
 ```
 
-See also: [ArcSSEClientOptions](./services.md#interface-arcsseclientoptions)
+See also: [ArcSSEClientOptions](#interface-arcsseclientoptions)
 
 ###### Method close
 
 Close the connection and clean up
 
 ```ts
-close(): void 
+close(): void
 ```
 
 ###### Method connect
@@ -8759,7 +6948,7 @@ close(): void
 Open the SSE connection. Events will be dispatched via onEvent as they arrive.
 
 ```ts
-connect(): void 
+connect(): void
 ```
 
 ###### Method fetchEvents
@@ -8769,89 +6958,8 @@ If not connected, opens a new connection with catchup from lastEventId.
 Returns immediately — events arrive asynchronously via onEvent callback.
 
 ```ts
-async fetchEvents(): Promise<number> 
+async fetchEvents(): Promise<number>
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: AuthMethodInteractor
-
-Abstract client-side interactor for an Auth Method.
-
-Subclasses only need to set `methodType`; the HTTP calls to
-`/auth/start` and `/auth/complete` are handled here.
-
-```ts
-export abstract class AuthMethodInteractor {
-    public abstract methodType: string;
-    public async startAuth(serverUrl: string, presentationKey: string, payload: AuthPayload): Promise<StartAuthResponse> 
-    public async completeAuth(serverUrl: string, presentationKey: string, payload: AuthPayload): Promise<CompleteAuthResponse> 
-}
-```
-
-See also: [AuthPayload](./client.md#interface-authpayload), [CompleteAuthResponse](./client.md#interface-completeauthresponse), [StartAuthResponse](./client.md#interface-startauthresponse)
-
-###### Method completeAuth
-
-Complete the flow (e.g. confirm OTP).
-
-```ts
-public async completeAuth(serverUrl: string, presentationKey: string, payload: AuthPayload): Promise<CompleteAuthResponse> 
-```
-See also: [AuthPayload](./client.md#interface-authpayload), [CompleteAuthResponse](./client.md#interface-completeauthresponse)
-
-###### Method startAuth
-
-Start the flow (e.g. request an OTP or create a session).
-
-```ts
-public async startAuth(serverUrl: string, presentationKey: string, payload: AuthPayload): Promise<StartAuthResponse> 
-```
-See also: [AuthPayload](./client.md#interface-authpayload), [StartAuthResponse](./client.md#interface-startauthresponse)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BHServiceClient
-
-```ts
-export class BHServiceClient implements ChaintracksServiceClient {
-    bhs: BlockHeadersService;
-    cache: Record<number, string>;
-    chain: Chain;
-    serviceUrl: string;
-    options: ChaintracksServiceClientOptions;
-    apiKey: string;
-    constructor(chain: Chain, url: string, apiKey: string) 
-    async currentHeight(): Promise<number> 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
-    async getPresentHeight(): Promise<number> 
-    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined> 
-    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined> 
-    async getHeaders(height: number, count: number): Promise<string> 
-    async findChainWorkForBlockHash(hash: string): Promise<string | undefined> 
-    async findChainTipHeader(): Promise<BlockHeader> 
-    async getJsonOrUndefined<T>(path: string): Promise<T | undefined> 
-    async getJson<T>(path: string): Promise<T> 
-    async postJsonVoid<T>(path: string, params: T): Promise<void> 
-    async addHeader(header: any): Promise<void> 
-    async findHeaderForMerkleRoot(merkleRoot: string, height?: number): Promise<undefined> 
-    async startListening(): Promise<void> 
-    async listening(): Promise<void> 
-    async isSynchronized(): Promise<boolean> 
-    async getChain(): Promise<Chain> 
-    async isListening(): Promise<boolean> 
-    async getChainTipHeader(): Promise<BlockHeader> 
-    async findChainTipHash(): Promise<string> 
-    async subscribeHeaders(listener: HeaderListener): Promise<string> 
-    async subscribeReorgs(listener: ReorgListener): Promise<string> 
-    async unsubscribe(subscriptionId: string): Promise<boolean> 
-    async getInfo(): Promise<ChaintracksInfoApi> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi), [ChaintracksServiceClient](./services.md#class-chaintracksserviceclient), [ChaintracksServiceClientOptions](./services.md#interface-chaintracksserviceclientoptions), [HeaderListener](./services.md#type-headerlistener), [ReorgListener](./services.md#type-reorglistener)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8864,15 +6972,15 @@ export class Bitails {
     readonly apiKey: string;
     readonly URL: string;
     readonly httpClient: HttpClient;
-    constructor(chain: Chain = "main", config: BitailsConfig = {}) 
-    getHttpHeaders(): Record<string, string> 
-    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
-    async postRaws(raws: HexString[], txids?: string[]): Promise<PostBeefResult> 
-    async getMerklePath(txid: string, services: WalletServices): Promise<GetMerklePathResult> 
+    constructor(chain: Chain = "main", config: BitailsConfig = {})
+    getHttpHeaders(): Record<string, string>
+    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
+    async postRaws(raws: HexString[], txids?: string[]): Promise<PostBeefResult>
+    async getMerklePath(txid: string, services: WalletServices): Promise<GetMerklePathResult>
 }
 ```
 
-See also: [BitailsConfig](./services.md#interface-bitailsconfig), [Chain](./client.md#type-chain), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [PostBeefResult](./client.md#interface-postbeefresult), [WalletServices](./client.md#interface-walletservices)
+See also: [BitailsConfig](#interface-bitailsconfig), [Chain](#type-chain), [GetMerklePathResult](#interface-getmerklepathresult), [PostBeefResult](#interface-postbeefresult), [WalletServices](#interface-walletservices)
 
 ###### Method postBeef
 
@@ -8881,16 +6989,16 @@ Bitails does not natively support a postBeef end-point aware of multiple txids o
 Send rawTx in `txids` order from beef.
 
 ```ts
-async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
+async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
 ```
-See also: [PostBeefResult](./client.md#interface-postbeefresult)
+See also: [PostBeefResult](#interface-postbeefresult)
 
 ###### Method postRaws
 
 ```ts
-async postRaws(raws: HexString[], txids?: string[]): Promise<PostBeefResult> 
+async postRaws(raws: HexString[], txids?: string[]): Promise<PostBeefResult>
 ```
-See also: [PostBeefResult](./client.md#interface-postbeefresult)
+See also: [PostBeefResult](#interface-postbeefresult)
 
 Argument Details
 
@@ -8898,6 +7006,34 @@ Argument Details
   + Array of raw transactions to broadcast as hex strings
 + **txids**
   + Array of txids for transactions in raws for which results are requested, remaining raws are supporting only.
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Class: BlockHeaderCache
+
+```ts
+export class BlockHeaderCache {
+    constructor(options: BlockHeaderCacheOptions = {})
+    getByHeight(height: number): BlockHeader | undefined
+    getByHash(hash: string): BlockHeader | undefined
+    set(header: BlockHeader): void
+    invalidateHeight(height: number): void
+    invalidateHash(hash: string): void
+    invalidateFromHeight(height: number): number
+    clear(): void
+    close(): void
+    getStats(): {
+        entries: number;
+        ttlMs: number;
+        hits: number;
+        misses: number;
+        hitRate: number;
+    }
+}
+```
+
+See also: [BlockHeader](#interface-blockheader), [BlockHeaderCacheOptions](#interface-blockheadercacheoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8914,37 +7050,37 @@ subject to the optional `maxRetained` limit.
 
 ```ts
 export class BulkFileDataManager {
-    static createDefaultOptions(chain: Chain): BulkFileDataManagerOptions 
+    static createDefaultOptions(chain: Chain): BulkFileDataManagerOptions
     readonly chain: Chain;
     readonly maxPerFile: number;
     readonly fetch?: ChaintracksFetchApi;
     readonly maxRetained?: number;
     readonly fromKnownSourceUrl?: string;
-    constructor(options: BulkFileDataManagerOptions | Chain) 
-    async deleteBulkFiles(): Promise<void> 
-    async setStorage(storage: ChaintracksStorageBulkFileApi, log: (...args: any[]) => void): Promise<void> 
+    constructor(options: BulkFileDataManagerOptions | Chain)
+    async deleteBulkFiles(): Promise<void>
+    async setStorage(storage: ChaintracksStorageBulkFileApi, log: (...args: any[]) => void): Promise<void>
     heightRangesFromBulkFiles(files: BulkHeaderFileInfo[]): {
         all: HeightRange;
         cdn: HeightRange;
         incremental: HeightRange;
-    } 
-    async createReader(range?: HeightRange, maxBufferSize?: number): Promise<BulkFileDataReader> 
-    async updateFromUrl(cdnUrl: string): Promise<void> 
-    async merge(files: BulkHeaderFileInfo[]): Promise<BulkFileDataManagerMergeResult> 
-    toLogString(what?: BulkFileDataManagerMergeResult | BulkFileData[] | BulkHeaderFileInfo[]): string 
-    async mergeIncrementalBlockHeaders(newBulkHeaders: BlockHeader[], incrementalChainWork?: string): Promise<void> 
-    async getBulkFiles(keepData?: boolean): Promise<BulkHeaderFileInfo[]> 
-    async getHeightRange(): Promise<HeightRange> 
-    async getDataFromFile(file: BulkHeaderFileInfo, offset?: number, length?: number): Promise<Uint8Array | undefined> 
-    async findHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined> 
-    async getFileForHeight(height: number): Promise<BulkHeaderFileInfo | undefined> 
-    async getLastFile(fromEnd = 1): Promise<BulkHeaderFileInfo | undefined> 
-    async ReValidate(): Promise<void> 
-    async exportHeadersToFs(toFs: ChaintracksFsApi, toHeadersPerFile: number, toFolder: string, sourceUrl?: string, maxHeight?: number): Promise<void> 
+    }
+    async createReader(range?: HeightRange, maxBufferSize?: number): Promise<BulkFileDataReader>
+    async updateFromUrl(cdnUrl: string): Promise<void>
+    async merge(files: BulkHeaderFileInfo[]): Promise<BulkFileDataManagerMergeResult>
+    toLogString(what?: BulkFileDataManagerMergeResult | BulkFileData[] | BulkHeaderFileInfo[]): string
+    async mergeIncrementalBlockHeaders(newBulkHeaders: BlockHeader[], incrementalChainWork?: string): Promise<void>
+    async getBulkFiles(keepData?: boolean): Promise<BulkHeaderFileInfo[]>
+    async getHeightRange(): Promise<HeightRange>
+    async getDataFromFile(file: BulkHeaderFileInfo, offset?: number, length?: number): Promise<Uint8Array | undefined>
+    async findHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined>
+    async getFileForHeight(height: number): Promise<BulkHeaderFileInfo | undefined>
+    async getLastFile(fromEnd = 1): Promise<BulkHeaderFileInfo | undefined>
+    async ReValidate(): Promise<void>
+    async exportHeadersToFs(toFs: ChaintracksFsApi, toHeadersPerFile: number, toFolder: string, sourceUrl?: string, maxHeight?: number): Promise<void>
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkFileDataManagerMergeResult](./services.md#interface-bulkfiledatamanagermergeresult), [BulkFileDataManagerOptions](./services.md#interface-bulkfiledatamanageroptions), [BulkFileDataReader](./services.md#class-bulkfiledatareader), [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [ChaintracksStorageBulkFileApi](./services.md#interface-chaintracksstoragebulkfileapi), [HeightRange](./services.md#class-heightrange)
+See also: [BlockHeader](#interface-blockheader), [BulkFileDataManagerMergeResult](#interface-bulkfiledatamanagermergeresult), [BulkFileDataManagerOptions](#interface-bulkfiledatamanageroptions), [BulkFileDataReader](#class-bulkfiledatareader), [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [Chain](#type-chain), [ChaintracksFetchApi](#interface-chaintracksfetchapi), [ChaintracksFsApi](#interface-chaintracksfsapi), [ChaintracksStorageBulkFileApi](#interface-chaintracksstoragebulkfileapi), [HeightRange](#class-heightrange)
 
 ###### Method setStorage
 
@@ -8955,9 +7091,9 @@ Synchronizes bfds and storage files, after which this manager maintains sync.
 There should be no changes to bulk files by direct access to storage bulk file methods.
 
 ```ts
-async setStorage(storage: ChaintracksStorageBulkFileApi, log: (...args: any[]) => void): Promise<void> 
+async setStorage(storage: ChaintracksStorageBulkFileApi, log: (...args: any[]) => void): Promise<void>
 ```
-See also: [ChaintracksStorageBulkFileApi](./services.md#interface-chaintracksstoragebulkfileapi)
+See also: [ChaintracksStorageBulkFileApi](#interface-chaintracksstoragebulkfileapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -8970,17 +7106,17 @@ export class BulkFileDataReader {
     readonly range: HeightRange;
     readonly maxBufferSize: number;
     nextHeight: number;
-    constructor(manager: BulkFileDataManager, range: HeightRange, maxBufferSize: number) 
-    async read(): Promise<Uint8Array | undefined> 
+    constructor(manager: BulkFileDataManager, range: HeightRange, maxBufferSize: number)
+    async read(): Promise<Uint8Array | undefined>
 }
 ```
 
-See also: [BulkFileDataManager](./services.md#class-bulkfiledatamanager), [HeightRange](./services.md#class-heightrange)
+See also: [BulkFileDataManager](#class-bulkfiledatamanager), [HeightRange](#class-heightrange)
 
 ###### Method read
 
 ```ts
-async read(): Promise<Uint8Array | undefined> 
+async read(): Promise<Uint8Array | undefined>
 ```
 
 Returns
@@ -9001,22 +7137,22 @@ export class BulkFilesReader {
     range: HeightRange;
     maxBufferSize = 400 * 80;
     nextHeight: number | undefined;
-    constructor(files: BulkHeaderFile[], range?: HeightRange, maxBufferSize?: number) 
-    protected setRange(range?: HeightRange) 
-    setMaxBufferSize(maxBufferSize: number | undefined) 
-    get heightRange(): HeightRange 
-    async readBufferForHeightOrUndefined(height: number): Promise<Uint8Array | undefined> 
-    async readBufferForHeight(height: number): Promise<Uint8Array> 
-    async readHeaderForHeight(height: number): Promise<BaseBlockHeader> 
-    async readHeaderForHeightOrUndefined(height: number): Promise<BaseBlockHeader | undefined> 
-    async read(): Promise<Uint8Array | undefined> 
-    resetRange(range: HeightRange, maxBufferSize?: number) 
-    async validateFiles(): Promise<void> 
-    async exportHeadersToFs(toFs: ChaintracksFsApi, toHeadersPerFile: number, toFolder: string): Promise<void> 
+    constructor(files: BulkHeaderFile[], range?: HeightRange, maxBufferSize?: number)
+    protected setRange(range?: HeightRange)
+    setMaxBufferSize(maxBufferSize: number | undefined)
+    get heightRange(): HeightRange
+    async readBufferForHeightOrUndefined(height: number): Promise<Uint8Array | undefined>
+    async readBufferForHeight(height: number): Promise<Uint8Array>
+    async readHeaderForHeight(height: number): Promise<BaseBlockHeader>
+    async readHeaderForHeightOrUndefined(height: number): Promise<BaseBlockHeader | undefined>
+    async read(): Promise<Uint8Array | undefined>
+    resetRange(range: HeightRange, maxBufferSize?: number)
+    async validateFiles(): Promise<void>
+    async exportHeadersToFs(toFs: ChaintracksFsApi, toHeadersPerFile: number, toFolder: string): Promise<void>
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BulkHeaderFile](./services.md#class-bulkheaderfile), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [HeightRange](./services.md#class-heightrange)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BulkHeaderFile](#class-bulkheaderfile), [ChaintracksFsApi](#interface-chaintracksfsapi), [HeightRange](#class-heightrange)
 
 ###### Property files
 
@@ -9025,7 +7161,7 @@ Previously validated bulk header files which may pull data from backing storage 
 ```ts
 files: BulkHeaderFile[]
 ```
-See also: [BulkHeaderFile](./services.md#class-bulkheaderfile)
+See also: [BulkHeaderFile](#class-bulkheaderfile)
 
 ###### Property maxBufferSize
 
@@ -9050,12 +7186,12 @@ Subset of headers currently being "read".
 ```ts
 range: HeightRange
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method read
 
 ```ts
-async read(): Promise<Uint8Array | undefined> 
+async read(): Promise<Uint8Array | undefined>
 ```
 
 Returns
@@ -9067,9 +7203,9 @@ an array containing the next `maxBufferSize` bytes of headers from the files.
 Reset the reading process and adjust the range to be read to a new subset of what's available...
 
 ```ts
-resetRange(range: HeightRange, maxBufferSize?: number) 
+resetRange(range: HeightRange, maxBufferSize?: number)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 Argument Details
 
@@ -9085,23 +7221,23 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class BulkFilesReaderFs extends BulkFilesReader {
-    constructor(public fs: ChaintracksFsApi, files: BulkHeaderFileFs[], range?: HeightRange, maxBufferSize?: number) 
-    static async fromFs(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderFs> 
-    static async writeEmptyJsonFile(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string): Promise<string> 
-    static async readJsonFile(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, failToEmptyRange: boolean = true): Promise<BulkHeaderFilesInfo> 
+    constructor(public fs: ChaintracksFsApi, files: BulkHeaderFileFs[], range?: HeightRange, maxBufferSize?: number)
+    static async fromFs(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderFs>
+    static async writeEmptyJsonFile(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string): Promise<string>
+    static async readJsonFile(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, failToEmptyRange: boolean = true): Promise<BulkHeaderFilesInfo>
 }
 ```
 
-See also: [BulkFilesReader](./services.md#class-bulkfilesreader), [BulkHeaderFileFs](./services.md#class-bulkheaderfilefs), [BulkHeaderFilesInfo](./services.md#interface-bulkheaderfilesinfo), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [HeightRange](./services.md#class-heightrange)
+See also: [BulkFilesReader](#class-bulkfilesreader), [BulkHeaderFileFs](#class-bulkheaderfilefs), [BulkHeaderFilesInfo](#interface-bulkheaderfilesinfo), [ChaintracksFsApi](#interface-chaintracksfsapi), [HeightRange](#class-heightrange)
 
 ###### Method fromFs
 
 Return a BulkFilesReader configured to access the intersection of `range` and available headers.
 
 ```ts
-static async fromFs(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderFs> 
+static async fromFs(fs: ChaintracksFsApi, rootFolder: string, jsonFilename: string, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderFs>
 ```
-See also: [BulkFilesReaderFs](./services.md#class-bulkfilesreaderfs), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [HeightRange](./services.md#class-heightrange)
+See also: [BulkFilesReaderFs](#class-bulkfilesreaderfs), [ChaintracksFsApi](#interface-chaintracksfsapi), [HeightRange](#class-heightrange)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -9110,12 +7246,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class BulkFilesReaderStorage extends BulkFilesReader {
-    constructor(storage: ChaintracksStorageBase, files: BulkHeaderFileStorage[], range?: HeightRange, maxBufferSize?: number) 
-    static async fromStorage(storage: ChaintracksStorageBase, fetch?: ChaintracksFetchApi, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderStorage> 
+    constructor(storage: ChaintracksStorageBase, files: BulkHeaderFileStorage[], range?: HeightRange, maxBufferSize?: number)
+    static async fromStorage(storage: ChaintracksStorageBase, fetch?: ChaintracksFetchApi, range?: HeightRange, maxBufferSize?: number): Promise<BulkFilesReaderStorage>
 }
 ```
 
-See also: [BulkFilesReader](./services.md#class-bulkfilesreader), [BulkHeaderFileStorage](./services.md#class-bulkheaderfilestorage), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase), [HeightRange](./services.md#class-heightrange)
+See also: [BulkFilesReader](#class-bulkfilesreader), [BulkHeaderFileStorage](#class-bulkheaderfilestorage), [ChaintracksFetchApi](#interface-chaintracksfetchapi), [ChaintracksStorageBase](#class-chaintracksstoragebase), [HeightRange](#class-heightrange)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -9124,38 +7260,38 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export abstract class BulkHeaderFile implements BulkHeaderFileInfo {
-    chain?: Chain | undefined;
+    chain?: Chain;
     count: number;
-    data?: Uint8Array<ArrayBufferLike> | undefined;
+    data?: Uint8Array<ArrayBufferLike>;
     fileHash: string | null;
-    fileId?: number | undefined;
+    fileId?: number;
     fileName: string;
     firstHeight: number;
     lastChainWork: string;
     lastHash: string | null;
     prevChainWork: string;
     prevHash: string;
-    sourceUrl?: string | undefined;
-    validated?: boolean | undefined;
-    constructor(info: BulkHeaderFileInfo) 
+    sourceUrl?: string;
+    validated?: boolean;
+    constructor(info: BulkHeaderFileInfo)
     abstract readDataFromFile(length: number, offset: number): Promise<Uint8Array | undefined>;
-    get heightRange(): HeightRange 
-    async ensureData(): Promise<Uint8Array> 
-    async computeFileHash(): Promise<string> 
-    async releaseData(): Promise<void> 
-    toCdnInfo(): BulkHeaderFileInfo 
-    toStorageInfo(): BulkHeaderFileInfo 
+    get heightRange(): HeightRange
+    async ensureData(): Promise<Uint8Array>
+    async computeFileHash(): Promise<string>
+    async releaseData(): Promise<void>
+    toCdnInfo(): BulkHeaderFileInfo
+    toStorageInfo(): BulkHeaderFileInfo
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [Chain](./client.md#type-chain), [HeightRange](./services.md#class-heightrange)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [Chain](#type-chain), [HeightRange](#class-heightrange)
 
 ###### Method computeFileHash
 
 Whenever reloading data from a backing store, validated fileHash must be re-verified
 
 ```ts
-async computeFileHash(): Promise<string> 
+async computeFileHash(): Promise<string>
 ```
 
 Returns
@@ -9169,13 +7305,13 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class BulkHeaderFileFs extends BulkHeaderFile {
-    constructor(info: BulkHeaderFileInfo, public fs: ChaintracksFsApi, public rootFolder: string) 
-    override async readDataFromFile(length: number, offset: number): Promise<Uint8Array | undefined> 
-    override async ensureData(): Promise<Uint8Array> 
+    constructor(info: BulkHeaderFileInfo, public fs: ChaintracksFsApi, public rootFolder: string)
+    override async readDataFromFile(length: number, offset: number): Promise<Uint8Array | undefined>
+    override async ensureData(): Promise<Uint8Array>
 }
 ```
 
-See also: [BulkHeaderFile](./services.md#class-bulkheaderfile), [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi)
+See also: [BulkHeaderFile](#class-bulkheaderfile), [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [ChaintracksFsApi](#interface-chaintracksfsapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -9184,13 +7320,13 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class BulkHeaderFileStorage extends BulkHeaderFile {
-    constructor(info: BulkHeaderFileInfo, public storage: ChaintracksStorageBase, public fetch?: ChaintracksFetchApi) 
-    override async readDataFromFile(length: number, offset: number): Promise<Uint8Array | undefined> 
-    override async ensureData(): Promise<Uint8Array> 
+    constructor(info: BulkHeaderFileInfo, public storage: ChaintracksStorageBase, public fetch?: ChaintracksFetchApi)
+    override async readDataFromFile(length: number, offset: number): Promise<Uint8Array | undefined>
+    override async ensureData(): Promise<Uint8Array>
 }
 ```
 
-See also: [BulkHeaderFile](./services.md#class-bulkheaderfile), [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase)
+See also: [BulkHeaderFile](#class-bulkheaderfile), [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [ChaintracksFetchApi](#interface-chaintracksfetchapi), [ChaintracksStorageBase](#class-chaintracksstoragebase)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -9199,557 +7335,11 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export abstract class BulkHeaderFiles implements BulkHeaderFilesInfo {
-    constructor(public rootFolder: string, public jsonFilename: string, public files: BulkHeaderFileInfo[], public headersPerFile: number) 
+    constructor(public rootFolder: string, public jsonFilename: string, public files: BulkHeaderFileInfo[], public headersPerFile: number)
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [BulkHeaderFilesInfo](./services.md#interface-bulkheaderfilesinfo)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BulkIngestorBase
-
-```ts
-export abstract class BulkIngestorBase implements BulkIngestorApi {
-    static createBulkIngestorBaseOptions(chain: Chain) 
-    chain: Chain;
-    jsonFilename: string;
-    log: (...args: any[]) => void = () => ;
-    constructor(options: BulkIngestorBaseOptions) 
-    async setStorage(storage: ChaintracksStorageBase, log: (...args: any[]) => void): Promise<void> 
-    async shutdown(): Promise<void> { }
-    storageOrUndefined(): ChaintracksStorageApi | undefined 
-    storage(): ChaintracksStorageBase 
-    filesInfo: BulkHeaderFilesInfo | undefined;
-    async getPresentHeight(): Promise<number | undefined> 
-    abstract fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]>;
-    async synchronize(presentHeight: number, before: HeightRanges, priorLiveHeaders: BlockHeader[]): Promise<BulkSyncResult> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkHeaderFilesInfo](./services.md#interface-bulkheaderfilesinfo), [BulkIngestorApi](./services.md#interface-bulkingestorapi), [BulkIngestorBaseOptions](./services.md#interface-bulkingestorbaseoptions), [BulkSyncResult](./services.md#interface-bulksyncresult), [Chain](./client.md#type-chain), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
-
-###### Property filesInfo
-
-information about locally cached bulk header files managed by this bulk ingestor
-
-```ts
-filesInfo: BulkHeaderFilesInfo | undefined
-```
-See also: [BulkHeaderFilesInfo](./services.md#interface-bulkheaderfilesinfo)
-
-###### Method createBulkIngestorBaseOptions
-
-```ts
-static createBulkIngestorBaseOptions(chain: Chain) 
-```
-See also: [Chain](./client.md#type-chain)
-
-Argument Details
-
-+ **localCachePath**
-  + defaults to './data/ingest_headers/'
-
-###### Method fetchHeaders
-
-A BulkIngestor fetches and updates storage with bulk headers in bulkRange.
-
-If it can, it must also fetch live headers in fetch range that are not in bulkRange and return them as an array.
-
-The storage methods `insertBulkFile`, `updateBulkFile`, and `addBulkHeaders` should be used to add bulk headers to storage.
-
-```ts
-abstract fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]>
-```
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
-
-Returns
-
-new live headers: headers in fetchRange but not in bulkRange
-
-Argument Details
-
-+ **before**
-  + bulk and live range of headers before ingesting any new headers.
-+ **fetchRange**
-  + range of headers still needed, includes both missing bulk and live headers.
-+ **bulkRange**
-  + range of bulk headers still needed
-+ **priorLiveHeaders**
-  + any headers accumulated by prior bulk ingestor(s) that are too recent for bulk storage.
-
-###### Method getPresentHeight
-
-At least one derived BulkIngestor must override this method to provide the current height of the active chain tip.
-
-```ts
-async getPresentHeight(): Promise<number | undefined> 
-```
-
-Returns
-
-undefined unless overridden
-
-###### Method synchronize
-
-A BulkIngestor has two potential goals:
-1. To source missing bulk headers and include them in bulk storage.
-2. To source missing live headers to be forwarded to live storage.
-
-```ts
-async synchronize(presentHeight: number, before: HeightRanges, priorLiveHeaders: BlockHeader[]): Promise<BulkSyncResult> 
-```
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkSyncResult](./services.md#interface-bulksyncresult), [HeightRanges](./services.md#interface-heightranges)
-
-Returns
-
-updated priorLiveHeaders including any accumulated by this ingestor
-
-Argument Details
-
-+ **presentHeight**
-  + current height of the active chain tip, may lag the true value.
-+ **before**
-  + current bulk and live storage height ranges, either may be empty.
-+ **priorLiveHeaders**
-  + any headers accumulated by prior bulk ingestor(s) that are too recent for bulk storage.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BulkIngestorCDN
-
-```ts
-export class BulkIngestorCDN extends BulkIngestorBase {
-    static createBulkIngestorCDNOptions(chain: Chain, cdnUrl: string, fetch: ChaintracksFetchApi, maxPerFile?: number): BulkIngestorCDNOptions 
-    fetch: ChaintracksFetchApi;
-    jsonResource: string;
-    cdnUrl: string;
-    maxPerFile: number | undefined;
-    availableBulkFiles: BulkHeaderFilesInfo | undefined;
-    selectedFiles: BulkHeaderFileInfo[] | undefined;
-    currentRange: HeightRange | undefined;
-    constructor(options: BulkIngestorCDNOptions) 
-    override async getPresentHeight(): Promise<number | undefined> 
-    getJsonHttpHeaders(): Record<string, string> 
-    async fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [BulkHeaderFilesInfo](./services.md#interface-bulkheaderfilesinfo), [BulkIngestorBase](./services.md#class-bulkingestorbase), [BulkIngestorCDNOptions](./services.md#interface-bulkingestorcdnoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
-
-###### Method createBulkIngestorCDNOptions
-
-```ts
-static createBulkIngestorCDNOptions(chain: Chain, cdnUrl: string, fetch: ChaintracksFetchApi, maxPerFile?: number): BulkIngestorCDNOptions 
-```
-See also: [BulkIngestorCDNOptions](./services.md#interface-bulkingestorcdnoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
-
-Argument Details
-
-+ **localCachePath**
-  + defaults to './data/bulk_cdn_headers/'
-
-###### Method fetchHeaders
-
-A BulkFile CDN serves a JSON BulkHeaderFilesInfo resource which lists all the available binary bulk header files available and associated metadata.
-
-The term "CDN file" is used for a local bulk file that has a sourceUrl. (Not undefined)
-The term "incremental file" is used for the local bulk file that holds all the non-CDN bulk headers and must chain to the live headers if there are any.
-
-Bulk ingesting from a CDN happens in one of three contexts:
-
-1. Cold Start: No local bulk or live headers.
-2. Incremental: Available CDN files extend into an existing incremental file but not into the live headers.
-3. Replace: Available CDN files extend into live headers.
-
-Context Cold Start:
-- The CDN files are selected in height order, starting at zero, always choosing the largest count less than the local maximum (maxPerFile).
-
-Context Incremental:
-- Last existing CDN file is updated if CDN now has a higher count.
-- Additional CDN files are added as in Cold Start.
-- The existing incremental file is truncated or deleted.
-
-Context Replace:
-- Existing live headers are truncated or deleted.
-- Proceed as context Incremental.
-
-```ts
-async fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]> 
-```
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges)
-
-Argument Details
-
-+ **before**
-  + bulk and live range of headers before ingesting any new headers.
-+ **fetchRange**
-  + total range of header heights needed including live headers
-+ **bulkRange**
-  + range of missing bulk header heights required.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BulkIngestorCDNBabbage
-
-```ts
-export class BulkIngestorCDNBabbage extends BulkIngestorCDN {
-    static createBulkIngestorCDNBabbageOptions(chain: Chain, fetch: ChaintracksFetchApi): BulkIngestorCDNOptions 
-}
-```
-
-See also: [BulkIngestorCDN](./services.md#class-bulkingestorcdn), [BulkIngestorCDNOptions](./services.md#interface-bulkingestorcdnoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
-
-###### Method createBulkIngestorCDNBabbageOptions
-
-```ts
-static createBulkIngestorCDNBabbageOptions(chain: Chain, fetch: ChaintracksFetchApi): BulkIngestorCDNOptions 
-```
-See also: [BulkIngestorCDNOptions](./services.md#interface-bulkingestorcdnoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
-
-Argument Details
-
-+ **rootFolder**
-  + defaults to './data/bulk_cdn_babbage_headers/'
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BulkIngestorWhatsOnChainCdn
-
-```ts
-export class BulkIngestorWhatsOnChainCdn extends BulkIngestorBase {
-    static createBulkIngestorWhatsOnChainOptions(chain: Chain): BulkIngestorWhatsOnChainOptions 
-    fetch: ChaintracksFetchApi;
-    idleWait: number;
-    woc: WhatsOnChainServices;
-    stopOldListenersToken: StopListenerToken = { stop: undefined };
-    constructor(options: BulkIngestorWhatsOnChainOptions) 
-    override async getPresentHeight(): Promise<number | undefined> 
-    async fetchHeaders(before: HeightRanges, fetchRange: HeightRange, bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkIngestorBase](./services.md#class-bulkingestorbase), [BulkIngestorWhatsOnChainOptions](./services.md#interface-bulkingestorwhatsonchainoptions), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges), [StopListenerToken](./services.md#type-stoplistenertoken), [WhatsOnChainServices](./services.md#class-whatsonchainservices)
-
-###### Method createBulkIngestorWhatsOnChainOptions
-
-```ts
-static createBulkIngestorWhatsOnChainOptions(chain: Chain): BulkIngestorWhatsOnChainOptions 
-```
-See also: [BulkIngestorWhatsOnChainOptions](./services.md#interface-bulkingestorwhatsonchainoptions), [Chain](./client.md#type-chain)
-
-Argument Details
-
-+ **localCachePath**
-  + defaults to './data/ingest_whatsonchain_headers'
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: BulkStorageBase
-
-```ts
-export abstract class BulkStorageBase implements BulkStorageApi {
-    static createBulkStorageBaseOptions(chain: Chain, fs: ChaintracksFsApi): BulkStorageBaseOptions 
-    chain: Chain;
-    fs: ChaintracksFsApi;
-    log: (...args: any[]) => void = () => ;
-    constructor(options: BulkStorageBaseOptions) 
-    async shutdown(): Promise<void> 
-    abstract appendHeaders(minHeight: number, count: number, newBulkHeaders: Uint8Array): Promise<void>;
-    abstract getMaxHeight(): Promise<number>;
-    abstract headersToBuffer(height: number, count: number): Promise<Uint8Array>;
-    abstract findHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined>;
-    async findHeaderForHeight(height: number): Promise<BlockHeader> 
-    async getHeightRange(): Promise<HeightRange> 
-    async setStorage(storage: ChaintracksStorageBase, log: (...args: any[]) => void): Promise<void> { }
-    async exportBulkHeaders(rootFolder: string, jsonFilename: string, maxPerFile: number): Promise<void> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkStorageApi](./services.md#interface-bulkstorageapi), [BulkStorageBaseOptions](./services.md#interface-bulkstoragebaseoptions), [Chain](./client.md#type-chain), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase), [HeightRange](./services.md#class-heightrange)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: CWIStyleWalletManager
-
-Manages a "CWI-style" wallet that uses a UMP token and a
-multi-key authentication scheme (password, presentation key, and recovery key),
-supporting multiple user profiles under a single account.
-
-```ts
-export class CWIStyleWalletManager implements WalletInterface {
-    authenticated: boolean;
-    authenticationMode: "presentation-key-and-password" | "presentation-key-and-recovery-key" | "recovery-key-and-password" = "presentation-key-and-password";
-    authenticationFlow: "new-user" | "existing-user" = "new-user";
-    constructor(adminOriginator: OriginatorDomainNameStringUnder250Bytes, walletBuilder: (profilePrimaryKey: number[], profilePrivilegedKeyManager: PrivilegedKeyManager, profileId: number[]) => Promise<WalletInterface>, interactor: UMPTokenInteractor = new OverlayUMPTokenInteractor(), recoveryKeySaver: (key: number[]) => Promise<true>, passwordRetriever: (reason: string, test: (passwordCandidate: string) => boolean | Promise<boolean>) => Promise<string>, newWalletFunder?: (presentationKey: number[], wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes) => Promise<void>, stateSnapshot?: number[], kdfConfig?: KdfConfig) 
-    async providePresentationKey(key: number[]): Promise<void> 
-    async providePassword(password: string): Promise<void> 
-    async provideRecoveryKey(recoveryKey: number[]): Promise<void> 
-    saveSnapshot(): number[] 
-    async loadSnapshot(snapshot: number[]): Promise<void> 
-    async syncUMPToken(): Promise<boolean> 
-    destroy(): void 
-    listProfiles(): Array<{
-        id: number[];
-        name: string;
-        createdAt: number | null;
-        active: boolean;
-        identityKey: string;
-    }> 
-    async addProfile(name: string): Promise<number[]> 
-    async deleteProfile(profileId: number[]): Promise<void> 
-    async switchProfile(profileId: number[]): Promise<void> 
-    async changePassword(newPassword: string): Promise<void> 
-    async getRecoveryKey(): Promise<number[]> 
-    async changeRecoveryKey(): Promise<void> 
-    async changePresentationKey(newPresentationKey: number[]): Promise<void> 
-    async getPublicKey(args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetPublicKeyResult> 
-    async revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealCounterpartyKeyLinkageResult> 
-    async revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealSpecificKeyLinkageResult> 
-    async encrypt(args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletEncryptResult> 
-    async decrypt(args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletDecryptResult> 
-    async createHmac(args: CreateHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateHmacResult> 
-    async verifyHmac(args: VerifyHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifyHmacResult> 
-    async createSignature(args: CreateSignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateSignatureResult> 
-    async verifySignature(args: VerifySignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifySignatureResult> 
-    async createAction(args: CreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateActionResult> 
-    async signAction(args: SignActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<SignActionResult> 
-    async abortAction(args: AbortActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AbortActionResult> 
-    async listActions(args: ListActionsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListActionsResult> 
-    async internalizeAction(args: InternalizeActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<InternalizeActionResult> 
-    async listOutputs(args: ListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
-    async relinquishOutput(args: RelinquishOutputArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishOutputResult> 
-    async acquireCertificate(args: AcquireCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AcquireCertificateResult> 
-    async listCertificates(args: ListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult> 
-    async proveCertificate(args: ProveCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ProveCertificateResult> 
-    async relinquishCertificate(args: RelinquishCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishCertificateResult> 
-    async discoverByIdentityKey(args: DiscoverByIdentityKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    async discoverByAttributes(args: DiscoverByAttributesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    async isAuthenticated(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async waitForAuthentication(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async getHeight(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeightResult> 
-    async getHeaderForHeight(args: GetHeaderArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeaderResult> 
-    async getNetwork(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetNetworkResult> 
-    async getVersion(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetVersionResult> 
-}
-```
-
-See also: [KdfConfig](./client.md#interface-kdfconfig), [OverlayUMPTokenInteractor](./client.md#class-overlayumptokeninteractor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [UMPTokenInteractor](./client.md#interface-umptokeninteractor), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [proveCertificate](./client.md#function-provecertificate), [signAction](./client.md#function-signaction)
-
-###### Constructor
-
-Constructs a new CWIStyleWalletManager.
-
-```ts
-constructor(adminOriginator: OriginatorDomainNameStringUnder250Bytes, walletBuilder: (profilePrimaryKey: number[], profilePrivilegedKeyManager: PrivilegedKeyManager, profileId: number[]) => Promise<WalletInterface>, interactor: UMPTokenInteractor = new OverlayUMPTokenInteractor(), recoveryKeySaver: (key: number[]) => Promise<true>, passwordRetriever: (reason: string, test: (passwordCandidate: string) => boolean | Promise<boolean>) => Promise<string>, newWalletFunder?: (presentationKey: number[], wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes) => Promise<void>, stateSnapshot?: number[], kdfConfig?: KdfConfig) 
-```
-See also: [KdfConfig](./client.md#interface-kdfconfig), [OverlayUMPTokenInteractor](./client.md#class-overlayumptokeninteractor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [UMPTokenInteractor](./client.md#interface-umptokeninteractor)
-
-Argument Details
-
-+ **adminOriginator**
-  + The domain name of the administrative originator.
-+ **walletBuilder**
-  + A function that can build an underlying wallet instance for a profile.
-+ **interactor**
-  + An instance of UMPTokenInteractor.
-+ **recoveryKeySaver**
-  + A function to persist a new recovery key.
-+ **passwordRetriever**
-  + A function to request the user's password.
-+ **newWalletFunder**
-  + Optional function to fund a new wallet.
-+ **stateSnapshot**
-  + Optional previously saved state snapshot.
-+ **kdfConfig**
-  + Optional KDF configuration for new UMP tokens.
-
-###### Property authenticated
-
-Whether the user is currently authenticated (i.e., root keys are available).
-
-```ts
-authenticated: boolean
-```
-
-###### Property authenticationFlow
-
-Indicates new user or existing user flow.
-
-```ts
-authenticationFlow: "new-user" | "existing-user" = "new-user"
-```
-
-###### Property authenticationMode
-
-Current mode of authentication.
-
-```ts
-authenticationMode: "presentation-key-and-password" | "presentation-key-and-recovery-key" | "recovery-key-and-password" = "presentation-key-and-password"
-```
-
-###### Method addProfile
-
-Adds a new profile with the given name.
-Generates necessary pads and updates the UMP token.
-Does not switch to the new profile automatically.
-
-```ts
-async addProfile(name: string): Promise<number[]> 
-```
-
-Returns
-
-The ID of the newly created profile.
-
-Argument Details
-
-+ **name**
-  + The desired name for the new profile.
-
-###### Method changePassword
-
-Changes the user's password. Re-wraps keys and updates the UMP token.
-
-```ts
-async changePassword(newPassword: string): Promise<void> 
-```
-
-###### Method changePresentationKey
-
-Changes the user's presentation key.
-
-```ts
-async changePresentationKey(newPresentationKey: number[]): Promise<void> 
-```
-
-###### Method changeRecoveryKey
-
-Changes the user's recovery key. Prompts user to save the new key.
-
-```ts
-async changeRecoveryKey(): Promise<void> 
-```
-
-###### Method deleteProfile
-
-Deletes a profile by its ID.
-Cannot delete the default profile. If the active profile is deleted,
-it switches back to the default profile.
-
-```ts
-async deleteProfile(profileId: number[]): Promise<void> 
-```
-
-Argument Details
-
-+ **profileId**
-  + The 16-byte ID of the profile to delete.
-
-###### Method destroy
-
-Destroys the wallet state, clearing keys, tokens, and profiles.
-
-```ts
-destroy(): void 
-```
-
-###### Method getRecoveryKey
-
-Retrieves the current recovery key. Requires privileged access.
-
-```ts
-async getRecoveryKey(): Promise<number[]> 
-```
-
-###### Method listProfiles
-
-Lists all available profiles, including the default profile.
-
-```ts
-listProfiles(): Array<{
-    id: number[];
-    name: string;
-    createdAt: number | null;
-    active: boolean;
-    identityKey: string;
-}> 
-```
-
-Returns
-
-Array of profile info objects, including an 'active' flag.
-
-###### Method loadSnapshot
-
-Loads a previously saved state snapshot. Restores root key, UMP token, profiles, and active profile.
-Handles Version 1 (legacy) and Version 2 formats.
-
-```ts
-async loadSnapshot(snapshot: number[]): Promise<void> 
-```
-
-Argument Details
-
-+ **snapshot**
-  + Encrypted snapshot bytes.
-
-###### Method providePassword
-
-Provides the password.
-
-```ts
-async providePassword(password: string): Promise<void> 
-```
-
-###### Method providePresentationKey
-
-Provides the presentation key.
-
-```ts
-async providePresentationKey(key: number[]): Promise<void> 
-```
-
-###### Method provideRecoveryKey
-
-Provides the recovery key.
-
-```ts
-async provideRecoveryKey(recoveryKey: number[]): Promise<void> 
-```
-
-###### Method saveSnapshot
-
-Saves the current wallet state (root key, UMP token, active profile) into an encrypted snapshot.
-Version 2 format: [1 byte version=2] + [32 byte snapshot key] + [16 byte activeProfileId] + [encrypted payload]
-Encrypted Payload: [32 byte rootPrimaryKey] + [varint token length + serialized UMP token]
-
-```ts
-saveSnapshot(): number[] 
-```
-
-Returns
-
-Encrypted snapshot bytes.
-
-###### Method switchProfile
-
-Switches the active profile. This re-derives keys and rebuilds the underlying wallet.
-
-```ts
-async switchProfile(profileId: number[]): Promise<void> 
-```
-
-Argument Details
-
-+ **profileId**
-  + The 16-byte ID of the profile to switch to (use DEFAULT_PROFILE_ID for default).
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [BulkHeaderFilesInfo](#interface-bulkheaderfilesinfo)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -9758,81 +7348,53 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class Chaintracks implements ChaintracksManagementApi {
-    static createOptions(chain: Chain): ChaintracksOptions 
+    static createOptions(chain: Chain): ChaintracksOptions
     log: (...args: any[]) => void = () => { };
     readonly chain: Chain;
     readonly readonly: boolean;
-    constructor(public options: ChaintracksOptions) 
-    async getChain(): Promise<Chain> 
-    async getPresentHeight(): Promise<number> 
-    async currentHeight(): Promise<number> 
-    async subscribeHeaders(listener: HeaderListener): Promise<string> 
-    async subscribeReorgs(listener: ReorgListener): Promise<string> 
-    async unsubscribe(subscriptionId: string): Promise<boolean> 
-    async addHeader(header: BaseBlockHeader): Promise<void> 
-    async makeAvailable(): Promise<void> 
-    async startPromises(): Promise<void> 
-    async destroy(): Promise<void> 
-    async listening(): Promise<void> 
-    async isListening(): Promise<boolean> 
-    async isSynchronized(): Promise<boolean> 
-    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined> 
-    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined> 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
-    async getInfo(): Promise<ChaintracksInfoApi> 
-    async getHeaders(height: number, count: number): Promise<string> 
-    async findChainTipHeader(): Promise<BlockHeader> 
-    async findChainTipHash(): Promise<string> 
-    async findLiveHeaderForBlockHash(hash: string): Promise<LiveBlockHeader | undefined> 
-    async findChainWorkForBlockHash(hash: string): Promise<string | undefined> 
-    async validate(): Promise<boolean> 
-    async exportBulkHeaders(toFolder: string, toFs: ChaintracksFsApi, sourceUrl?: string, toHeadersPerFile?: number, maxHeight?: number): Promise<void> 
-    async startListening(): Promise<void> 
+    constructor(public options: ChaintracksOptions)
+    async getChain(): Promise<Chain>
+    async getPresentHeight(): Promise<number>
+    async currentHeight(): Promise<number>
+    async subscribeHeaders(listener: HeaderListener): Promise<string>
+    async subscribeReorgs(listener: ReorgListener): Promise<string>
+    async unsubscribe(subscriptionId: string): Promise<boolean>
+    async addHeader(header: BaseBlockHeader): Promise<void>
+    async makeAvailable(): Promise<void>
+    async startPromises(): Promise<void>
+    async destroy(): Promise<void>
+    async listening(): Promise<void>
+    async isListening(): Promise<boolean>
+    async isSynchronized(): Promise<boolean>
+    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
+    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined>
+    async isValidRootForHeight(root: string, height: number): Promise<boolean>
+    async getInfo(): Promise<ChaintracksInfoApi>
+    async getHeaders(height: number, count: number): Promise<string>
+    async findChainTipHeader(): Promise<BlockHeader>
+    async findChainTipHash(): Promise<string>
+    async findLiveHeaderForBlockHash(hash: string): Promise<LiveBlockHeader | undefined>
+    async findChainWorkForBlockHash(hash: string): Promise<string | undefined>
+    async validate(): Promise<boolean>
+    async exportBulkHeaders(toFolder: string, toFs: ChaintracksFsApi, sourceUrl?: string, toHeadersPerFile?: number, maxHeight?: number): Promise<void>
+    async startListening(): Promise<void>
     private async syncBulkStorageNoLock(presentHeight: number, initialRanges: HeightRanges): Promise<void> {
         let newLiveHeaders: BlockHeader[] = [];
         let before = initialRanges;
         let after = before;
         let added = HeightRange.empty;
         const maxSyncRounds = Math.max(1, this.bulkIngestors.length * 2);
-        let done = false;
-        for (let round = 1; !done && round <= maxSyncRounds; round++) {
-            let bulkSyncError: WalletError | undefined;
-            let roundMadeProgress = false;
-            let roundHadSuccess = false;
-            for (const bulk of this.bulkIngestors) {
-                try {
-                    const beforeBulkMax = before.bulk.maxHeight;
-                    const beforeLiveRange = HeightRange.from(newLiveHeaders);
-                    const r = await bulk.synchronize(presentHeight, before, newLiveHeaders);
-                    roundHadSuccess = true;
-                    newLiveHeaders = r.liveHeaders;
-                    after = await this.storage.getAvailableHeightRanges();
-                    added = after.bulk.above(before.bulk);
-                    const afterLiveRange = HeightRange.from(newLiveHeaders);
-                    if (after.bulk.maxHeight > beforeBulkMax || afterLiveRange.maxHeight > beforeLiveRange.maxHeight) {
-                        roundMadeProgress = true;
-                    }
-                    before = after;
-                    this.log(`Bulk Ingestor: ${added.length} added with ${newLiveHeaders.length} live headers from ${bulk.constructor.name}`);
-                    if (r.done) {
-                        done = true;
-                        break;
-                    }
-                }
-                catch (eu: unknown) {
-                    const e = (bulkSyncError = WalletError.fromUnknown(eu));
-                    this.log(`bulk sync error: ${e.message}`);
-                    if (!this.available)
-                        break;
-                }
-            }
-            if (!this.available && bulkSyncError && !roundHadSuccess) {
-                this.startupError = bulkSyncError;
+        for (let round = 1; round <= maxSyncRounds; round++) {
+            const result = await this.runBulkSyncRound(before, presentHeight, newLiveHeaders);
+            after = result.after;
+            newLiveHeaders = result.newLiveHeaders;
+            added = after.bulk.above(before.bulk);
+            before = after;
+            if (this.startupError != null)
                 break;
-            }
-            if (done)
+            if (result.done)
                 break;
-            if (!roundMadeProgress) {
+            if (!result.madeProgress) {
                 this.log(`Bulk sync stalled after round ${round}. Deferring further bulk sync attempts to continue live header processing.`);
                 break;
             }
@@ -9840,7 +7402,7 @@ export class Chaintracks implements ChaintracksManagementApi {
                 this.log(`Bulk sync paused after ${maxSyncRounds} rounds to avoid runaway retries. Will retry in a later sync cycle.`);
             }
         }
-        if (!this.startupError) {
+        if (this.startupError == null) {
             this.liveHeaders.unshift(...newLiveHeaders);
             added = after.bulk.above(initialRanges.bulk);
             this.log(`syncBulkStorage done
@@ -9851,151 +7413,32 @@ export class Chaintracks implements ChaintracksManagementApi {
 `);
         }
     }
-    private async mainThreadShiftLiveHeaders(): Promise<void> {
-        this.stopMainThread = false;
-        let lastSyncCheck = Date.now();
-        let lastBulkSync = Date.now();
-        const cdnSyncRepeatMsecs = 24 * 60 * 60 * 1000;
-        const syncCheckRepeatMsecs = 30 * 60 * 1000;
-        while (!this.stopMainThread) {
-            try {
-                const now = Date.now();
-                lastSyncCheck = now;
-                const presentHeight = await this.getPresentHeight();
-                const before = await this.storage.getAvailableHeightRanges();
-                let skipBulkSync = !before.live.isEmpty && before.live.maxHeight >= presentHeight - this.addLiveRecursionLimit / 2;
-                if (skipBulkSync && now - lastBulkSync > cdnSyncRepeatMsecs) {
-                    skipBulkSync = false;
-                }
-                this.log(`Chaintracks Update Services: Bulk Header Sync Review
+    private async runBulkSyncIfNeeded(now: number, lastBulkSync: number, cdnSyncRepeatMsecs: number): Promise<number> {
+        const presentHeight = await this.getPresentHeight();
+        const before = await this.storage.getAvailableHeightRanges();
+        let skipBulkSync = !before.live.isEmpty && before.live.maxHeight >= presentHeight - this.addLiveRecursionLimit / 2;
+        if (skipBulkSync && now - lastBulkSync > cdnSyncRepeatMsecs)
+            skipBulkSync = false;
+        this.log(`Chaintracks Update Services: Bulk Header Sync Review
   presentHeight=${presentHeight}   addLiveRecursionLimit=${this.addLiveRecursionLimit}
   Before synchronize: bulk ${before.bulk}, live ${before.live}
   ${skipBulkSync ? "Skipping" : "Starting"} syncBulkStorage.
 `);
-                if (!skipBulkSync) {
-                    lastBulkSync = now;
-                    if (this.available)
-                        await this.syncBulkStorage(presentHeight, before);
-                    else
-                        await this.syncBulkStorageNoLock(presentHeight, before);
-                    if (this.startupError)
-                        throw this.startupError;
-                }
-                let count = 0;
-                let liveHeaderDupes = 0;
-                let needSyncCheck = false;
-                for (; !needSyncCheck && !this.stopMainThread;) {
-                    let header = this.liveHeaders.shift();
-                    if (header) {
-                        let recursions = this.addLiveRecursionLimit;
-                        for (; !needSyncCheck && !this.stopMainThread;) {
-                            const ihr = await this.addLiveHeader(header);
-                            if (this.invalidInsertHeaderResult(ihr)) {
-                                this.log(`Ignoring liveHeader ${header.height} ${header.hash} due to invalid insert result.`);
-                                needSyncCheck = true;
-                            }
-                            else if (ihr.noPrev) {
-                                if (recursions-- <= 0) {
-                                    this.log(`Ignoring liveHeader ${header.height} ${header.hash} addLiveRecursionLimit=${this.addLiveRecursionLimit} exceeded.`);
-                                    needSyncCheck = true;
-                                }
-                                else {
-                                    const hash = header.previousHash;
-                                    const prevHeader = await this.getMissingBlockHeader(hash);
-                                    if (!prevHeader) {
-                                        this.log(`Ignoring liveHeader ${header.height} ${header.hash} failed to find previous header by hash ${asString(hash)}`);
-                                        needSyncCheck = true;
-                                    }
-                                    else {
-                                        this.liveHeaders.unshift(header);
-                                        header = prevHeader;
-                                    }
-                                }
-                            }
-                            else {
-                                if (this.subscriberCallbacksEnabled)
-                                    this.log(`addLiveHeader ${header.height}${ihr.added ? " added" : ""}${ihr.dupe ? " dupe" : ""}${ihr.isActiveTip ? " isActiveTip" : ""}${ihr.reorgDepth ? " reorg depth " + ihr.reorgDepth : ""}${ihr.noPrev ? " noPrev" : ""}${ihr.noActiveAncestor || ihr.noTip || ihr.badPrev ? " error" : ""}`);
-                                if (ihr.dupe) {
-                                    liveHeaderDupes++;
-                                }
-                                if (ihr.added) {
-                                    count++;
-                                }
-                                break;
-                            }
-                        }
-                    }
-                    else {
-                        const bheader = this.baseHeaders.shift();
-                        if (bheader) {
-                            const prev = await this.storage.findLiveHeaderForBlockHash(bheader.previousHash);
-                            if (!prev) {
-                                this.log(`Ignoring header with unknown previousHash ${bheader.previousHash} in live storage.`);
-                            }
-                            else {
-                                const header: BlockHeader = {
-                                    ...bheader,
-                                    height: prev.height + 1,
-                                    hash: blockHash(bheader)
-                                };
-                                const ihr = await this.addLiveHeader(header);
-                                if (this.invalidInsertHeaderResult(ihr)) {
-                                    this.log(`Ignoring invalid baseHeader ${header.height} ${header.hash}.`);
-                                }
-                                else {
-                                    if (this.subscriberCallbacksEnabled)
-                                        this.log(`addBaseHeader ${header.height}${ihr.added ? " added" : ""}${ihr.dupe ? " dupe" : ""}${ihr.isActiveTip ? " isActiveTip" : ""}${ihr.reorgDepth ? " reorg depth " + ihr.reorgDepth : ""}${ihr.noPrev ? " noPrev" : ""}${ihr.noActiveAncestor || ihr.noTip || ihr.badPrev ? " error" : ""}`);
-                                    if (ihr.added) {
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            if (count > 0) {
-                                if (liveHeaderDupes > 0) {
-                                    this.log(`${liveHeaderDupes} duplicate headers ignored.`);
-                                    liveHeaderDupes = 0;
-                                }
-                                const updated = await this.storage.getAvailableHeightRanges();
-                                this.log(`After adding ${count} live headers
-   After live: bulk ${updated.bulk}, live ${updated.live}
-`);
-                                count = 0;
-                            }
-                            if (!this.subscriberCallbacksEnabled) {
-                                const live = await this.storage.findLiveHeightRange();
-                                if (!live.isEmpty) {
-                                    this.subscriberCallbacksEnabled = true;
-                                    this.log(`listening at height of ${live.maxHeight}`);
-                                }
-                            }
-                            if (!this.available) {
-                                this.available = true;
-                            }
-                            needSyncCheck = Date.now() - lastSyncCheck > syncCheckRepeatMsecs;
-                            if (!needSyncCheck)
-                                await wait(1000);
-                        }
-                    }
-                }
-            }
-            catch (eu: unknown) {
-                const e = WalletError.fromUnknown(eu);
-                if (!this.available) {
-                    this.startupError = e;
-                    this.stopMainThread = true;
-                }
-                else {
-                    this.log(`Error occurred during chaintracks main thread processing: ${e.stack || e.message}`);
-                }
-            }
+        if (!skipBulkSync) {
+            if (this.available)
+                await this.syncBulkStorage(presentHeight, before);
+            else
+                await this.syncBulkStorageNoLock(presentHeight, before);
+            if (this.startupError != null)
+                throw this.startupError;
+            return now;
         }
+        return lastBulkSync;
     }
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksFsApi](./services.md#interface-chaintracksfsapi), [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi), [ChaintracksManagementApi](./services.md#interface-chaintracksmanagementapi), [ChaintracksOptions](./services.md#interface-chaintracksoptions), [HeaderListener](./services.md#type-headerlistener), [HeightRange](./services.md#class-heightrange), [HeightRanges](./services.md#interface-heightranges), [LiveBlockHeader](./services.md#interface-liveblockheader), [ReorgListener](./services.md#type-reorglistener), [Services](./services.md#class-services), [WalletError](./client.md#class-walleterror), [asString](./client.md#function-asstring), [blockHash](./services.md#function-blockhash), [wait](./client.md#function-wait)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [Chain](#type-chain), [ChaintracksFsApi](#interface-chaintracksfsapi), [ChaintracksInfoApi](#interface-chaintracksinfoapi), [ChaintracksManagementApi](#interface-chaintracksmanagementapi), [ChaintracksOptions](#interface-chaintracksoptions), [HeaderListener](#type-headerlistener), [HeightRange](#class-heightrange), [HeightRanges](#interface-heightranges), [LiveBlockHeader](#interface-liveblockheader), [ReorgListener](#type-reorglistener), [Services](#class-services)
 
 ###### Method addHeader
 
@@ -10006,16 +7449,16 @@ bulk ingestors will be attempted to resolve the linkage up to a depth of `addLiv
 Headers are considered in the order they were added.
 
 ```ts
-async addHeader(header: BaseBlockHeader): Promise<void> 
+async addHeader(header: BaseBlockHeader): Promise<void>
 ```
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader)
 
 ###### Method getPresentHeight
 
 Caches and returns most recently sourced value if less than one minute old.
 
 ```ts
-async getPresentHeight(): Promise<number> 
+async getPresentHeight(): Promise<number>
 ```
 
 Returns
@@ -10031,7 +7474,7 @@ Note that the main thread continues running and takes additional write locks
 itself when already available.
 
 ```ts
-async makeAvailable(): Promise<void> 
+async makeAvailable(): Promise<void>
 ```
 
 Returns
@@ -10041,7 +7484,7 @@ when available for client requests
 ###### Method validate
 
 ```ts
-async validate(): Promise<boolean> 
+async validate(): Promise<boolean>
 ```
 
 Returns
@@ -10058,13 +7501,13 @@ export class ChaintracksChainTracker implements ChainTracker {
     chaintracks: ChaintracksClientApi;
     cache: Record<number, string>;
     options: ChaintracksChainTrackerOptions;
-    constructor(chain?: Chain, chaintracks?: ChaintracksClientApi, options?: ChaintracksChainTrackerOptions) 
-    async currentHeight(): Promise<number> 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
+    constructor(chain?: Chain, chaintracks?: ChaintracksClientApi, options?: ChaintracksChainTrackerOptions)
+    async currentHeight(): Promise<number>
+    async isValidRootForHeight(root: string, height: number): Promise<boolean>
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [ChaintracksChainTrackerOptions](./services.md#interface-chaintrackschaintrackeroptions), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi)
+See also: [Chain](#type-chain), [ChaintracksChainTrackerOptions](#interface-chaintrackschaintrackeroptions), [ChaintracksClientApi](#interface-chaintracksclientapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -10072,19 +7515,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Class: ChaintracksFetch
 
 This class implements the ChaintracksFetchApi
-using the
+using a pooled undici-backed HTTP client.
 
 ```ts
 export class ChaintracksFetch implements ChaintracksFetchApi {
-    httpClient: HttpClient = defaultHttpClient();
-    constructor() 
-    async download(url: string): Promise<Uint8Array> 
-    async fetchJson<R>(url: string): Promise<R> 
-    pathJoin(baseUrl: string, subpath: string): string 
+    httpClient: HttpClient & Pick<UndiciHttpClient, "download"> = createUndiciHttpClient();
+    async download(url: string): Promise<Uint8Array>
+    async fetchJson<R>(url: string): Promise<R>
+    pathJoin(baseUrl: string, subpath: string): string
 }
 ```
 
-See also: [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
+See also: [ChaintracksFetchApi](#interface-chaintracksfetchapi), [UndiciHttpClient](#class-undicihttpclient), [createUndiciHttpClient](#function-createundicihttpclient)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -10095,34 +7537,35 @@ Connects to a ChaintracksService to implement 'ChaintracksClientApi'
 
 ```ts
 export class ChaintracksServiceClient implements ChaintracksClientApi {
-    static createChaintracksServiceClientOptions(): ChaintracksServiceClientOptions 
+    static createChaintracksServiceClientOptions(): ChaintracksServiceClientOptions
     options: ChaintracksServiceClientOptions;
-    constructor(public chain: Chain, public serviceUrl: string, options?: ChaintracksServiceClientOptions) 
-    subscribeHeaders(listener: HeaderListener): Promise<string> 
-    subscribeReorgs(listener: ReorgListener): Promise<string> 
-    unsubscribe(subscriptionId: string): Promise<boolean> 
-    async currentHeight(): Promise<number> 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
-    async getJsonOrUndefined<T>(path: string): Promise<T | undefined> 
-    async getJson<T>(path: string): Promise<T> 
-    async postJsonVoid<T>(path: string, params: T): Promise<void> 
-    async addHeader(header: BaseBlockHeader): Promise<void> 
-    async startListening(): Promise<void> 
-    async listening(): Promise<void> 
-    async getChain(): Promise<Chain> 
-    async isListening(): Promise<boolean> 
-    async isSynchronized(): Promise<boolean> 
-    async getPresentHeight(): Promise<number> 
-    async getInfo(): Promise<ChaintracksInfoApi> 
-    async findChainTipHeader(): Promise<BlockHeader> 
-    async findChainTipHash(): Promise<string> 
-    async getHeaders(height: number, count: number): Promise<string> 
-    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined> 
-    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined> 
+    httpClient: HttpClient;
+    constructor(public chain: Chain, public serviceUrl: string, options?: ChaintracksServiceClientOptions)
+    async subscribeHeaders(listener: HeaderListener): Promise<string>
+    async subscribeReorgs(listener: ReorgListener): Promise<string>
+    async unsubscribe(subscriptionId: string): Promise<boolean>
+    async currentHeight(): Promise<number>
+    async isValidRootForHeight(root: string, height: number): Promise<boolean>
+    async getJsonOrUndefined<T>(path: string): Promise<T | undefined>
+    async getJson<T>(path: string): Promise<T>
+    async postJsonVoid<T>(path: string, params: T): Promise<void>
+    async addHeader(header: BaseBlockHeader): Promise<void>
+    async startListening(): Promise<void>
+    async listening(): Promise<void>
+    async getChain(): Promise<Chain>
+    async isListening(): Promise<boolean>
+    async isSynchronized(): Promise<boolean>
+    async getPresentHeight(): Promise<number>
+    async getInfo(): Promise<ChaintracksInfoApi>
+    async findChainTipHeader(): Promise<BlockHeader>
+    async findChainTipHash(): Promise<string>
+    async getHeaders(height: number, count: number): Promise<string>
+    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
+    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined>
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi), [ChaintracksServiceClientOptions](./services.md#interface-chaintracksserviceclientoptions), [HeaderListener](./services.md#type-headerlistener), [ReorgListener](./services.md#type-reorglistener)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [Chain](#type-chain), [ChaintracksClientApi](#interface-chaintracksclientapi), [ChaintracksInfoApi](#interface-chaintracksinfoapi), [ChaintracksServiceClientOptions](#interface-chaintracksserviceclientoptions), [HeaderListener](#type-headerlistener), [ReorgListener](#type-reorglistener)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -10133,7 +7576,7 @@ Required interface methods of a Chaintracks Storage Engine implementation.
 
 ```ts
 export abstract class ChaintracksStorageBase implements ChaintracksStorageQueryApi, ChaintracksStorageIngestApi {
-    static createStorageBaseOptions(chain: Chain): ChaintracksStorageBaseOptions 
+    static createStorageBaseOptions(chain: Chain): ChaintracksStorageBaseOptions
     log: (...args: any[]) => void = () => { };
     chain: Chain;
     liveHeightThreshold: number;
@@ -10143,11 +7586,11 @@ export abstract class ChaintracksStorageBase implements ChaintracksStorageQueryA
     isAvailable: boolean = false;
     hasMigrated: boolean = false;
     bulkManager: BulkFileDataManager;
-    constructor(options: ChaintracksStorageBaseOptions) 
-    async shutdown(): Promise<void> 
-    async makeAvailable(): Promise<void> 
-    async migrateLatest(): Promise<void> 
-    async dropAllData(): Promise<void> 
+    constructor(options: ChaintracksStorageBaseOptions)
+    async shutdown(): Promise<void>
+    async makeAvailable(): Promise<void>
+    async migrateLatest(): Promise<void>
+    async dropAllData(): Promise<void>
     abstract deleteLiveBlockHeaders(): Promise<void>;
     abstract deleteOlderLiveBlockHeaders(maxHeight: number): Promise<number>;
     abstract findChainTipHeader(): Promise<LiveBlockHeader>;
@@ -10162,37 +7605,37 @@ export abstract class ChaintracksStorageBase implements ChaintracksStorageQueryA
     abstract getLiveHeaders(range: HeightRange): Promise<LiveBlockHeader[]>;
     abstract insertHeader(header: BlockHeader): Promise<InsertHeaderResult>;
     abstract destroy(): Promise<void>;
-    async getBulkHeaders(range: HeightRange): Promise<Uint8Array> 
-    async getHeadersUint8Array(height: number, count: number): Promise<Uint8Array> 
-    async getHeaders(height: number, count: number): Promise<BaseBlockHeader[]> 
-    async deleteBulkBlockHeaders(): Promise<void> 
+    async getBulkHeaders(range: HeightRange): Promise<Uint8Array>
+    async getHeadersUint8Array(height: number, count: number): Promise<Uint8Array>
+    async getHeaders(height: number, count: number): Promise<BaseBlockHeader[]>
+    async deleteBulkBlockHeaders(): Promise<void>
     async getAvailableHeightRanges(): Promise<{
         bulk: HeightRange;
         live: HeightRange;
-    }> 
-    async pruneLiveBlockHeaders(activeTipHeight: number): Promise<void> 
-    async findChainTipHash(): Promise<string> 
-    async findChainTipWork(): Promise<string> 
-    async findChainWorkForBlockHash(hash: string): Promise<string> 
-    async findBulkFilesHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined> 
-    async findHeaderForHeightOrUndefined(height: number): Promise<LiveBlockHeader | BlockHeader | undefined> 
-    async findHeaderForHeight(height: number): Promise<LiveBlockHeader | BlockHeader> 
-    async isMerkleRootActive(merkleRoot: string): Promise<boolean> 
-    async findCommonAncestor(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<LiveBlockHeader> 
-    async findReorgDepth(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<number> 
-    async migrateLiveToBulk(count: number, ignoreLimits = false): Promise<void> 
-    async addBulkHeaders(headers: BlockHeader[], bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]> 
+    }>
+    async pruneLiveBlockHeaders(activeTipHeight: number): Promise<void>
+    async findChainTipHash(): Promise<string>
+    async findChainTipWork(): Promise<string>
+    async findChainWorkForBlockHash(hash: string): Promise<string>
+    async findBulkFilesHeaderForHeightOrUndefined(height: number): Promise<BlockHeader | undefined>
+    async findHeaderForHeightOrUndefined(height: number): Promise<LiveBlockHeader | BlockHeader | undefined>
+    async findHeaderForHeight(height: number): Promise<LiveBlockHeader | BlockHeader>
+    async isMerkleRootActive(merkleRoot: string): Promise<boolean>
+    async findCommonAncestor(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<LiveBlockHeader>
+    async findReorgDepth(header1: LiveBlockHeader, header2: LiveBlockHeader): Promise<number>
+    async migrateLiveToBulk(count: number, ignoreLimits = false): Promise<void>
+    async addBulkHeaders(headers: BlockHeader[], bulkRange: HeightRange, priorLiveHeaders: BlockHeader[]): Promise<BlockHeader[]>
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [BulkFileDataManager](./services.md#class-bulkfiledatamanager), [Chain](./client.md#type-chain), [ChaintracksStorageBaseOptions](./services.md#interface-chaintracksstoragebaseoptions), [ChaintracksStorageIngestApi](./services.md#interface-chaintracksstorageingestapi), [ChaintracksStorageQueryApi](./services.md#interface-chaintracksstoragequeryapi), [HeightRange](./services.md#class-heightrange), [InsertHeaderResult](./services.md#type-insertheaderresult), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [BulkFileDataManager](#class-bulkfiledatamanager), [Chain](#type-chain), [ChaintracksStorageBaseOptions](#interface-chaintracksstoragebaseoptions), [ChaintracksStorageIngestApi](#interface-chaintracksstorageingestapi), [ChaintracksStorageQueryApi](#interface-chaintracksstoragequeryapi), [HeightRange](#class-heightrange), [InsertHeaderResult](#type-insertheaderresult), [LiveBlockHeader](#interface-liveblockheader)
 
 ###### Method insertHeader
 
 ```ts
 abstract insertHeader(header: BlockHeader): Promise<InsertHeaderResult>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [InsertHeaderResult](./services.md#type-insertheaderresult)
+See also: [BlockHeader](#interface-blockheader), [InsertHeaderResult](#type-insertheaderresult)
 
 Returns
 
@@ -10206,164 +7649,12 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: ChaintracksStorageIdb
-
-```ts
-export class ChaintracksStorageIdb extends ChaintracksStorageBase implements ChaintracksStorageBulkFileApi {
-    dbName: string;
-    db?: IDBPDatabase<ChaintracksStorageIdbSchema>;
-    whenLastAccess?: Date;
-    allStores: string[] = ["live_headers", "bulk_headers"];
-    constructor(options: ChaintracksStorageIdbOptions) 
-    override async makeAvailable(): Promise<void> 
-    override async migrateLatest(): Promise<void> 
-    override async destroy(): Promise<void> 
-    override async deleteLiveBlockHeaders(): Promise<void> 
-    override async deleteOlderLiveBlockHeaders(maxHeight: number): Promise<number> 
-    override async findChainTipHeader(): Promise<LiveBlockHeader> 
-    override async findChainTipHeaderOrUndefined(): Promise<LiveBlockHeader | undefined> 
-    override async findLiveHeaderForBlockHash(hash: string): Promise<LiveBlockHeader | null> 
-    override async findLiveHeaderForHeaderId(headerId: number): Promise<LiveBlockHeader> 
-    override async findLiveHeaderForHeight(height: number): Promise<LiveBlockHeader | null> 
-    override async findLiveHeaderForMerkleRoot(merkleRoot: string): Promise<LiveBlockHeader | null> 
-    override async findLiveHeightRange(): Promise<HeightRange> 
-    override async findMaxHeaderId(): Promise<number> 
-    override async liveHeadersForBulk(count: number): Promise<LiveBlockHeader[]> 
-    override async getLiveHeaders(range: HeightRange): Promise<LiveBlockHeader[]> 
-    override async insertHeader(header: BlockHeader): Promise<InsertHeaderResult> 
-    async deleteBulkFile(fileId: number): Promise<number> 
-    async insertBulkFile(file: BulkHeaderFileInfo): Promise<number> 
-    async updateBulkFile(fileId: number, file: BulkHeaderFileInfo): Promise<number> 
-    async getBulkFiles(): Promise<BulkHeaderFileInfo[]> 
-    async getBulkFileData(fileId: number, offset?: number, length?: number): Promise<Uint8Array | undefined> 
-    async insertLiveHeader(header: LiveBlockHeader): Promise<LiveBlockHeader> 
-    async initDB(): Promise<IDBPDatabase<ChaintracksStorageIdbSchema>> 
-    toDbTrxReadOnly(stores: string[]): IDBPTransaction<ChaintracksStorageIdbSchema, string[], "readonly"> 
-    toDbTrxReadWrite(stores: string[]): IDBPTransaction<ChaintracksStorageIdbSchema, string[], "readwrite"> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase), [ChaintracksStorageBulkFileApi](./services.md#interface-chaintracksstoragebulkfileapi), [ChaintracksStorageIdbOptions](./services.md#interface-chaintracksstorageidboptions), [ChaintracksStorageIdbSchema](./services.md#interface-chaintracksstorageidbschema), [HeightRange](./services.md#class-heightrange), [InsertHeaderResult](./services.md#type-insertheaderresult), [LiveBlockHeader](./services.md#interface-liveblockheader)
-
-###### Method deleteOlderLiveBlockHeaders
-
-Delete live headers with height less or equal to `maxHeight`
-
-Set existing headers with previousHeaderId value set to the headerId value of
-a header which is to be deleted to null.
-
-```ts
-override async deleteOlderLiveBlockHeaders(maxHeight: number): Promise<number> 
-```
-
-Returns
-
-number of deleted records
-
-Argument Details
-
-+ **maxHeight**
-  + delete all records with less or equal `height`
-
-###### Method findChainTipHeader
-
-```ts
-override async findChainTipHeader(): Promise<LiveBlockHeader> 
-```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
-
-Returns
-
-the active chain tip header
-
-Throws
-
-an error if there is no tip.
-
-###### Method findChainTipHeaderOrUndefined
-
-```ts
-override async findChainTipHeaderOrUndefined(): Promise<LiveBlockHeader | undefined> 
-```
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
-
-Returns
-
-the active chain tip header
-
-Throws
-
-an error if there is no tip.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: ChaintracksStorageNoDb
-
-```ts
-export class ChaintracksStorageNoDb extends ChaintracksStorageBase {
-    static mainData: ChaintracksNoDbData = {
-        chain: "main",
-        liveHeaders: new Map<number, LiveBlockHeader>(),
-        maxHeaderId: 0,
-        tipHeaderId: 0,
-        hashToHeaderId: new Map<string, number>()
-    };
-    static testData: ChaintracksNoDbData = {
-        chain: "test",
-        liveHeaders: new Map<number, LiveBlockHeader>(),
-        maxHeaderId: 0,
-        tipHeaderId: 0,
-        hashToHeaderId: new Map<string, number>()
-    };
-    constructor(options: ChaintracksStorageNoDbOptions) 
-    override async destroy(): Promise<void> 
-    async getData(): Promise<ChaintracksNoDbData> 
-    override async deleteLiveBlockHeaders(): Promise<void> 
-    override async deleteOlderLiveBlockHeaders(maxHeight: number): Promise<number> 
-    override async findChainTipHeader(): Promise<LiveBlockHeader> 
-    override async findChainTipHeaderOrUndefined(): Promise<LiveBlockHeader | undefined> 
-    override async findLiveHeaderForBlockHash(hash: string): Promise<LiveBlockHeader | null> 
-    override async findLiveHeaderForHeaderId(headerId: number): Promise<LiveBlockHeader> 
-    override async findLiveHeaderForHeight(height: number): Promise<LiveBlockHeader | null> 
-    override async findLiveHeaderForMerkleRoot(merkleRoot: string): Promise<LiveBlockHeader | null> 
-    override async findLiveHeightRange(): Promise<HeightRange> 
-    override async findMaxHeaderId(): Promise<number> 
-    override async liveHeadersForBulk(count: number): Promise<LiveBlockHeader[]> 
-    override async getLiveHeaders(range: HeightRange): Promise<LiveBlockHeader[]> 
-    override async insertHeader(header: BlockHeader): Promise<InsertHeaderResult> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [ChaintracksStorageBase](./services.md#class-chaintracksstoragebase), [ChaintracksStorageNoDbOptions](./services.md#interface-chaintracksstoragenodboptions), [HeightRange](./services.md#class-heightrange), [InsertHeaderResult](./services.md#type-insertheaderresult), [LiveBlockHeader](./services.md#interface-liveblockheader)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: DevConsoleInteractor
-
-DevConsoleInteractor
-
-A client-side class that knows how to call the WAB server for DevConsole-based authentication.
-This is a development-only auth method that generates OTP codes and logs them to the console.
-
-```ts
-export class DevConsoleInteractor extends AuthMethodInteractor {
-    public methodType = "DevConsole";
-}
-```
-
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Class: EntityBase
 
 ```ts
 export abstract class EntityBase<T> {
     api: T;
-    constructor(api: T) 
+    constructor(api: T)
     abstract get id(): number;
     abstract get entityName(): string;
     abstract get entityTable(): string;
@@ -10371,11 +7662,11 @@ export abstract class EntityBase<T> {
     abstract equals(ei: T, syncMap?: SyncMap): boolean;
     abstract mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>;
     abstract mergeExisting(storage: EntityStorage, since: Date | undefined, ei: T, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>;
-    toApi(): T 
+    toApi(): T
 }
 ```
 
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TrxToken](#interface-trxtoken)
 
 ###### Method equals
 
@@ -10386,7 +7677,7 @@ Tests for equality or 'merge' / 'convergent' equality if syncMap is provided.
 ```ts
 abstract equals(ei: T, syncMap?: SyncMap): boolean
 ```
-See also: [SyncMap](./storage.md#interface-syncmap)
+See also: [SyncMap](#interface-syncmap)
 
 ###### Method mergeExisting
 
@@ -10396,7 +7687,7 @@ from external `ei` to this existing local EntityUser
 ```ts
 abstract mergeExisting(storage: EntityStorage, since: Date | undefined, ei: T, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TrxToken](#interface-trxtoken)
 
 Returns
 
@@ -10411,7 +7702,7 @@ as a copy of the external object.
 ```ts
 abstract mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -10426,7 +7717,7 @@ The `toApi` method forces an `updateApi` before returning the underlying,
 now updated, Api object.
 
 ```ts
-toApi(): T 
+toApi(): T
 ```
 
 Returns
@@ -10450,383 +7741,61 @@ abstract updateApi(): void
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: EntityCertificate
-
-```ts
-export class EntityCertificate extends EntityBase<TableCertificate> {
-    constructor(api?: TableCertificate) 
-    override updateApi(): void 
-    get certificateId() 
-    set certificateId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get type() 
-    set type(v: string) 
-    get subject() 
-    set subject(v: string) 
-    get verifier() 
-    set verifier(v: string | undefined) 
-    get serialNumber() 
-    set serialNumber(v: string) 
-    get certifier() 
-    set certifier(v: string) 
-    get revocationOutpoint() 
-    set revocationOutpoint(v: string) 
-    get signature() 
-    set signature(v: string) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCertificate, syncMap?: SyncMap): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableCertificate, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityCertificate;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificate, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCertificate](./storage.md#interface-tablecertificate), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityCertificateField
-
-```ts
-export class EntityCertificateField extends EntityBase<TableCertificateField> {
-    constructor(api?: TableCertificateField) 
-    override updateApi(): void 
-    get userId() 
-    set userId(v: number) 
-    get certificateId() 
-    set certificateId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get fieldName() 
-    set fieldName(v: string) 
-    get fieldValue() 
-    set fieldValue(v: string) 
-    get masterKey() 
-    set masterKey(v: string) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCertificateField, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableCertificateField, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityCertificateField;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificateField, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityCommission
-
-```ts
-export class EntityCommission extends EntityBase<TableCommission> {
-    constructor(api?: TableCommission) 
-    override updateApi(): void 
-    get commissionId() 
-    set commissionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get userId() 
-    set userId(v: number) 
-    get isRedeemed() 
-    set isRedeemed(v: boolean) 
-    get keyOffset() 
-    set keyOffset(v: string) 
-    get lockingScript() 
-    set lockingScript(v: number[]) 
-    get satoshis() 
-    set satoshis(v: number) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCommission, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableCommission, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityCommission;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCommission, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCommission](./storage.md#interface-tablecommission), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityOutput
-
-```ts
-export class EntityOutput extends EntityBase<TableOutput> {
-    constructor(api?: TableOutput) 
-    override updateApi(): void 
-    get outputId() 
-    set outputId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get basketId() 
-    set basketId(v: number | undefined) 
-    get spentBy() 
-    set spentBy(v: number | undefined) 
-    get vout() 
-    set vout(v: number) 
-    get satoshis() 
-    set satoshis(v: number) 
-    get outputDescription() 
-    set outputDescription(v: string) 
-    get spendable() 
-    set spendable(v: boolean) 
-    get change() 
-    set change(v: boolean) 
-    get txid() 
-    set txid(v: string | undefined) 
-    get type() 
-    set type(v: string) 
-    get providedBy() 
-    set providedBy(v: StorageProvidedBy) 
-    get purpose() 
-    set purpose(v: string) 
-    get spendingDescription() 
-    set spendingDescription(v: string | undefined) 
-    get derivationPrefix() 
-    set derivationPrefix(v: string | undefined) 
-    get derivationSuffix() 
-    set derivationSuffix(v: string | undefined) 
-    get senderIdentityKey() 
-    set senderIdentityKey(v: string | undefined) 
-    get customInstructions() 
-    set customInstructions(v: string | undefined) 
-    get lockingScript() 
-    set lockingScript(v: number[] | undefined) 
-    get scriptLength() 
-    set scriptLength(v: number | undefined) 
-    get scriptOffset() 
-    set scriptOffset(v: number | undefined) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutput, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutput, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityOutput;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutput, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [StorageProvidedBy](./client.md#type-storageprovidedby), [SyncMap](./storage.md#interface-syncmap), [TableOutput](./storage.md#interface-tableoutput), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityOutputBasket
-
-```ts
-export class EntityOutputBasket extends EntityBase<TableOutputBasket> {
-    constructor(api?: TableOutputBasket) 
-    get basketId() 
-    set basketId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get name() 
-    set name(v: string) 
-    get numberOfDesiredUTXOs() 
-    set numberOfDesiredUTXOs(v: number) 
-    get minimumDesiredUTXOValue() 
-    set minimumDesiredUTXOValue(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override updateApi(): void 
-    override equals(ei: TableOutputBasket, syncMap?: SyncMap): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputBasket, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityOutputBasket;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputBasket, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityOutputTag
-
-```ts
-export class EntityOutputTag extends EntityBase<TableOutputTag> {
-    constructor(api?: TableOutputTag) 
-    override updateApi(): void 
-    get outputTagId() 
-    set outputTagId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get tag() 
-    set tag(v: string) 
-    get userId() 
-    set userId(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutputTag, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputTag, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityOutputTag;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTag, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputTag](./storage.md#interface-tableoutputtag), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityOutputTagMap
-
-```ts
-export class EntityOutputTagMap extends EntityBase<TableOutputTagMap> {
-    constructor(api?: TableOutputTagMap) 
-    override updateApi(): void 
-    get outputTagId() 
-    set outputTagId(v: number) 
-    get outputId() 
-    set outputId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutputTagMap, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputTagMap, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityOutputTagMap;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTagMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Class: EntityProvenTx
 
 ```ts
 export class EntityProvenTx extends EntityBase<TableProvenTx> {
-    static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult> 
-    constructor(api?: TableProvenTx) 
-    override updateApi(): void 
-    getMerklePath(): MerklePath 
+    static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult>
+    constructor(api?: TableProvenTx)
+    override updateApi(): void
+    getMerklePath(): MerklePath
     _mp?: MerklePath;
-    get provenTxId() 
-    set provenTxId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get txid() 
-    set txid(v: string) 
-    get height() 
-    set height(v: number) 
-    get index() 
-    set index(v: number) 
-    get merklePath() 
-    set merklePath(v: number[]) 
-    get rawTx() 
-    set rawTx(v: number[]) 
-    get blockHash() 
-    set blockHash(v: string) 
-    get merkleRoot() 
-    set merkleRoot(v: string) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableProvenTx, syncMap?: SyncMap | undefined): boolean 
+    get provenTxId()
+    set provenTxId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get txid()
+    set txid(v: string)
+    get height()
+    set height(v: number)
+    get index()
+    set index(v: number)
+    get merklePath()
+    set merklePath(v: number[])
+    get rawTx()
+    set rawTx(v: number[])
+    get blockHash()
+    set blockHash(v: string)
+    get merkleRoot()
+    set merkleRoot(v: string)
+    override get id()
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableProvenTx, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityProvenTx;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    static getProofAttemptsLimit = 8;
-    static getProofMinutes = 60;
-    static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean): Promise<EntityProvenTx | undefined> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
+    static readonly getProofAttemptsLimit = 8;
+    static readonly getProofMinutes = 60;
+    static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean, maxRebroadcastAttempts = 0): Promise<EntityProvenTx | undefined>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [EntityStorage](./storage.md#type-entitystorage), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [ProvenTxFromTxidResult](./storage.md#interface-proventxfromtxidresult), [SyncMap](./storage.md#interface-syncmap), [TableProvenTx](./storage.md#interface-tableproventx), [TrxToken](./client.md#interface-trxtoken), [WalletServices](./client.md#interface-walletservices), [blockHash](./services.md#function-blockhash)
+See also: [EntityBase](#class-entitybase), [EntityProvenTxReq](#class-entityproventxreq), [EntityStorage](#type-entitystorage), [GetMerklePathResult](#interface-getmerklepathresult), [ProvenTxFromTxidResult](#interface-proventxfromtxidresult), [SyncMap](#interface-syncmap), [TableProvenTx](#interface-tableproventx), [TrxToken](#interface-trxtoken), [WalletServices](#interface-walletservices), [blockHash](#function-blockhash)
 
 ###### Property getProofAttemptsLimit
 
 How high attempts can go before status is forced to invalid
 
 ```ts
-static getProofAttemptsLimit = 8
+static readonly getProofAttemptsLimit = 8
 ```
 
 ###### Property getProofMinutes
@@ -10834,7 +7803,7 @@ static getProofAttemptsLimit = 8
 How many hours we have to try for a poof
 
 ```ts
-static getProofMinutes = 60
+static readonly getProofMinutes = 60
 ```
 
 ###### Method fromReq
@@ -10844,9 +7813,9 @@ Try to create a new ProvenTx from a ProvenTxReq and GetMerkleProofResultApi
 Otherwise it returns undefined and updates req.status to either 'unknown', 'invalid', or 'unconfirmed'
 
 ```ts
-static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean): Promise<EntityProvenTx | undefined> 
+static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean, maxRebroadcastAttempts = 0): Promise<EntityProvenTx | undefined>
 ```
-See also: [EntityProvenTx](./storage.md#class-entityproventx), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [GetMerklePathResult](./client.md#interface-getmerklepathresult)
+See also: [EntityProvenTx](#class-entityproventx), [EntityProvenTxReq](#class-entityproventxreq), [GetMerklePathResult](#interface-getmerklepathresult)
 
 ###### Method fromTxid
 
@@ -10861,14 +7830,14 @@ The returned ProvenTx and ProvenTxReq objects have not been added to the storage
 this is optional and can be done by the caller if appropriate.
 
 ```ts
-static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult> 
+static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult>
 ```
-See also: [ProvenTxFromTxidResult](./storage.md#interface-proventxfromtxidresult), [WalletServices](./client.md#interface-walletservices)
+See also: [ProvenTxFromTxidResult](#interface-proventxfromtxidresult), [WalletServices](#interface-walletservices)
 
 ###### Method getMerklePath
 
 ```ts
-getMerklePath(): MerklePath 
+getMerklePath(): MerklePath
 ```
 
 Returns
@@ -10882,75 +7851,84 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityProvenTxReq extends EntityBase<TableProvenTxReq> {
-    static async fromStorageTxid(storage: EntityStorage, txid: string, trx?: TrxToken): Promise<EntityProvenTxReq | undefined> 
-    static async fromStorageId(storage: EntityStorage, id: number, trx?: TrxToken): Promise<EntityProvenTxReq> 
-    static fromTxid(txid: string, rawTx: number[], inputBEEF?: number[]): EntityProvenTxReq 
+    static readonly wasBroadcastStatuses: ProvenTxReqStatus[] = ["unmined", "callback", "unconfirmed", "completed"];
+    static async fromStorageTxid(storage: EntityStorage, txid: string, trx?: TrxToken): Promise<EntityProvenTxReq | undefined>
+    static async fromStorageId(storage: EntityStorage, id: number, trx?: TrxToken): Promise<EntityProvenTxReq>
+    static fromTxid(txid: string, rawTx: number[], inputBEEF?: number[]): EntityProvenTxReq
     history: ProvenTxReqHistory;
     notify: ProvenTxReqNotify;
-    packApiHistory() 
-    packApiNotify() 
-    unpackApiHistory() 
-    unpackApiNotify() 
-    get apiHistory(): string 
-    get apiNotify(): string 
-    set apiHistory(v: string) 
-    set apiNotify(v: string) 
-    updateApi(): void 
-    unpackApi(): void 
-    async refreshFromStorage(storage: EntityStorage | WalletStorageManager, trx?: TrxToken): Promise<void> 
-    constructor(api?: TableProvenTxReq) 
-    historySince(since: Date): ProvenTxReqHistory 
-    historyPretty(since?: Date, indent = 0): string 
-    prettyNote(note: ReqHistoryNote): string 
-    getHistorySummary(): ProvenTxReqHistorySummaryApi 
-    parseHistoryNote(note: ReqHistoryNote, summary?: ProvenTxReqHistorySummaryApi): string 
-    addNotifyTransactionId(id: number) 
-    addHistoryNote(note: ReqHistoryNote, noDupes?: boolean) 
-    async updateStorage(storage: EntityStorage, trx?: TrxToken) 
-    async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken) 
-    async insertOrMerge(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTxReq> 
-    get status() 
-    set status(v: ProvenTxReqStatus) 
-    get provenTxReqId() 
-    set provenTxReqId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get txid() 
-    set txid(v: string) 
-    get inputBEEF() 
-    set inputBEEF(v: number[] | undefined) 
-    get rawTx() 
-    set rawTx(v: number[]) 
-    get attempts() 
-    set attempts(v: number) 
-    get provenTxId() 
-    set provenTxId(v: number | undefined) 
-    get notified() 
-    set notified(v: boolean) 
-    get batch() 
-    set batch(v: string | undefined) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean 
+    packApiHistory()
+    packApiNotify()
+    unpackApiHistory()
+    unpackApiNotify()
+    get apiHistory(): string
+    get apiNotify(): string
+    set apiHistory(v: string)
+    set apiNotify(v: string)
+    updateApi(): void
+    unpackApi(): void
+    async refreshFromStorage(storage: EntityStorage | WalletStorageManager, trx?: TrxToken): Promise<void>
+    constructor(api?: TableProvenTxReq)
+    historySince(since: Date): ProvenTxReqHistory
+    historyPretty(since?: Date, indent = 0): string
+    prettyNote(note: ReqHistoryNote): string
+    getHistorySummary(): ProvenTxReqHistorySummaryApi
+    parseHistoryNote(note: ReqHistoryNote, summary?: ProvenTxReqHistorySummaryApi): string
+    addNotifyTransactionId(id: number)
+    addHistoryNote(note: ReqHistoryNote, noDupes?: boolean)
+    async updateStorage(storage: EntityStorage, trx?: TrxToken)
+    async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken)
+    async insertOrMerge(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTxReq>
+    get status()
+    set status(v: ProvenTxReqStatus)
+    get provenTxReqId()
+    set provenTxReqId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get txid()
+    set txid(v: string)
+    get inputBEEF()
+    set inputBEEF(v: number[] | undefined)
+    get rawTx()
+    set rawTx(v: number[])
+    get attempts()
+    set attempts(v: number)
+    get provenTxId()
+    set provenTxId(v: number | undefined)
+    get notified()
+    set notified(v: boolean)
+    get batch()
+    set batch(v: string | undefined)
+    get wasBroadcast(): boolean
+    set wasBroadcast(v: boolean)
+    get rebroadcastAttempts(): number
+    set rebroadcastAttempts(v: number)
+    applyProofTimeout(maxRebroadcastAttempts = 0): {
+        action: "invalid" | "rebroadcast";
+        rebroadcastAttempts: number;
+    }
+    override get id()
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityProvenTxReq;
         eiId: number;
-    }> 
-    mapNotifyTransactionIds(syncMap: SyncMap): void 
-    mergeNotifyTransactionIds(ei: TableProvenTxReq, syncMap?: SyncMap): void 
-    mergeHistory(ei: TableProvenTxReq, syncMap?: SyncMap, noDupes?: boolean): void 
-    static isTerminalStatus(status: ProvenTxReqStatus): boolean 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    mapNotifyTransactionIds(syncMap: SyncMap): void
+    mergeNotifyTransactionIds(ei: TableProvenTxReq, syncMap?: SyncMap): void
+    mergeHistory(ei: TableProvenTxReq, syncMap?: SyncMap, noDupes?: boolean): void
+    static isTerminalStatus(status: ProvenTxReqStatus): boolean
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [ProvenTxReqHistory](./storage.md#interface-proventxreqhistory), [ProvenTxReqHistorySummaryApi](./storage.md#interface-proventxreqhistorysummaryapi), [ProvenTxReqNotify](./storage.md#interface-proventxreqnotify), [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [ReqHistoryNote](./client.md#type-reqhistorynote), [StorageProvider](./storage.md#class-storageprovider), [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [ProvenTxReqHistory](#interface-proventxreqhistory), [ProvenTxReqHistorySummaryApi](#interface-proventxreqhistorysummaryapi), [ProvenTxReqNotify](#interface-proventxreqnotify), [ProvenTxReqStatus](#type-proventxreqstatus), [ReqHistoryNote](#interface-reqhistorynote), [StorageProvider](#class-storageprovider), [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq), [TrxToken](#interface-trxtoken), [WalletStorageManager](#class-walletstoragemanager)
 
 ###### Method addHistoryNote
 
@@ -10958,9 +7936,9 @@ Adds a note to history.
 Notes with identical property values to an existing note are ignored.
 
 ```ts
-addHistoryNote(note: ReqHistoryNote, noDupes?: boolean) 
+addHistoryNote(note: ReqHistoryNote, noDupes?: boolean)
 ```
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
+See also: [ReqHistoryNote](#interface-reqhistorynote)
 
 Argument Details
 
@@ -10974,18 +7952,18 @@ Argument Details
 'convergent' equality must satisfy (A sync B) equals (B sync A)
 
 ```ts
-override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean 
+override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean
 ```
-See also: [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq)
 
 ###### Method historySince
 
 Returns history to only what followed since date.
 
 ```ts
-historySince(since: Date): ProvenTxReqHistory 
+historySince(since: Date): ProvenTxReqHistory
 ```
-See also: [ProvenTxReqHistory](./storage.md#interface-proventxreqhistory)
+See also: [ProvenTxReqHistory](#interface-proventxreqhistory)
 
 ###### Method mergeExisting
 
@@ -11001,18 +7979,18 @@ passing through `notifying`. Thus a full convergent merge passes through these s
 On terminal failure: `doubleSpend` trumps `invalid` as it contains more data.
 
 ```ts
-override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq), [TrxToken](#interface-trxtoken)
 
 ###### Method updateStorage
 
 Updates database record with current state of this EntityUser
 
 ```ts
-async updateStorage(storage: EntityStorage, trx?: TrxToken) 
+async updateStorage(storage: EntityStorage, trx?: TrxToken)
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [TrxToken](#interface-trxtoken)
 
 ###### Method updateStorageDynamicProperties
 
@@ -11027,316 +8005,30 @@ Update storage with changes to non-static properties:
   batch
 
 ```ts
-async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken) 
+async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken)
 ```
-See also: [StorageProvider](./storage.md#class-storageprovider), [TrxToken](./client.md#interface-trxtoken), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [StorageProvider](#class-storageprovider), [TrxToken](#interface-trxtoken), [WalletStorageManager](#class-walletstoragemanager)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: EntitySyncState
+##### Class: EventBus
 
 ```ts
-export class EntitySyncState extends EntityBase<TableSyncState> {
-    constructor(api?: TableSyncState) 
-    validateSyncMap(sm: SyncMap) 
-    static async fromStorage(storage: WalletStorageSync, userIdentityKey: string, remoteSettings: TableSettings): Promise<EntitySyncState> 
-    async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken) 
-    override updateApi(notSyncMap?: boolean): void 
-    set created_at(v: Date) 
-    get created_at() 
-    set updated_at(v: Date) 
-    get updated_at() 
-    set userId(v: number) 
-    get userId() 
-    set storageIdentityKey(v: string) 
-    get storageIdentityKey() 
-    set storageName(v: string) 
-    get storageName() 
-    set init(v: boolean) 
-    get init() 
-    set refNum(v: string) 
-    get refNum() 
-    set status(v: SyncStatus) 
-    get status(): SyncStatus 
-    set when(v: Date | undefined) 
-    get when() 
-    set satoshis(v: number | undefined) 
-    get satoshis() 
-    get apiErrorLocal() 
-    get apiErrorOther() 
-    get apiSyncMap() 
-    override get id(): number 
-    set id(id: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    static mergeIdMap(fromMap: Record<number, number>, toMap: Record<number, number>) 
-    mergeSyncMap(iSyncMap: SyncMap) 
-    errorLocal: SyncError | undefined;
-    errorOther: SyncError | undefined;
-    syncMap: SyncMap;
-    override equals(ei: TableSyncState, syncMap?: SyncMap | undefined): boolean 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableSyncState, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    makeRequestSyncChunkArgs(forIdentityKey: string, forStorageIdentityKey: string, maxRoughSize?: number, maxItems?: number): RequestSyncChunkArgs 
-    static syncChunkSummary(c: SyncChunk): string {
-        let log = "";
-        log += `SYNC CHUNK SUMMARY
-  from storage: ${c.fromStorageIdentityKey}
-  to storage: ${c.toStorageIdentityKey}
-  for user: ${c.userIdentityKey}
-`;
-        if (c.user)
-            log += `  USER activeStorage ${c.user.activeStorage}\n`;
-        if (!!c.provenTxs) {
-            log += `  PROVEN_TXS\n`;
-            for (const r of c.provenTxs) {
-                log += `    ${r.provenTxId} ${r.txid}\n`;
-            }
-        }
-        if (!!c.provenTxReqs) {
-            log += `  PROVEN_TX_REQS\n`;
-            for (const r of c.provenTxReqs) {
-                log += `    ${r.provenTxReqId} ${r.txid} ${r.status} ${r.provenTxId || ""}\n`;
-            }
-        }
-        if (!!c.transactions) {
-            log += `  TRANSACTIONS\n`;
-            for (const r of c.transactions) {
-                log += `    ${r.transactionId} ${r.txid} ${r.status} ${r.provenTxId || ""} sats:${r.satoshis}\n`;
-            }
-        }
-        if (!!c.outputs) {
-            log += `  OUTPUTS\n`;
-            for (const r of c.outputs) {
-                log += `    ${r.outputId} ${r.txid}.${r.vout} ${r.transactionId} ${r.spendable ? "spendable" : ""} sats:${r.satoshis}\n`;
-            }
-        }
-        return log;
-    }
-    async processSyncChunk(writer: EntityStorage, args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<{
-        done: boolean;
-        maxUpdated_at: Date | undefined;
-        updates: number;
-        inserts: number;
-    }> 
+export class EventBus extends EventEmitter {
+    static readonly BLOCK_MINED = "block.mined";
+    static readonly UTXO_INVALIDATE = "utxo.invalidate";
+    static readonly REORG = "reorg";
+    emitBlockMined(event: BlockEvent): void
+    emitUtxoInvalidation(event: UtxoInvalidationEvent): void
+    emitReorg(event: ReorgEvent): void
+    onBlockMined(handler: (event: BlockEvent) => void): void
+    onUtxoInvalidation(handler: (event: UtxoInvalidationEvent) => void): void
+    onReorg(handler: (event: ReorgEvent) => void): void
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk), [SyncError](./storage.md#interface-syncerror), [SyncMap](./storage.md#interface-syncmap), [SyncStatus](./client.md#type-syncstatus), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TrxToken](./client.md#interface-trxtoken), [WalletStorageSync](./client.md#interface-walletstoragesync)
-
-###### Method mergeSyncMap
-
-Merge additions to the syncMap
-
-```ts
-mergeSyncMap(iSyncMap: SyncMap) 
-```
-See also: [SyncMap](./storage.md#interface-syncmap)
-
-###### Method updateStorage
-
-Handles both insert and update based on id value: zero indicates insert.
-
-```ts
-async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken) 
-```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TrxToken](./client.md#interface-trxtoken)
-
-Argument Details
-
-+ **notSyncMap**
-  + if not new and true, excludes updating syncMap in storage.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityTransaction
-
-```ts
-export class EntityTransaction extends EntityBase<TableTransaction> {
-    getBsvTx(): BsvTransaction | undefined 
-    getBsvTxIns(): TransactionInput[] 
-    async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]> 
-    constructor(api?: TableTransaction) 
-    override updateApi(): void 
-    get transactionId() 
-    set transactionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get version() 
-    set version(v: number | undefined) 
-    get lockTime() 
-    set lockTime(v: number | undefined) 
-    get isOutgoing() 
-    set isOutgoing(v: boolean) 
-    get status() 
-    set status(v: TransactionStatus) 
-    get userId() 
-    set userId(v: number) 
-    get provenTxId() 
-    set provenTxId(v: number | undefined) 
-    get satoshis() 
-    set satoshis(v: number) 
-    get txid() 
-    set txid(v: string | undefined) 
-    get reference() 
-    set reference(v: string) 
-    get inputBEEF() 
-    set inputBEEF(v: number[] | undefined) 
-    get description() 
-    set description(v: string) 
-    get rawTx() 
-    set rawTx(v: number[] | undefined) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTransaction, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableTransaction, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityTransaction;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTransaction, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    async getProvenTx(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTx | undefined> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityProvenTx](./storage.md#class-entityproventx), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutput](./storage.md#interface-tableoutput), [TableTransaction](./storage.md#interface-tabletransaction), [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken)
-
-###### Method getBsvTxIns
-
-```ts
-getBsvTxIns(): TransactionInput[] 
-```
-
-Returns
-
-array of
-
-###### Method getInputs
-
-Returns an array of "known" inputs to this transaction which belong to the same userId.
-Uses both spentBy and rawTx inputs (if available) to locate inputs from among user's outputs.
-Not all transaction inputs correspond to prior storage outputs.
-
-```ts
-async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]> 
-```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TableOutput](./storage.md#interface-tableoutput), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityTxLabel
-
-```ts
-export class EntityTxLabel extends EntityBase<TableTxLabel> {
-    constructor(api?: TableTxLabel) 
-    override updateApi(): void 
-    get txLabelId() 
-    set txLabelId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get label() 
-    set label(v: string) 
-    get userId() 
-    set userId(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTxLabel, syncMap?: SyncMap): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableTxLabel, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityTxLabel;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabel, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableTxLabel](./storage.md#interface-tabletxlabel), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityTxLabelMap
-
-```ts
-export class EntityTxLabelMap extends EntityBase<TableTxLabelMap> {
-    constructor(api?: TableTxLabelMap) 
-    override updateApi(): void 
-    get txLabelId() 
-    set txLabelId(v: number) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTxLabelMap, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableTxLabelMap, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityTxLabelMap;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabelMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: EntityUser
-
-```ts
-export class EntityUser extends EntityBase<TableUser> {
-    constructor(api?: TableUser) 
-    override updateApi(): void 
-    get userId() 
-    set userId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get identityKey() 
-    set identityKey(v: string) 
-    get activeStorage() 
-    set activeStorage(v: string) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableUser, syncMap?: SyncMap | undefined): boolean 
-    static async mergeFind(storage: EntityStorage, userId: number, ei: TableUser, trx?: TrxToken): Promise<{
-        found: boolean;
-        eo: EntityUser;
-        eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableUser, syncMap?: SyncMap, trx?: TrxToken): Promise<boolean> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken)
+See also: [BlockEvent](#interface-blockevent), [ReorgEvent](#interface-reorgevent), [UtxoInvalidationEvent](#interface-utxoinvalidationevent)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11349,22 +8041,22 @@ Operations support integrating contiguous batches of headers,
 
 ```ts
 export class HeightRange implements HeightRangeApi {
-    constructor(public minHeight: number, public maxHeight: number) 
+    constructor(public minHeight: number, public maxHeight: number)
     static readonly empty = new HeightRange(0, -1);
-    get isEmpty() 
-    static from(headers: BlockHeader[]): HeightRange 
-    get length() 
-    toString(): string 
-    contains(range: HeightRange | number) 
-    intersect(range: HeightRange) 
-    union(range: HeightRange) 
-    subtract(range: HeightRange) 
-    above(range: HeightRange) 
-    copy(): HeightRange 
+    get isEmpty()
+    static from(headers: BlockHeader[]): HeightRange
+    get length()
+    toString(): string
+    contains(range: HeightRange | number)
+    intersect(range: HeightRange)
+    union(range: HeightRange)
+    subtract(range: HeightRange)
+    above(range: HeightRange)
+    copy(): HeightRange
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRangeApi](./services.md#interface-heightrangeapi)
+See also: [BlockHeader](#interface-blockheader), [HeightRangeApi](#interface-heightrangeapi)
 
 ###### Property empty
 
@@ -11374,7 +8066,7 @@ The canonical empty range is (0, -1).
 ```ts
 static readonly empty = new HeightRange(0, -1)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method above
 
@@ -11386,16 +8078,16 @@ Otherwise returns a copy of this range.
 This returns the portion of this range that is strictly above `range`.
 
 ```ts
-above(range: HeightRange) 
+above(range: HeightRange)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method contains
 
 ```ts
-contains(range: HeightRange | number) 
+contains(range: HeightRange | number)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 Returns
 
@@ -11411,16 +8103,16 @@ Argument Details
 Return a copy of this range.
 
 ```ts
-copy(): HeightRange 
+copy(): HeightRange
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method from
 
 ```ts
-static from(headers: BlockHeader[]): HeightRange 
+static from(headers: BlockHeader[]): HeightRange
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [HeightRange](./services.md#class-heightrange)
+See also: [BlockHeader](#interface-blockheader), [HeightRange](#class-heightrange)
 
 Returns
 
@@ -11440,9 +8132,9 @@ Intersection with an empty range is always empty.
 The result is always a single, possibly empty, range.
 
 ```ts
-intersect(range: HeightRange) 
+intersect(range: HeightRange)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method subtract
 
@@ -11451,16 +8143,16 @@ Returns `range` subtracted from this range.
 Throws an error if the subtraction would create two disjoint ranges.
 
 ```ts
-subtract(range: HeightRange) 
+subtract(range: HeightRange)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
+See also: [HeightRange](#class-heightrange)
 
 ###### Method toString
 
 function toString() { [native code] }
 
 ```ts
-toString(): string 
+toString(): string
 ```
 
 Returns
@@ -11476,167 +8168,9 @@ Only valid if the two ranges overlap or touch, or one is empty.
 Throws an error if the union would create two disjoint ranges.
 
 ```ts
-union(range: HeightRange) 
+union(range: HeightRange)
 ```
-See also: [HeightRange](./services.md#class-heightrange)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: LiveIngestorBase
-
-```ts
-export abstract class LiveIngestorBase implements LiveIngestorApi {
-    static createLiveIngestorBaseOptions(chain: Chain) 
-    chain: Chain;
-    log: (...args: any[]) => void = () => ;
-    constructor(options: LiveIngestorBaseOptions) 
-    async shutdown(): Promise<void> { }
-    async setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void> 
-    storage(): ChaintracksStorageApi 
-    abstract getHeaderByHash(hash: string): Promise<BlockHeader | undefined>;
-    abstract startListening(liveHeaders: BlockHeader[]): Promise<void>;
-    abstract stopListening(): void;
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi), [LiveIngestorApi](./services.md#interface-liveingestorapi), [LiveIngestorBaseOptions](./services.md#interface-liveingestorbaseoptions)
-
-###### Method getHeaderByHash
-
-Called to retrieve a missing block header,
-when the previousHash of a new header is unknown.
-
-```ts
-abstract getHeaderByHash(hash: string): Promise<BlockHeader | undefined>
-```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Argument Details
-
-+ **hash**
-  + block hash of missing header
-
-###### Method setStorage
-
-Allocate resources.
-
-```ts
-async setStorage(storage: ChaintracksStorageApi, log: (...args: any[]) => void): Promise<void> 
-```
-See also: [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
-
-Argument Details
-
-+ **storage**
-  + coordinating storage engine.
-
-###### Method shutdown
-
-Release resources.
-Override if required.
-
-```ts
-async shutdown(): Promise<void> 
-```
-
-###### Method startListening
-
-Begin retrieving new block headers.
-
-New headers are pushed onto the liveHeaders array.
-
-Continue waiting for new headers.
-
-Return only when either `stopListening` or `shutdown` are called.
-
-Be prepared to resume listening after `stopListening` but not
-after `shutdown`.
-
-```ts
-abstract startListening(liveHeaders: BlockHeader[]): Promise<void>
-```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-###### Method stopListening
-
-Causes `startListening` to stop listening for new block headers and return.
-
-```ts
-abstract stopListening(): void
-```
-
-###### Method storage
-
-```ts
-storage(): ChaintracksStorageApi 
-```
-See also: [ChaintracksStorageApi](./services.md#interface-chaintracksstorageapi)
-
-Returns
-
-coordinating storage engine.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: LiveIngestorWhatsOnChainPoll
-
-Reports new headers by polling periodically.
-
-```ts
-export class LiveIngestorWhatsOnChainPoll extends LiveIngestorBase {
-    static createLiveIngestorWhatsOnChainOptions(chain: Chain): LiveIngestorWhatsOnChainOptions 
-    idleWait: number;
-    woc: WhatsOnChainServices;
-    done: boolean = false;
-    constructor(options: LiveIngestorWhatsOnChainOptions) 
-    async getHeaderByHash(hash: string): Promise<BlockHeader | undefined> 
-    async startListening(liveHeaders: BlockHeader[]): Promise<void> 
-    stopListening(): void 
-    override async shutdown(): Promise<void> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [LiveIngestorBase](./services.md#class-liveingestorbase), [LiveIngestorWhatsOnChainOptions](./services.md#interface-liveingestorwhatsonchainoptions), [WhatsOnChainServices](./services.md#class-whatsonchainservices)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: MergeEntity
-
-```ts
-export class MergeEntity<API extends EntityTimeStamp, DE extends EntityBase<API>> {
-    idMap: Record<number, number>;
-    constructor(public stateArray: API[] | undefined, public find: (storage: EntityStorage, userId: number, ei: API, syncMap: SyncMap, trx?: TrxToken) => Promise<{
-        found: boolean;
-        eo: DE;
-        eiId: number;
-    }>, public esm: EntitySyncMap) 
-    updateSyncMap(map: Record<number, number>, inId: number, outId: number) 
-    async merge(since: Date | undefined, storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<{
-        inserts: number;
-        updates: number;
-    }> 
-}
-```
-
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [EntitySyncMap](./storage.md#interface-entitysyncmap), [EntityTimeStamp](./client.md#interface-entitytimestamp), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
-
-###### Method merge
-
-```ts
-async merge(since: Date | undefined, storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<{
-    inserts: number;
-    updates: number;
-}> 
-```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
-
-Argument Details
-
-+ **since**
-  + date of current sync chunk
+See also: [HeightRange](#class-heightrange)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11646,11 +8180,11 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export class MockChainMigrations implements MigrationSource<string> {
     migrations: Record<string, Migration> = {};
-    constructor() 
-    async getMigrations(): Promise<string[]> 
-    getMigrationName(migration: string) 
-    async getMigration(migration: string): Promise<Migration> 
-    setupMigrations(): Record<string, Migration> 
+    constructor()
+    async getMigrations(): Promise<string[]>
+    getMigrationName(migration: string)
+    async getMigration(migration: string): Promise<Migration>
+    setupMigrations(): Record<string, Migration>
 }
 ```
 
@@ -11661,30 +8195,30 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class MockChainStorage {
-    constructor(public knex: Knex) 
-    async migrate(): Promise<void> 
-    async insertTransaction(txid: string, rawTx: number[]): Promise<void> 
-    async getTransaction(txid: string): Promise<MockChainTransactionRow | undefined> 
-    async getUnminedTransactions(): Promise<MockChainTransactionRow[]> 
-    async setTransactionBlock(txid: string, height: number, index: number): Promise<void> 
-    async insertUtxo(txid: string, vout: number, lockingScript: number[], satoshis: number, scriptHash: string, isCoinbase = false, blockHeight: number | null = null): Promise<void> 
-    async getUtxo(txid: string, vout: number): Promise<MockChainUtxoRow | undefined> 
-    async getUtxosByScriptHash(scriptHash: string): Promise<MockChainUtxoRow[]> 
-    async markUtxoSpent(txid: string, vout: number, spentByTxid: string): Promise<void> 
-    async insertBlockHeader(header: MockChainBlockHeaderRow): Promise<void> 
-    async getBlockHeaderByHeight(height: number): Promise<BlockHeader | undefined> 
-    async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined> 
-    async getChainTip(): Promise<BlockHeader | undefined> 
-    async getTransactionsInBlock(height: number): Promise<MockChainTransactionRow[]> 
-    async deleteBlockHeader(height: number): Promise<void> 
-    async deleteTransaction(txid: string): Promise<void> 
-    async deleteUtxosByTxid(txid: string): Promise<void> 
-    async setUtxoBlockHeight(txid: string, blockHeight: number | null): Promise<void> 
-    async unspendUtxo(txid: string, vout: number): Promise<void> 
+    constructor(public knex: Knex)
+    async migrate(): Promise<void>
+    async insertTransaction(txid: string, rawTx: number[]): Promise<void>
+    async getTransaction(txid: string): Promise<MockChainTransactionRow | undefined>
+    async getUnminedTransactions(): Promise<MockChainTransactionRow[]>
+    async setTransactionBlock(txid: string, height: number, index: number): Promise<void>
+    async insertUtxo(txid: string, vout: number, lockingScript: number[], satoshis: number, scriptHash: string, isCoinbase = false, blockHeight: number | null = null): Promise<void>
+    async getUtxo(txid: string, vout: number): Promise<MockChainUtxoRow | undefined>
+    async getUtxosByScriptHash(scriptHash: string): Promise<MockChainUtxoRow[]>
+    async markUtxoSpent(txid: string, vout: number, spentByTxid: string): Promise<void>
+    async insertBlockHeader(header: MockChainBlockHeaderRow): Promise<void>
+    async getBlockHeaderByHeight(height: number): Promise<BlockHeader | undefined>
+    async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined>
+    async getChainTip(): Promise<BlockHeader | undefined>
+    async getTransactionsInBlock(height: number): Promise<MockChainTransactionRow[]>
+    async deleteBlockHeader(height: number): Promise<void>
+    async deleteTransaction(txid: string): Promise<void>
+    async deleteUtxosByTxid(txid: string): Promise<void>
+    async setUtxoBlockHeight(txid: string, blockHeight: number | null): Promise<void>
+    async unspendUtxo(txid: string, vout: number): Promise<void>
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [MockChainBlockHeaderRow](./client.md#interface-mockchainblockheaderrow), [MockChainTransactionRow](./client.md#interface-mockchaintransactionrow), [MockChainUtxoRow](./client.md#interface-mockchainutxorow)
+See also: [BlockHeader](#interface-blockheader), [MockChainBlockHeaderRow](#interface-mockchainblockheaderrow), [MockChainTransactionRow](#interface-mockchaintransactionrow), [MockChainUtxoRow](#interface-mockchainutxorow)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11693,29 +8227,29 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class MockChainTracker implements ChaintracksClientApi {
-    constructor(public chain: Chain, public storage: MockChainStorage) 
-    async currentHeight(): Promise<number> 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
-    async getChain(): Promise<Chain> 
-    async getInfo(): Promise<ChaintracksInfoApi> 
-    async getPresentHeight(): Promise<number> 
-    async getHeaders(height: number, count: number): Promise<string> 
-    async findChainTipHeader(): Promise<BlockHeader> 
-    async findChainTipHash(): Promise<string> 
-    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined> 
-    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined> 
-    async addHeader(_header: BaseBlockHeader): Promise<void> 
-    async startListening(): Promise<void> 
-    async listening(): Promise<void> 
-    async isListening(): Promise<boolean> 
-    async isSynchronized(): Promise<boolean> 
-    async subscribeHeaders(_listener: HeaderListener): Promise<string> 
-    async subscribeReorgs(_listener: ReorgListener): Promise<string> 
-    async unsubscribe(_subscriptionId: string): Promise<boolean> 
+    constructor(public chain: Chain, public storage: MockChainStorage)
+    async currentHeight(): Promise<number>
+    async isValidRootForHeight(root: string, height: number): Promise<boolean>
+    async getChain(): Promise<Chain>
+    async getInfo(): Promise<ChaintracksInfoApi>
+    async getPresentHeight(): Promise<number>
+    async getHeaders(height: number, count: number): Promise<string>
+    async findChainTipHeader(): Promise<BlockHeader>
+    async findChainTipHash(): Promise<string>
+    async findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
+    async findHeaderForBlockHash(hash: string): Promise<BlockHeader | undefined>
+    async addHeader(_header: BaseBlockHeader): Promise<void>
+    async startListening(): Promise<void>
+    async listening(): Promise<void>
+    async isListening(): Promise<boolean>
+    async isSynchronized(): Promise<boolean>
+    async subscribeHeaders(_listener: HeaderListener): Promise<string>
+    async subscribeReorgs(_listener: ReorgListener): Promise<string>
+    async unsubscribe(_subscriptionId: string): Promise<boolean>
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [ChaintracksInfoApi](./services.md#interface-chaintracksinfoapi), [HeaderListener](./services.md#type-headerlistener), [MockChainStorage](./client.md#class-mockchainstorage), [ReorgListener](./services.md#type-reorglistener)
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [Chain](#type-chain), [ChaintracksClientApi](#interface-chaintracksclientapi), [ChaintracksInfoApi](#interface-chaintracksinfoapi), [HeaderListener](#type-headerlistener), [MockChainStorage](#class-mockchainstorage), [ReorgListener](#type-reorglistener)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11724,11 +8258,11 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class MockMiner {
-    async mineBlock(storage: MockChainStorage): Promise<BlockHeader> 
+    async mineBlock(storage: MockChainStorage): Promise<BlockHeader>
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [MockChainStorage](./client.md#class-mockchainstorage)
+See also: [BlockHeader](#interface-blockheader), [MockChainStorage](#class-mockchainstorage)
 
 ###### Method mineBlock
 
@@ -11736,9 +8270,9 @@ Mine a new block containing all unmined transactions.
 Returns the new block header.
 
 ```ts
-async mineBlock(storage: MockChainStorage): Promise<BlockHeader> 
+async mineBlock(storage: MockChainStorage): Promise<BlockHeader>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader), [MockChainStorage](./client.md#class-mockchainstorage)
+See also: [BlockHeader](#interface-blockheader), [MockChainStorage](#class-mockchainstorage)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11751,32 +8285,32 @@ export class MockServices implements WalletServices {
     storage: MockChainStorage;
     tracker: MockChainTracker;
     miner: MockMiner;
-    constructor(public knex: Knex) 
-    async initialize(): Promise<void> 
-    async mineBlock(): Promise<BlockHeader> 
-    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult[]> 
-    async reorg(startingHeight: number, numBlocks: number, txidMap?: Record<string, number>): Promise<ReorgResult> 
-    async getRawTx(txid: string): Promise<GetRawTxResult> 
-    async getMerklePath(txid: string): Promise<GetMerklePathResult> 
-    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string): Promise<GetUtxoStatusResult> 
-    async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult> 
-    async getScriptHashHistory(hash: string): Promise<GetScriptHashHistoryResult> 
-    async getChainTracker(): Promise<ChainTracker> 
-    async getHeaderForHeight(height: number): Promise<number[]> 
-    async getHeight(): Promise<number> 
-    async hashToHeader(hash: string): Promise<BlockHeader> 
-    hashOutputScript(script: string): string 
-    async isUtxo(output: TableOutput): Promise<boolean> 
-    async getBsvExchangeRate(): Promise<number> 
-    async getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number> 
-    async getFiatExchangeRates(targetCurrencies: FiatCurrencyCode[]): Promise<FiatExchangeRates> 
-    async nLockTimeIsFinal(tx: string | number[] | BsvTransaction | number): Promise<boolean> 
-    async getBeefForTxid(txid: string): Promise<Beef> 
-    getServicesCallHistory(): ServicesCallHistory 
+    constructor(public knex: Knex)
+    async initialize(): Promise<void>
+    async mineBlock(): Promise<BlockHeader>
+    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult[]>
+    async reorg(startingHeight: number, numBlocks: number, txidMap?: Record<string, number>): Promise<ReorgResult>
+    async getRawTx(txid: string): Promise<GetRawTxResult>
+    async getMerklePath(txid: string): Promise<GetMerklePathResult>
+    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, _useNext?: boolean): Promise<GetUtxoStatusResult>
+    async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult>
+    async getScriptHashHistory(hash: string): Promise<GetScriptHashHistoryResult>
+    async getChainTracker(): Promise<ChainTracker>
+    async getHeaderForHeight(height: number): Promise<number[]>
+    async getHeight(): Promise<number>
+    async hashToHeader(hash: string): Promise<BlockHeader>
+    hashOutputScript(script: string): string
+    async isUtxo(output: TableOutput, useNext = false): Promise<boolean>
+    async getBsvExchangeRate(): Promise<number>
+    async getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number>
+    async getFiatExchangeRates(targetCurrencies: FiatCurrencyCode[]): Promise<FiatExchangeRates>
+    async nLockTimeIsFinal(tx: string | number[] | BsvTransaction | number): Promise<boolean>
+    async getBeefForTxid(txid: string): Promise<Beef>
+    getServicesCallHistory(): ServicesCallHistory
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [FiatCurrencyCode](./client.md#type-fiatcurrencycode), [FiatExchangeRates](./client.md#interface-fiatexchangerates), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [GetRawTxResult](./client.md#interface-getrawtxresult), [GetScriptHashHistoryResult](./client.md#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult), [MockChainStorage](./client.md#class-mockchainstorage), [MockChainTracker](./client.md#class-mockchaintracker), [MockMiner](./client.md#class-mockminer), [PostBeefResult](./client.md#interface-postbeefresult), [ReorgResult](./client.md#interface-reorgresult), [ServicesCallHistory](./client.md#type-servicescallhistory), [TableOutput](./storage.md#interface-tableoutput), [WalletServices](./client.md#interface-walletservices), [getBeefForTxid](./services.md#function-getbeeffortxid)
+See also: [BlockHeader](#interface-blockheader), [Chain](#type-chain), [FiatCurrencyCode](#type-fiatcurrencycode), [FiatExchangeRates](#interface-fiatexchangerates), [GetMerklePathResult](#interface-getmerklepathresult), [GetRawTxResult](#interface-getrawtxresult), [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult), [MockChainStorage](#class-mockchainstorage), [MockChainTracker](#class-mockchaintracker), [MockMiner](#class-mockminer), [PostBeefResult](#interface-postbeefresult), [ReorgResult](#interface-reorgresult), [ServicesCallHistory](#interface-servicescallhistory), [TableOutput](#interface-tableoutput), [WalletServices](#interface-walletservices), [getBeefForTxid](#function-getbeeffortxid)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -11788,7 +8322,7 @@ and potentially that reorgs update proofs that were already received.
 
 ```ts
 export class Monitor {
-    static createDefaultWalletMonitorOptions(chain: Chain, storage: MonitorStorage, services?: Services, chaintracks?: Chaintracks, startupTaskMode: MonitorStartupTaskMode = "none"): MonitorOptions 
+    static createDefaultWalletMonitorOptions(chain: Chain, storage: MonitorStorage, services?: Services, chaintracks?: Chaintracks, startupTaskMode: MonitorStartupTaskMode = "none"): MonitorOptions
     options: MonitorOptions;
     services: Services | WalletServices;
     chain: Chain;
@@ -11797,11 +8331,14 @@ export class Monitor {
     chaintracksWithEvents?: Chaintracks;
     reorgSubscriptionPromise?: Promise<string>;
     headersSubscriptionPromise?: Promise<string>;
+    spvHeaderSync?: SpvHeaderSync;
     onTransactionBroadcasted?: (broadcastResult: ReviewActionResult) => Promise<void>;
     onTransactionProven?: (txStatus: ProvenTransactionStatus) => Promise<void>;
     onTransactionStatusChanged?: (txid: string, newStatus: string) => Promise<void>;
-    constructor(options: MonitorOptions) 
-    async destroy(): Promise<void> 
+    eventBus: EventBus;
+    get ready(): Promise<void>
+    constructor(options: MonitorOptions)
+    async destroy(): Promise<void>
     static readonly oneSecond = 1000;
     static readonly oneMinute = 60 * Monitor.oneSecond;
     static readonly oneHour = 60 * Monitor.oneMinute;
@@ -11818,33 +8355,35 @@ export class Monitor {
         purgeCompletedAge: 2 * Monitor.oneWeek,
         purgeFailedAge: 5 * Monitor.oneDay
     };
-    addAllTasksToOther(): void 
-    addDefaultTasks(): void 
-    addMultiUserTasks(): void 
-    addTask(task: WalletMonitorTask): void 
-    removeTask(name: string): void 
-    async runTask(name: string): Promise<string> 
-    async runOnce(): Promise<void> 
+    addAllTasksToOther(): void
+    addDefaultTasks(): void
+    addMultiUserTasks(): void
+    addTask(task: WalletMonitorTask): void
+    removeTask(name: string): void
+    async runTask(name: string): Promise<string>
+    async runOnce(): Promise<void>
     _runAsyncSetup: boolean = true;
     _tasksRunningPromise?: PromiseLike<void>;
     resolveCompletion: ((value: void | PromiseLike<void>) => void) | undefined = undefined;
-    async startTasks(): Promise<void> 
-    async logEvent(event: string, details?: string): Promise<void> 
-    stopTasks(): void 
+    async startTasks(): Promise<void>
+    async logEvent(event: string, details?: string): Promise<void>
+    stopTasks(): void
     lastNewHeader: BlockHeader | undefined;
+    lastNewBlockHeight: number | undefined;
     lastNewHeaderWhen: Date | undefined;
-    processNewBlockHeader(header: BlockHeader): void 
-    callOnBroadcastedTransaction(broadcastResult: ReviewActionResult): void 
-    callOnProvenTransaction(txStatus: ProvenTransactionStatus): void 
-    callOnTransactionStatusChanged(txid: string, newStatus: string): void 
-    async fetchSSEEvents(): Promise<number> 
+    processNewBlockHeader(header: BlockHeader): void
+    processBlockMinedNotice(blockHeight?: number, blockHash?: string, header?: BlockHeader): void
+    callOnBroadcastedTransaction(broadcastResult: ReviewActionResult): void
+    callOnProvenTransaction(txStatus: ProvenTransactionStatus): void
+    callOnTransactionStatusChanged(txid: string, newStatus: string): void
+    async fetchSSEEvents(): Promise<number>
     deactivatedHeaders: DeactivedHeader[] = [];
-    processReorg(depth: number, oldTip: BlockHeader, newTip: BlockHeader, deactivatedHeaders?: BlockHeader[]): void 
-    processHeader(header: BlockHeader): void 
+    processReorg(depth: number, oldTip: BlockHeader, newTip: BlockHeader, deactivatedHeaders?: BlockHeader[]): void
+    processHeader(header: BlockHeader): void
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [Chaintracks](./services.md#class-chaintracks), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [DeactivedHeader](./monitor.md#interface-deactivedheader), [MonitorOptions](./monitor.md#interface-monitoroptions), [MonitorStartupTaskMode](./monitor.md#type-monitorstartuptaskmode), [MonitorStorage](./monitor.md#type-monitorstorage), [ProvenTransactionStatus](./client.md#interface-proventransactionstatus), [ReviewActionResult](./client.md#interface-reviewactionresult), [Services](./services.md#class-services), [TaskPurgeParams](./monitor.md#interface-taskpurgeparams), [WalletMonitorTask](./monitor.md#class-walletmonitortask), [WalletServices](./client.md#interface-walletservices)
+See also: [BlockHeader](#interface-blockheader), [Chain](#type-chain), [Chaintracks](#class-chaintracks), [ChaintracksClientApi](#interface-chaintracksclientapi), [DeactivedHeader](#interface-deactivedheader), [EventBus](#class-eventbus), [MonitorOptions](#interface-monitoroptions), [MonitorStartupTaskMode](#type-monitorstartuptaskmode), [MonitorStorage](#type-monitorstorage), [ProvenTransactionStatus](#interface-proventransactionstatus), [ReviewActionResult](#interface-reviewactionresult), [Services](#class-services), [SpvHeaderSync](#class-spvheadersync), [TaskPurgeParams](#interface-taskpurgeparams), [WalletMonitorTask](#class-walletmonitortask), [WalletServices](#interface-walletservices), [blockHash](#function-blockhash)
 
 ###### Property _otherTasks
 
@@ -11853,7 +8392,7 @@ _otherTasks can be run by runTask but not by scheduler.
 ```ts
 _otherTasks: WalletMonitorTask[] = []
 ```
-See also: [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property _tasks
 
@@ -11862,14 +8401,14 @@ _tasks are typically run by the scheduler but may also be run by runTask.
 ```ts
 _tasks: WalletMonitorTask[] = []
 ```
-See also: [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Method addDefaultTasks
 
 Default tasks with settings appropriate for a single user storage
 
 ```ts
-addDefaultTasks(): void 
+addDefaultTasks(): void
 ```
 
 ###### Method addMultiUserTasks
@@ -11877,7 +8416,7 @@ addDefaultTasks(): void
 Tasks appropriate for multi-user storage
 
 ```ts
-addMultiUserTasks(): void 
+addMultiUserTasks(): void
 ```
 
 ###### Method callOnBroadcastedTransaction
@@ -11887,9 +8426,9 @@ This is a function run from a TaskSendWaiting Monitor task.
 This allows the user of wallet-toolbox to 'subscribe' for transaction broadcast updates.
 
 ```ts
-callOnBroadcastedTransaction(broadcastResult: ReviewActionResult): void 
+callOnBroadcastedTransaction(broadcastResult: ReviewActionResult): void
 ```
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 ###### Method callOnProvenTransaction
 
@@ -11898,16 +8437,16 @@ This is a function run from a TaskCheckForProofs Monitor task.
 This allows the user of wallet-toolbox to 'subscribe' for transaction updates.
 
 ```ts
-callOnProvenTransaction(txStatus: ProvenTransactionStatus): void 
+callOnProvenTransaction(txStatus: ProvenTransactionStatus): void
 ```
-See also: [ProvenTransactionStatus](./client.md#interface-proventransactionstatus)
+See also: [ProvenTransactionStatus](#interface-proventransactionstatus)
 
 ###### Method callOnTransactionStatusChanged
 
 Called by TaskArcadeSSE when an SSE status event is received from Arcade.
 
 ```ts
-callOnTransactionStatusChanged(txid: string, newStatus: string): void 
+callOnTransactionStatusChanged(txid: string, newStatus: string): void
 ```
 
 ###### Method fetchSSEEvents
@@ -11916,7 +8455,7 @@ Fetch pending transaction status events from Arcade on demand.
 Call this on app open, balance refresh, transaction list view, etc.
 
 ```ts
-async fetchSSEEvents(): Promise<number> 
+async fetchSSEEvents(): Promise<number>
 ```
 
 ###### Method processHeader
@@ -11927,9 +8466,9 @@ To minimize reorg processing, new headers are aged before processing via TaskNew
 Therefore this handler is intentionally a no-op.
 
 ```ts
-processHeader(header: BlockHeader): void 
+processHeader(header: BlockHeader): void
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method processNewBlockHeader
 
@@ -11938,9 +8477,9 @@ Process new chain header event received from Chaintracks
 Kicks processing 'unconfirmed' and 'unmined' request processing.
 
 ```ts
-processNewBlockHeader(header: BlockHeader): void 
+processNewBlockHeader(header: BlockHeader): void
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method processReorg
 
@@ -11954,118 +8493,9 @@ It is possible for a transaction to become invalid.
 Coinbase transactions always become invalid.
 
 ```ts
-processReorg(depth: number, oldTip: BlockHeader, newTip: BlockHeader, deactivatedHeaders?: BlockHeader[]): void 
+processReorg(depth: number, oldTip: BlockHeader, newTip: BlockHeader, deactivatedHeaders?: BlockHeader[]): void
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: OverlayUMPTokenInteractor
-
-```ts
-export class OverlayUMPTokenInteractor implements UMPTokenInteractor {
-    constructor(resolver: LookupResolver = new LookupResolver(), broadcaster: SHIPBroadcaster = new SHIPBroadcaster(["tm_users"])) 
-    public async findByPresentationKeyHash(hash: number[]): Promise<UMPToken | undefined> 
-    public async findByRecoveryKeyHash(hash: number[]): Promise<UMPToken | undefined> 
-    public async buildAndSend(wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes, token: UMPToken, oldTokenToConsume?: UMPToken): Promise<OutpointString> 
-}
-```
-
-See also: [UMPToken](./client.md#interface-umptoken), [UMPTokenInteractor](./client.md#interface-umptokeninteractor)
-
-###### Constructor
-
-Construct a new OverlayUMPTokenInteractor.
-
-```ts
-constructor(resolver: LookupResolver = new LookupResolver(), broadcaster: SHIPBroadcaster = new SHIPBroadcaster(["tm_users"])) 
-```
-
-Argument Details
-
-+ **resolver**
-  + A LookupResolver instance for performing overlay queries (ls_users).
-+ **broadcaster**
-  + A SHIPBroadcaster instance for sharing new or updated tokens across the `tm_users` overlay.
-
-###### Method buildAndSend
-
-Creates or updates (replaces) a UMP token on-chain. If `oldTokenToConsume` is provided,
-it is spent in the same transaction that creates the new token output. The new token is
-then broadcast and published under the `tm_users` topic using a SHIP broadcast, ensuring
-overlay participants see the updated token.
-
-```ts
-public async buildAndSend(wallet: WalletInterface, adminOriginator: OriginatorDomainNameStringUnder250Bytes, token: UMPToken, oldTokenToConsume?: UMPToken): Promise<OutpointString> 
-```
-See also: [UMPToken](./client.md#interface-umptoken)
-
-Returns
-
-The outpoint of the newly created UMP token (e.g. "abcd1234...ef.0").
-
-Argument Details
-
-+ **wallet**
-  + The wallet used to build and sign the transaction (MUST be operating under the DEFAULT profile).
-+ **adminOriginator**
-  + The domain/FQDN of the administrative originator (wallet operator).
-+ **token**
-  + The new UMPToken to create on-chain.
-+ **oldTokenToConsume**
-  + Optionally, an existing token to consume/spend in the same transaction.
-
-###### Method findByPresentationKeyHash
-
-Finds a UMP token on-chain by the given presentation key hash, if it exists.
-Uses the ls_users overlay service to perform the lookup.
-
-```ts
-public async findByPresentationKeyHash(hash: number[]): Promise<UMPToken | undefined> 
-```
-See also: [UMPToken](./client.md#interface-umptoken)
-
-Returns
-
-A UMPToken object (including currentOutpoint) if found, otherwise undefined.
-
-Argument Details
-
-+ **hash**
-  + The 32-byte SHA-256 hash of the presentation key.
-
-###### Method findByRecoveryKeyHash
-
-Finds a UMP token on-chain by the given recovery key hash, if it exists.
-Uses the ls_users overlay service to perform the lookup.
-
-```ts
-public async findByRecoveryKeyHash(hash: number[]): Promise<UMPToken | undefined> 
-```
-See also: [UMPToken](./client.md#interface-umptoken)
-
-Returns
-
-A UMPToken object (including currentOutpoint) if found, otherwise undefined.
-
-Argument Details
-
-+ **hash**
-  + The 32-byte SHA-256 hash of the recovery key.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: PersonaIDInteractor
-
-```ts
-export class PersonaIDInteractor extends AuthMethodInteractor {
-    public methodType = "PersonaID";
-}
-```
-
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -12085,26 +8515,26 @@ do not provide perfect in-memory secrecy.
 
 ```ts
 export class PrivilegedKeyManager implements ProtoWallet {
-    constructor(keyGetter: (reason: string) => Promise<PrivateKey>, retentionPeriod = 120000) 
-    destroyKey(): void 
+    constructor(keyGetter: (reason: string) => Promise<PrivateKey>, retentionPeriod = 120000)
+    destroyKey(): void
     async getPublicKey(args: GetPublicKeyArgs): Promise<{
         publicKey: PubKeyHex;
-    }> 
-    async revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs): Promise<RevealCounterpartyKeyLinkageResult> 
-    async revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs): Promise<RevealSpecificKeyLinkageResult> 
-    async encrypt(args: WalletEncryptArgs): Promise<WalletEncryptResult> 
-    async decrypt(args: WalletDecryptArgs): Promise<WalletDecryptResult> 
-    async createHmac(args: CreateHmacArgs): Promise<CreateHmacResult> 
-    async verifyHmac(args: VerifyHmacArgs): Promise<VerifyHmacResult> 
-    async createSignature(args: CreateSignatureArgs): Promise<CreateSignatureResult> 
-    async verifySignature(args: VerifySignatureArgs): Promise<VerifySignatureResult> 
+    }>
+    async revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs): Promise<RevealCounterpartyKeyLinkageResult>
+    async revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs): Promise<RevealSpecificKeyLinkageResult>
+    async encrypt(args: WalletEncryptArgs): Promise<WalletEncryptResult>
+    async decrypt(args: WalletDecryptArgs): Promise<WalletDecryptResult>
+    async createHmac(args: CreateHmacArgs): Promise<CreateHmacResult>
+    async verifyHmac(args: VerifyHmacArgs): Promise<VerifyHmacResult>
+    async createSignature(args: CreateSignatureArgs): Promise<CreateSignatureResult>
+    async verifySignature(args: VerifySignatureArgs): Promise<VerifySignatureResult>
 }
 ```
 
 ###### Constructor
 
 ```ts
-constructor(keyGetter: (reason: string) => Promise<PrivateKey>, retentionPeriod = 120000) 
+constructor(keyGetter: (reason: string) => Promise<PrivateKey>, retentionPeriod = 120000)
 ```
 
 Argument Details
@@ -12121,8 +8551,31 @@ and deleting related fields. Also destroys some (but not all) decoy
 properties to further confuse an attacker.
 
 ```ts
-destroyKey(): void 
+destroyKey(): void
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Class: ScriptHashCache
+
+```ts
+export class ScriptHashCache {
+    constructor(options: ScriptHashCacheOptions = {})
+    getOrCompute(scriptHex: string, compute: () => string): string
+    clear(): void
+    close(): void
+    getStats(): {
+        size: number;
+        ttlMs: number;
+        hits: number;
+        misses: number;
+        hitRate: number;
+    }
+}
+```
+
+See also: [ScriptHashCacheOptions](#interface-scripthashcacheoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -12135,16 +8588,16 @@ https://brc.dev/29
 ```ts
 export class ScriptTemplateBRC29 implements ScriptTemplate {
     p2pkh: P2PKH;
-    constructor(public params: ScriptTemplateParamsBRC29) 
-    getKeyID() 
-    getKeyDeriver(privKey: PrivateKey | HexString): KeyDeriverApi 
-    lock(lockerPrivKey: string, unlockerPubKey: string): LockingScript 
-    unlock(unlockerPrivKey: string, lockerPubKey: string, sourceSatoshis?: number, lockingScript?: Script): ScriptTemplateUnlock 
+    constructor(public params: ScriptTemplateParamsBRC29)
+    getKeyID()
+    getKeyDeriver(privKey: PrivateKey | HexString): KeyDeriverApi
+    lock(lockerPrivKey: string, unlockerPubKey: string): LockingScript
+    unlock(unlockerPrivKey: string, lockerPubKey: string, sourceSatoshis?: number, lockingScript?: Script): ScriptTemplateUnlock
     unlockLength = 108;
 }
 ```
 
-See also: [ScriptTemplateParamsBRC29](./client.md#interface-scripttemplateparamsbrc29), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock)
+See also: [ScriptTemplateParamsBRC29](#interface-scripttemplateparamsbrc29), [ScriptTemplateUnlock](#interface-scripttemplateunlock)
 
 ###### Property unlockLength
 
@@ -12167,10 +8620,10 @@ export default class SdkWhatsOnChain implements ChainTracker {
     readonly apiKey: string;
     protected readonly URL: string;
     protected readonly httpClient: HttpClient;
-    constructor(network: "main" | "test" | "stn" | "teratest" = "main", config: WhatsOnChainConfig = {}) 
-    async isValidRootForHeight(root: string, height: number): Promise<boolean> 
-    async currentHeight(): Promise<number> 
-    protected getHttpHeaders(): Record<string, string> 
+    constructor(network: "main" | "test" | "stn" | "teratest" = "main", config: WhatsOnChainConfig = {})
+    async isValidRootForHeight(root: string, height: number): Promise<boolean>
+    async currentHeight(): Promise<number>
+    protected getHttpHeaders(): Record<string, string>
 }
 ```
 
@@ -12179,7 +8632,7 @@ export default class SdkWhatsOnChain implements ChainTracker {
 Constructs an instance of the WhatsOnChain ChainTracker.
 
 ```ts
-constructor(network: "main" | "test" | "stn" | "teratest" = "main", config: WhatsOnChainConfig = {}) 
+constructor(network: "main" | "test" | "stn" | "teratest" = "main", config: WhatsOnChainConfig = {})
 ```
 
 Argument Details
@@ -12196,44 +8649,44 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class ServiceCollection<T> {
-    services: {
+    services: Array<{
         name: string;
         service: T;
-    }[];
+    }>;
     _index: number;
     readonly since: Date;
     _historyByProvider: Record<string, ProviderCallHistory> = {};
-    constructor(public serviceName: string, services?: {
+    constructor(public serviceName: string, services?: Array<{
         name: string;
         service: T;
-    }[]) 
+    }>)
     add(s: {
         name: string;
         service: T;
-    }): ServiceCollection<T> 
-    remove(name: string): void 
-    get name() 
-    get service() 
-    getServiceToCall(i: number): ServiceToCall<T> 
-    get serviceToCall(): ServiceToCall<T> 
-    get allServicesToCall(): ServiceToCall<T>[] 
-    moveServiceToLast(stc: ServiceToCall<T>) 
-    get allServices() 
-    get count() 
-    get index() 
-    reset() 
-    next(): number 
-    clone(): ServiceCollection<T> 
-    _addServiceCall(providerName: string, call: ServiceCall): ProviderCallHistory 
-    getDuration(since: Date | string): number 
-    addServiceCallSuccess(stc: ServiceToCall<T>, result?: string): void 
-    addServiceCallFailure(stc: ServiceToCall<T>, result?: string): void 
-    addServiceCallError(stc: ServiceToCall<T>, error: WalletError): void 
-    getServiceCallHistory(reset?: boolean): ServiceCallHistory 
+    }): this
+    remove(name: string): void
+    get name()
+    get service()
+    getServiceToCall(i: number): ServiceToCall<T>
+    get serviceToCall(): ServiceToCall<T>
+    get allServicesToCall(): Array<ServiceToCall<T>>
+    moveServiceToLast(stc: ServiceToCall<T>)
+    get allServices()
+    get count()
+    get index()
+    reset()
+    next(): number
+    clone(): ServiceCollection<T>
+    _addServiceCall(providerName: string, call: ServiceCall): ProviderCallHistory
+    getDuration(since: Date | string): number
+    addServiceCallSuccess(stc: ServiceToCall<T>, result?: string): void
+    addServiceCallFailure(stc: ServiceToCall<T>, result?: string): void
+    addServiceCallError(stc: ServiceToCall<T>, error: WalletError): void
+    getServiceCallHistory(reset?: boolean): ServiceCallHistory
 }
 ```
 
-See also: [ProviderCallHistory](./client.md#interface-providercallhistory), [ServiceCall](./services.md#interface-servicecall), [ServiceCallHistory](./client.md#interface-servicecallhistory), [ServiceToCall](./services.md#interface-servicetocall), [WalletError](./client.md#class-walleterror)
+See also: [ProviderCallHistory](#interface-providercallhistory), [ServiceCall](#interface-servicecall), [ServiceCallHistory](#interface-servicecallhistory), [ServiceToCall](#interface-servicetocall), [WalletError](#class-walleterror)
 
 ###### Property since
 
@@ -12246,9 +8699,9 @@ readonly since: Date
 ###### Method getServiceCallHistory
 
 ```ts
-getServiceCallHistory(reset?: boolean): ServiceCallHistory 
+getServiceCallHistory(reset?: boolean): ServiceCallHistory
 ```
-See also: [ServiceCallHistory](./client.md#interface-servicecallhistory)
+See also: [ServiceCallHistory](#interface-servicecallhistory)
 
 Returns
 
@@ -12259,9 +8712,9 @@ A copy of current service call history
 Used to de-prioritize a service call by moving it to the end of the list.
 
 ```ts
-moveServiceToLast(stc: ServiceToCall<T>) 
+moveServiceToLast(stc: ServiceToCall<T>)
 ```
-See also: [ServiceToCall](./services.md#interface-servicetocall)
+See also: [ServiceToCall](#interface-servicetocall)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -12271,7 +8724,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export class Services implements WalletServices {
     static readonly getStatusForTxidsBatchLimit = 20;
-    static createDefaultOptions(chain: Chain): WalletServicesOptions 
+    static readonly getStatusForTxidsBatchConcurrency = 50;
+    static createDefaultOptions(chain: Chain): WalletServicesOptions
     options: WalletServicesOptions;
     whatsonchain: WhatsOnChain;
     arcTaal: ARC;
@@ -12284,40 +8738,46 @@ export class Services implements WalletServices {
     getStatusForTxidsServices: ServiceCollection<GetStatusForTxidsService>;
     getScriptHashHistoryServices: ServiceCollection<GetScriptHashHistoryService>;
     updateFiatExchangeRateServices: ServiceCollection<UpdateFiatExchangeRateService>;
+    eventBus: EventBus;
+    metrics: WalletToolboxMetrics;
+    utxoCache: UtxoCacheManager;
+    blockHeaderCache: BlockHeaderCache;
+    scriptHashCache: ScriptHashCache;
     chain: Chain;
-    constructor(optionsOrChain: Chain | WalletServicesOptions) 
-    getServicesCallHistory(reset?: boolean): ServicesCallHistory 
-    async getChainTracker(): Promise<ChainTracker> 
-    async getBsvExchangeRate(): Promise<number> 
-    async getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number> 
-    async getFiatExchangeRates(targetCurrencies: FiatCurrencyCode[]): Promise<FiatExchangeRates> 
-    get getProofsCount() 
-    get getRawTxsCount() 
-    get postBeefServicesCount() 
-    get getUtxoStatsCount() 
-    async getStatusForTxids(txids: string[], useNext?: boolean): Promise<GetStatusForTxidsResult> 
-    hashOutputScript(script: string): string 
-    async isUtxo(output: TableOutput): Promise<boolean> 
-    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetUtxoStatusResult> 
-    async getScriptHashHistory(hash: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetScriptHashHistoryResult> 
-    postBeefMode: "PromiseAll" | "UntilSuccess" = "UntilSuccess";
+    constructor(optionsOrChain: Chain | WalletServicesOptions)
+    async close(): Promise<void>
+    getServicesCallHistory(reset?: boolean): ServicesCallHistory
+    async getChainTracker(): Promise<ChainTracker>
+    async getBsvExchangeRate(): Promise<number>
+    async getFiatExchangeRate(currency: FiatCurrencyCode, base?: FiatCurrencyCode): Promise<number>
+    async getFiatExchangeRates(targetCurrencies: FiatCurrencyCode[]): Promise<FiatExchangeRates>
+    get getProofsCount()
+    get getRawTxsCount()
+    get postBeefServicesCount()
+    get getUtxoStatsCount()
+    async getStatusForTxids(txids: string[], useNext?: boolean): Promise<GetStatusForTxidsResult>
+    hashOutputScript(script: string): string
+    async isUtxo(output: TableOutput, useNext = false): Promise<boolean>
+    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetUtxoStatusResult>
+    async getScriptHashHistory(hash: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetScriptHashHistoryResult>
+    postBeefMode: PostBeefMode = "PromiseAll";
     postBeefUntilSuccessSoftTimeoutMs = 5000;
     postBeefUntilSuccessSoftTimeoutPerKbMs = 50;
     postBeefUntilSuccessSoftTimeoutMaxMs = 30000;
-    async postBeef(beef: Beef, txids: string[], logger?: WalletLoggerInterface): Promise<PostBeefResult[]> 
-    async getRawTx(txid: string, useNext?: boolean): Promise<GetRawTxResult> 
-    async invokeChaintracksWithRetry<R>(method: () => Promise<R>): Promise<R> 
-    async getHeaderForHeight(height: number): Promise<number[]> 
-    async getHeight(): Promise<number> 
-    async hashToHeader(hash: string): Promise<BlockHeader> 
-    async getMerklePath(txid: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetMerklePathResult> 
-    async updateFiatExchangeRates(targetCurrencies: FiatCurrencyCode[], updateMsecs?: number): Promise<FiatExchangeRates> 
-    async nLockTimeIsFinal(tx: string | number[] | BsvTransaction | number): Promise<boolean> 
-    async getBeefForTxid(txid: string): Promise<Beef> 
+    async postBeef(beef: Beef, txids: string[], logger?: WalletLoggerInterface): Promise<PostBeefResult[]>
+    async getRawTx(txid: string, useNext?: boolean): Promise<GetRawTxResult>
+    async invokeChaintracksWithRetry<R>(method: () => Promise<R>): Promise<R>
+    async getHeaderForHeight(height: number): Promise<number[]>
+    async getHeight(): Promise<number>
+    async hashToHeader(hash: string): Promise<BlockHeader>
+    async getMerklePath(txid: string, useNext?: boolean, logger?: WalletLoggerInterface): Promise<GetMerklePathResult>
+    async updateFiatExchangeRates(targetCurrencies: FiatCurrencyCode[], updateMsecs?: number): Promise<FiatExchangeRates>
+    async nLockTimeIsFinal(tx: string | number[] | BsvTransaction | number): Promise<boolean>
+    async getBeefForTxid(txid: string): Promise<Beef>
 }
 ```
 
-See also: [ARC](./services.md#class-arc), [Bitails](./services.md#class-bitails), [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [FiatCurrencyCode](./client.md#type-fiatcurrencycode), [FiatExchangeRates](./client.md#interface-fiatexchangerates), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [GetMerklePathService](./client.md#type-getmerklepathservice), [GetRawTxResult](./client.md#interface-getrawtxresult), [GetRawTxService](./client.md#type-getrawtxservice), [GetScriptHashHistoryResult](./client.md#interface-getscripthashhistoryresult), [GetScriptHashHistoryService](./client.md#type-getscripthashhistoryservice), [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult), [GetStatusForTxidsService](./client.md#type-getstatusfortxidsservice), [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult), [GetUtxoStatusService](./client.md#type-getutxostatusservice), [PostBeefResult](./client.md#interface-postbeefresult), [PostBeefService](./client.md#type-postbeefservice), [ServiceCollection](./services.md#class-servicecollection), [ServicesCallHistory](./client.md#type-servicescallhistory), [TableOutput](./storage.md#interface-tableoutput), [UpdateFiatExchangeRateService](./client.md#type-updatefiatexchangerateservice), [WalletServices](./client.md#interface-walletservices), [WalletServicesOptions](./client.md#interface-walletservicesoptions), [WhatsOnChain](./services.md#class-whatsonchain), [getBeefForTxid](./services.md#function-getbeeffortxid), [logger](./client.md#variable-logger)
+See also: [ARC](#class-arc), [Bitails](#class-bitails), [BlockHeader](#interface-blockheader), [BlockHeaderCache](#class-blockheadercache), [Chain](#type-chain), [EventBus](#class-eventbus), [FiatCurrencyCode](#type-fiatcurrencycode), [FiatExchangeRates](#interface-fiatexchangerates), [GetMerklePathResult](#interface-getmerklepathresult), [GetMerklePathService](#type-getmerklepathservice), [GetRawTxResult](#interface-getrawtxresult), [GetRawTxService](#type-getrawtxservice), [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult), [GetScriptHashHistoryService](#type-getscripthashhistoryservice), [GetStatusForTxidsResult](#interface-getstatusfortxidsresult), [GetStatusForTxidsService](#type-getstatusfortxidsservice), [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult), [GetUtxoStatusService](#type-getutxostatusservice), [PostBeefMode](#type-postbeefmode), [PostBeefResult](#interface-postbeefresult), [PostBeefService](#type-postbeefservice), [ScriptHashCache](#class-scripthashcache), [ServiceCollection](#class-servicecollection), [ServicesCallHistory](#interface-servicescallhistory), [TableOutput](#interface-tableoutput), [UpdateFiatExchangeRateService](#type-updatefiatexchangerateservice), [UtxoCacheManager](#class-utxocachemanager), [WalletServices](#interface-walletservices), [WalletServicesOptions](#interface-walletservicesoptions), [WalletToolboxMetrics](#class-wallettoolboxmetrics), [WhatsOnChain](#class-whatsonchain), [getBeefForTxid](#function-getbeeffortxid), [logger](#variable-logger)
 
 ###### Property postBeefUntilSuccessSoftTimeoutMaxMs
 
@@ -12348,7 +8808,7 @@ postBeefUntilSuccessSoftTimeoutPerKbMs = 50
 ###### Method hashOutputScript
 
 ```ts
-hashOutputScript(script: string): string 
+hashOutputScript(script: string): string
 ```
 
 Returns
@@ -12363,498 +8823,6 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: SetupClient
-
-The 'Setup` class provides static setup functions to construct BRC-100 compatible
-wallets in a variety of configurations.
-
-It serves as a starting point for experimentation and customization.
-
-```ts
-export abstract class SetupClient {
-    static async createWallet(args: SetupClientWalletArgs): Promise<SetupWallet> {
-        const chain = args.chain;
-        const rootKey = PrivateKey.fromHex(args.rootKeyHex);
-        const identityKey = rootKey.toPublicKey().toString();
-        const keyDeriver = new CachedKeyDeriver(rootKey);
-        const storage = new WalletStorageManager(identityKey, args.active, args.backups);
-        if (storage.canMakeAvailable())
-            await storage.makeAvailable();
-        const serviceOptions = Services.createDefaultOptions(chain);
-        serviceOptions.taalApiKey = args.taalApiKey;
-        const services = new Services(serviceOptions);
-        const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
-        const monitor = new Monitor(monopts);
-        const privilegedKeyManager = args.privilegedKeyGetter
-            ? new PrivilegedKeyManager(args.privilegedKeyGetter)
-            : undefined;
-        const wallet = new Wallet({
-            chain,
-            keyDeriver,
-            storage,
-            services,
-            monitor,
-            privilegedKeyManager
-        });
-        const r: SetupWallet = {
-            rootKey,
-            identityKey,
-            keyDeriver,
-            chain,
-            storage,
-            services,
-            monitor,
-            wallet
-        };
-        return r;
-    }
-    static async createWalletClientNoEnv(args: {
-        chain: Chain;
-        rootKeyHex: string;
-        storageUrl?: string;
-        privilegedKeyGetter?: () => Promise<PrivateKey>;
-    }): Promise<Wallet> 
-    static async createWalletClient(args: SetupClientWalletClientArgs): Promise<SetupWalletClient> {
-        const wo = await SetupClient.createWallet(args);
-        const endpointUrl = args.endpointUrl || `https://${args.chain !== "main" ? "staging-" : ""}storage.babbage.systems`;
-        const client = new StorageClient(wo.wallet, endpointUrl);
-        await wo.storage.addWalletStorageProvider(client);
-        await wo.storage.makeAvailable();
-        return {
-            ...wo,
-            endpointUrl
-        };
-    }
-    static getKeyPair(priv?: string | PrivateKey): KeyPairAddress {
-        if (priv === undefined)
-            priv = PrivateKey.fromRandom();
-        else if (typeof priv === "string")
-            priv = new PrivateKey(priv, "hex");
-        const pub = PublicKey.fromPrivateKey(priv);
-        const address = pub.toAddress();
-        return { privateKey: priv, publicKey: pub, address };
-    }
-    static getLockP2PKH(address: string): LockingScript {
-        const p2pkh = new P2PKH();
-        const lock = p2pkh.lock(address);
-        return lock;
-    }
-    static getUnlockP2PKH(priv: PrivateKey, satoshis: number): ScriptTemplateUnlock {
-        const p2pkh = new P2PKH();
-        const lock = SetupClient.getLockP2PKH(SetupClient.getKeyPair(priv).address);
-        const unlock = p2pkh.unlock(priv, "all", false, satoshis, lock);
-        return unlock;
-    }
-    static createP2PKHOutputs(outputs: {
-        address: string;
-        satoshis: number;
-        outputDescription?: string;
-        basket?: string;
-        tags?: string[];
-    }[]): CreateActionOutput[] {
-        const os: CreateActionOutput[] = [];
-        const count = outputs.length;
-        for (let i = 0; i < count; i++) {
-            const o = outputs[i];
-            os.push({
-                basket: o.basket,
-                tags: o.tags,
-                satoshis: o.satoshis,
-                lockingScript: SetupClient.getLockP2PKH(o.address).toHex(),
-                outputDescription: o.outputDescription || `p2pkh ${i}`
-            });
-        }
-        return os;
-    }
-    static async createP2PKHOutputsAction(wallet: WalletInterface, outputs: {
-        address: string;
-        satoshis: number;
-        outputDescription?: string;
-        basket?: string;
-        tags?: string[];
-    }[], options?: CreateActionOptions): Promise<{
-        cr: CreateActionResult;
-        outpoints: string[] | undefined;
-    }> {
-        const os = SetupClient.createP2PKHOutputs(outputs);
-        const createArgs: CreateActionArgs = {
-            description: `createP2PKHOutputs`,
-            outputs: os,
-            options: {
-                ...options,
-                randomizeOutputs: false
-            }
-        };
-        const cr = await wallet.createAction(createArgs);
-        let outpoints: string[] | undefined;
-        if (cr.txid) {
-            outpoints = os.map((o, i) => `${cr.txid}.${i}`);
-        }
-        return { cr, outpoints };
-    }
-    static async fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, inputBEEF?: BEEF): Promise<{
-        outpoint: string;
-        txid?: string;
-        success: boolean;
-        error?: string;
-    }[]> {
-        return _fundWalletFromP2PKHOutpoints(wallet, outpoints, p2pkhKey, SetupClient.getUnlockP2PKH.bind(SetupClient), inputBEEF);
-    }
-    static async createWalletIdb(args: SetupWalletIdbArgs): Promise<SetupWalletIdb> {
-        const wo = await SetupClient.createWallet(args);
-        const activeStorage = await SetupClient.createStorageIdb(args);
-        await wo.storage.addWalletStorageProvider(activeStorage);
-        const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
-        const userId = user.userId;
-        const r: SetupWalletIdb = {
-            ...wo,
-            activeStorage,
-            userId
-        };
-        return r;
-    }
-    static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb> 
-}
-```
-
-See also: [Chain](./client.md#type-chain), [KeyPairAddress](./setup.md#interface-keypairaddress), [Monitor](./monitor.md#class-monitor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock), [Services](./services.md#class-services), [SetupClientWalletArgs](./setup.md#interface-setupclientwalletargs), [SetupClientWalletClientArgs](./setup.md#interface-setupclientwalletclientargs), [SetupWallet](./setup.md#interface-setupwallet), [SetupWalletClient](./setup.md#interface-setupwalletclient), [SetupWalletIdb](./setup.md#interface-setupwalletidb), [SetupWalletIdbArgs](./setup.md#interface-setupwalletidbargs), [StorageClient](./storage.md#class-storageclient), [StorageIdb](./storage.md#class-storageidb), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager), [createAction](./storage.md#function-createaction), [fundWalletFromP2PKHOutpoints](./client.md#function-fundwalletfromp2pkhoutpoints)
-
-###### Method createStorageIdb
-
-```ts
-static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb> 
-```
-See also: [SetupWalletIdbArgs](./setup.md#interface-setupwalletidbargs), [StorageIdb](./storage.md#class-storageidb)
-
-Returns
-
-- `Knex` based storage provider for a wallet. May be used for either active storage or backup storage.
-
-###### Method createWallet
-
-Create a `Wallet`. Storage can optionally be provided or configured later.
-
-The following components are configured: KeyDeriver, WalletStorageManager, WalletService, WalletStorage.
-Optionally, PrivilegedKeyManager is also configured.
-
-```ts
-static async createWallet(args: SetupClientWalletArgs): Promise<SetupWallet> {
-    const chain = args.chain;
-    const rootKey = PrivateKey.fromHex(args.rootKeyHex);
-    const identityKey = rootKey.toPublicKey().toString();
-    const keyDeriver = new CachedKeyDeriver(rootKey);
-    const storage = new WalletStorageManager(identityKey, args.active, args.backups);
-    if (storage.canMakeAvailable())
-        await storage.makeAvailable();
-    const serviceOptions = Services.createDefaultOptions(chain);
-    serviceOptions.taalApiKey = args.taalApiKey;
-    const services = new Services(serviceOptions);
-    const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
-    const monitor = new Monitor(monopts);
-    const privilegedKeyManager = args.privilegedKeyGetter
-        ? new PrivilegedKeyManager(args.privilegedKeyGetter)
-        : undefined;
-    const wallet = new Wallet({
-        chain,
-        keyDeriver,
-        storage,
-        services,
-        monitor,
-        privilegedKeyManager
-    });
-    const r: SetupWallet = {
-        rootKey,
-        identityKey,
-        keyDeriver,
-        chain,
-        storage,
-        services,
-        monitor,
-        wallet
-    };
-    return r;
-}
-```
-See also: [Monitor](./monitor.md#class-monitor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [Services](./services.md#class-services), [SetupClientWalletArgs](./setup.md#interface-setupclientwalletargs), [SetupWallet](./setup.md#interface-setupwallet), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager)
-
-###### Method createWalletClientNoEnv
-
-Setup a new `Wallet` without requiring a .env file.
-
-```ts
-static async createWalletClientNoEnv(args: {
-    chain: Chain;
-    rootKeyHex: string;
-    storageUrl?: string;
-    privilegedKeyGetter?: () => Promise<PrivateKey>;
-}): Promise<Wallet> 
-```
-See also: [Chain](./client.md#type-chain), [Wallet](./client.md#class-wallet)
-
-Argument Details
-
-+ **args.chain**
-  + 'main' or 'test'
-+ **args.rootKeyHex**
-  + Root private key for wallet's key deriver.
-+ **args.storageUrl**
-  + Optional. `StorageClient` and `chain` compatible endpoint URL.
-+ **args.privilegedKeyGetter**
-  + Optional. Method that will return the privileged `PrivateKey`, on demand.
-
-###### Method createWalletIdb
-
-Adds `indexedDB` based storage to a `Wallet` configured by `SetupClient.createWalletOnly`
-
-```ts
-static async createWalletIdb(args: SetupWalletIdbArgs): Promise<SetupWalletIdb> {
-    const wo = await SetupClient.createWallet(args);
-    const activeStorage = await SetupClient.createStorageIdb(args);
-    await wo.storage.addWalletStorageProvider(activeStorage);
-    const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
-    const userId = user.userId;
-    const r: SetupWalletIdb = {
-        ...wo,
-        activeStorage,
-        userId
-    };
-    return r;
-}
-```
-See also: [SetupClient](./setup.md#class-setupclient), [SetupWalletIdb](./setup.md#interface-setupwalletidb), [SetupWalletIdbArgs](./setup.md#interface-setupwalletidbargs)
-
-Argument Details
-
-+ **args.databaseName**
-  + Name for this storage. For MySQL, the schema name within the MySQL instance.
-+ **args.chain**
-  + Which chain this wallet is on: 'main' or 'test'. Defaults to 'test'.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: SimpleWalletManager
-
-SimpleWalletManager is a slimmed-down wallet manager that only requires two things to authenticate:
- 1. A primary key (32 bytes), which represents the core secret for the wallet.
- 2. A privileged key manager (an instance of `PrivilegedKeyManager`), responsible for
-    more sensitive operations.
-
-Once both pieces are provided (or if a snapshot containing the primary key is loaded,
-and the privileged key manager is provided separately), the wallet becomes authenticated.
-
-After authentication, calls to the standard wallet methods (`createAction`, `signAction`, etc.)
-are proxied to an underlying `WalletInterface` instance returned by a user-supplied `walletBuilder`.
-
-**Important**: This manager does not handle user password flows, recovery, or on-chain
-token management. It is a straightforward wrapper that ensures the user has provided
-both their main secret (primary key) and a privileged key manager before allowing usage.
-
-It also prevents calls from the special "admin originator" from being used externally.
-(Any call that tries to use the admin originator as its originator, other than the manager itself,
-will result in an error, ensuring that only internal operations can use that originator.)
-
-The manager can also save and load snapshots of its state. In this simplified version,
-the snapshot only contains the primary key. If you load a snapshot, you still need to
-re-provide the privileged key manager to complete authentication.
-
-```ts
-export class SimpleWalletManager implements WalletInterface {
-    authenticated: boolean;
-    constructor(adminOriginator: OriginatorDomainNameStringUnder250Bytes, walletBuilder: (primaryKey: number[], privilegedKeyManager: PrivilegedKeyManager) => Promise<WalletInterface>, stateSnapshot?: number[]) 
-    async providePrimaryKey(key: number[]): Promise<void> 
-    async providePrivilegedKeyManager(manager: PrivilegedKeyManager): Promise<void> 
-    destroy(): void 
-    saveSnapshot(): number[] 
-    async loadSnapshot(snapshot: number[]): Promise<void> 
-    async isAuthenticated(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async waitForAuthentication(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async getPublicKey(args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetPublicKeyResult> 
-    async revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealCounterpartyKeyLinkageResult> 
-    async revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealSpecificKeyLinkageResult> 
-    async encrypt(args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletEncryptResult> 
-    async decrypt(args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletDecryptResult> 
-    async createHmac(args: CreateHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateHmacResult> 
-    async verifyHmac(args: VerifyHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifyHmacResult> 
-    async createSignature(args: CreateSignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateSignatureResult> 
-    async verifySignature(args: VerifySignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifySignatureResult> 
-    async createAction(args: CreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateActionResult> 
-    async signAction(args: SignActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<SignActionResult> 
-    async abortAction(args: AbortActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AbortActionResult> 
-    async listActions(args: ListActionsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListActionsResult> 
-    async internalizeAction(args: InternalizeActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<InternalizeActionResult> 
-    async listOutputs(args: ListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
-    async relinquishOutput(args: RelinquishOutputArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishOutputResult> 
-    async acquireCertificate(args: AcquireCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AcquireCertificateResult> 
-    async listCertificates(args: ListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult> 
-    async proveCertificate(args: ProveCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ProveCertificateResult> 
-    async relinquishCertificate(args: RelinquishCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishCertificateResult> 
-    async discoverByIdentityKey(args: DiscoverByIdentityKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    async discoverByAttributes(args: DiscoverByAttributesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    async getHeight(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeightResult> 
-    async getHeaderForHeight(args: GetHeaderArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeaderResult> 
-    async getNetwork(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetNetworkResult> 
-    async getVersion(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetVersionResult> 
-}
-```
-
-See also: [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [proveCertificate](./client.md#function-provecertificate), [signAction](./client.md#function-signaction)
-
-###### Constructor
-
-Constructs a new `SimpleWalletManager`.
-
-```ts
-constructor(adminOriginator: OriginatorDomainNameStringUnder250Bytes, walletBuilder: (primaryKey: number[], privilegedKeyManager: PrivilegedKeyManager) => Promise<WalletInterface>, stateSnapshot?: number[]) 
-```
-See also: [PrivilegedKeyManager](./client.md#class-privilegedkeymanager)
-
-Argument Details
-
-+ **adminOriginator**
-  + The domain name of the administrative originator.
-+ **walletBuilder**
-  + A function that, given a primary key and privileged key manager,
-returns a fully functional `WalletInterface`.
-+ **stateSnapshot**
-  + If provided, a previously saved snapshot of the wallet's state.
-If the snapshot contains a primary key, it will be loaded immediately
-(though you will still need to provide a privileged key manager to authenticate).
-
-###### Property authenticated
-
-Whether the user is currently authenticated (meaning both the primary key
-and privileged key manager have been provided).
-
-```ts
-authenticated: boolean
-```
-
-###### Method destroy
-
-Destroys the underlying wallet, returning to a default (unauthenticated) state.
-
-This clears the primary key, the privileged key manager, and the `authenticated` flag.
-
-```ts
-destroy(): void 
-```
-
-###### Method isAuthenticated
-
-Returns whether the user is currently authenticated (the wallet has a primary key
-and a privileged key manager). If not authenticated, an error is thrown.
-
-```ts
-async isAuthenticated(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-```
-
-Argument Details
-
-+ **_**
-  + Not used in this manager.
-+ **originator**
-  + The originator domain, which must not be the admin originator.
-
-Throws
-
-If not authenticated, or if the originator is the admin.
-
-###### Method loadSnapshot
-
-Loads a previously saved state snapshot (produced by `saveSnapshot`).
-This will restore the primary key but will **not** restore the privileged key manager
-(that must be provided separately to complete authentication).
-
-```ts
-async loadSnapshot(snapshot: number[]): Promise<void> 
-```
-
-Argument Details
-
-+ **snapshot**
-  + A byte array that was previously returned by `saveSnapshot`.
-
-Throws
-
-If the snapshot format is invalid or decryption fails.
-
-###### Method providePrimaryKey
-
-Provides the primary key (32 bytes) needed for authentication.
-If a privileged key manager has already been provided, we attempt to build
-the underlying wallet. Otherwise, we wait until the manager is also provided.
-
-```ts
-async providePrimaryKey(key: number[]): Promise<void> 
-```
-
-Argument Details
-
-+ **key**
-  + A 32-byte primary key.
-
-###### Method providePrivilegedKeyManager
-
-Provides the privileged key manager needed for sensitive tasks.
-If a primary key has already been provided (or loaded from a snapshot),
-we attempt to build the underlying wallet. Otherwise, we wait until the key is provided.
-
-```ts
-async providePrivilegedKeyManager(manager: PrivilegedKeyManager): Promise<void> 
-```
-See also: [PrivilegedKeyManager](./client.md#class-privilegedkeymanager)
-
-Argument Details
-
-+ **manager**
-  + An instance of `PrivilegedKeyManager`.
-
-###### Method saveSnapshot
-
-Saves the current wallet state (including just the primary key)
-into an encrypted snapshot. This snapshot can be stored and later
-passed to `loadSnapshot` to restore the primary key (and partially authenticate).
-
-**Note**: The snapshot does NOT include the privileged key manager.
-You must still provide that separately after loading the snapshot
-in order to complete authentication.
-
-```ts
-saveSnapshot(): number[] 
-```
-
-Returns
-
-A byte array representing the encrypted snapshot.
-
-Throws
-
-if no primary key is currently set.
-
-###### Method waitForAuthentication
-
-Blocks until the user is authenticated (by providing primaryKey and privileged manager).
-If not authenticated yet, it waits until that occurs.
-
-```ts
-async waitForAuthentication(_: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-```
-
-Argument Details
-
-+ **_**
-  + Not used in this manager.
-+ **originator**
-  + The originator domain, which must not be the admin originator.
-
-Throws
-
-If the originator is the admin.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Class: SingleWriterMultiReaderLock
 
 A reader-writer lock to manage concurrent access.
@@ -12862,10 +8830,25 @@ Allows multiple readers or one writer at a time.
 
 ```ts
 export class SingleWriterMultiReaderLock {
-    async withReadLock<T>(fn: () => Promise<T>): Promise<T> 
-    async withWriteLock<T>(fn: () => Promise<T>): Promise<T> 
+    async withReadLock<T>(fn: () => Promise<T>): Promise<T>
+    async withWriteLock<T>(fn: () => Promise<T>): Promise<T>
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Class: SpvHeaderSync
+
+```ts
+export class SpvHeaderSync {
+    constructor(private readonly source: SpvHeaderSource, private readonly eventBus: EventBus, private readonly handlers: SpvHeaderSyncHandlers = {})
+    async start(): Promise<SpvHeaderSyncStartResult>
+    async stop(): Promise<void>
+}
+```
+
+See also: [EventBus](#class-eventbus), [SpvHeaderSource](#interface-spvheadersource), [SpvHeaderSyncHandlers](#interface-spvheadersynchandlers), [SpvHeaderSyncStartResult](#interface-spvheadersyncstartresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -12886,60 +8869,98 @@ the party making requests of the remote service.
 For details of the API implemented, follow the "See also" link for the `WalletStorageProvider` interface.
 
 ```ts
-export class StorageClient implements WalletStorageProvider {
-    readonly endpointUrl: string;
-    public settings?: TableSettings;
-    constructor(wallet: WalletInterface, endpointUrl: string) 
-    isStorageProvider(): boolean 
-    isAvailable(): boolean 
-    getSettings(): TableSettings 
-    async makeAvailable(): Promise<TableSettings> 
-    async destroy(): Promise<void> 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    getServices(): WalletServices 
-    setServices(v: WalletServices): void 
-    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
-    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
-    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
-    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
-    async findOrInsertUser(identityKey): Promise<{
-        user: TableUser;
-        isNew: boolean;
-    }> 
-    async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
-        syncState: TableSyncState;
-        isNew: boolean;
-    }> 
-    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
-    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
-    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
-    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
-    async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk> 
-    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
-    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
-    validateDate(date: Date | string | number): Date 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+export class StorageClient extends StorageClientBase {
+    constructor(wallet: WalletInterface, endpointUrl: string)
+    protected async rpcCall<T>(method: string, params: unknown[]): Promise<T>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [EntityTimeStamp](./client.md#interface-entitytimestamp), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableUser](./storage.md#interface-tableuser), [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult), [WalletServices](./client.md#interface-walletservices), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [createAction](./storage.md#function-createaction), [getSyncChunk](./storage.md#function-getsyncchunk), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [processAction](./storage.md#function-processaction)
+See also: [StorageClientBase](#class-storageclientbase)
+
+###### Method rpcCall
+
+Make a JSON-RPC call to the remote server.
+
+```ts
+protected async rpcCall<T>(method: string, params: unknown[]): Promise<T>
+```
+
+Argument Details
+
++ **method**
+  + The WalletStorage method name to call.
++ **params**
+  + The array of parameters to pass to the method in order.
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Class: StorageClientBase
+
+Abstract base class shared by `StorageClient` and `StorageMobile`.
+
+Contains all `WalletStorageProvider` method implementations and entity-validation
+helpers. Subclasses only need to provide `rpcCall`, which differs between
+the full (logger-aware) and mobile (lightweight) variants.
+
+```ts
+export abstract class StorageClientBase implements WalletStorageProvider {
+    readonly endpointUrl: string;
+    protected readonly authClient: AuthFetch;
+    protected nextId = 1;
+    public settings?: TableSettings;
+    constructor(wallet: WalletInterface, endpointUrl: string)
+    isStorageProvider(): boolean
+    protected abstract rpcCall<T>(method: string, params: unknown[]): Promise<T>;
+    isAvailable(): boolean
+    getSettings(): TableSettings
+    async makeAvailable(): Promise<TableSettings>
+    async destroy(): Promise<void>
+    async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    getServices(): WalletServices
+    setServices(v: WalletServices): void
+    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
+    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
+    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
+    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
+    async findOrInsertUser(identityKey): Promise<{
+        user: TableUser;
+        isNew: boolean;
+    }>
+    async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
+        syncState: TableSyncState;
+        isNew: boolean;
+    }>
+    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
+    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
+    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
+    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
+    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
+    async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>
+    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
+    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
+    validateDate(date: Date | string | number): Date
+    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
+    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
+}
+```
+
+See also: [AuthId](#interface-authid), [EntityTimeStamp](#interface-entitytimestamp), [FindCertificatesArgs](#interface-findcertificatesargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [ProcessSyncChunkResult](#interface-processsyncchunkresult), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [SyncChunk](#interface-syncchunk), [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableUser](#interface-tableuser), [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult), [WalletServices](#interface-walletservices), [WalletStorageProvider](#interface-walletstorageprovider), [createAction](#function-createaction), [getSyncChunk](#function-getsyncchunk), [internalizeAction](#function-internalizeaction), [listCertificates](#function-listcertificates), [processAction](#function-processaction), [validateDate](#function-validatedate), [validateEntities](#function-validateentities), [validateEntity](#function-validateentity)
 
 ###### Method abortAction
 
 Aborts an action by `reference` string.
 
 ```ts
-async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
+async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Returns
 
@@ -12958,9 +8979,9 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `createAction`.
 
 ```ts
-async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
+async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult)
+See also: [AuthId](#interface-authid), [StorageCreateActionResult](#interface-storagecreateactionresult)
 
 Returns
 
@@ -12979,7 +9000,7 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Called to cleanup resources when no further use of this object will occur.
 
 ```ts
-async destroy(): Promise<void> 
+async destroy(): Promise<void>
 ```
 
 ###### Method findCertificatesAuth
@@ -12990,9 +9011,9 @@ This certificate retrieval method supports internal wallet operations.
 Field values are stored and retrieved encrypted.
 
 ```ts
-async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
+async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [TableCertificateX](./storage.md#interface-tablecertificatex)
+See also: [AuthId](#interface-authid), [FindCertificatesArgs](#interface-findcertificatesargs), [TableCertificateX](#interface-tablecertificatex)
 
 Returns
 
@@ -13014,9 +9035,9 @@ Used to both find and insert a `TableSyncState` record for the user to track wal
 async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
     syncState: TableSyncState;
     isNew: boolean;
-}> 
+}>
 ```
-See also: [AuthId](./client.md#interface-authid), [TableSyncState](./storage.md#interface-tablesyncstate)
+See also: [AuthId](#interface-authid), [TableSyncState](#interface-tablesyncstate)
 
 Returns
 
@@ -13041,9 +9062,9 @@ It is up to the remote storage whether to allow creation of new users by this me
 async findOrInsertUser(identityKey): Promise<{
     user: TableUser;
     isNew: boolean;
-}> 
+}>
 ```
-See also: [TableUser](./storage.md#interface-tableuser)
+See also: [TableUser](#interface-tableuser)
 
 Returns
 
@@ -13061,9 +9082,9 @@ Find output baskets.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
+async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [TableOutputBasket](./storage.md#interface-tableoutputbasket)
+See also: [AuthId](#interface-authid), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [TableOutputBasket](#interface-tableoutputbasket)
 
 Returns
 
@@ -13084,9 +9105,9 @@ Find outputs.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
+async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindOutputsArgs](./client.md#interface-findoutputsargs), [TableOutput](./storage.md#interface-tableoutput)
+See also: [AuthId](#interface-authid), [FindOutputsArgs](#interface-findoutputsargs), [TableOutput](#interface-tableoutput)
 
 Returns
 
@@ -13107,9 +9128,9 @@ Find requests for transaction proofs.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
+async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
 ```
-See also: [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [TableProvenTxReq](#interface-tableproventxreq)
 
 Returns
 
@@ -13128,9 +9149,9 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Remote storage does not offer `Services` to remote clients.
 
 ```ts
-getServices(): WalletServices 
+getServices(): WalletServices
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
+See also: [WalletServices](#interface-walletservices)
 
 Throws
 
@@ -13139,9 +9160,9 @@ WERR_INVALID_OPERATION
 ###### Method getSettings
 
 ```ts
-getSettings(): TableSettings 
+getSettings(): TableSettings
 ```
-See also: [TableSettings](./storage.md#interface-tablesettings)
+See also: [TableSettings](#interface-tablesettings)
 
 Returns
 
@@ -13159,9 +9180,9 @@ The normal data flow is for the active storage to push backups as a sequence of 
 Also supports recovery where non-active storage can attempt to merge available data prior to becoming active.
 
 ```ts
-async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk> 
+async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>
 ```
-See also: [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk)
+See also: [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [SyncChunk](#interface-syncchunk)
 
 Returns
 
@@ -13177,9 +9198,9 @@ Argument Details
 Inserts a new certificate with fields and keyring into remote storage.
 
 ```ts
-async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
+async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid), [TableCertificateX](./storage.md#interface-tablecertificatex)
+See also: [AuthId](#interface-authid), [TableCertificateX](#interface-tablecertificatex)
 
 Returns
 
@@ -13200,9 +9221,9 @@ Updates internalized outputs in remote storage.
 Triggers proof validation of containing transaction.
 
 ```ts
-async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
+async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult)
+See also: [AuthId](#interface-authid), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult)
 
 Returns
 
@@ -13219,7 +9240,7 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 ###### Method isAvailable
 
 ```ts
-isAvailable(): boolean 
+isAvailable(): boolean
 ```
 
 Returns
@@ -13232,7 +9253,7 @@ The `StorageClient` implements the `WalletStorageProvider` interface.
 It does not implement the lower level `StorageProvider` interface.
 
 ```ts
-isStorageProvider(): boolean 
+isStorageProvider(): boolean
 ```
 
 Returns
@@ -13244,9 +9265,9 @@ false
 Storage level processing for wallet `listActions`.
 
 ```ts
-async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
+async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Returns
 
@@ -13265,9 +9286,9 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `listCertificates`.
 
 ```ts
-async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
+async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Returns
 
@@ -13286,9 +9307,9 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `listOutputs`.
 
 ```ts
-async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
+async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Returns
 
@@ -13308,9 +9329,9 @@ Must be called prior to making use of storage.
 Retreives `TableSettings` from remote storage provider.
 
 ```ts
-async makeAvailable(): Promise<TableSettings> 
+async makeAvailable(): Promise<TableSettings>
 ```
-See also: [TableSettings](./storage.md#interface-tablesettings)
+See also: [TableSettings](#interface-tablesettings)
 
 Returns
 
@@ -13322,7 +9343,7 @@ Requests schema migration to latest.
 Typically remote storage will ignore this request.
 
 ```ts
-async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
+async migrate(storageName: string, storageIdentityKey: string): Promise<string>
 ```
 
 Returns
@@ -13343,9 +9364,9 @@ Storage level processing for wallet `createAction` and `signAction`.
 Handles remaining storage tasks once a fully signed transaction has been completed. This is common to both `createAction` and `signAction`.
 
 ```ts
-async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
+async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults)
+See also: [AuthId](#interface-authid), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults)
 
 Returns
 
@@ -13366,9 +9387,9 @@ Process a "chunk" of replication data for the user.
 The normal data flow is for the active storage to push backups as a sequence of data chunks to backup storage providers.
 
 ```ts
-async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
+async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
 ```
-See also: [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk)
+See also: [ProcessSyncChunkResult](#interface-processsyncchunkresult), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [SyncChunk](#interface-syncchunk)
 
 Returns
 
@@ -13389,9 +9410,9 @@ For storage supporting replication records must be kept of deletions. Therefore 
 when relinquished, and no longer returned by `listCertificates`, but are still retained by storage.
 
 ```ts
-async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
+async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Argument Details
 
@@ -13408,9 +9429,9 @@ Relinquish an output.
 Relinquishing an output removes the output from whatever basket was tracking it.
 
 ```ts
-async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
+async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Argument Details
 
@@ -13420,6 +9441,22 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 + **args**
   + original wallet `relinquishOutput` args.
 
+###### Method rpcCall
+
+Make a JSON-RPC call to the remote server.
+Implemented differently by each subclass (with or without logger support).
+
+```ts
+protected abstract rpcCall<T>(method: string, params: unknown[]): Promise<T>
+```
+
+Argument Details
+
++ **method**
+  + The WalletStorage method name to call.
++ **params**
+  + The array of parameters to pass to the method in order.
+
 ###### Method setActive
 
 Ensures up-to-date wallet data replication to all configured backup storage providers,
@@ -13427,9 +9464,9 @@ then promotes one of the configured backups to active,
 demoting the current active to new backup.
 
 ```ts
-async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
+async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 Argument Details
 
@@ -13444,9 +9481,9 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Ignored. Remote storage cannot share `Services` with remote clients.
 
 ```ts
-setServices(v: WalletServices): void 
+setServices(v: WalletServices): void
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
+See also: [WalletServices](#interface-walletservices)
 
 ###### Method updateProvenTxReqWithNewProvenTx
 
@@ -13457,9 +9494,9 @@ Handles the data received when a new transaction proof is found in response to a
   - Updates the proof request record to 'completed' status which enables delayed deletion.
 
 ```ts
-async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
 ```
-See also: [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult)
+See also: [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult)
 
 Returns
 
@@ -13476,9 +9513,9 @@ Helper to force uniform behavior across database engines.
 Use to process all arrays of records with time stamps retreived from database.
 
 ```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Returns
 
@@ -13490,271 +9527,9 @@ Helper to force uniform behavior across database engines.
 Use to process all individual records with time stamps retreived from database.
 
 ```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
+validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: StorageIdb
-
-This class implements the `StorageProvider` interface using IndexedDB,
-via the promises wrapper package `idb`.
-
-```ts
-export class StorageIdb extends StorageProvider implements WalletStorageProvider {
-    dbName: string;
-    db?: IDBPDatabase<StorageIdbSchema>;
-    constructor(options: StorageIdbOptions) 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
-    toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly"> 
-    async readSettings(trx?: TrxToken): Promise<TableSettings> 
-    async initDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
-    async reviewStatus(args: {
-        agedLimit: Date;
-        trx?: TrxToken;
-    }): Promise<{
-        log: string;
-    }> 
-    async purgeData(params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
-    async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
-    async getProvenOrRawTx(txid: string, trx?: TrxToken): Promise<ProvenOrRawTx> 
-    async getRawTxOfKnownValidTransaction(txid?: string, offset?: number, length?: number, trx?: TrxToken): Promise<number[] | undefined> 
-    async getLabelsForTransactionId(transactionId?: number, trx?: TrxToken): Promise<TableTxLabel[]> 
-    async getTagsForOutputId(outputId: number, trx?: TrxToken): Promise<TableOutputTag[]> 
-    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number> 
-    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
-    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
-    async dropAllData(): Promise<void> 
-    async filterOutputTagMaps(args: FindOutputTagMapsArgs, filtered: (v: TableOutputTagMap) => void, userId?: number): Promise<void> 
-    async findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]> 
-    async filterProvenTxReqs(args: FindProvenTxReqsArgs, filtered: (v: TableProvenTxReq) => void, userId?: number): Promise<void> 
-    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async filterProvenTxs(args: FindProvenTxsArgs, filtered: (v: TableProvenTx) => void, userId?: number): Promise<void> 
-    async findProvenTxs(args: FindProvenTxsArgs): Promise<TableProvenTx[]> 
-    async filterTxLabelMaps(args: FindTxLabelMapsArgs, filtered: (v: TableTxLabelMap) => void, userId?: number): Promise<void> 
-    async findTxLabelMaps(args: FindTxLabelMapsArgs): Promise<TableTxLabelMap[]> 
-    async countOutputTagMaps(args: FindOutputTagMapsArgs): Promise<number> 
-    async countProvenTxReqs(args: FindProvenTxReqsArgs): Promise<number> 
-    async countProvenTxs(args: FindProvenTxsArgs): Promise<number> 
-    async countTxLabelMaps(args: FindTxLabelMapsArgs): Promise<number> 
-    async insertCertificate(certificate: TableCertificateX, trx?: TrxToken): Promise<number> 
-    async insertCertificateField(certificateField: TableCertificateField, trx?: TrxToken): Promise<void> 
-    async insertCommission(commission: TableCommission, trx?: TrxToken): Promise<number> 
-    async insertMonitorEvent(event: TableMonitorEvent, trx?: TrxToken): Promise<number> 
-    async insertOutput(output: TableOutput, trx?: TrxToken): Promise<number> 
-    async insertOutputBasket(basket: TableOutputBasket, trx?: TrxToken): Promise<number> 
-    async insertOutputTag(tag: TableOutputTag, trx?: TrxToken): Promise<number> 
-    async insertOutputTagMap(tagMap: TableOutputTagMap, trx?: TrxToken): Promise<void> 
-    async insertProvenTx(tx: TableProvenTx, trx?: TrxToken): Promise<number> 
-    async insertProvenTxReq(tx: TableProvenTxReq, trx?: TrxToken): Promise<number> 
-    async insertSyncState(syncState: TableSyncState, trx?: TrxToken): Promise<number> 
-    async insertTransaction(tx: TableTransaction, trx?: TrxToken): Promise<number> 
-    async insertTxLabel(label: TableTxLabel, trx?: TrxToken): Promise<number> 
-    async insertTxLabelMap(labelMap: TableTxLabelMap, trx?: TrxToken): Promise<void> 
-    async insertUser(user: TableUser, trx?: TrxToken): Promise<number> 
-    async updateIdb<T>(id: number | number[], update: Partial<T>, keyProp: string, storeName: string, trx?: TrxToken): Promise<number> 
-    async updateIdbKey<T>(key: (number | string)[], update: Partial<T>, keyProps: string[], storeName: string, trx?: TrxToken): Promise<number> 
-    async updateCertificate(id: number, update: Partial<TableCertificate>, trx?: TrxToken): Promise<number> 
-    async updateCertificateField(certificateId: number, fieldName: string, update: Partial<TableCertificateField>, trx?: TrxToken): Promise<number> 
-    async updateCommission(id: number, update: Partial<TableCommission>, trx?: TrxToken): Promise<number> 
-    async updateMonitorEvent(id: number, update: Partial<TableMonitorEvent>, trx?: TrxToken): Promise<number> 
-    async updateOutput(id: number, update: Partial<TableOutput>, trx?: TrxToken): Promise<number> 
-    async updateOutputBasket(id: number, update: Partial<TableOutputBasket>, trx?: TrxToken): Promise<number> 
-    async updateOutputTag(id: number, update: Partial<TableOutputTag>, trx?: TrxToken): Promise<number> 
-    async updateProvenTx(id: number, update: Partial<TableProvenTx>, trx?: TrxToken): Promise<number> 
-    async updateProvenTxReq(id: number | number[], update: Partial<TableProvenTxReq>, trx?: TrxToken): Promise<number> 
-    async updateSyncState(id: number, update: Partial<TableSyncState>, trx?: TrxToken): Promise<number> 
-    async updateTransaction(id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number> 
-    async updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number> 
-    async updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number> 
-    async updateOutputTagMap(outputId: number, tagId: number, update: Partial<TableOutputTagMap>, trx?: TrxToken): Promise<number> 
-    async updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number> 
-    async destroy(): Promise<void> 
-    allStores: string[] = [
-        "certificates",
-        "certificate_fields",
-        "commissions",
-        "monitor_events",
-        "outputs",
-        "output_baskets",
-        "output_tags",
-        "output_tags_map",
-        "proven_txs",
-        "proven_tx_reqs",
-        "sync_states",
-        "transactions",
-        "tx_labels",
-        "tx_labels_map",
-        "users"
-    ];
-    async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T> 
-    async filterCertificateFields(args: FindCertificateFieldsArgs, filtered: (v: TableCertificateField) => void): Promise<void> 
-    async findCertificateFields(args: FindCertificateFieldsArgs): Promise<TableCertificateField[]> 
-    async filterCertificates(args: FindCertificatesArgs, filtered: (v: TableCertificateX) => void): Promise<void> 
-    async findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async filterCommissions(args: FindCommissionsArgs, filtered: (v: TableCommission) => void): Promise<void> 
-    async findCommissions(args: FindCommissionsArgs): Promise<TableCommission[]> 
-    async filterMonitorEvents(args: FindMonitorEventsArgs, filtered: (v: TableMonitorEvent) => void): Promise<void> 
-    async findMonitorEvents(args: FindMonitorEventsArgs): Promise<TableMonitorEvent[]> 
-    async filterOutputBaskets(args: FindOutputBasketsArgs, filtered: (v: TableOutputBasket) => void): Promise<void> 
-    async findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async filterOutputs(args: FindOutputsArgs, filtered: (v: TableOutput) => void, tagIds?: number[], isQueryModeAll?: boolean): Promise<void> 
-    async findOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<TableOutput[]> 
-    async filterOutputTags(args: FindOutputTagsArgs, filtered: (v: TableOutputTag) => void): Promise<void> 
-    async findOutputTags(args: FindOutputTagsArgs): Promise<TableOutputTag[]> 
-    async filterSyncStates(args: FindSyncStatesArgs, filtered: (v: TableSyncState) => void): Promise<void> 
-    async findSyncStates(args: FindSyncStatesArgs): Promise<TableSyncState[]> 
-    async filterTransactions(args: FindTransactionsArgs, filtered: (v: TableTransaction) => void, labelIds?: number[], isQueryModeAll?: boolean): Promise<void> 
-    async findTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<TableTransaction[]> 
-    async filterTxLabels(args: FindTxLabelsArgs, filtered: (v: TableTxLabel) => void): Promise<void> 
-    async findTxLabels(args: FindTxLabelsArgs): Promise<TableTxLabel[]> 
-    async filterUsers(args: FindUsersArgs, filtered: (v: TableUser) => void): Promise<void> 
-    async findUsers(args: FindUsersArgs): Promise<TableUser[]> 
-    async countCertificateFields(args: FindCertificateFieldsArgs): Promise<number> 
-    async countCertificates(args: FindCertificatesArgs): Promise<number> 
-    async countCommissions(args: FindCommissionsArgs): Promise<number> 
-    async countMonitorEvents(args: FindMonitorEventsArgs): Promise<number> 
-    async countOutputBaskets(args: FindOutputBasketsArgs): Promise<number> 
-    async countOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<number> 
-    async countOutputTags(args: FindOutputTagsArgs): Promise<number> 
-    async countSyncStates(args: FindSyncStatesArgs): Promise<number> 
-    async countTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<number> 
-    async countTxLabels(args: FindTxLabelsArgs): Promise<number> 
-    async countUsers(args: FindUsersArgs): Promise<number> 
-    async getProvenTxsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTx[]> 
-    async getProvenTxReqsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTxReq[]> 
-    async getTxLabelMapsForUser(args: FindForUserSincePagedArgs): Promise<TableTxLabelMap[]> 
-    async getOutputTagMapsForUser(args: FindForUserSincePagedArgs): Promise<TableOutputTagMap[]> 
-    async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType> 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
-    validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
-    async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
-    async validateRawTransaction(t: TableTransaction, trx?: TrxToken): Promise<void> 
-    async adminStats(adminIdentityKey: string): Promise<StorageAdminStats> 
-}
-```
-
-See also: [AuthId](./client.md#interface-authid), [DBType](./storage.md#type-dbtype), [EntityTimeStamp](./client.md#interface-entitytimestamp), [FindCertificateFieldsArgs](./client.md#interface-findcertificatefieldsargs), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindCommissionsArgs](./client.md#interface-findcommissionsargs), [FindForUserSincePagedArgs](./client.md#interface-findforusersincepagedargs), [FindMonitorEventsArgs](./client.md#interface-findmonitoreventsargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputTagMapsArgs](./client.md#interface-findoutputtagmapsargs), [FindOutputTagsArgs](./client.md#interface-findoutputtagsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [FindProvenTxsArgs](./client.md#interface-findproventxsargs), [FindSyncStatesArgs](./client.md#interface-findsyncstatesargs), [FindTransactionsArgs](./client.md#interface-findtransactionsargs), [FindTxLabelMapsArgs](./client.md#interface-findtxlabelmapsargs), [FindTxLabelsArgs](./client.md#interface-findtxlabelsargs), [FindUsersArgs](./client.md#interface-findusersargs), [ProvenOrRawTx](./client.md#interface-provenorrawtx), [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [StorageAdminStats](./storage.md#interface-storageadminstats), [StorageIdbOptions](./storage.md#interface-storageidboptions), [StorageIdbSchema](./storage.md#interface-storageidbschema), [StorageProvider](./storage.md#class-storageprovider), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [listActions](./storage.md#function-listactions), [listOutputs](./storage.md#function-listoutputs), [purgeData](./storage.md#function-purgedata), [reviewStatus](./storage.md#function-reviewstatus)
-
-###### Method allocateChangeInput
-
-Proceeds in three stages:
-1. Find an output that exactly funds the transaction (if exactSatoshis is not undefined).
-2. Find an output that overfunds by the least amount (targetSatoshis).
-3. Find an output that comes as close to funding as possible (targetSatoshis).
-4. Return undefined if no output is found.
-
-Outputs must belong to userId and basketId and have spendable true.
-Their corresponding transaction must have status of 'completed', 'unproven', or 'sending' (if excludeSending is false).
-
-```ts
-async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
-```
-See also: [TableOutput](./storage.md#interface-tableoutput)
-
-Returns
-
-next funding output to add to transaction or undefined if there are none.
-
-###### Method migrate
-
-This method must be called at least once before any other method accesses the database,
-and each time the schema may have updated.
-
-If the database has already been created in this context, `storageName` and `storageIdentityKey`
-are ignored.
-
-```ts
-async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-```
-
-###### Method readSettings
-
-Called by `makeAvailable` to return storage `TableSettings`.
-Since this is the first async method that must be called by all clients,
-it is where async initialization occurs.
-
-After initialization, cached settings are returned.
-
-```ts
-async readSettings(trx?: TrxToken): Promise<TableSettings> 
-```
-See also: [TableSettings](./storage.md#interface-tablesettings), [TrxToken](./client.md#interface-trxtoken)
-
-###### Method toDbTrx
-
-Convert the standard optional `TrxToken` parameter into either a direct knex database instance,
-or a Knex.Transaction as appropriate.
-
-```ts
-toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly"> 
-```
-See also: [StorageIdbSchema](./storage.md#interface-storageidbschema), [TrxToken](./client.md#interface-trxtoken)
-
-###### Method validateEntities
-
-Helper to force uniform behavior across database engines.
-Use to process all arrays of records with time stamps retreived from database.
-
-```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
-```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
-Returns
-
-input `entities` array with contained values validated.
-
-###### Method validateEntity
-
-Helper to force uniform behavior across database engines.
-Use to process all individual records with time stamps or number[] retreived from database.
-
-```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
-```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
-###### Method validateEntityForInsert
-
-Helper to force uniform behavior across database engines.
-Use to process new entities being inserted into the database.
-
-```ts
-async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
-```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [TrxToken](./client.md#interface-trxtoken)
-
-###### Method validatePartialForUpdate
-
-Helper to force uniform behavior across database engines.
-Use to process the update template for entities being updated.
-
-```ts
-validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
-```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
-###### Method verifyDB
-
-Following initial database initialization, this method verfies that db is ready for use.
-
-```ts
-async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
-```
-See also: [StorageIdbSchema](./storage.md#interface-storageidbschema)
-
-Throws
-
-`WERR_INVALID_OPERATION` if the database has not been initialized by a call to `migrate`.
+See also: [EntityTimeStamp](#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -13769,9 +9544,9 @@ export abstract class StorageProvider extends StorageReaderWriter implements Wal
     commissionSatoshis: number;
     commissionPubKeyHex?: PubKeyHex;
     maxRecursionDepth?: number;
-    static defaultOptions() 
-    static createStorageBaseOptions(chain: Chain): StorageProviderOptions 
-    constructor(options: StorageProviderOptions) 
+    static defaultOptions()
+    static createStorageBaseOptions(chain: Chain): StorageProviderOptions
+    constructor(options: StorageProviderOptions)
     abstract reviewStatus(args: {
         agedLimit: Date;
         trx?: TrxToken;
@@ -13787,54 +9562,54 @@ export abstract class StorageProvider extends StorageReaderWriter implements Wal
     abstract listActions(auth: AuthId, args: Validation.ValidListActionsArgs): Promise<ListActionsResult>;
     abstract listOutputs(auth: AuthId, args: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>;
     abstract countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number>;
-    async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>> 
-    async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]> 
+    async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>>
+    async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]>
     async findOutputsByOutpoints(userId: number, outpoints: Array<{
         txid: string;
         vout: number;
-    }>, trx?: TrxToken): Promise<Record<string, TableOutput>> 
-    async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>> 
-    async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>> 
-    async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number> 
+    }>, trx?: TrxToken): Promise<Record<string, TableOutput>>
+    async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>>
+    async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>>
+    async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number>
     abstract findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>;
     abstract findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>;
     abstract findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>;
     abstract insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>;
     abstract adminStats(adminIdentityKey: string): Promise<AdminStatsResult>;
-    async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]> 
-    override isStorageProvider(): boolean 
-    setServices(v: WalletServices) 
-    getServices(): WalletServices 
-    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
-    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
-    async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult> 
-    async mergeReqToBeefToShareExternally(req: TableProvenTxReq, mergeToBeef: Beef, knownTxids: string[], trx?: TrxToken): Promise<void> 
-    async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq> 
-    async updateTransactionsStatus(transactionIds: number[], status: TransactionStatus, trx?: TrxToken): Promise<void> 
-    async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void> 
-    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
-    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
-    async attemptToPostReqsToNetwork(reqs: EntityProvenTxReq[], trx?: TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult> 
-    async listCertificates(auth: AuthId, args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async verifyKnownValidTransaction(txid: string, trx?: TrxToken): Promise<boolean> 
-    async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef> 
-    async getValidBeefForTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number, chainTracker?: ChainTracker, skipInvalidProofs?: boolean): Promise<Beef | undefined> 
-    async getBeefForTransaction(txid: string, options: StorageGetBeefOptions): Promise<Beef> 
-    async findMonitorEventById(id: number, trx?: TrxToken): Promise<TableMonitorEvent | undefined> 
-    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
-    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
-    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+    async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]>
+    override isStorageProvider(): boolean
+    setServices(v: WalletServices)
+    getServices(): WalletServices
+    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
+    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
+    async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult>
+    async mergeReqToBeefToShareExternally(req: TableProvenTxReq, mergeToBeef: Beef, knownTxids: string[], trx?: TrxToken): Promise<void>
+    async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq>
+    async updateTransactionsStatus(transactionIds: number[], status: TransactionStatus, trx?: TrxToken): Promise<void>
+    async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void>
+    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
+    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
+    async attemptToPostReqsToNetwork(reqs: EntityProvenTxReq[], trx?: TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult>
+    async listCertificates(auth: AuthId, args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async verifyKnownValidTransaction(txid: string, trx?: TrxToken): Promise<boolean>
+    async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef>
+    async getValidBeefForTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number, chainTracker?: ChainTracker, skipInvalidProofs?: boolean): Promise<Beef | undefined>
+    async getBeefForTransaction(txid: string, options: StorageGetBeefOptions): Promise<Beef>
+    async findMonitorEventById(id: number, trx?: TrxToken): Promise<TableMonitorEvent | undefined>
+    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
+    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
+    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
     async confirmSpendableOutputs(): Promise<{
         invalidSpendableOutputs: TableOutput[];
-    }> 
-    async updateProvenTxReqDynamics(id: number, update: Partial<TableProvenTxReqDynamics>, trx?: TrxToken): Promise<number> 
-    async extendOutput(o: TableOutput, includeBasket = false, includeTags = false, trx?: TrxToken): Promise<TableOutputX> 
-    async validateOutputScript(o: TableOutput, trx?: TrxToken): Promise<void> 
+    }>
+    async updateProvenTxReqDynamics(id: number, update: Partial<TableProvenTxReqDynamics>, trx?: TrxToken): Promise<number>
+    async extendOutput(o: TableOutput, includeBasket = false, includeTags = false, trx?: TrxToken): Promise<TableOutputX>
+    async validateOutputScript(o: TableOutput, trx?: TrxToken): Promise<void>
 }
 ```
 
-See also: [AdminStatsResult](./storage.md#interface-adminstatsresult), [AuthId](./client.md#interface-authid), [Chain](./client.md#type-chain), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindStaleMerkleRootsArgs](./client.md#interface-findstalemerklerootsargs), [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [PostReqsToNetworkResult](./storage.md#interface-postreqstonetworkresult), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [ProvenOrRawTx](./client.md#interface-provenorrawtx), [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageFeeModel](./client.md#interface-storagefeemodel), [StorageGetBeefOptions](./client.md#interface-storagegetbeefoptions), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvenOrReq](./client.md#interface-storageprovenorreq), [StorageProviderOptions](./storage.md#interface-storageprovideroptions), [StorageReaderWriter](./storage.md#class-storagereaderwriter), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputX](./storage.md#interface-tableoutputx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableProvenTxReqDynamics](./storage.md#interface-tableproventxreqdynamics), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableUser](./storage.md#interface-tableuser), [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken), [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult), [WalletServices](./client.md#interface-walletservices), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [attemptToPostReqsToNetwork](./storage.md#function-attempttopostreqstonetwork), [createAction](./storage.md#function-createaction), [getBeefForTransaction](./storage.md#function-getbeeffortransaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [logger](./client.md#variable-logger), [processAction](./storage.md#function-processaction), [purgeData](./storage.md#function-purgedata), [reviewStatus](./storage.md#function-reviewstatus)
+See also: [AdminStatsResult](#interface-adminstatsresult), [AuthId](#interface-authid), [Chain](#type-chain), [EntityProvenTxReq](#class-entityproventxreq), [FindCertificatesArgs](#interface-findcertificatesargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindStaleMerkleRootsArgs](#interface-findstalemerklerootsargs), [GetReqsAndBeefResult](#interface-getreqsandbeefresult), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [ProcessSyncChunkResult](#interface-processsyncchunkresult), [ProvenOrRawTx](#interface-provenorrawtx), [PurgeParams](#interface-purgeparams), [PurgeResults](#interface-purgeresults), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageFeeModel](#interface-storagefeemodel), [StorageGetBeefOptions](#interface-storagegetbeefoptions), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [StorageProvenOrReq](#interface-storageprovenorreq), [StorageProviderOptions](#interface-storageprovideroptions), [StorageReaderWriter](#class-storagereaderwriter), [SyncChunk](#interface-syncchunk), [TableCertificateX](#interface-tablecertificatex), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputX](#interface-tableoutputx), [TableProvenTxReq](#interface-tableproventxreq), [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics), [TableTxLabel](#interface-tabletxlabel), [TableUser](#interface-tableuser), [TransactionStatus](#type-transactionstatus), [TrxToken](#interface-trxtoken), [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult), [WalletServices](#interface-walletservices), [WalletStorageProvider](#interface-walletstorageprovider), [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork), [createAction](#function-createaction), [getBeefForTransaction](#function-getbeeffortransaction), [internalizeAction](#function-internalizeaction), [listCertificates](#function-listcertificates), [logger](#variable-logger), [processAction](#function-processaction)
 
 ###### Method confirmSpendableOutputs
 
@@ -13845,28 +9620,13 @@ still in the mempool of at least one service provider.
 ```ts
 async confirmSpendableOutputs(): Promise<{
     invalidSpendableOutputs: TableOutput[];
-}> 
+}>
 ```
-See also: [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
 Returns
 
 object with invalidSpendableOutputs array. A good result is an empty array.
-
-###### Method getProvenOrReq
-
-Checks if txid is a known valid ProvenTx and returns it if found.
-Next checks if txid is a current ProvenTxReq and returns that if found.
-If `newReq` is provided and an existing ProvenTxReq isn't found,
-use `newReq` to create a new ProvenTxReq.
-
-This is safe "findOrInsert" operation using retry if unique index constraint
-is violated by a race condition insert.
-
-```ts
-async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq> 
-```
-See also: [StorageProvenOrReq](./client.md#interface-storageprovenorreq), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method getReqsAndBeefToShareWithWorld
 
@@ -13875,9 +9635,9 @@ lookup their ProvenTxReqApi req records.
 For the txids with reqs and status still ready to send construct a single merged beef.
 
 ```ts
-async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult> 
+async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult>
 ```
-See also: [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [TrxToken](./client.md#interface-trxtoken)
+See also: [GetReqsAndBeefResult](#interface-getreqsandbeefresult), [TrxToken](#interface-trxtoken)
 
 ###### Method getValidBeefForKnownTxid
 
@@ -13887,9 +9647,9 @@ Optionally merges the data into an existing beef.
 Optionally requires a minimum number of proof levels.
 
 ```ts
-async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef> 
+async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef>
 ```
-See also: [TrxToken](./client.md#interface-trxtoken)
+See also: [TrxToken](#interface-trxtoken)
 
 ###### Method updateProvenTxReqWithNewProvenTx
 
@@ -13906,9 +9666,9 @@ Performs the following storage updates (typically):
 Alterations of "typically" to handle:
 
 ```ts
-async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
 ```
-See also: [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult)
+See also: [UpdateProvenTxReqWithNewProvenTxArgs](#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](#interface-updateproventxreqwithnewproventxresult)
 
 ###### Method updateTransactionStatus
 
@@ -13917,9 +9677,9 @@ For all `status` values besides 'failed', just updates the transaction records s
 For 'status' of 'failed', attempts to make outputs previously allocated as inputs to this transaction usable again.
 
 ```ts
-async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void> 
+async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void>
 ```
-See also: [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken)
+See also: [TransactionStatus](#type-transactionstatus), [TrxToken](#interface-trxtoken)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -13942,12 +9702,12 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     chain: sdk.Chain;
     _settings?: TableSettings;
     whenLastAccess?: Date;
-    get dbtype(): DBType | undefined 
-    constructor(options: StorageReaderOptions) 
-    isAvailable(): boolean 
-    async makeAvailable(): Promise<TableSettings> 
-    getSettings(): TableSettings 
-    isStorageProvider(): boolean 
+    get dbtype(): DBType | undefined
+    constructor(options: StorageReaderOptions)
+    isAvailable(): boolean
+    async makeAvailable(): Promise<TableSettings>
+    getSettings(): TableSettings
+    isStorageProvider(): boolean
     abstract destroy(): Promise<void>;
     abstract transaction<T>(scope: (trx: sdk.TrxToken) => Promise<T>, trx?: sdk.TrxToken): Promise<T>;
     abstract readSettings(trx?: sdk.TrxToken): Promise<TableSettings>;
@@ -13977,30 +9737,22 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     abstract getProvenTxReqsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableProvenTxReq[]>;
     abstract getTxLabelMapsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableTxLabelMap[]>;
     abstract getOutputTagMapsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableOutputTagMap[]>;
-    async findUserByIdentityKey(key: string): Promise<TableUser | undefined> 
-    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk> 
-    validateEntityDate(date: Date | string | number): Date | string 
-    validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined 
-    validateDate(date: Date | string | number): Date 
-    validateOptionalDate(date: Date | string | number | null | undefined): Date | undefined 
-    validateDateForWhere(date: Date | string | number): Date | string | number 
+    async findUserByIdentityKey(key: string): Promise<TableUser | undefined>
+    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk>
+    validateEntityDate(date: Date | string | number): Date | string
+    validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined
+    validateDate(date: Date | string | number): Date
+    validateOptionalDate(date: Date | string | number | null | undefined): Date | undefined
+    validateDateForWhere(date: Date | string | number): Date | string | number
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [DBType](./storage.md#type-dbtype), [FindCertificateFieldsArgs](./client.md#interface-findcertificatefieldsargs), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindCommissionsArgs](./client.md#interface-findcommissionsargs), [FindForUserSincePagedArgs](./client.md#interface-findforusersincepagedargs), [FindMonitorEventsArgs](./client.md#interface-findmonitoreventsargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputTagsArgs](./client.md#interface-findoutputtagsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindSyncStatesArgs](./client.md#interface-findsyncstatesargs), [FindTransactionsArgs](./client.md#interface-findtransactionsargs), [FindTxLabelsArgs](./client.md#interface-findtxlabelsargs), [FindUsersArgs](./client.md#interface-findusersargs), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReaderOptions](./storage.md#interface-storagereaderoptions), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [getSyncChunk](./storage.md#function-getsyncchunk)
-
-###### Method validateEntityDate
-
-Force dates to strings on SQLite and Date objects on MySQL
-
-```ts
-validateEntityDate(date: Date | string | number): Date | string 
-```
+See also: [Chain](#type-chain), [DBType](#type-dbtype), [FindCertificateFieldsArgs](#interface-findcertificatefieldsargs), [FindCertificatesArgs](#interface-findcertificatesargs), [FindCommissionsArgs](#interface-findcommissionsargs), [FindForUserSincePagedArgs](#interface-findforusersincepagedargs), [FindMonitorEventsArgs](#interface-findmonitoreventsargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputTagsArgs](#interface-findoutputtagsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindSyncStatesArgs](#interface-findsyncstatesargs), [FindTransactionsArgs](#interface-findtransactionsargs), [FindTxLabelsArgs](#interface-findtxlabelsargs), [FindUsersArgs](#interface-findusersargs), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [StorageReaderOptions](#interface-storagereaderoptions), [SyncChunk](#interface-syncchunk), [TableCertificateField](#interface-tablecertificatefield), [TableCertificateX](#interface-tablecertificatex), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser), [TrxToken](#interface-trxtoken), [WalletStorageSyncReader](#interface-walletstoragesyncreader), [getSyncChunk](#function-getsyncchunk), [validateDate](#function-validatedate)
 
 ###### Method validateOptionalEntityDate
 
 ```ts
-validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined 
+validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined
 ```
 
 Argument Details
@@ -14015,7 +9767,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export abstract class StorageReaderWriter extends StorageReader {
-    constructor(options: StorageReaderWriterOptions) 
+    constructor(options: StorageReaderWriterOptions)
     abstract dropAllData(): Promise<void>;
     abstract migrate(storageName: string, storageIdentityKey: string): Promise<string>;
     abstract findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]>;
@@ -14057,70 +9809,49 @@ export abstract class StorageReaderWriter extends StorageReader {
     abstract updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number>;
     abstract updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number>;
     abstract updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number>;
-    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
-    async findCertificateById(id: number, trx?: TrxToken): Promise<TableCertificate | undefined> 
-    async findCommissionById(id: number, trx?: TrxToken): Promise<TableCommission | undefined> 
-    async findOutputById(id: number, trx?: TrxToken, noScript?: boolean): Promise<TableOutput | undefined> 
-    async findOutputBasketById(id: number, trx?: TrxToken): Promise<TableOutputBasket | undefined> 
-    async findProvenTxById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTx | undefined> 
-    async findProvenTxReqById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTxReq | undefined> 
-    async findSyncStateById(id: number, trx?: TrxToken): Promise<TableSyncState | undefined> 
-    async findTransactionById(id: number, trx?: TrxToken, noRawTx?: boolean): Promise<TableTransaction | undefined> 
-    async findTxLabelById(id: number, trx?: TrxToken): Promise<TableTxLabel | undefined> 
-    async findOutputTagById(id: number, trx?: TrxToken): Promise<TableOutputTag | undefined> 
-    async findUserById(id: number, trx?: TrxToken): Promise<TableUser | undefined> 
+    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
+    async findCertificateById(id: number, trx?: TrxToken): Promise<TableCertificate | undefined>
+    async findCommissionById(id: number, trx?: TrxToken): Promise<TableCommission | undefined>
+    async findOutputById(id: number, trx?: TrxToken, noScript?: boolean): Promise<TableOutput | undefined>
+    async findOutputBasketById(id: number, trx?: TrxToken): Promise<TableOutputBasket | undefined>
+    async findProvenTxById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTx | undefined>
+    async findProvenTxReqById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTxReq | undefined>
+    async findSyncStateById(id: number, trx?: TrxToken): Promise<TableSyncState | undefined>
+    async findTransactionById(id: number, trx?: TrxToken, noRawTx?: boolean): Promise<TableTransaction | undefined>
+    async findTxLabelById(id: number, trx?: TrxToken): Promise<TableTxLabel | undefined>
+    async findOutputTagById(id: number, trx?: TrxToken): Promise<TableOutputTag | undefined>
+    async findUserById(id: number, trx?: TrxToken): Promise<TableUser | undefined>
     async findOrInsertUser(identityKey: string, trx?: TrxToken): Promise<{
         user: TableUser;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertTransaction(newTx: TableTransaction, trx?: TrxToken): Promise<{
         tx: TableTransaction;
         isNew: boolean;
-    }> 
-    async findOrInsertOutputBasket(userId: number, name: string, trx?: TrxToken): Promise<TableOutputBasket> 
-    async findOrInsertTxLabel(userId: number, label: string, trx?: TrxToken): Promise<TableTxLabel> 
-    async findOrInsertTxLabelMap(transactionId: number, txLabelId: number, trx?: TrxToken): Promise<TableTxLabelMap> 
-    async findOrInsertOutputTag(userId: number, tag: string, trx?: TrxToken): Promise<TableOutputTag> 
-    async findOrInsertOutputTagMap(outputId: number, outputTagId: number, trx?: TrxToken): Promise<TableOutputTagMap> 
+    }>
+    async findOrInsertOutputBasket(userId: number, name: string, trx?: TrxToken): Promise<TableOutputBasket>
+    async findOrInsertTxLabel(userId: number, label: string, trx?: TrxToken): Promise<TableTxLabel>
+    async findOrInsertTxLabelMap(transactionId: number, txLabelId: number, trx?: TrxToken): Promise<TableTxLabelMap>
+    async findOrInsertOutputTag(userId: number, tag: string, trx?: TrxToken): Promise<TableOutputTag>
+    async findOrInsertOutputTagMap(outputId: number, outputTagId: number, trx?: TrxToken): Promise<TableOutputTagMap>
     async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
         syncState: TableSyncState;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertProvenTxReq(newReq: TableProvenTxReq, trx?: TrxToken): Promise<{
         req: TableProvenTxReq;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertProvenTx(newProven: TableProvenTx, trx?: TrxToken): Promise<{
         proven: TableProvenTx;
         isNew: boolean;
-    }> 
+    }>
     abstract processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>;
-    async tagOutput(partial: Partial<TableOutput>, tag: string, trx?: TrxToken): Promise<void> 
+    async tagOutput(partial: Partial<TableOutput>, tag: string, trx?: TrxToken): Promise<void>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindOutputTagMapsArgs](./client.md#interface-findoutputtagmapsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [FindProvenTxsArgs](./client.md#interface-findproventxsargs), [FindStaleMerkleRootsArgs](./client.md#interface-findstalemerklerootsargs), [FindTxLabelMapsArgs](./client.md#interface-findtxlabelmapsargs), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [StorageReaderWriterOptions](./storage.md#interface-storagereaderwriteroptions), [SyncChunk](./client.md#interface-syncchunk), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: StorageSyncReader
-
-The `StorageSyncReader` non-abstract class must be used when authentication checking access to the methods of a `StorageBaseReader` is required.
-
-Constructed from an `auth` object that must minimally include the authenticated user's identityKey,
-and the `StorageBaseReader` to be protected.
-
-```ts
-export class StorageSyncReader implements sdk.WalletStorageSyncReader {
-    constructor(public auth: sdk.AuthId, public storage: StorageReader) 
-    async makeAvailable(): Promise<TableSettings> 
-    destroy(): Promise<void> 
-    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk> 
-}
-```
-
-See also: [AuthId](./client.md#interface-authid), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [SyncChunk](./client.md#interface-syncchunk), [TableSettings](./storage.md#interface-tablesettings), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [getSyncChunk](./storage.md#function-getsyncchunk)
+See also: [AuthId](#interface-authid), [FindOutputTagMapsArgs](#interface-findoutputtagmapsargs), [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [FindProvenTxsArgs](#interface-findproventxsargs), [FindStaleMerkleRootsArgs](#interface-findstalemerklerootsargs), [FindTxLabelMapsArgs](#interface-findtxlabelmapsargs), [ProcessSyncChunkResult](#interface-processsyncchunkresult), [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [StorageReader](#class-storagereader), [StorageReaderWriterOptions](#interface-storagereaderwriteroptions), [SyncChunk](#interface-syncchunk), [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser), [TrxToken](#interface-trxtoken)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14133,19 +9864,20 @@ when transactions are MINED.
 
 ```ts
 export class TaskArcadeSSE extends WalletMonitorTask {
-    static taskName = "ArcadeSSE";
+    static readonly taskName = "ArcadeSSE";
     sseClient: ArcSSEClient | null = null;
-    constructor(monitor: Monitor) 
-    override async asyncSetup(): Promise<void> 
+    constructor(monitor: Monitor)
+    override async asyncSetup(): Promise<void>
+    override async asyncDestroy(): Promise<void>
     trigger(_nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
-    async fetchNow(): Promise<number> 
+    }
+    async runTask(): Promise<string>
+    async fetchNow(): Promise<number>
 }
 ```
 
-See also: [ArcSSEClient](./services.md#class-arcsseclient), [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [ArcSSEClient](#class-arcsseclient), [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14165,17 +9897,17 @@ the original ProvenTxReq status is advanced to 'notifying'.
 
 ```ts
 export class TaskCheckForProofs extends WalletMonitorTask {
-    static taskName = "CheckForProofs";
+    static readonly taskName = "CheckForProofs";
     static checkNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = 0) 
+    constructor(monitor: Monitor, public triggerMsecs = 0)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property checkNow
 
@@ -14193,7 +9925,7 @@ Normally triggered by checkNow getting set by new block header found event from 
 ```ts
 trigger(nowMsecsSinceEpoch: number): {
     run: boolean;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -14215,17 +9947,17 @@ the original ProvenTxReq status is advanced to 'notifying'.
 
 ```ts
 export class TaskCheckNoSends extends WalletMonitorTask {
-    static taskName = "CheckNoSends";
+    static readonly taskName = "CheckNoSends";
     static checkNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneDay * 1) 
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneDay * 1)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property checkNow
 
@@ -14243,7 +9975,7 @@ Normally triggered by checkNow getting set by new block header found event from 
 ```ts
 trigger(nowMsecsSinceEpoch: number): {
     run: boolean;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -14253,18 +9985,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class TaskClock extends WalletMonitorTask {
-    static taskName = "Clock";
+    static readonly taskName = "Clock";
     nextMinute: number;
-    constructor(monitor: Monitor, public triggerMsecs = 1 * Monitor.oneSecond) 
+    constructor(monitor: Monitor, public triggerMsecs = 1 * Monitor.oneSecond)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
-    getNextMinute(): number 
+    }
+    async runTask(): Promise<string>
+    getNextMinute(): number
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14280,16 +10012,16 @@ outputs are not spendable.
 
 ```ts
 export class TaskFailAbandoned extends WalletMonitorTask {
-    static taskName = "FailAbandoned";
-    constructor(monitor: Monitor, public triggerMsecs = 1000 * 60 * 5) 
+    static readonly taskName = "FailAbandoned";
+    constructor(monitor: Monitor, public triggerMsecs = 1000 * 60 * 5)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14298,17 +10030,17 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class TaskMineBlock extends WalletMonitorTask {
-    static taskName = "MineBlock";
+    static readonly taskName = "MineBlock";
     static mineNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = 10 * Monitor.oneMinute) 
+    constructor(monitor: Monitor, public triggerMsecs = 10 * Monitor.oneMinute)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14317,16 +10049,16 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class TaskMonitorCallHistory extends WalletMonitorTask {
-    static taskName = "MonitorCallHistory";
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 12) 
+    static readonly taskName = "MonitorCallHistory";
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 12)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14346,21 +10078,21 @@ with that header height as the limit for which proofs are accepted.
 
 ```ts
 export class TaskNewHeader extends WalletMonitorTask {
-    static taskName = "NewHeader";
+    static readonly taskName = "NewHeader";
     header?: BlockHeader;
     queuedHeader?: BlockHeader;
     queuedHeaderWhen?: Date;
-    constructor(monitor: Monitor, public triggerMsecs = 1 * Monitor.oneMinute) 
-    async getHeader(): Promise<BlockHeader> 
-    override async asyncSetup(): Promise<void> 
+    constructor(monitor: Monitor, public triggerMsecs = 1 * Monitor.oneMinute)
+    async getHeader(): Promise<BlockHeader>
+    override async asyncSetup(): Promise<void>
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [BlockHeader](#interface-blockheader), [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property header
 
@@ -14369,7 +10101,7 @@ This is always the most recent chain tip header returned from the chaintracker.
 ```ts
 header?: BlockHeader
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Property queuedHeader
 
@@ -14379,11 +10111,11 @@ when a cycle without a new header occurs and `processNewBlockHeader` is called.
 ```ts
 queuedHeader?: BlockHeader
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method asyncSetup
 
-TODO: This is a temporary incomplete solution for which a full chaintracker
+This is a temporary incomplete solution for which a full chaintracker
 with new header and reorg event notification is required.
 
 New header events drive retrieving merklePaths for newly mined transactions.
@@ -14396,7 +10128,7 @@ and sometimes which block. In the case of coinbase transactions, a transaction m
 also fail after a reorg.
 
 ```ts
-override async asyncSetup(): Promise<void> 
+override async asyncSetup(): Promise<void>
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -14406,17 +10138,17 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class TaskPurge extends WalletMonitorTask {
-    static taskName = "Purge";
+    static readonly taskName = "Purge";
     static checkNow = false;
-    constructor(monitor: Monitor, public params: TaskPurgeParams, public triggerMsecs = 0) 
+    constructor(monitor: Monitor, public params: TaskPurgeParams, public triggerMsecs = 0)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [TaskPurgeParams](./monitor.md#interface-taskpurgeparams), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [TaskPurgeParams](#interface-taskpurgeparams), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property checkNow
 
@@ -14456,17 +10188,17 @@ createAction fails to verify a generated beef against the chaintracker.
 
 ```ts
 export class TaskReorg extends WalletMonitorTask {
-    static taskName = "Reorg";
+    static readonly taskName = "Reorg";
     process: DeactivedHeader[] = [];
-    constructor(monitor: Monitor, public agedMsecs = Monitor.oneMinute * 10, public maxRetries = 3) 
+    constructor(monitor: Monitor, public agedMsecs = Monitor.oneMinute * 10, public maxRetries = 3)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [DeactivedHeader](./monitor.md#interface-deactivedheader), [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [DeactivedHeader](#interface-deactivedheader), [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Method trigger
 
@@ -14475,7 +10207,7 @@ Shift aged deactivated headers onto `process` array.
 ```ts
 trigger(nowMsecsSinceEpoch: number): {
     run: boolean;
-} 
+}
 ```
 
 Returns
@@ -14497,22 +10229,22 @@ back to 'unfail' so existing recovery handling can re-process them.
 
 ```ts
 export class TaskReviewDoubleSpends extends WalletMonitorTask {
-    static taskName = "ReviewDoubleSpends";
+    static readonly taskName = "ReviewDoubleSpends";
     static checkNow = false;
     triggerNextMsecs: number;
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 12, public reviewLimit = 100, public minAgeMinutes = 60, public triggerQuickMsecs = Monitor.oneMinute * 1) 
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 12, public reviewLimit = 100, public minAgeMinutes = 60, public triggerQuickMsecs = Monitor.oneMinute * 1)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
+    }
     async getLastReviewedCheckpoint(): Promise<{
         resumeOffset: number;
         expectedProvenTxReqId?: number;
-    } | undefined> 
-    async runTask(): Promise<string> 
+    } | undefined>
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14527,20 +10259,20 @@ the currently canonical merkleRoot at a height no longer matches stored proven_t
 
 ```ts
 export class TaskReviewProvenTxs extends WalletMonitorTask {
-    static taskName = "ReviewProvenTxs";
+    static readonly taskName = "ReviewProvenTxs";
     static checkNow = false;
     triggerNextMsecs: number;
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 10, public maxHeightsPerRun = 100, public minBlockAge = 100, public triggerQuickMsecs = Monitor.oneMinute * 1) 
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 10, public maxHeightsPerRun = 100, public minBlockAge = 100, public triggerQuickMsecs = Monitor.oneMinute * 1)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
-    async reviewHeightRange(range: HeightRange): Promise<ReviewHeightRangeResult> 
-    async getLastReviewedHeight(): Promise<number | undefined> 
+    }
+    async runTask(): Promise<string>
+    async reviewHeightRange(range: HeightRange): Promise<ReviewHeightRangeResult>
+    async getLastReviewedHeight(): Promise<number | undefined>
 }
 ```
 
-See also: [HeightRange](./services.md#class-heightrange), [Monitor](./monitor.md#class-monitor), [ReviewHeightRangeResult](./monitor.md#interface-reviewheightrangeresult), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [HeightRange](#class-heightrange), [Monitor](#class-monitor), [ReviewHeightRangeResult](#interface-reviewheightrangeresult), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14557,17 +10289,17 @@ Looks for reqs with 'invalid' status that have corresonding transactions with st
 
 ```ts
 export class TaskReviewStatus extends WalletMonitorTask {
-    static taskName = "ReviewStatus";
+    static readonly taskName = "ReviewStatus";
     static checkNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = 1000 * 60 * 15, public agedMsecs = 1000 * 60 * 5) 
+    constructor(monitor: Monitor, public triggerMsecs = 1000 * 60 * 15, public agedMsecs = 1000 * 60 * 5)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property checkNow
 
@@ -14588,18 +10320,18 @@ The task itself is disabled and will not run on a schedule; review must be trigg
 
 ```ts
 export class TaskReviewUtxos extends WalletMonitorTask {
-    static taskName = "ReviewUtxos";
+    static readonly taskName = "ReviewUtxos";
     static checkNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = 0, public userLimit = 10, public userOffset = 0, public tags: string[] = ["release", "all"]) 
+    constructor(monitor: Monitor, public triggerMsecs = 0, public userLimit = 10, public userOffset = 0, public tags: string[] = ["release", "all"])
     trigger(_nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
-    async reviewByIdentityKey(identityKey: string, mode: "all" | "change" = "all"): Promise<string> 
+    }
+    async runTask(): Promise<string>
+    async reviewByIdentityKey(identityKey: string, mode: "all" | "change" = "all"): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [WalletMonitorTask](#class-walletmonitortask)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14608,27 +10340,27 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class TaskSendWaiting extends WalletMonitorTask {
-    static taskName = "SendWaiting";
+    static readonly taskName = "SendWaiting";
     lastSendingRunMsecsSinceEpoch: number | undefined;
     includeSending: boolean = true;
     triggerNextMsecs: number;
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneSecond * 8, public agedMsecs = Monitor.oneSecond * 7, public sendingMsecs = Monitor.oneMinute * 5, public triggerQuickMsecs = Monitor.oneSecond * 1, public chunkLimit = 100) 
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneSecond * 1, public agedMsecs = Monitor.oneSecond * 1, public sendingMsecs = Monitor.oneMinute * 5, public triggerQuickMsecs = Monitor.oneSecond * 1, public chunkLimit = 500, public processConcurrency = 100)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
-    async processUnsent(reqApis: TableProvenTxReq[], indent = 0): Promise<string> 
+    }
+    async runTask(): Promise<string>
+    async processUnsent(reqApis: TableProvenTxReq[], indent = 0): Promise<string>
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [Monitor](#class-monitor), [TableProvenTxReq](#interface-tableproventxreq), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Constructor
 
 ```ts
-constructor(monitor: Monitor, public triggerMsecs = Monitor.oneSecond * 8, public agedMsecs = Monitor.oneSecond * 7, public sendingMsecs = Monitor.oneMinute * 5, public triggerQuickMsecs = Monitor.oneSecond * 1, public chunkLimit = 100) 
+constructor(monitor: Monitor, public triggerMsecs = Monitor.oneSecond * 1, public agedMsecs = Monitor.oneSecond * 1, public sendingMsecs = Monitor.oneMinute * 5, public triggerQuickMsecs = Monitor.oneSecond * 1, public chunkLimit = 500, public processConcurrency = 100)
 ```
-See also: [Monitor](./monitor.md#class-monitor)
+See also: [Monitor](#class-monitor)
 
 Argument Details
 
@@ -14644,6 +10376,8 @@ Argument Details
   + Follow-up interval used when a full chunk was consumed and more work may remain.
 + **chunkLimit**
   + Maximum number of waiting requests to fetch and inspect in a single run.
++ **processConcurrency**
+  + Maximum number of independent req/batch broadcasts to process concurrently.
 
 ###### Method processUnsent
 
@@ -14662,9 +10396,9 @@ Add mapi responses to database table if received.
 Increments attempts if sending was attempted.
 
 ```ts
-async processUnsent(reqApis: TableProvenTxReq[], indent = 0): Promise<string> 
+async processUnsent(reqApis: TableProvenTxReq[], indent = 0): Promise<string>
 ```
-See also: [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14682,21 +10416,21 @@ If it fails (to find a merklePath), returns the req status to 'invalid'.
 
 ```ts
 export class TaskUnFail extends WalletMonitorTask {
-    static taskName = "UnFail";
+    static readonly taskName = "UnFail";
     static checkNow = false;
-    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 10) 
+    constructor(monitor: Monitor, public triggerMsecs = Monitor.oneMinute * 10)
     trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
-    } 
-    async runTask(): Promise<string> 
+    }
+    async runTask(): Promise<string>
     async unfail(reqs: TableProvenTxReq[], indent = 0): Promise<{
         log: string;
-    }> 
-    async unfailReq(req: EntityProvenTxReq, indent: number): Promise<string> 
+    }>
+    async unfailReq(req: EntityProvenTxReq, indent: number): Promise<string>
 }
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq), [Monitor](./monitor.md#class-monitor), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [EntityProvenTxReq](#class-entityproventxreq), [Monitor](#class-monitor), [TableProvenTxReq](#interface-tableproventxreq), [WalletMonitorTask](#class-walletmonitortask)
 
 ###### Property checkNow
 
@@ -14713,248 +10447,57 @@ static checkNow = false
 4. set the txs outputs to spendable
 
 ```ts
-async unfailReq(req: EntityProvenTxReq, indent: number): Promise<string> 
+async unfailReq(req: EntityProvenTxReq, indent: number): Promise<string>
 ```
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq)
+See also: [EntityProvenTxReq](#class-entityproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: TwilioPhoneInteractor
+##### Class: UndiciHttpClient
 
-TwilioPhoneInteractor
-
-A client-side class that knows how to call the WAB server for Twilio-based phone verification.
+SDK HttpClient adapter backed by one undici Pool per origin.
 
 ```ts
-export class TwilioPhoneInteractor extends AuthMethodInteractor {
-    public methodType = "TwilioPhone";
+export class UndiciHttpClient implements HttpClient {
+    constructor(options: UndiciHttpClientOptions = {})
+    async request<T = any, D = any>(url: string, options: HttpClientRequestOptions<D>): Promise<HttpClientResponse<T>>
+    async close(): Promise<void>
+    async download(url: string, options: {
+        headers?: Record<string, string>;
+        signal?: AbortSignal;
+    } = {}): Promise<Uint8Array>
 }
 ```
 
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
+See also: [UndiciHttpClientOptions](#interface-undicihttpclientoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: WABClient
+##### Class: UtxoCacheManager
 
 ```ts
-export class WABClient {
-    constructor(private serverUrl: string) 
-    public async getInfo() 
-    public generateRandomPresentationKey(): string 
-    public async startAuthMethod(authMethod: AuthMethodInteractor, presentationKey: string, payload: any) 
-    public async completeAuthMethod(authMethod: AuthMethodInteractor, presentationKey: string, payload: any) 
-    public async listLinkedMethods(presentationKey: string) 
-    public async unlinkMethod(presentationKey: string, authMethodId: number) 
-    public async requestFaucet(presentationKey: string) 
-    public async deleteUser(presentationKey: string) 
-    public async startShareAuth(methodType: string, userIdHash: string, payload: any): Promise<{
-        success: boolean;
-        message: string;
-    }> 
-    public async storeShare(methodType: string, payload: any, shareB: string, userIdHash: string): Promise<{
-        success: boolean;
-        message: string;
-        userId?: number;
-    }> 
-    public async retrieveShare(methodType: string, payload: any, userIdHash: string): Promise<{
-        success: boolean;
-        shareB?: string;
-        message: string;
-    }> 
-    public async updateShare(methodType: string, payload: any, userIdHash: string, newShareB: string): Promise<{
-        success: boolean;
-        message: string;
-        shareVersion?: number;
-    }> 
-    public async deleteShamirUser(methodType: string, payload: any, userIdHash: string): Promise<{
-        success: boolean;
-        message: string;
-    }> 
+export class UtxoCacheManager {
+    constructor(options: UtxoCacheManagerOptions = {})
+    async getOrLoad(query: UtxoCacheQuery, load: () => Promise<GetUtxoStatusResult>): Promise<GetUtxoStatusResult>
+    set(query: UtxoCacheQuery, result: GetUtxoStatusResult): void
+    invalidateOutpoint(outpoint: string): number
+    invalidateOutpoints(outpoints: string[]): number
+    invalidateByBlock(blockHeight: number): number
+    clear(): void
+    close(): void
+    getStats(): {
+        size: number;
+        ttlMs: number;
+        hits: number;
+        misses: number;
+        hitRate: number;
+    }
 }
 ```
 
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
-
-###### Method completeAuthMethod
-
-Complete an Auth Method flow
-
-```ts
-public async completeAuthMethod(authMethod: AuthMethodInteractor, presentationKey: string, payload: any) 
-```
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
-
-###### Method deleteShamirUser
-
-Delete a Shamir user's account and stored share
-Requires OTP verification
-
-```ts
-public async deleteShamirUser(methodType: string, payload: any, userIdHash: string): Promise<{
-    success: boolean;
-    message: string;
-}> 
-```
-
-Argument Details
-
-+ **methodType**
-  + The auth method type used for verification
-+ **payload**
-  + Contains the OTP code and auth method specific data
-+ **userIdHash**
-  + SHA256 hash of the user's identity key
-
-###### Method deleteUser
-
-Delete user
-
-```ts
-public async deleteUser(presentationKey: string) 
-```
-
-###### Method generateRandomPresentationKey
-
-Generate a random 256-bit presentation key as a hex string (client side).
-
-```ts
-public generateRandomPresentationKey(): string 
-```
-
-###### Method getInfo
-
-Return the WAB server info
-
-```ts
-public async getInfo() 
-```
-
-###### Method listLinkedMethods
-
-List user-linked methods
-
-```ts
-public async listLinkedMethods(presentationKey: string) 
-```
-
-###### Method requestFaucet
-
-Request faucet
-
-```ts
-public async requestFaucet(presentationKey: string) 
-```
-
-###### Method retrieveShare
-
-Retrieve a Shamir share (Share B) from the server
-Requires OTP verification
-
-```ts
-public async retrieveShare(methodType: string, payload: any, userIdHash: string): Promise<{
-    success: boolean;
-    shareB?: string;
-    message: string;
-}> 
-```
-
-Argument Details
-
-+ **methodType**
-  + The auth method type used for verification
-+ **payload**
-  + Contains the OTP code and auth method specific data
-+ **userIdHash**
-  + SHA256 hash of the user's identity key
-
-###### Method startAuthMethod
-
-Start an Auth Method flow
-
-```ts
-public async startAuthMethod(authMethod: AuthMethodInteractor, presentationKey: string, payload: any) 
-```
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
-
-###### Method startShareAuth
-
-Start OTP verification for share operations
-This initiates the auth flow (e.g., sends SMS code via Twilio)
-
-```ts
-public async startShareAuth(methodType: string, userIdHash: string, payload: any): Promise<{
-    success: boolean;
-    message: string;
-}> 
-```
-
-Argument Details
-
-+ **methodType**
-  + The auth method type (e.g., "TwilioPhone", "DevConsole")
-+ **userIdHash**
-  + SHA256 hash of the user's identity key
-+ **payload**
-  + Auth method specific data (e.g., { phoneNumber: "+1..." })
-
-###### Method storeShare
-
-Store a Shamir share (Share B) on the server
-Requires prior OTP verification via startShareAuth
-
-```ts
-public async storeShare(methodType: string, payload: any, shareB: string, userIdHash: string): Promise<{
-    success: boolean;
-    message: string;
-    userId?: number;
-}> 
-```
-
-Argument Details
-
-+ **methodType**
-  + The auth method type used for verification
-+ **payload**
-  + Contains the OTP code and auth method specific data
-+ **shareB**
-  + The Shamir share to store (format: x.y.threshold.integrity)
-+ **userIdHash**
-  + SHA256 hash of the user's identity key
-
-###### Method unlinkMethod
-
-Unlink a given Auth Method by ID
-
-```ts
-public async unlinkMethod(presentationKey: string, authMethodId: number) 
-```
-
-###### Method updateShare
-
-Update a Shamir share (for key rotation)
-Requires OTP verification
-
-```ts
-public async updateShare(methodType: string, payload: any, userIdHash: string, newShareB: string): Promise<{
-    success: boolean;
-    message: string;
-    shareVersion?: number;
-}> 
-```
-
-Argument Details
-
-+ **methodType**
-  + The auth method type used for verification
-+ **payload**
-  + Contains the OTP code and auth method specific data
-+ **userIdHash**
-  + SHA256 hash of the user's identity key
-+ **newShareB**
-  + The new Shamir share to store
+See also: [GetUtxoStatusResult](#interface-getutxostatusresult), [UtxoCacheManagerOptions](#interface-utxocachemanageroptions), [UtxoCacheQuery](#interface-utxocachequery)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14965,11 +10508,11 @@ The request is invalid.
 
 ```ts
 export class WERR_BAD_REQUEST extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14980,11 +10523,11 @@ Unable to broadcast transaction at this time.
 
 ```ts
 export class WERR_BROADCAST_UNAVAILABLE extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -14998,17 +10541,17 @@ to pay the fee to unlock and spend the outputs used to provide the additional sa
 
 ```ts
 export class WERR_INSUFFICIENT_FUNDS extends WalletError {
-    constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) 
-    override toJson(): string 
+    constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number)
+    override toJson(): string
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Constructor
 
 ```ts
-constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) 
+constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number)
 ```
 
 Argument Details
@@ -15029,11 +10572,11 @@ This is an example of an error with an optional custom `message`.
 
 ```ts
 export class WERR_INTERNAL extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15046,12 +10589,12 @@ Typically thrown when a chain tracker fails to validate a merkle root.
 
 ```ts
 export class WERR_INVALID_MERKLE_ROOT extends WalletError {
-    constructor(public blockHash: string, public blockHeight: number, public merkleRoot: string, public txid?: string) 
-    override toJson(): string 
+    constructor(public blockHash: string, public blockHeight: number, public merkleRoot: string, public txid?: string)
+    override toJson(): string
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror), [blockHash](./services.md#function-blockhash)
+See also: [WalletError](#class-walleterror), [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15064,11 +10607,11 @@ This is an example of an error object with a custom property `parameter` and tem
 
 ```ts
 export class WERR_INVALID_OPERATION extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15081,12 +10624,12 @@ This is an example of an error object with a custom property `parameter` and tem
 
 ```ts
 export class WERR_INVALID_PARAMETER extends WalletError {
-    constructor(public parameter: string, mustBe?: string) 
-    override toJson(): string 
+    constructor(public parameter: string, mustBe?: string)
+    override toJson(): string
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15095,17 +10638,17 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class WERR_INVALID_PUBLIC_KEY extends WalletError {
-    constructor(public key: string, network: WalletNetwork = "mainnet") 
-    protected override toJson(): string 
+    constructor(public key: string, network: WalletNetwork = "mainnet")
+    protected override toJson(): string
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Constructor
 
 ```ts
-constructor(public key: string, network: WalletNetwork = "mainnet") 
+constructor(public key: string, network: WalletNetwork = "mainnet")
 ```
 
 Argument Details
@@ -15126,12 +10669,12 @@ This is an example of an error object with a custom property `parameter`
 
 ```ts
 export class WERR_MISSING_PARAMETER extends WalletError {
-    constructor(public parameter: string) 
-    override toJson(): string 
+    constructor(public parameter: string)
+    override toJson(): string
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15142,11 +10685,11 @@ Configured network chain is invalid or does not match across services.
 
 ```ts
 export class WERR_NETWORK_CHAIN extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15157,11 +10700,11 @@ WalletStorageManager is not accessing user's active storage or there are conflic
 
 ```ts
 export class WERR_NOT_ACTIVE extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15172,11 +10715,11 @@ Not implemented.
 
 ```ts
 export class WERR_NOT_IMPLEMENTED extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15189,12 +10732,12 @@ paid to processing errors.
 
 ```ts
 export class WERR_REVIEW_ACTIONS extends WalletError {
-    constructor(public reviewActionResults: ReviewActionResult[], public sendWithResults: SendWithResult[], public txid?: TXIDHexString, public tx?: AtomicBEEF, public noSendChange?: OutpointString[]) 
-    override toJson(): string 
+    constructor(public reviewActionResults: ReviewActionResult[], public sendWithResults: SendWithResult[], public txid?: TXIDHexString, public tx?: AtomicBEEF, public noSendChange?: OutpointString[])
+    override toJson(): string
 }
 ```
 
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult), [WalletError](./client.md#class-walleterror)
+See also: [ReviewActionResult](#interface-reviewactionresult), [WalletError](#class-walleterror)
 
 ###### Constructor
 
@@ -15203,9 +10746,9 @@ with the exception of `reviewActionResults`;
 which contains more details, particularly for double spend results.
 
 ```ts
-constructor(public reviewActionResults: ReviewActionResult[], public sendWithResults: SendWithResult[], public txid?: TXIDHexString, public tx?: AtomicBEEF, public noSendChange?: OutpointString[]) 
+constructor(public reviewActionResults: ReviewActionResult[], public sendWithResults: SendWithResult[], public txid?: TXIDHexString, public tx?: AtomicBEEF, public noSendChange?: OutpointString[])
 ```
-See also: [ReviewActionResult](./client.md#interface-reviewactionresult)
+See also: [ReviewActionResult](#interface-reviewactionresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15216,11 +10759,11 @@ Access is denied due to an authorization error.
 
 ```ts
 export class WERR_UNAUTHORIZED extends WalletError {
-    constructor(message?: string) 
+    constructor(message?: string)
 }
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15248,60 +10791,60 @@ export class Wallet implements WalletInterface, ProtoWallet {
     makeLogger?: MakeWalletLogger;
     pendingSignActions: Record<string, PendingSignAction>;
     randomVals?: number[] = undefined;
-    constructor(argsOrSigner: WalletArgs | WalletSigner, services?: WalletServices, monitor?: Monitor, privilegedKeyManager?: PrivilegedKeyManager, makeLogger?: MakeWalletLogger) 
-    async destroy(): Promise<void> 
-    getClientChangeKeyPair(): KeyPair 
-    async getIdentityKey(): Promise<PubKeyHex> 
-    getPublicKey(args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetPublicKeyResult> 
-    revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealCounterpartyKeyLinkageResult> 
-    revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealSpecificKeyLinkageResult> 
-    encrypt(args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletEncryptResult> 
-    decrypt(args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletDecryptResult> 
-    createHmac(args: CreateHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateHmacResult> 
-    verifyHmac(args: VerifyHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifyHmacResult> 
-    createSignature(args: CreateSignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateSignatureResult> 
-    verifySignature(args: VerifySignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifySignatureResult> 
-    getServices(): WalletServices 
-    getKnownTxids(newKnownTxids?: string[]): string[] 
-    getStorageIdentity(): StorageIdentity 
-    async listActions(args: ListActionsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListActionsResult> 
-    get storageParty(): string 
-    async listOutputs(args: ListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
-    async listCertificates(args: ListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult> 
-    async acquireCertificate(args: AcquireCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AcquireCertificateResult> 
-    async relinquishCertificate(args: RelinquishCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishCertificateResult> 
-    async proveCertificate(args: ProveCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ProveCertificateResult> 
-    async discoverByIdentityKey(args: DiscoverByIdentityKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    async discoverByAttributes(args: DiscoverByAttributesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult> 
-    verifyReturnedTxidOnly(beef: Beef, knownTxids?: string[]): Beef 
-    verifyReturnedTxidOnlyAtomicBEEF(beef: AtomicBEEF, knownTxids?: string[]): AtomicBEEF 
-    verifyReturnedTxidOnlyBEEF(beef: BEEF): BEEF 
-    logMakeLogger(method: string, args: any): WalletLoggerInterface | undefined 
-    logMethodStart(method: string, logger?: WalletLoggerInterface): void 
-    logResult(r: any, logger?: WalletLoggerInterface): void 
-    logWalletError(eu: unknown, logger?: WalletLoggerInterface): void 
-    async createAction(args: CreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateActionResult> 
-    async signAction(args: SignActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<SignActionResult> 
-    async internalizeAction(args: InternalizeActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<InternalizeActionResult> 
-    async abortAction(args: AbortActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AbortActionResult> 
-    async relinquishOutput(args: RelinquishOutputArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishOutputResult> 
-    async isAuthenticated(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async waitForAuthentication(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult> 
-    async getHeight(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeightResult> 
-    async getHeaderForHeight(args: GetHeaderArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeaderResult> 
-    async getNetwork(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetNetworkResult> 
-    async getVersion(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetVersionResult> 
-    async sweepTo(toWallet: Wallet): Promise<void> 
-    async balanceAndUtxos(basket: string = "default"): Promise<WalletBalance> 
-    async balance(args?: ListOutputsArgs): Promise<number> 
-    async reviewSpendableOutputs(all = false, release = false, optionalArgs?: Partial<ListOutputsArgs>): Promise<ListOutputsResult> 
-    async setWalletChangeParams(count: number, satoshis: number): Promise<void> 
-    async listNoSendActions(args: ListActionsArgs, abort = false): Promise<ListActionsResult> 
-    async listFailedActions(args: ListActionsArgs, unfail = false): Promise<ListActionsResult> 
+    constructor(argsOrSigner: WalletArgs | WalletSigner, services?: WalletServices, monitor?: Monitor, privilegedKeyManager?: PrivilegedKeyManager, makeLogger?: MakeWalletLogger)
+    async destroy(): Promise<void>
+    getClientChangeKeyPair(): KeyPair
+    async getIdentityKey(): Promise<PubKeyHex>
+    async getPublicKey(args: GetPublicKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetPublicKeyResult>
+    async revealCounterpartyKeyLinkage(args: RevealCounterpartyKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealCounterpartyKeyLinkageResult>
+    async revealSpecificKeyLinkage(args: RevealSpecificKeyLinkageArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RevealSpecificKeyLinkageResult>
+    async encrypt(args: WalletEncryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletEncryptResult>
+    async decrypt(args: WalletDecryptArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<WalletDecryptResult>
+    async createHmac(args: CreateHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateHmacResult>
+    async verifyHmac(args: VerifyHmacArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifyHmacResult>
+    async createSignature(args: CreateSignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateSignatureResult>
+    async verifySignature(args: VerifySignatureArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<VerifySignatureResult>
+    getServices(): WalletServices
+    getKnownTxids(newKnownTxids?: string[]): string[]
+    getStorageIdentity(): StorageIdentity
+    async listActions(args: ListActionsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListActionsResult>
+    get storageParty(): string
+    async listOutputs(args: ListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult>
+    async listCertificates(args: ListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult>
+    async acquireCertificate(args: AcquireCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AcquireCertificateResult>
+    async relinquishCertificate(args: RelinquishCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishCertificateResult>
+    async proveCertificate(args: ProveCertificateArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ProveCertificateResult>
+    async discoverByIdentityKey(args: DiscoverByIdentityKeyArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult>
+    async discoverByAttributes(args: DiscoverByAttributesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<DiscoverCertificatesResult>
+    verifyReturnedTxidOnly(beef: Beef, knownTxids?: string[]): Beef
+    verifyReturnedTxidOnlyAtomicBEEF(beef: AtomicBEEF, knownTxids?: string[]): AtomicBEEF
+    verifyReturnedTxidOnlyBEEF(beef: BEEF): BEEF
+    logMakeLogger(method: string, args: any): WalletLoggerInterface | undefined
+    logMethodStart(method: string, logger?: WalletLoggerInterface): void
+    logResult(r: any, logger?: WalletLoggerInterface): void
+    logWalletError(eu: unknown, logger?: WalletLoggerInterface): void
+    async createAction(args: CreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<CreateActionResult>
+    async signAction(args: SignActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<SignActionResult>
+    async internalizeAction(args: InternalizeActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<InternalizeActionResult>
+    async abortAction(args: AbortActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AbortActionResult>
+    async relinquishOutput(args: RelinquishOutputArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<RelinquishOutputResult>
+    async isAuthenticated(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult>
+    async waitForAuthentication(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<AuthenticatedResult>
+    async getHeight(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeightResult>
+    async getHeaderForHeight(args: GetHeaderArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetHeaderResult>
+    async getNetwork(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetNetworkResult>
+    async getVersion(args: {}, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<GetVersionResult>
+    async sweepTo(toWallet: Wallet): Promise<void>
+    async balanceAndUtxos(basket: string = "default"): Promise<WalletBalance>
+    async balance(args?: ListOutputsArgs): Promise<number>
+    async reviewSpendableOutputs(all = false, release = false, optionalArgs?: Partial<ListOutputsArgs>): Promise<ListOutputsResult>
+    async setWalletChangeParams(count: number, satoshis: number): Promise<void>
+    async listNoSendActions(args: ListActionsArgs, abort = false): Promise<ListActionsResult>
+    async listFailedActions(args: ListActionsArgs, unfail = false): Promise<ListActionsResult>
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [KeyPair](./client.md#interface-keypair), [Monitor](./monitor.md#class-monitor), [PendingSignAction](./client.md#interface-pendingsignaction), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [StorageIdentity](./client.md#interface-storageidentity), [WalletArgs](./client.md#interface-walletargs), [WalletBalance](./client.md#interface-walletbalance), [WalletServices](./client.md#interface-walletservices), [WalletSettingsManager](./client.md#class-walletsettingsmanager), [WalletSigner](./client.md#class-walletsigner), [WalletStorageManager](./storage.md#class-walletstoragemanager), [createAction](./storage.md#function-createaction), [getIdentityKey](./client.md#function-getidentitykey), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [logWalletError](./client.md#function-logwalleterror), [logger](./client.md#variable-logger), [proveCertificate](./client.md#function-provecertificate), [signAction](./client.md#function-signaction)
+See also: [Chain](#type-chain), [KeyPair](#interface-keypair), [Monitor](#class-monitor), [PendingSignAction](#interface-pendingsignaction), [PrivilegedKeyManager](#class-privilegedkeymanager), [StorageIdentity](#interface-storageidentity), [WalletArgs](#interface-walletargs), [WalletBalance](#interface-walletbalance), [WalletServices](#interface-walletservices), [WalletSettingsManager](#class-walletsettingsmanager), [WalletSigner](#class-walletsigner), [WalletStorageManager](#class-walletstoragemanager), [createAction](#function-createaction), [getIdentityKey](#function-getidentitykey), [internalizeAction](#function-internalizeaction), [listCertificates](#function-listcertificates), [logWalletError](#function-logwalleterror), [logger](#variable-logger), [proveCertificate](#function-provecertificate), [signAction](#function-signaction)
 
 ###### Property autoKnownTxids
 
@@ -15358,7 +10901,7 @@ Uses `listOutputs` special operation to compute the total value (of satoshis) fo
 all spendable outputs in the 'default' basket.
 
 ```ts
-async balance(args?: ListOutputsArgs): Promise<number> 
+async balance(args?: ListOutputsArgs): Promise<number>
 ```
 
 Returns
@@ -15371,9 +10914,9 @@ Uses `listOutputs` to iterate over chunks of up to 1000 outputs to
 compute the sum of output satoshis.
 
 ```ts
-async balanceAndUtxos(basket: string = "default"): Promise<WalletBalance> 
+async balanceAndUtxos(basket: string = "default"): Promise<WalletBalance>
 ```
-See also: [WalletBalance](./client.md#interface-walletbalance)
+See also: [WalletBalance](#interface-walletbalance)
 
 Returns
 
@@ -15387,7 +10930,7 @@ Argument Details
 ###### Method getKnownTxids
 
 ```ts
-getKnownTxids(newKnownTxids?: string[]): string[] 
+getKnownTxids(newKnownTxids?: string[]): string[]
 ```
 
 Returns
@@ -15404,7 +10947,7 @@ Argument Details
 Uses `listActions` special operation to return only actions with status 'failed'.
 
 ```ts
-async listFailedActions(args: ListActionsArgs, unfail = false): Promise<ListActionsResult> 
+async listFailedActions(args: ListActionsArgs, unfail = false): Promise<ListActionsResult>
 ```
 
 Returns
@@ -15421,7 +10964,7 @@ Argument Details
 Uses `listActions` special operation to return only actions with status 'nosend'.
 
 ```ts
-async listNoSendActions(args: ListActionsArgs, abort = false): Promise<ListActionsResult> 
+async listNoSendActions(args: ListActionsArgs, abort = false): Promise<ListActionsResult>
 ```
 
 Returns
@@ -15441,7 +10984,7 @@ outputs currently considered spendable. Returns the outputs that fail to verify.
 Ignores the `limit` and `offset` properties.
 
 ```ts
-async reviewSpendableOutputs(all = false, release = false, optionalArgs?: Partial<ListOutputsArgs>): Promise<ListOutputsResult> 
+async reviewSpendableOutputs(all = false, release = false, optionalArgs?: Partial<ListOutputsArgs>): Promise<ListOutputsResult>
 ```
 
 Returns
@@ -15463,7 +11006,7 @@ Uses `listOutputs` special operation to update the 'default' basket's automatic
 change generation parameters.
 
 ```ts
-async setWalletChangeParams(count: number, satoshis: number): Promise<void> 
+async setWalletChangeParams(count: number, satoshis: number): Promise<void>
 ```
 
 Argument Details
@@ -15478,62 +11021,14 @@ Argument Details
 Transfer all possible satoshis held by this wallet to `toWallet`.
 
 ```ts
-async sweepTo(toWallet: Wallet): Promise<void> 
+async sweepTo(toWallet: Wallet): Promise<void>
 ```
-See also: [Wallet](./client.md#class-wallet)
+See also: [Wallet](#class-wallet)
 
 Argument Details
 
 + **toWallet**
   + wallet which will receive this wallet's satoshis.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Class: WalletAuthenticationManager
-
-WalletAuthenticationManager
-
-A wallet manager that integrates
-with a WABClient for user authentication flows (e.g. Twilio phone).
-
-```ts
-export class WalletAuthenticationManager extends CWIStyleWalletManager {
-    constructor(adminOriginator: string, walletBuilder: (primaryKey: number[], privilegedKeyManager: PrivilegedKeyManager) => Promise<WalletInterface>, interactor: UMPTokenInteractor = new OverlayUMPTokenInteractor(), recoveryKeySaver: (key: number[]) => Promise<true>, passwordRetriever: (reason: string, test: (passwordCandidate: string) => boolean | Promise<boolean>) => Promise<string>, wabClient: WABClient, authMethod?: AuthMethodInteractor, stateSnapshot?: number[]) 
-    public setAuthMethod(method: AuthMethodInteractor) 
-    public async startAuth(payload: any): Promise<void> 
-    public async completeAuth(payload: any): Promise<void> 
-}
-```
-
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor), [CWIStyleWalletManager](./client.md#class-cwistylewalletmanager), [OverlayUMPTokenInteractor](./client.md#class-overlayumptokeninteractor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [UMPTokenInteractor](./client.md#interface-umptokeninteractor), [WABClient](./client.md#class-wabclient)
-
-###### Method completeAuth
-
-Completes the WAB-based flow, retrieving the final presentationKey from WAB if successful.
-
-```ts
-public async completeAuth(payload: any): Promise<void> 
-```
-
-###### Method setAuthMethod
-
-Sets (or switches) the chosen AuthMethodInteractor at runtime,
-in case the user changes their mind or picks a new method in the UI.
-
-```ts
-public setAuthMethod(method: AuthMethodInteractor) 
-```
-See also: [AuthMethodInteractor](./client.md#class-authmethodinteractor)
-
-###### Method startAuth
-
-Initiate the WAB-based flow, e.g. sending an SMS code or starting an ID check,
-using the chosen AuthMethodInteractor.
-
-```ts
-public async startAuth(payload: any): Promise<void> 
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15556,19 +11051,19 @@ classes.
 ```ts
 export class WalletError extends Error implements WalletErrorObject {
     isError: true = true;
-    constructor(name: string, message: string, stack?: string, public details?: Record<string, string>) 
-    get code(): ErrorCodeString10To40Bytes 
-    set code(v: ErrorCodeString10To40Bytes) 
-    get description(): ErrorDescriptionString20To200Bytes 
-    set description(v: ErrorDescriptionString20To200Bytes) 
-    static fromUnknown(err: unknown): WalletError 
+    constructor(name: string, message: string, stack?: string, public details?: Record<string, string>)
+    get code(): ErrorCodeString10To40Bytes
+    set code(v: ErrorCodeString10To40Bytes)
+    get description(): ErrorDescriptionString20To200Bytes
+    set description(v: ErrorDescriptionString20To200Bytes)
+    static fromUnknown(err: unknown): WalletError
     asStatus(): {
         status: string;
         code: string;
         description: string;
-    } 
-    protected toJson(): string 
-    static unknownToJson(error: unknown | WalletError): string 
+    }
+    protected toJson(): string
+    static unknownToJson(error: unknown): string
 }
 ```
 
@@ -15579,7 +11074,7 @@ asStatus(): {
     status: string;
     code: string;
     description: string;
-} 
+}
 ```
 
 Returns
@@ -15591,9 +11086,9 @@ standard HTTP error status object with status property set to 'error'.
 Recovers all public fields from WalletError derived error classes and relevant Error derived errors.
 
 ```ts
-static fromUnknown(err: unknown): WalletError 
+static fromUnknown(err: unknown): WalletError
 ```
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 ###### Method toJson
 
@@ -15604,7 +11099,7 @@ Override this method to safely (avoid deep, large, circular issues) serialize
 derived class properties.
 
 ```ts
-protected toJson(): string 
+protected toJson(): string
 ```
 
 Returns
@@ -15618,9 +11113,8 @@ Safely serializes a WalletError derived, WERR_REVIEW_ACTIONS (special case), Err
 Safely means avoiding deep, large, circular issues.
 
 ```ts
-static unknownToJson(error: unknown | WalletError): string 
+static unknownToJson(error: unknown): string
 ```
-See also: [WalletError](./client.md#class-walleterror)
 
 Returns
 
@@ -15639,19 +11133,19 @@ export class WalletLogger implements WalletLoggerInterface {
     isError: boolean = false;
     level?: WalletLoggerLevel;
     flushFormat?: "json";
-    constructor(log?: string | WalletLoggerInterface) 
-    group(...label: any[]): void 
-    groupEnd(): void 
-    log(message?: any, ...optionalParams: any[]): void 
-    error(message?: any, ...optionalParams: any[]): void 
-    toWalletLoggerJson(): object 
-    toLogString(): string 
-    flush(): object | undefined 
-    merge(log: WalletLoggerInterface): void 
+    constructor(log?: string | WalletLoggerInterface)
+    group(...label: any[]): void
+    groupEnd(): void
+    log(message?: any, ...optionalParams: any[]): void
+    error(message?: any, ...optionalParams: any[]): void
+    toWalletLoggerJson(): object
+    toLogString(): string
+    flush(): object | undefined
+    merge(log: WalletLoggerInterface): void
 }
 ```
 
-See also: [WalletLoggerLevel](./client.md#type-walletloggerlevel)
+See also: [WalletLoggerLevel](#type-walletloggerlevel)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -15665,7 +11159,7 @@ The monitor maintains a collection of tasks.
 
 It runs each task's non-asynchronous trigger to determine if the runTask method needs to run.
 
-Tasks that need to be run are run consecutively by awaiting their async runTask override method.
+Tasks that need to be run are executed by the monitor with bounded parallelism.
 
 The monitor then waits a fixed interval before repeating...
 
@@ -15676,8 +11170,9 @@ This is done by accessing the wathman.storage object.
 export abstract class WalletMonitorTask {
     lastRunMsecsSinceEpoch = 0;
     storage: MonitorStorage;
-    constructor(public monitor: Monitor, public name: string) 
-    async asyncSetup(): Promise<void> 
+    constructor(public monitor: Monitor, public name: string)
+    async asyncSetup(): Promise<void>
+    async asyncDestroy(): Promise<void>
     abstract trigger(nowMsecsSinceEpoch: number): {
         run: boolean;
     };
@@ -15685,7 +11180,7 @@ export abstract class WalletMonitorTask {
 }
 ```
 
-See also: [Monitor](./monitor.md#class-monitor), [MonitorStorage](./monitor.md#type-monitorstorage)
+See also: [Monitor](#class-monitor), [MonitorStorage](#type-monitorstorage)
 
 ###### Property lastRunMsecsSinceEpoch
 
@@ -15695,6 +11190,14 @@ Set by monitor each time runTask completes
 lastRunMsecsSinceEpoch = 0
 ```
 
+###### Method asyncDestroy
+
+Override to release resources acquired by asyncSetup.
+
+```ts
+async asyncDestroy(): Promise<void>
+```
+
 ###### Method asyncSetup
 
 Override to handle async task setup configuration.
@@ -15702,7 +11205,7 @@ Override to handle async task setup configuration.
 Called before first call to `trigger`
 
 ```ts
-async asyncSetup(): Promise<void> 
+async asyncSetup(): Promise<void>
 ```
 
 ###### Method trigger
@@ -15718,543 +11221,6 @@ abstract trigger(nowMsecsSinceEpoch: number): {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: WalletPermissionsManager
-
-```ts
-export class WalletPermissionsManager implements WalletInterface {
-    constructor(underlyingWallet: WalletInterface, adminOriginator: string, config: PermissionsManagerConfig = {}) 
-    public bindCallback(eventName: keyof WalletPermissionsManagerCallbacks, handler: PermissionEventHandler | GroupedPermissionEventHandler | CounterpartyPermissionEventHandler): number 
-    public unbindCallback(eventName: keyof WalletPermissionsManagerCallbacks, reference: number | Function): boolean 
-    public async grantPermission(params: {
-        requestID: string;
-        expiry?: number;
-        ephemeral?: boolean;
-        amount?: number;
-    }): Promise<void> 
-    public async denyPermission(requestID: string): Promise<void> 
-    public async grantGroupedPermission(params: {
-        requestID: string;
-        granted: Partial<GroupedPermissions>;
-        expiry?: number;
-    }): Promise<void> 
-    public async denyGroupedPermission(requestID: string): Promise<void> 
-    public async dismissGroupedPermission(requestID: string): Promise<void> 
-    public async grantCounterpartyPermission(params: {
-        requestID: string;
-        granted: Partial<CounterpartyPermissions>;
-        expiry?: number;
-    }): Promise<void> 
-    public async denyCounterpartyPermission(requestID: string): Promise<void> 
-    public async ensureProtocolPermission({ originator, privileged, protocolID, counterparty, reason, seekPermission = true, usageType }: {
-        originator: string;
-        privileged: boolean;
-        protocolID: WalletProtocol;
-        counterparty: string;
-        reason?: string;
-        seekPermission?: boolean;
-        usageType: "signing" | "encrypting" | "hmac" | "publicKey" | "identityKey" | "linkageRevelation" | "generic";
-    }): Promise<boolean> 
-    public async ensureBasketAccess({ originator, basket, reason, seekPermission = true, usageType }: {
-        originator: string;
-        basket: string;
-        reason?: string;
-        seekPermission?: boolean;
-        usageType: "insertion" | "removal" | "listing";
-    }): Promise<boolean> 
-    public async ensureCertificateAccess({ originator, privileged, verifier, certType, fields, reason, seekPermission = true, usageType }: {
-        originator: string;
-        privileged: boolean;
-        verifier: string;
-        certType: string;
-        fields: string[];
-        reason?: string;
-        seekPermission?: boolean;
-        usageType: "disclosure";
-    }): Promise<boolean> 
-    public async ensureSpendingAuthorization({ originator, satoshis, lineItems, reason, seekPermission = true }: {
-        originator: string;
-        satoshis: number;
-        lineItems?: Array<{
-            type: "input" | "output" | "fee";
-            description: string;
-            satoshis: number;
-        }>;
-        reason?: string;
-        seekPermission?: boolean;
-    }): Promise<boolean> 
-    public async ensureLabelAccess({ originator, label, reason, seekPermission = true, usageType }: {
-        originator: string;
-        label: string;
-        reason?: string;
-        seekPermission?: boolean;
-        usageType: "apply" | "list";
-    }): Promise<boolean> 
-    public async querySpentSince(token: PermissionToken): Promise<number> 
-    public async listProtocolPermissions({ originator, privileged, protocolName, protocolSecurityLevel, counterparty }: {
-        originator?: string;
-        privileged?: boolean;
-        protocolName?: string;
-        protocolSecurityLevel?: number;
-        counterparty?: string;
-    } = {}): Promise<PermissionToken[]> 
-    public async hasProtocolPermission(params: {
-        originator: string;
-        privileged: boolean;
-        protocolID: WalletProtocol;
-        counterparty: string;
-    }): Promise<boolean> 
-    public async listBasketAccess(params: {
-        originator?: string;
-        basket?: string;
-    } = {}): Promise<PermissionToken[]> 
-    public async hasBasketAccess(params: {
-        originator: string;
-        basket: string;
-    }): Promise<boolean> 
-    public async listSpendingAuthorizations(params: {
-        originator?: string;
-    }): Promise<PermissionToken[]> 
-    public async hasSpendingAuthorization(params: {
-        originator: string;
-        satoshis: number;
-    }): Promise<boolean> 
-    public async listCertificateAccess(params: {
-        originator?: string;
-        privileged?: boolean;
-        certType?: Base64String;
-        verifier?: PubKeyHex;
-    } = {}): Promise<PermissionToken[]> 
-    public async hasCertificateAccess(params: {
-        originator: string;
-        privileged: boolean;
-        verifier: string;
-        certType: string;
-        fields: string[];
-    }): Promise<boolean> 
-    public async revokePermissions(oldTokens: PermissionToken[]): Promise<PermissionToken[]> 
-    public async revokeAllForOriginator(originator: string, opts?: {
-        protocol?: boolean;
-        basket?: boolean;
-        certificate?: boolean;
-        spending?: boolean;
-    }): Promise<PermissionToken[]> 
-    public async revokePermission(oldToken: PermissionToken): Promise<void> 
-    public async createAction(args: Parameters<WalletInterface["createAction"]>[0], originator?: string): ReturnType<WalletInterface["createAction"]> 
-    public async signAction(...args: Parameters<WalletInterface["signAction"]>): ReturnType<WalletInterface["signAction"]> 
-    public async abortAction(...args: Parameters<WalletInterface["abortAction"]>): ReturnType<WalletInterface["abortAction"]> 
-    public async listActions(...args: Parameters<WalletInterface["listActions"]>): ReturnType<WalletInterface["listActions"]> 
-    public async internalizeAction(...args: Parameters<WalletInterface["internalizeAction"]>): ReturnType<WalletInterface["internalizeAction"]> 
-    public async listOutputs(...args: Parameters<WalletInterface["listOutputs"]>): ReturnType<WalletInterface["listOutputs"]> 
-    public async relinquishOutput(...args: Parameters<WalletInterface["relinquishOutput"]>): ReturnType<WalletInterface["relinquishOutput"]> 
-    public async getPublicKey(...args: Parameters<WalletInterface["getPublicKey"]>): ReturnType<WalletInterface["getPublicKey"]> 
-    public async revealCounterpartyKeyLinkage(...args: Parameters<WalletInterface["revealCounterpartyKeyLinkage"]>): ReturnType<WalletInterface["revealCounterpartyKeyLinkage"]> 
-    public async revealSpecificKeyLinkage(...args: Parameters<WalletInterface["revealSpecificKeyLinkage"]>): ReturnType<WalletInterface["revealSpecificKeyLinkage"]> 
-    public async encrypt(...args: Parameters<WalletInterface["encrypt"]>): ReturnType<WalletInterface["encrypt"]> 
-    public async decrypt(...args: Parameters<WalletInterface["decrypt"]>): ReturnType<WalletInterface["decrypt"]> 
-    public async createHmac(...args: Parameters<WalletInterface["createHmac"]>): ReturnType<WalletInterface["createHmac"]> 
-    public async verifyHmac(...args: Parameters<WalletInterface["verifyHmac"]>): ReturnType<WalletInterface["verifyHmac"]> 
-    public async createSignature(...args: Parameters<WalletInterface["createSignature"]>): ReturnType<WalletInterface["createSignature"]> 
-    public async verifySignature(...args: Parameters<WalletInterface["verifySignature"]>): ReturnType<WalletInterface["verifySignature"]> 
-    public async acquireCertificate(...args: Parameters<WalletInterface["acquireCertificate"]>): ReturnType<WalletInterface["acquireCertificate"]> 
-    public async listCertificates(...args: Parameters<WalletInterface["listCertificates"]>): ReturnType<WalletInterface["listCertificates"]> 
-    public async proveCertificate(...args: Parameters<WalletInterface["proveCertificate"]>): ReturnType<WalletInterface["proveCertificate"]> 
-    public async relinquishCertificate(...args: Parameters<WalletInterface["relinquishCertificate"]>): ReturnType<WalletInterface["relinquishCertificate"]> 
-    public async discoverByIdentityKey(...args: Parameters<WalletInterface["discoverByIdentityKey"]>): ReturnType<WalletInterface["discoverByIdentityKey"]> 
-    public async discoverByAttributes(...args: Parameters<WalletInterface["discoverByAttributes"]>): ReturnType<WalletInterface["discoverByAttributes"]> 
-    public async isAuthenticated(...args: Parameters<WalletInterface["isAuthenticated"]>): ReturnType<WalletInterface["isAuthenticated"]> 
-    public async waitForAuthentication(...args: Parameters<WalletInterface["waitForAuthentication"]>): ReturnType<WalletInterface["waitForAuthentication"]> 
-    public async getHeight(...args: Parameters<WalletInterface["getHeight"]>): ReturnType<WalletInterface["getHeight"]> 
-    public async getHeaderForHeight(...args: Parameters<WalletInterface["getHeaderForHeight"]>): ReturnType<WalletInterface["getHeaderForHeight"]> 
-    public async getNetwork(...args: Parameters<WalletInterface["getNetwork"]>): ReturnType<WalletInterface["getNetwork"]> 
-    public async getVersion(...args: Parameters<WalletInterface["getVersion"]>): ReturnType<WalletInterface["getVersion"]> 
-}
-```
-
-See also: [CounterpartyPermissionEventHandler](./client.md#type-counterpartypermissioneventhandler), [CounterpartyPermissions](./client.md#interface-counterpartypermissions), [GroupedPermissionEventHandler](./client.md#type-groupedpermissioneventhandler), [GroupedPermissions](./client.md#interface-groupedpermissions), [PermissionEventHandler](./client.md#type-permissioneventhandler), [PermissionToken](./client.md#interface-permissiontoken), [PermissionsManagerConfig](./client.md#interface-permissionsmanagerconfig), [WalletPermissionsManagerCallbacks](./client.md#interface-walletpermissionsmanagercallbacks), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [proveCertificate](./client.md#function-provecertificate), [signAction](./client.md#function-signaction)
-
-###### Constructor
-
-Constructs a new Permissions Manager instance.
-
-```ts
-constructor(underlyingWallet: WalletInterface, adminOriginator: string, config: PermissionsManagerConfig = {}) 
-```
-See also: [PermissionsManagerConfig](./client.md#interface-permissionsmanagerconfig)
-
-Argument Details
-
-+ **underlyingWallet**
-  + The underlying BRC-100 wallet, where requests are forwarded after permission is granted
-+ **adminOriginator**
-  + The domain or FQDN that is automatically allowed everything
-+ **config**
-  + A set of boolean flags controlling how strictly permissions are enforced
-
-###### Method bindCallback
-
-Binds a callback function to a named event, such as `onProtocolPermissionRequested`.
-
-```ts
-public bindCallback(eventName: keyof WalletPermissionsManagerCallbacks, handler: PermissionEventHandler | GroupedPermissionEventHandler | CounterpartyPermissionEventHandler): number 
-```
-See also: [CounterpartyPermissionEventHandler](./client.md#type-counterpartypermissioneventhandler), [GroupedPermissionEventHandler](./client.md#type-groupedpermissioneventhandler), [PermissionEventHandler](./client.md#type-permissioneventhandler), [WalletPermissionsManagerCallbacks](./client.md#interface-walletpermissionsmanagercallbacks)
-
-Returns
-
-A numeric ID you can use to unbind later
-
-Argument Details
-
-+ **eventName**
-  + The name of the event to listen to
-+ **handler**
-  + A function that handles the event
-
-###### Method denyGroupedPermission
-
-Denies a previously requested grouped permission.
-
-```ts
-public async denyGroupedPermission(requestID: string): Promise<void> 
-```
-
-Argument Details
-
-+ **requestID**
-  + The ID of the request being denied.
-
-###### Method denyPermission
-
-Denies a previously requested permission.
-This method rejects all pending promise calls waiting on that request
-
-```ts
-public async denyPermission(requestID: string): Promise<void> 
-```
-
-Argument Details
-
-+ **requestID**
-  + requestID identifying which request to deny
-
-###### Method ensureBasketAccess
-
-Ensures the originator has basket usage permission for the specified basket.
-If not, triggers a permission request flow.
-
-```ts
-public async ensureBasketAccess({ originator, basket, reason, seekPermission = true, usageType }: {
-    originator: string;
-    basket: string;
-    reason?: string;
-    seekPermission?: boolean;
-    usageType: "insertion" | "removal" | "listing";
-}): Promise<boolean> 
-```
-
-###### Method ensureCertificateAccess
-
-Ensures the originator has a valid certificate permission.
-This is relevant when revealing certificate fields in DCAP contexts.
-
-```ts
-public async ensureCertificateAccess({ originator, privileged, verifier, certType, fields, reason, seekPermission = true, usageType }: {
-    originator: string;
-    privileged: boolean;
-    verifier: string;
-    certType: string;
-    fields: string[];
-    reason?: string;
-    seekPermission?: boolean;
-    usageType: "disclosure";
-}): Promise<boolean> 
-```
-
-###### Method ensureLabelAccess
-
-Ensures the originator has label usage permission.
-If no valid (unexpired) permission token is found, triggers a permission request flow.
-
-```ts
-public async ensureLabelAccess({ originator, label, reason, seekPermission = true, usageType }: {
-    originator: string;
-    label: string;
-    reason?: string;
-    seekPermission?: boolean;
-    usageType: "apply" | "list";
-}): Promise<boolean> 
-```
-
-###### Method ensureProtocolPermission
-
-Ensures the originator has protocol usage permission.
-If no valid (unexpired) permission token is found, triggers a permission request flow.
-
-```ts
-public async ensureProtocolPermission({ originator, privileged, protocolID, counterparty, reason, seekPermission = true, usageType }: {
-    originator: string;
-    privileged: boolean;
-    protocolID: WalletProtocol;
-    counterparty: string;
-    reason?: string;
-    seekPermission?: boolean;
-    usageType: "signing" | "encrypting" | "hmac" | "publicKey" | "identityKey" | "linkageRevelation" | "generic";
-}): Promise<boolean> 
-```
-
-###### Method ensureSpendingAuthorization
-
-Ensures the originator has spending authorization (DSAP) for a certain satoshi amount.
-If the existing token limit is insufficient, attempts to renew. If no token, attempts to create one.
-
-```ts
-public async ensureSpendingAuthorization({ originator, satoshis, lineItems, reason, seekPermission = true }: {
-    originator: string;
-    satoshis: number;
-    lineItems?: Array<{
-        type: "input" | "output" | "fee";
-        description: string;
-        satoshis: number;
-    }>;
-    reason?: string;
-    seekPermission?: boolean;
-}): Promise<boolean> 
-```
-
-###### Method grantGroupedPermission
-
-Grants a previously requested grouped permission.
-
-```ts
-public async grantGroupedPermission(params: {
-    requestID: string;
-    granted: Partial<GroupedPermissions>;
-    expiry?: number;
-}): Promise<void> 
-```
-See also: [GroupedPermissions](./client.md#interface-groupedpermissions)
-
-Argument Details
-
-+ **params.requestID**
-  + The ID of the request being granted.
-+ **params.granted**
-  + A subset of the originally requested permissions that the user has granted.
-+ **params.expiry**
-  + An optional expiry time (in seconds) for the new permission tokens.
-
-###### Method grantPermission
-
-Grants a previously requested permission.
-This method:
- 1) Resolves all pending promise calls waiting on this request
- 2) Optionally creates or renews an on-chain PushDrop token (unless `ephemeral===true`)
-
-```ts
-public async grantPermission(params: {
-    requestID: string;
-    expiry?: number;
-    ephemeral?: boolean;
-    amount?: number;
-}): Promise<void> 
-```
-
-Argument Details
-
-+ **params**
-  + requestID to identify which request is granted, plus optional expiry
-or `ephemeral` usage, etc.
-
-###### Method hasBasketAccess
-
-Returns `true` if the originator already holds a valid unexpired basket permission for `basket`.
-
-```ts
-public async hasBasketAccess(params: {
-    originator: string;
-    basket: string;
-}): Promise<boolean> 
-```
-
-###### Method hasCertificateAccess
-
-Returns `true` if the originator already holds a valid unexpired certificate access
-for the given certType/fields. Does not prompt the user.
-
-```ts
-public async hasCertificateAccess(params: {
-    originator: string;
-    privileged: boolean;
-    verifier: string;
-    certType: string;
-    fields: string[];
-}): Promise<boolean> 
-```
-
-###### Method hasProtocolPermission
-
-Returns true if the originator already holds a valid unexpired protocol permission.
-This calls `ensureProtocolPermission` with `seekPermission=false`, so it won't prompt.
-
-```ts
-public async hasProtocolPermission(params: {
-    originator: string;
-    privileged: boolean;
-    protocolID: WalletProtocol;
-    counterparty: string;
-}): Promise<boolean> 
-```
-
-###### Method hasSpendingAuthorization
-
-Returns `true` if the originator already holds a valid spending authorization token
-with enough available monthly spend. We do not prompt (seekPermission=false).
-
-```ts
-public async hasSpendingAuthorization(params: {
-    originator: string;
-    satoshis: number;
-}): Promise<boolean> 
-```
-
-###### Method listBasketAccess
-
-Lists basket permission tokens (DBAP) for a given originator or basket (or for all if not specified).
-
-```ts
-public async listBasketAccess(params: {
-    originator?: string;
-    basket?: string;
-} = {}): Promise<PermissionToken[]> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-Returns
-
-Array of permission tokens that match the filter criteria
-
-Argument Details
-
-+ **params.originator**
-  + Optional originator to filter by
-+ **params.basket**
-  + Optional basket name to filter by
-
-###### Method listCertificateAccess
-
-Lists certificate permission tokens (DCAP) with optional filters.
-
-```ts
-public async listCertificateAccess(params: {
-    originator?: string;
-    privileged?: boolean;
-    certType?: Base64String;
-    verifier?: PubKeyHex;
-} = {}): Promise<PermissionToken[]> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-Returns
-
-Array of permission tokens that match the filter criteria
-
-Argument Details
-
-+ **originator**
-  + Optional originator domain to filter by
-+ **privileged**
-  + Optional boolean to filter by privileged status
-+ **certType**
-  + Optional certificate type to filter by
-+ **verifier**
-  + Optional verifier to filter by
-
-###### Method listProtocolPermissions
-
-Lists all protocol permission tokens (DPACP) with optional filters.
-
-```ts
-public async listProtocolPermissions({ originator, privileged, protocolName, protocolSecurityLevel, counterparty }: {
-    originator?: string;
-    privileged?: boolean;
-    protocolName?: string;
-    protocolSecurityLevel?: number;
-    counterparty?: string;
-} = {}): Promise<PermissionToken[]> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-Returns
-
-Array of permission tokens that match the filter criteria
-
-Argument Details
-
-+ **originator**
-  + Optional originator domain to filter by
-+ **privileged**
-  + Optional boolean to filter by privileged status
-+ **protocolName**
-  + Optional protocol name to filter by
-+ **protocolSecurityLevel**
-  + Optional protocol security level to filter by
-+ **counterparty**
-  + Optional counterparty to filter by
-
-###### Method listSpendingAuthorizations
-
-Lists spending authorization tokens (DSAP) for a given originator (or all).
-
-```ts
-public async listSpendingAuthorizations(params: {
-    originator?: string;
-}): Promise<PermissionToken[]> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-###### Method querySpentSince
-
-Returns spending for an originator in the current calendar month.
-
-```ts
-public async querySpentSince(token: PermissionToken): Promise<number> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-###### Method revokePermission
-
-Revokes a permission token by spending it with no replacement output.
-The manager builds a BRC-100 transaction that consumes the token, effectively invalidating it.
-
-```ts
-public async revokePermission(oldToken: PermissionToken): Promise<void> 
-```
-See also: [PermissionToken](./client.md#interface-permissiontoken)
-
-###### Method unbindCallback
-
-Unbinds a previously registered callback by either its numeric ID (returned by `bindCallback`)
-or by exact function reference.
-
-```ts
-public unbindCallback(eventName: keyof WalletPermissionsManagerCallbacks, reference: number | Function): boolean 
-```
-See also: [WalletPermissionsManagerCallbacks](./client.md#interface-walletpermissionsmanagercallbacks)
-
-Returns
-
-True if successfully unbound, false otherwise
-
-Argument Details
-
-+ **eventName**
-  + The event name, e.g. "onProtocolPermissionRequested"
-+ **reference**
-  + Either the numeric ID or the function reference
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Class: WalletSettingsManager
 
 Manages wallet settings
@@ -16262,23 +11228,23 @@ Manages wallet settings
 ```ts
 export class WalletSettingsManager {
     kv: LocalKVStore;
-    constructor(private wallet: WalletInterface, private config: WalletSettingsManagerConfig = {
+    constructor(private readonly wallet: WalletInterface, private readonly config: WalletSettingsManagerConfig = {
         defaultSettings: DEFAULT_SETTINGS
-    }) 
-    async get(): Promise<WalletSettings> 
-    async set(settings: WalletSettings): Promise<void> 
-    async delete(): Promise<void> 
+    })
+    async get(): Promise<WalletSettings>
+    async set(settings: WalletSettings): Promise<void>
+    async delete(): Promise<void>
 }
 ```
 
-See also: [DEFAULT_SETTINGS](./client.md#variable-default_settings), [WalletSettings](./client.md#interface-walletsettings), [WalletSettingsManagerConfig](./client.md#interface-walletsettingsmanagerconfig)
+See also: [DEFAULT_SETTINGS](#variable-default_settings), [WalletSettings](#interface-walletsettings), [WalletSettingsManagerConfig](#interface-walletsettingsmanagerconfig)
 
 ###### Method delete
 
 Deletes the user's settings token.
 
 ```ts
-async delete(): Promise<void> 
+async delete(): Promise<void>
 ```
 
 ###### Method get
@@ -16286,9 +11252,9 @@ async delete(): Promise<void>
 Returns a user's wallet settings
 
 ```ts
-async get(): Promise<WalletSettings> 
+async get(): Promise<WalletSettings>
 ```
-See also: [WalletSettings](./client.md#interface-walletsettings)
+See also: [WalletSettings](#interface-walletsettings)
 
 Returns
 
@@ -16299,9 +11265,9 @@ Returns
 Creates (or updates) the user's settings token.
 
 ```ts
-async set(settings: WalletSettings): Promise<void> 
+async set(settings: WalletSettings): Promise<void>
 ```
-See also: [WalletSettings](./client.md#interface-walletsettings)
+See also: [WalletSettings](#interface-walletsettings)
 
 Argument Details
 
@@ -16319,11 +11285,11 @@ export class WalletSigner {
     chain: Chain;
     keyDeriver: KeyDeriverApi;
     storage: WalletStorageManager;
-    constructor(chain: Chain, keyDeriver: KeyDeriverApi, storage: WalletStorageManager) 
+    constructor(chain: Chain, keyDeriver: KeyDeriverApi, storage: WalletStorageManager)
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [Chain](#type-chain), [WalletStorageManager](#class-walletstoragemanager)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -16353,81 +11319,81 @@ export class WalletStorageManager implements sdk.WalletStorage {
     _conflictingActives?: ManagedStorage[];
     _authId: sdk.AuthId;
     _services?: sdk.WalletServices;
-    constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[]) 
-    isStorageProvider(): boolean 
-    isAvailable(): boolean 
-    get isActiveEnabled(): boolean 
-    canMakeAvailable(): boolean 
-    async makeAvailable(): Promise<TableSettings> 
-    async getAuth(mustBeActive?: boolean): Promise<sdk.AuthId> 
-    async getUserId(): Promise<number> 
-    getActive(): sdk.WalletStorageProvider 
-    getActiveSettings(): TableSettings 
-    getActiveUser(): TableUser 
-    getActiveStore(): string 
-    getActiveStoreName(): string 
-    getBackupStores(): string[] 
-    getConflictingStores(): string[] 
-    getAllStores(): string[] 
-    async runAsWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R> 
-    async runAsReader<R>(reader: (active: sdk.WalletStorageReader) => Promise<R>): Promise<R> 
-    async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R> 
-    async runAsStorageProvider<R>(sync: (active: StorageProvider) => Promise<R>): Promise<R> 
-    isActiveStorageProvider(): boolean 
-    async addWalletStorageProvider(provider: sdk.WalletStorageProvider): Promise<void> 
-    setServices(v: sdk.WalletServices) 
-    getServices(): sdk.WalletServices 
-    getSettings(): TableSettings 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    async destroy(): Promise<void> 
+    constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[])
+    isStorageProvider(): boolean
+    isAvailable(): boolean
+    get isActiveEnabled(): boolean
+    canMakeAvailable(): boolean
+    async makeAvailable(): Promise<TableSettings>
+    async getAuth(mustBeActive?: boolean): Promise<sdk.AuthId>
+    async getUserId(): Promise<number>
+    getActive(): sdk.WalletStorageProvider
+    getActiveSettings(): TableSettings
+    getActiveUser(): TableUser
+    getActiveStore(): string
+    getActiveStoreName(): string
+    getBackupStores(): string[]
+    getConflictingStores(): string[]
+    getAllStores(): string[]
+    async runAsWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R>
+    async runAsReader<R>(reader: (active: sdk.WalletStorageReader) => Promise<R>): Promise<R>
+    async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R>
+    async runAsStorageProvider<R>(sync: (active: StorageProvider) => Promise<R>): Promise<R>
+    isActiveStorageProvider(): boolean
+    async addWalletStorageProvider(provider: sdk.WalletStorageProvider): Promise<void>
+    setServices(v: sdk.WalletServices)
+    getServices(): sdk.WalletServices
+    getSettings(): TableSettings
+    async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    async destroy(): Promise<void>
     async findOrInsertUser(identityKey: string): Promise<{
         user: TableUser;
         isNew: boolean;
-    }> 
-    async abortAction(args: AbortActionArgs): Promise<AbortActionResult> 
-    async createAction(vargs: Validation.ValidCreateActionArgs): Promise<sdk.StorageCreateActionResult> 
-    async internalizeAction(args: InternalizeActionArgs): Promise<sdk.StorageInternalizeActionResult> 
-    async relinquishCertificate(args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(args: RelinquishOutputArgs): Promise<number> 
-    async processAction(args: sdk.StorageProcessActionArgs): Promise<sdk.StorageProcessActionResults> 
-    async insertCertificate(certificate: TableCertificate): Promise<number> 
-    async listActions(vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listCertificates(args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async listOutputs(vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async findCertificates(args: sdk.FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBaskets(args: sdk.FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputs(args: sdk.FindOutputsArgs): Promise<TableOutput[]> 
-    async findProvenTxReqs(args: sdk.FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult> 
-    async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult> 
-    async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult> 
+    }>
+    async abortAction(args: AbortActionArgs): Promise<AbortActionResult>
+    async createAction(vargs: Validation.ValidCreateActionArgs): Promise<sdk.StorageCreateActionResult>
+    async internalizeAction(args: InternalizeActionArgs): Promise<sdk.StorageInternalizeActionResult>
+    async relinquishCertificate(args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(args: RelinquishOutputArgs): Promise<number>
+    async processAction(args: sdk.StorageProcessActionArgs): Promise<sdk.StorageProcessActionResults>
+    async insertCertificate(certificate: TableCertificate): Promise<number>
+    async listActions(args: ListActionsArgs): Promise<ListActionsResult>
+    async listCertificates(args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async listOutputs(args: ListOutputsArgs | Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    async findCertificates(args: sdk.FindCertificatesArgs): Promise<TableCertificateX[]>
+    async findOutputBaskets(args: sdk.FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async findOutputs(args: sdk.FindOutputsArgs): Promise<TableOutput[]>
+    async findProvenTxReqs(args: sdk.FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult>
+    async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult>
+    async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult>
     async syncFromReader(identityKey: string, reader: sdk.WalletStorageSyncReader, activeSync?: sdk.WalletStorageSync, log: string = ""): Promise<{
         inserts: number;
         updates: number;
         log: string;
-    }> 
+    }>
     async syncToWriter(auth: sdk.AuthId, writer: sdk.WalletStorageProvider, activeSync?: sdk.WalletStorageSync, log: string = "", progLog?: (s: string) => string): Promise<{
         inserts: number;
         updates: number;
         log: string;
-    }> 
-    async updateBackups(activeSync?: sdk.WalletStorageSync, progLog?: (s: string) => string): Promise<string> 
-    async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string> 
-    getStoreEndpointURL(store: ManagedStorage): string | undefined 
-    getStores(): sdk.WalletStorageInfo[] 
+    }>
+    async updateBackups(activeSync?: sdk.WalletStorageSync, progLog?: (s: string) => string): Promise<string>
+    async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string>
+    getStoreEndpointURL(store: ManagedStorage): string | undefined
+    getStores(): sdk.WalletStorageInfo[]
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [ReproveHeaderResult](./client.md#interface-reproveheaderresult), [ReproveProvenResult](./client.md#interface-reproveprovenresult), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvider](./storage.md#class-storageprovider), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableUser](./storage.md#interface-tableuser), [WalletServices](./client.md#interface-walletservices), [WalletStorage](./client.md#interface-walletstorage), [WalletStorageInfo](./client.md#interface-walletstorageinfo), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [WalletStorageReader](./client.md#interface-walletstoragereader), [WalletStorageSync](./client.md#interface-walletstoragesync), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [WalletStorageWriter](./client.md#interface-walletstoragewriter), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [processAction](./storage.md#function-processaction)
+See also: [AuthId](#interface-authid), [FindCertificatesArgs](#interface-findcertificatesargs), [FindOutputBasketsArgs](#interface-findoutputbasketsargs), [FindOutputsArgs](#interface-findoutputsargs), [FindProvenTxReqsArgs](#interface-findproventxreqsargs), [ReproveHeaderResult](#interface-reproveheaderresult), [ReproveProvenResult](#interface-reproveprovenresult), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [StorageProvider](#class-storageprovider), [TableCertificate](#interface-tablecertificate), [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableUser](#interface-tableuser), [WalletServices](#interface-walletservices), [WalletStorage](#interface-walletstorage), [WalletStorageInfo](#interface-walletstorageinfo), [WalletStorageProvider](#interface-walletstorageprovider), [WalletStorageReader](#interface-walletstoragereader), [WalletStorageSync](#interface-walletstoragesync), [WalletStorageSyncReader](#interface-walletstoragesyncreader), [WalletStorageWriter](#interface-walletstoragewriter), [createAction](#function-createaction), [internalizeAction](#function-internalizeaction), [listCertificates](#function-listcertificates), [processAction](#function-processaction)
 
 ###### Constructor
 
 Creates a new WalletStorageManager with the given identityKey and optional active and backup storage providers.
 
 ```ts
-constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[]) 
+constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[])
 ```
-See also: [WalletStorageProvider](./client.md#interface-walletstorageprovider)
+See also: [WalletStorageProvider](#interface-walletstorageprovider)
 
 Argument Details
 
@@ -16453,7 +11419,7 @@ identityKey is always valid, userId and isActive are valid only if _isAvailable
 ```ts
 _authId: sdk.AuthId
 ```
-See also: [AuthId](./client.md#interface-authid)
+See also: [AuthId](#interface-authid)
 
 ###### Property _backups
 
@@ -16486,7 +11452,7 @@ Configured services if any. If valid, shared with stores (which may ignore it).
 ```ts
 _services?: sdk.WalletServices
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
+See also: [WalletServices](#interface-walletservices)
 
 ###### Property _stores
 
@@ -16499,7 +11465,7 @@ _stores: ManagedStorage[] = []
 ###### Method canMakeAvailable
 
 ```ts
-canMakeAvailable(): boolean 
+canMakeAvailable(): boolean
 ```
 
 Returns
@@ -16509,32 +11475,12 @@ true if at least one WalletStorageProvider has been added.
 ###### Method isActiveStorageProvider
 
 ```ts
-isActiveStorageProvider(): boolean 
+isActiveStorageProvider(): boolean
 ```
 
 Returns
 
 true if the active `WalletStorageProvider` also implements `StorageProvider`
-
-###### Method makeAvailable
-
-This async function must be called after construction and before
-any other async function can proceed.
-
-Runs through `_stores` validating all properties and partitioning across `_active`, `_backups`, `_conflictingActives`.
-
-```ts
-async makeAvailable(): Promise<TableSettings> 
-```
-See also: [TableSettings](./storage.md#interface-tablesettings)
-
-Returns
-
-from the active storage.
-
-Throws
-
-WERR_INVALID_PARAMETER if canMakeAvailable returns false.
 
 ###### Method reproveHeader
 
@@ -16543,9 +11489,9 @@ attempt to reprove the transaction against the current chain,
 updating the proven_txs record if a new valid proof is found.
 
 ```ts
-async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult> 
+async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult>
 ```
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
+See also: [ReproveHeaderResult](#interface-reproveheaderresult)
 
 Argument Details
 
@@ -16560,33 +11506,16 @@ attempt to reprove them against the current chain and update proof data if new v
 This is intended for backup auditing of recent heights after the primary reorg event path has run.
 
 ```ts
-async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult> 
+async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult>
 ```
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
-
-###### Method reproveProven
-
-Attempt to reprove the transaction against the current chain,
-If a new valid proof is found and noUpdate is not true,
-update the proven_txs record with new block and merkle proof data.
-If noUpdate is true, the update to be applied is available in the returned result.
-
-```ts
-async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult> 
-```
-See also: [ReproveProvenResult](./client.md#interface-reproveprovenresult), [TableProvenTx](./storage.md#interface-tableproventx)
-
-Argument Details
-
-+ **ptx**
-  + proven_txs record to reprove
+See also: [ReproveHeaderResult](#interface-reproveheaderresult)
 
 ###### Method runAsSync
 
 ```ts
-async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R> 
+async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R>
 ```
-See also: [WalletStorageSync](./client.md#interface-walletstoragesync)
+See also: [WalletStorageSync](#interface-walletstoragesync)
 
 Argument Details
 
@@ -16602,7 +11531,7 @@ Updates backups and switches to new active storage provider from among current b
 Also resolves conflicting actives.
 
 ```ts
-async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string> 
+async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string>
 ```
 
 Argument Details
@@ -16613,17 +11542,41 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Class: WalletToolboxMetrics
+
+```ts
+export class WalletToolboxMetrics {
+    readonly registry: Registry;
+    constructor(prefix = "wallet_toolbox")
+    recordUtxoCacheRequest(result: CacheResult, size: number): void
+    setUtxoCacheSize(size: number): void
+    recordBlockHeaderCacheRequest(result: CacheResult, size: number): void
+    setBlockHeaderCacheSize(size: number): void
+    recordPostBeefProvider(provider: string, status: string, durationMs: number): void
+    setPostBeefQueue(size: number, pending: number): void
+    setSendWaitingQueue(size: number, pending: number): void
+    recordStorageQuery(operation: string, durationMs: number): void
+    async metrics(): Promise<string>
+    get contentType(): string
+}
+```
+
+See also: [CacheResult](#type-cacheresult)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Class: WhatsOnChain
 
 ```ts
 export class WhatsOnChain extends WhatsOnChainNoServices {
     services: Services;
-    constructor(chain: Chain = "main", config: WhatsOnChainConfig = {}, services?: Services) 
-    async getMerklePath(txid: string, services: WalletServices): Promise<GetMerklePathResult> 
+    constructor(chain: Chain = "main", config: WhatsOnChainConfig = {}, services?: Services)
+    async getMerklePath(txid: string, services: WalletServices): Promise<GetMerklePathResult>
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [Services](./services.md#class-services), [WalletServices](./client.md#interface-walletservices), [WhatsOnChainNoServices](./services.md#class-whatsonchainnoservices)
+See also: [Chain](#type-chain), [GetMerklePathResult](#interface-getmerklepathresult), [Services](#class-services), [WalletServices](#interface-walletservices), [WhatsOnChainNoServices](#class-whatsonchainnoservices)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -16632,24 +11585,24 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class WhatsOnChainNoServices extends SdkWhatsOnChain {
-    constructor(chain: Chain = "main", config: WhatsOnChainConfig = {}) 
-    async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult> 
-    async getTxPropagation(txid: string): Promise<number> 
-    async getRawTx(txid: string): Promise<string | undefined> 
-    async getRawTxResult(txid: string): Promise<GetRawTxResult> 
-    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
-    async postRawTx(rawTx: HexString): Promise<PostTxResultForTxid> 
-    async updateBsvExchangeRate(rate?: BsvExchangeRate, updateMsecs?: number): Promise<BsvExchangeRate> 
-    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string): Promise<GetUtxoStatusResult> 
-    async getScriptHashConfirmedHistory(hash: string): Promise<GetScriptHashHistoryResult> 
-    async getScriptHashUnconfirmedHistory(hash: string): Promise<GetScriptHashHistoryResult> 
-    async getScriptHashHistory(hash: string): Promise<GetScriptHashHistoryResult> 
-    async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined> 
-    async getChainInfo(): Promise<WocChainInfo> 
+    constructor(chain: Chain = "main", config: WhatsOnChainConfig = {})
+    async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult>
+    async getTxPropagation(txid: string): Promise<number>
+    async getRawTx(txid: string): Promise<string | undefined>
+    async getRawTxResult(txid: string): Promise<GetRawTxResult>
+    async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
+    async postRawTx(rawTx: HexString): Promise<PostTxResultForTxid>
+    async updateBsvExchangeRate(rate?: BsvExchangeRate, updateMsecs?: number): Promise<BsvExchangeRate>
+    async getUtxoStatus(output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string): Promise<GetUtxoStatusResult>
+    async getScriptHashConfirmedHistory(hash: string): Promise<GetScriptHashHistoryResult>
+    async getScriptHashUnconfirmedHistory(hash: string): Promise<GetScriptHashHistoryResult>
+    async getScriptHashHistory(hash: string): Promise<GetScriptHashHistoryResult>
+    async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined>
+    async getChainInfo(): Promise<WocChainInfo>
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [BsvExchangeRate](./client.md#interface-bsvexchangerate), [Chain](./client.md#type-chain), [GetRawTxResult](./client.md#interface-getrawtxresult), [GetScriptHashHistoryResult](./client.md#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult), [PostBeefResult](./client.md#interface-postbeefresult), [PostTxResultForTxid](./client.md#interface-posttxresultfortxid), [SdkWhatsOnChain](./services.md#class-sdkwhatsonchain), [WocChainInfo](./services.md#interface-wocchaininfo)
+See also: [BlockHeader](#interface-blockheader), [BsvExchangeRate](#interface-bsvexchangerate), [Chain](#type-chain), [GetRawTxResult](#interface-getrawtxresult), [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult), [GetStatusForTxidsResult](#interface-getstatusfortxidsresult), [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult), [PostBeefResult](#interface-postbeefresult), [PostTxResultForTxid](#interface-posttxresultfortxid), [SdkWhatsOnChain](#class-sdkwhatsonchain), [WocChainInfo](#interface-wocchaininfo)
 
 ###### Method getBlockHeaderByHash
 
@@ -16674,16 +11627,16 @@ See also: [BlockHeader](./client.md#interface-blockheader), [BsvExchangeRate](./
 }
 
 ```ts
-async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined> 
+async getBlockHeaderByHash(hash: string): Promise<BlockHeader | undefined>
 ```
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 ###### Method getRawTx
 
 May return undefined for unmined transactions that are in the mempool.
 
 ```ts
-async getRawTx(txid: string): Promise<string | undefined> 
+async getRawTx(txid: string): Promise<string | undefined>
 ```
 
 Returns
@@ -16713,16 +11666,16 @@ result for an unknown txid:
     [{"txid":"6815f8014db74eab8b7f75925c68929597f1d97efa970109d990824c25e5e62c","error":"unknown"}]
 
 ```ts
-async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult> 
+async getStatusForTxids(txids: string[]): Promise<GetStatusForTxidsResult>
 ```
-See also: [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult)
+See also: [GetStatusForTxidsResult](#interface-getstatusfortxidsresult)
 
 ###### Method getTxPropagation
 
 2025-02-16 throwing internal server error 500.
 
 ```ts
-async getTxPropagation(txid: string): Promise<number> 
+async getTxPropagation(txid: string): Promise<number>
 ```
 
 ###### Method postBeef
@@ -16732,16 +11685,16 @@ WhatsOnChain does not natively support a postBeef end-point aware of multiple tx
 Send rawTx in `txids` order from beef.
 
 ```ts
-async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult> 
+async postBeef(beef: Beef, txids: string[]): Promise<PostBeefResult>
 ```
-See also: [PostBeefResult](./client.md#interface-postbeefresult)
+See also: [PostBeefResult](#interface-postbeefresult)
 
 ###### Method postRawTx
 
 ```ts
-async postRawTx(rawTx: HexString): Promise<PostTxResultForTxid> 
+async postRawTx(rawTx: HexString): Promise<PostTxResultForTxid>
 ```
-See also: [PostTxResultForTxid](./client.md#interface-posttxresultfortxid)
+See also: [PostTxResultForTxid](#interface-posttxresultfortxid)
 
 Returns
 
@@ -16755,97 +11708,60 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Class: WhatsOnChainServices
-
-```ts
-export class WhatsOnChainServices {
-    static createWhatsOnChainServicesOptions(chain: Chain): WhatsOnChainServicesOptions 
-    static chainInfo: (WocChainInfo | undefined)[] = [];
-    static chainInfoTime: (Date | undefined)[] = [];
-    static chainInfoMsecs: number[] = [];
-    chain: Chain;
-    woc: WhatsOnChain;
-    constructor(public options: WhatsOnChainServicesOptions) 
-    async getHeaderByHash(hash: string): Promise<BlockHeader | undefined> 
-    async getChainInfo(): Promise<WocChainInfo> 
-    async getChainTipHeight(): Promise<number> 
-    async getChainTipHash(): Promise<string> 
-    async getHeaders(fetch?: ChaintracksFetchApi): Promise<WocGetHeadersHeader[]> 
-    async getHeaderByteFileLinks(neededRange: HeightRange, fetch?: ChaintracksFetchApi): Promise<GetHeaderByteFileLinksResult[]> 
-}
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [GetHeaderByteFileLinksResult](./services.md#interface-getheaderbytefilelinksresult), [HeightRange](./services.md#class-heightrange), [WhatsOnChain](./services.md#class-whatsonchain), [WhatsOnChainServicesOptions](./services.md#interface-whatsonchainservicesoptions), [WocChainInfo](./services.md#interface-wocchaininfo), [WocGetHeadersHeader](./services.md#interface-wocgetheadersheader)
-
-###### Method getHeaders
-
-```ts
-async getHeaders(fetch?: ChaintracksFetchApi): Promise<WocGetHeadersHeader[]> 
-```
-See also: [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [WocGetHeadersHeader](./services.md#interface-wocgetheadersheader)
-
-Returns
-
-returns the last 10 block headers including height, size, chainwork...
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Functions
 
 | | | |
 | --- | --- | --- |
-| [WalletErrorFromJson](#function-walleterrorfromjson) | [genesisHeader](#function-genesisheader) | [selectBulkHeaderFiles](#function-selectbulkheaderfiles) |
-| [WocHeadersBulkListener](#function-wocheadersbulklistener) | [getBeefForTransaction](#function-getbeeffortransaction) | [serializeBaseBlockHeader](#function-serializebaseblockheader) |
-| [WocHeadersBulkListener_test](#function-wocheadersbulklistener_test) | [getBeefForTxid](#function-getbeeffortxid) | [serializeBaseBlockHeaders](#function-serializebaseblockheaders) |
-| [WocHeadersLiveListener](#function-wocheaderslivelistener) | [getExchangeRatesIo](#function-getexchangeratesio) | [setDisableDoubleSpendCheckForTest](#function-setdisabledoublespendcheckfortest) |
-| [WocHeadersLiveListener_test](#function-wocheaderslivelistener_test) | [getIdentityKey](#function-getidentitykey) | [sha256Hash](#function-sha256hash) |
-| [acquireDirectCertificate](#function-acquiredirectcertificate) | [getListOutputsSpecOp](#function-getlistoutputsspecop) | [sha256HashOfBinaryFile](#function-sha256hashofbinaryfile) |
-| [addWork](#function-addwork) | [getProofs](#function-getproofs) | [shareReqsWithWorld](#function-sharereqswithworld) |
-| [arcDefaultUrl](#function-arcdefaulturl) | [getSyncChunk](#function-getsyncchunk) | [signAction](#function-signaction) |
-| [arcGorillaPoolUrl](#function-arcgorillapoolurl) | [getWhatsOnChainBlockHeaderByHash](#function-getwhatsonchainblockheaderbyhash) | [signAndComplete](#function-signandcomplete) |
-| [arraysEqual](#function-arraysequal) | [importSingleOutpoint](#function-importsingleoutpoint) | [stampLog](#function-stamplog) |
-| [asArray](#function-asarray) | [internalizeAction](#function-internalizeaction) | [stampLogFormat](#function-stamplogformat) |
-| [asBsvSdkPrivateKey](#function-asbsvsdkprivatekey) | [internalizeAction](#function-internalizeaction) | [subWork](#function-subwork) |
-| [asBsvSdkPublickKey](#function-asbsvsdkpublickkey) | [isBaseBlockHeader](#function-isbaseblockheader) | [swapByteOrder](#function-swapbyteorder) |
-| [asBsvSdkScript](#function-asbsvsdkscript) | [isBlockHeader](#function-isblockheader) | [throwDummyReviewActions](#function-throwdummyreviewactions) |
-| [asBsvSdkTx](#function-asbsvsdktx) | [isCreateActionSpecOp](#function-iscreateactionspecop) | [toBinaryBaseBlockHeader](#function-tobinarybaseblockheader) |
-| [asString](#function-asstring) | [isKnownValidBulkHeaderFile](#function-isknownvalidbulkheaderfile) | [toLookupNetworkPreset](#function-tolookupnetworkpreset) |
-| [asUint8Array](#function-asuint8array) | [isListActionsSpecOp](#function-islistactionsspecop) | [toWalletNetwork](#function-towalletnetwork) |
-| [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork) | [isListOutputsSpecOp](#function-islistoutputsspecop) | [transactionInputSize](#function-transactioninputsize) |
-| [blockHash](#function-blockhash) | [isLive](#function-islive) | [transactionOutputSize](#function-transactionoutputsize) |
-| [buildBeefForOutpoints](#function-buildbeefforoutpoints) | [isLiveBlockHeader](#function-isliveblockheader) | [transactionSize](#function-transactionsize) |
-| [buildChaintracksOptionsWithIngestors](#function-buildchaintracksoptionswithingestors) | [isMoreWork](#function-ismorework) | [updateChaintracksFiatExchangeRates](#function-updatechaintracksfiatexchangerates) |
-| [buildSignableTransaction](#function-buildsignabletransaction) | [keyOffsetToHashedSecret](#function-keyoffsettohashedsecret) | [updateExchangeratesapi](#function-updateexchangeratesapi) |
-| [completeSignedTransaction](#function-completesignedtransaction) | [listActionsIdb](#function-listactionsidb) | [validBulkHeaderFilesByFileHash](#function-validbulkheaderfilesbyfilehash) |
-| [computeMerklePath](#function-computemerklepath) | [listCertificates](#function-listcertificates) | [validateAgainstDirtyHashes](#function-validateagainstdirtyhashes) |
-| [computeMerkleRoot](#function-computemerkleroot) | [listOutputsIdb](#function-listoutputsidb) | [validateBufferOfHeaders](#function-validatebufferofheaders) |
-| [convertBitsToTarget](#function-convertbitstotarget) | [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateBulkFileData](#function-validatebulkfiledata) |
-| [convertBitsToWork](#function-convertbitstowork) | [logCreateActionArgs](#function-logcreateactionargs) | [validateGenerateChangeSdkParams](#function-validategeneratechangesdkparams) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [logWalletError](#function-logwalleterror) | [validateGenerateChangeSdkResult](#function-validategeneratechangesdkresult) |
-| [convertProofToMerklePath](#function-convertprooftomerklepath) | [makeAtomicBeef](#function-makeatomicbeef) | [validateGenesisHeader](#function-validategenesisheader) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [makeBrc114ActionTimeLabel](#function-makebrc114actiontimelabel) | [validateHeaderDifficulty](#function-validateheaderdifficulty) |
-| [convertWocToBlockHeaderHex](#function-convertwoctoblockheaderhex) | [makeChangeLock](#function-makechangelock) | [validateHeaderFormat](#function-validateheaderformat) |
-| [createAction](#function-createaction) | [maxDate](#function-maxdate) | [validateScriptHash](#function-validatescripthash) |
-| [createAction](#function-createaction) | [offsetPrivKey](#function-offsetprivkey) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [createCoinbaseTransaction](#function-createcoinbasetransaction) | [offsetPubKey](#function-offsetpubkey) | [validateStorageFeeModel](#function-validatestoragefeemodel) |
-| [createDefaultIdbChaintracksOptions](#function-createdefaultidbchaintracksoptions) | [optionalArraysEqual](#function-optionalarraysequal) | [varUintSize](#function-varuintsize) |
-| [createDefaultNoDbChaintracksOptions](#function-createdefaultnodbchaintracksoptions) | [parseBrc114ActionTimeLabels](#function-parsebrc114actiontimelabels) | [verifyHexString](#function-verifyhexstring) |
-| [createDefaultWalletServicesOptions](#function-createdefaultwalletservicesoptions) | [parseOutpoint](#function-parseoutpoint) | [verifyId](#function-verifyid) |
-| [createIdbChaintracks](#function-createidbchaintracks) | [parseTxAndAssertId](#function-parsetxandassertid) | [verifyInteger](#function-verifyinteger) |
-| [createNoDbChaintracks](#function-createnodbchaintracks) | [parseTxScriptOffsets](#function-parsetxscriptoffsets) | [verifyNumber](#function-verifynumber) |
-| [createStorageServiceChargeScript](#function-createstorageservicechargescript) | [processAction](#function-processaction) | [verifyOne](#function-verifyone) |
-| [createSyncMap](#function-createsyncmap) | [processAction](#function-processaction) | [verifyOneOrNone](#function-verifyoneornone) |
-| [deserializeBaseBlockHeader](#function-deserializebaseblockheader) | [proveCertificate](#function-provecertificate) | [verifyOptionalHexString](#function-verifyoptionalhexstring) |
-| [deserializeBaseBlockHeaders](#function-deserializebaseblockheaders) | [purgeDataIdb](#function-purgedataidb) | [verifyP2PKHOwnership](#function-verifyp2pkhownership) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [randomBytes](#function-randombytes) | [verifyTruthy](#function-verifytruthy) |
-| [deserializeBlockHeaders](#function-deserializeblockheaders) | [randomBytesBase64](#function-randombytesbase64) | [verifyUnlockScripts](#function-verifyunlockscripts) |
-| [doubleSha256BE](#function-doublesha256be) | [randomBytesHex](#function-randombyteshex) | [wait](#function-wait) |
-| [doubleSha256LE](#function-doublesha256le) | [readUInt32BE](#function-readuint32be) | [wocGetHeadersHeaderToBlockHeader](#function-wocgetheadersheadertoblockheader) |
-| [fundWalletFromP2PKHOutpoints](#function-fundwalletfromp2pkhoutpoints) | [readUInt32LE](#function-readuint32le) | [workBNtoBuffer](#function-workbntobuffer) |
-| [generateChangeSdk](#function-generatechangesdk) | [redeemServiceCharges](#function-redeemservicecharges) | [writeUInt32BE](#function-writeuint32be) |
-| [generateChangeSdkMakeStorage](#function-generatechangesdkmakestorage) | [resolveAutoSigned](#function-resolveautosigned) | [writeUInt32LE](#function-writeuint32le) |
-| [genesisBuffer](#function-genesisbuffer) | [reviewStatusIdb](#function-reviewstatusidb) |  |
+| [WalletErrorFromJson](#function-walleterrorfromjson) | [getWhatsOnChainBlockHeaderByHash](#function-getwhatsonchainblockheaderbyhash) | [sha256HashOfBinaryFile](#function-sha256hashofbinaryfile) |
+| [acquireDirectCertificate](#function-acquiredirectcertificate) | [handlePostRawTxErrorResponse](#function-handlepostrawtxerrorresponse) | [shareReqsWithWorld](#function-sharereqswithworld) |
+| [addWork](#function-addwork) | [handleScriptHashHistoryCatch](#function-handlescripthashhistorycatch) | [signAction](#function-signaction) |
+| [arcDefaultUrl](#function-arcdefaulturl) | [handleScriptHashHistoryResponse](#function-handlescripthashhistoryresponse) | [stampLog](#function-stamplog) |
+| [arcGorillaPoolUrl](#function-arcgorillapoolurl) | [handleUtxoConnReset](#function-handleutxoconnreset) | [stampLogFormat](#function-stamplogformat) |
+| [arraysEqual](#function-arraysequal) | [internalizeAction](#function-internalizeaction) | [subWork](#function-subwork) |
+| [asArray](#function-asarray) | [internalizeAction](#function-internalizeaction) | [summarizePostBeefProviderAttemptsForTxid](#function-summarizepostbeefproviderattemptsfortxid) |
+| [asBsvSdkPrivateKey](#function-asbsvsdkprivatekey) | [isBaseBlockHeader](#function-isbaseblockheader) | [swapByteOrder](#function-swapbyteorder) |
+| [asBsvSdkPublickKey](#function-asbsvsdkpublickkey) | [isBlockHeader](#function-isblockheader) | [throwDummyReviewActions](#function-throwdummyreviewactions) |
+| [asBsvSdkScript](#function-asbsvsdkscript) | [isCreateActionSpecOp](#function-iscreateactionspecop) | [toBinaryBaseBlockHeader](#function-tobinarybaseblockheader) |
+| [asBsvSdkTx](#function-asbsvsdktx) | [isKnownValidBulkHeaderFile](#function-isknownvalidbulkheaderfile) | [toLookupNetworkPreset](#function-tolookupnetworkpreset) |
+| [asString](#function-asstring) | [isListActionsSpecOp](#function-islistactionsspecop) | [toWalletNetwork](#function-towalletnetwork) |
+| [asUint8Array](#function-asuint8array) | [isListOutputsSpecOp](#function-islistoutputsspecop) | [transactionInputSize](#function-transactioninputsize) |
+| [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork) | [isLive](#function-islive) | [transactionOutputSize](#function-transactionoutputsize) |
+| [blockHash](#function-blockhash) | [isLiveBlockHeader](#function-isliveblockheader) | [transactionSize](#function-transactionsize) |
+| [buildSignableTransaction](#function-buildsignabletransaction) | [isMoreWork](#function-ismorework) | [updateChaintracksFiatExchangeRates](#function-updatechaintracksfiatexchangerates) |
+| [classifyMerklePathResponse](#function-classifymerklepathresponse) | [isWalletToolboxOwnedHttpClient](#function-iswallettoolboxownedhttpclient) | [updateExchangeratesapi](#function-updateexchangeratesapi) |
+| [classifyReqStatus](#function-classifyreqstatus) | [keyOffsetToHashedSecret](#function-keyoffsettohashedsecret) | [updateReqsFromAggregateResults](#function-updatereqsfromaggregateresults) |
+| [completeSignedTransaction](#function-completesignedtransaction) | [listCertificates](#function-listcertificates) | [validBulkHeaderFilesByFileHash](#function-validbulkheaderfilesbyfilehash) |
+| [computeMerklePath](#function-computemerklepath) | [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateAgainstDirtyHashes](#function-validateagainstdirtyhashes) |
+| [computeMerkleRoot](#function-computemerkleroot) | [logCreateActionArgs](#function-logcreateactionargs) | [validateBufferOfHeaders](#function-validatebufferofheaders) |
+| [convertBitsToTarget](#function-convertbitstotarget) | [logWalletError](#function-logwalleterror) | [validateBulkFileData](#function-validatebulkfiledata) |
+| [convertBitsToWork](#function-convertbitstowork) | [makeAtomicBeef](#function-makeatomicbeef) | [validateDate](#function-validatedate) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [makeChangeLock](#function-makechangelock) | [validateEntities](#function-validateentities) |
+| [convertProofToMerklePath](#function-convertprooftomerklepath) | [makeMerklePathNote](#function-makemerklepathnote) | [validateEntity](#function-validateentity) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [markStaleInputsAsSpent](#function-markstaleinputsasspent) | [validateGenerateChangeSdkParams](#function-validategeneratechangesdkparams) |
+| [convertWocToBlockHeaderHex](#function-convertwoctoblockheaderhex) | [markWalletToolboxOwnedHttpClient](#function-markwallettoolboxownedhttpclient) | [validateGenerateChangeSdkResult](#function-validategeneratechangesdkresult) |
+| [createAction](#function-createaction) | [maxDate](#function-maxdate) | [validateGenesisHeader](#function-validategenesisheader) |
+| [createAction](#function-createaction) | [mergeInputBeefs](#function-mergeinputbeefs) | [validateHeaderDifficulty](#function-validateheaderdifficulty) |
+| [createCoinbaseTransaction](#function-createcoinbasetransaction) | [mergeInputsIntoBeef](#function-mergeinputsintobeef) | [validateHeaderFormat](#function-validateheaderformat) |
+| [createDefaultWalletServicesOptions](#function-createdefaultwalletservicesoptions) | [notifyTransactionsOfProof](#function-notifytransactionsofproof) | [validateScriptHash](#function-validatescripthash) |
+| [createStorageServiceChargeScript](#function-createstorageservicechargescript) | [offsetPrivKey](#function-offsetprivkey) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [createSyncMap](#function-createsyncmap) | [offsetPubKey](#function-offsetpubkey) | [validateStorageFeeModel](#function-validatestoragefeemodel) |
+| [createUndiciHttpClient](#function-createundicihttpclient) | [optionalArraysEqual](#function-optionalarraysequal) | [validateSyncChunkEntities](#function-validatesyncchunkentities) |
+| [deserializeBaseBlockHeader](#function-deserializebaseblockheader) | [parseTxScriptOffsets](#function-parsetxscriptoffsets) | [varUintSize](#function-varuintsize) |
+| [deserializeBaseBlockHeaders](#function-deserializebaseblockheaders) | [populateUtxoDetails](#function-populateutxodetails) | [verifyHexString](#function-verifyhexstring) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [processAction](#function-processaction) | [verifyId](#function-verifyid) |
+| [deserializeBlockHeaders](#function-deserializeblockheaders) | [processAction](#function-processaction) | [verifyInteger](#function-verifyinteger) |
+| [doubleSha256BE](#function-doublesha256be) | [proveCertificate](#function-provecertificate) | [verifyNumber](#function-verifynumber) |
+| [doubleSha256LE](#function-doublesha256le) | [randomBytes](#function-randombytes) | [verifyOne](#function-verifyone) |
+| [generateChangeSdk](#function-generatechangesdk) | [randomBytesBase64](#function-randombytesbase64) | [verifyOneOrNone](#function-verifyoneornone) |
+| [generateChangeSdkMakeStorage](#function-generatechangesdkmakestorage) | [randomBytesHex](#function-randombyteshex) | [verifyOptionalHexString](#function-verifyoptionalhexstring) |
+| [genesisBuffer](#function-genesisbuffer) | [readUInt32BE](#function-readuint32be) | [verifyTruthy](#function-verifytruthy) |
+| [genesisHeader](#function-genesisheader) | [readUInt32LE](#function-readuint32le) | [verifyUnlockScripts](#function-verifyunlockscripts) |
+| [getBeefForTransaction](#function-getbeeffortransaction) | [redeemServiceCharges](#function-redeemservicecharges) | [wait](#function-wait) |
+| [getBeefForTxid](#function-getbeeffortxid) | [selectBulkHeaderFiles](#function-selectbulkheaderfiles) | [workBNtoBuffer](#function-workbntobuffer) |
+| [getExchangeRatesIo](#function-getexchangeratesio) | [serializeBaseBlockHeader](#function-serializebaseblockheader) | [writeUInt32BE](#function-writeuint32be) |
+| [getIdentityKey](#function-getidentitykey) | [serializeBaseBlockHeaders](#function-serializebaseblockheaders) | [writeUInt32LE](#function-writeuint32le) |
+| [getProofs](#function-getproofs) | [setDisableDoubleSpendCheckForTest](#function-setdisabledoublespendcheckfortest) |  |
+| [getSyncChunk](#function-getsyncchunk) | [sha256Hash](#function-sha256hash) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -16859,10 +11775,10 @@ This function is implemented as a separate function instead of a WalletError cla
 to avoid circular dependencies.
 
 ```ts
-export function WalletErrorFromJson(json: object): WalletError 
+export function WalletErrorFromJson(json: object): WalletError
 ```
 
-See also: [WalletError](./client.md#class-walleterror)
+See also: [WalletError](#class-walleterror)
 
 Returns
 
@@ -16871,107 +11787,13 @@ a WalletError derived error object, typically for re-throw.
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Function: WocHeadersBulkListener
-
-High speed WebSocket based based old block header listener
-
-```ts
-export async function WocHeadersBulkListener(fromHeight: number, toHeight: number, enqueue: (header: BlockHeader) => void, error: (code: number, message: string) => boolean, stop: StopListenerToken, chain: Chain, logger: (...args: any[]) => void = () => { }, idleWait = 5000): Promise<boolean> 
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [StopListenerToken](./services.md#type-stoplistenertoken), [logger](./client.md#variable-logger)
-
-Returns
-
-true on normal completion, false if should restart if no error received.
-
-Argument Details
-
-+ **enqueue**
-  + returns headers received from WebSocket service
-+ **error**
-  + notifies of abnormal events, return false to close websocket, true to ignore the error.
-+ **stop**
-  + an object with a stop property which gets set to a method to stop listener
-+ **chain**
-  + 'test' | 'main'
-+ **idleWait**
-  + how many milliseconds to timeout between completion checks.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: WocHeadersBulkListener_test
-
-v2
-{
-"message": {
-"data": {
-  "version": 872415232,
-  "previousblockhash": "00000000000000000ea1f9ba0817a0f922ee227be306fd9097a4e76caf5ff411",
-  "merkleroot": "dcd7efb3c39e8e2d597e4757b9a49c98f52f77a6df39d1d5936ac3abb2559944",
-  "time": 1750182239,
-  "bits": 403926191,
-  "nonce": 1043732575,
-  "hash": "0000000000000000032d09ca772ca5b3bc5b90a79a5bbcc4a05c99fb6d3b23d8",
-  "height": 901658
-}
-}
-}
-
-```ts
-export async function WocHeadersBulkListener_test(): Promise<void> 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: WocHeadersLiveListener
-
-High speed WebSocket based based new block header listener
-
-```ts
-export async function WocHeadersLiveListener(enqueue: (header: BlockHeader) => void, error: (code: number, message: string) => boolean, stop: StopListenerToken, chain: Chain, logger: (...args: any[]) => void, idleWait = 100000): Promise<boolean> 
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain), [StopListenerToken](./services.md#type-stoplistenertoken), [logger](./client.md#variable-logger)
-
-Returns
-
-true only if exit caused by `stop`
-
-Argument Details
-
-+ **enqueue**
-  + returns headers received from WebSocket service
-+ **error**
-  + notifies of abnormal events, return false to close websocket, true to ignore the error.
-+ **stop**
-  + an object with a stop property which gets set to a method to stop listener
-+ **chain**
-  + 'test' | 'main'
-+ **idleWait**
-  + without any input, after this many milliseconds, assume dead service and exit.
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: WocHeadersLiveListener_test
-
-```ts
-export async function WocHeadersLiveListener_test(): Promise<void> 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Function: acquireDirectCertificate
 
 ```ts
-export async function acquireDirectCertificate(wallet: Wallet, auth: AuthId, vargs: Validation.ValidAcquireDirectCertificateArgs): Promise<AcquireCertificateResult> 
+export async function acquireDirectCertificate(wallet: Wallet, auth: AuthId, vargs: Validation.ValidAcquireDirectCertificateArgs): Promise<AcquireCertificateResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [Wallet](./client.md#class-wallet)
+See also: [AuthId](#interface-authid), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -16981,7 +11803,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Add two Buffer encoded chainwork values
 
 ```ts
-export function addWork(work1: string, work2: string): string 
+export function addWork(work1: string, work2: string): string
 ```
 
 Returns
@@ -16994,10 +11816,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: arcDefaultUrl
 
 ```ts
-export function arcDefaultUrl(chain: Chain): string 
+export function arcDefaultUrl(chain: Chain): string
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17005,10 +11827,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: arcGorillaPoolUrl
 
 ```ts
-export function arcGorillaPoolUrl(chain: Chain): string | undefined 
+export function arcGorillaPoolUrl(chain: Chain): string | undefined
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17018,7 +11840,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Compares lengths and direct equality of values.
 
 ```ts
-export function arraysEqual(arr1: Number[], arr2: Number[]) 
+export function arraysEqual(arr1: Number[], arr2: Number[])
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -17029,16 +11851,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Convert a value to number[] if currently an encoded string or number[] or Uint8Array.
 
 ```ts
-export function asArray(val: string | number[] | Uint8Array, enc?: "hex" | "utf8" | "base64"): number[] {
+export function asArray(val: ByteInput, enc?: ByteEncoding): number[] {
     if (Array.isArray(val))
         return val;
     if (typeof val !== "string")
         return Array.from(val);
     enc ||= "hex";
-    let a: number[] = Utils.toArray(val, enc);
+    const a: number[] = Utils.toArray(val, enc);
     return a;
 }
 ```
+
+See also: [ByteEncoding](#type-byteencoding), [ByteInput](#type-byteinput)
 
 Returns
 
@@ -17057,7 +11881,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: asBsvSdkPrivateKey
 
 ```ts
-export function asBsvSdkPrivateKey(privKey: string): PrivateKey 
+export function asBsvSdkPrivateKey(privKey: string): PrivateKey
 ```
 
 Argument Details
@@ -17071,7 +11895,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: asBsvSdkPublickKey
 
 ```ts
-export function asBsvSdkPublickKey(pubKey: string): PublicKey 
+export function asBsvSdkPublickKey(pubKey: string): PublicKey
 ```
 
 Argument Details
@@ -17127,7 +11951,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Convert a value to an encoded string if currently an encoded string or number[] or Uint8Array.
 
 ```ts
-export function asString(val: string | number[] | Uint8Array, enc?: "hex" | "utf8" | "base64", returnEnc?: "hex" | "utf8" | "base64"): string {
+export function asString(val: ByteInput, enc?: ByteEncoding, returnEnc?: ByteEncoding): string {
     enc ||= "hex";
     returnEnc ||= enc;
     if (typeof val === "string") {
@@ -17135,7 +11959,7 @@ export function asString(val: string | number[] | Uint8Array, enc?: "hex" | "utf
             return val;
         val = asUint8Array(val, enc);
     }
-    let v = Array.isArray(val) ? val : Array.from(val);
+    const v = Array.isArray(val) ? val : Array.from(val);
     switch (returnEnc) {
         case "utf8":
             return Utils.toUTF8(v);
@@ -17146,7 +11970,7 @@ export function asString(val: string | number[] | Uint8Array, enc?: "hex" | "utf
 }
 ```
 
-See also: [asUint8Array](./client.md#function-asuint8array)
+See also: [ByteEncoding](#type-byteencoding), [ByteInput](#type-byteinput), [asUint8Array](#function-asuint8array)
 
 Returns
 
@@ -17169,16 +11993,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Convert a value to Uint8Array if currently an encoded string or number[] or Uint8Array.
 
 ```ts
-export function asUint8Array(val: string | number[] | Uint8Array, enc?: "hex" | "utf8" | "base64"): Uint8Array {
+export function asUint8Array(val: ByteInput, enc?: ByteEncoding): Uint8Array {
     if (Array.isArray(val))
         return Uint8Array.from(val);
     if (typeof val !== "string")
         return val;
     enc ||= "hex";
-    let a: number[] = Utils.toArray(val, enc);
+    const a: number[] = Utils.toArray(val, enc);
     return Uint8Array.from(a);
 }
 ```
+
+See also: [ByteEncoding](#type-byteencoding), [ByteInput](#type-byteinput)
 
 Returns
 
@@ -17200,10 +12026,10 @@ Attempt to post one or more `ProvenTxReq` with status 'unsent'
 to the bitcoin network.
 
 ```ts
-export async function attemptToPostReqsToNetwork(storage: StorageProvider, reqs: EntityProvenTxReq[], trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult> 
+export async function attemptToPostReqsToNetwork(storage: StorageProvider, reqs: EntityProvenTxReq[], trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult>
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq), [PostReqsToNetworkResult](./storage.md#interface-postreqstonetworkresult), [StorageProvider](./storage.md#class-storageprovider), [TrxToken](./client.md#interface-trxtoken), [logger](./client.md#variable-logger)
+See also: [EntityProvenTxReq](#class-entityproventxreq), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [StorageProvider](#class-storageprovider), [TrxToken](#interface-trxtoken), [logger](#variable-logger)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17225,44 +12051,11 @@ export function blockHash(header: BaseBlockHeader | number[] | Uint8Array): stri
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [asString](./client.md#function-asstring), [doubleSha256BE](./client.md#function-doublesha256be), [serializeBaseBlockHeader](./services.md#function-serializebaseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader), [asString](#function-asstring), [doubleSha256BE](#function-doublesha256be), [serializeBaseBlockHeader](#function-serializebaseblockheader)
 
 Returns
 
 doule sha256 hash of header bytes reversed
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: buildBeefForOutpoints
-
-Builds a valid BEEF for the given outpoints by recursively fetching
-parent transactions until all paths lead to confirmed ancestors
-with merkle proofs.
-
-This solves the common case where legacy wallets (HandCash, ElectrumSV)
-create chains of unconfirmed transactions — standard BEEF construction
-fails because the proof chain is incomplete.
-
-```ts
-export async function buildBeefForOutpoints(outpoints: string[], maxDepth = 10): Promise<BEEF> 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: buildChaintracksOptionsWithIngestors
-
-Builds the shared portion of ChaintracksOptions that all storage backends
-(Knex, Idb, NoDb) have in common: the options shell and bulk/live ingestors.
-
-The caller is responsible for providing the storage implementation.
-
-```ts
-export function buildChaintracksOptionsWithIngestors(params: ChaintracksIngestorParams, storage: ChaintracksOptions["storage"]): ChaintracksOptions 
-```
-
-See also: [ChaintracksIngestorParams](./services.md#interface-chaintracksingestorparams), [ChaintracksOptions](./services.md#interface-chaintracksoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17275,10 +12068,38 @@ export function buildSignableTransaction(dctr: StorageCreateActionResult, args: 
     amount: number;
     pdi: PendingStorageInput[];
     log: string;
-} 
+}
 ```
 
-See also: [PendingStorageInput](./client.md#interface-pendingstorageinput), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [Wallet](./client.md#class-wallet)
+See also: [PendingStorageInput](#interface-pendingstorageinput), [StorageCreateActionResult](#interface-storagecreateactionresult), [Wallet](#class-wallet)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: classifyMerklePathResponse
+
+Classify a non-OK status response for getMerklePath.
+
+Returns `'retry'` when the request was rate-limited and the caller should retry,
+`'notFound'` for 404, `'badStatus'` for other non-200 codes.
+
+```ts
+export function classifyMerklePathResponse(status: number, statusText: string, retry: number): "retry" | "notFound" | "badStatus" | "ok"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: classifyReqStatus
+
+Classify a ProvenTxReq status into beef-sharing lifecycle status.
+Mutates `d` in place.
+
+```ts
+export function classifyReqStatus(d: GetReqsAndBeefDetail, req: TableProvenTxReq): void
+```
+
+See also: [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17286,10 +12107,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: completeSignedTransaction
 
 ```ts
-export async function completeSignedTransaction(prior: PendingSignAction, spends: Record<number, SignActionSpend>, wallet: Wallet): Promise<Transaction> 
+export async function completeSignedTransaction(prior: PendingSignAction, spends: Record<number, SignActionSpend>, wallet: Wallet): Promise<Transaction>
 ```
 
-See also: [PendingSignAction](./client.md#interface-pendingsignaction), [Wallet](./client.md#class-wallet)
+See also: [PendingSignAction](#interface-pendingsignaction), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17300,7 +12121,7 @@ Compute the MerklePath for a target transaction at `targetIndex` within a block 
 `txids` is the ordered list of all txids in the block (big-endian hex).
 
 ```ts
-export function computeMerklePath(txids: string[], targetIndex: number, blockHeight: number): MerklePath 
+export function computeMerklePath(txids: string[], targetIndex: number, blockHeight: number): MerklePath
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -17313,7 +12134,7 @@ Returns the root as a big-endian hex string (reversed byte order from the
 natural double-SHA256 result, matching the standard block header format).
 
 ```ts
-export function computeMerkleRoot(txids: string[]): string 
+export function computeMerkleRoot(txids: string[]): string
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -17324,7 +12145,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Computes "target" value for 4 byte Bitcoin block header "bits" value.
 
 ```ts
-export function convertBitsToTarget(bits: number | number[]): BigNumber 
+export function convertBitsToTarget(bits: number | number[]): BigNumber
 ```
 
 Returns
@@ -17344,7 +12165,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Computes "chainWork" value for 4 byte Bitcoin block header "bits" value.
 
 ```ts
-export function convertBitsToWork(bits: number | number[]): string 
+export function convertBitsToWork(bits: number | number[]): string
 ```
 
 Returns
@@ -17386,10 +12207,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: convertProofToMerklePath
 
 ```ts
-export function convertProofToMerklePath(txid: string, proof: TscMerkleProofApi): MerklePath 
+export function convertProofToMerklePath(txid: string, proof: TscMerkleProofApi): MerklePath
 ```
 
-See also: [TscMerkleProofApi](./client.md#interface-tscmerkleproofapi)
+See also: [TscMerkleProofApi](#interface-tscmerkleproofapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17425,10 +12246,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: convertWocToBlockHeaderHex
 
 ```ts
-export function convertWocToBlockHeaderHex(woc: WocHeader): BlockHeader 
+export function convertWocToBlockHeaderHex(woc: WocHeader): BlockHeader
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [WocHeader](./services.md#interface-wocheader)
+See also: [BlockHeader](#interface-blockheader), [WocHeader](#interface-wocheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17436,10 +12257,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createAction
 
 ```ts
-export async function createAction(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidCreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<StorageCreateActionResult> 
+export async function createAction(wallet: Wallet, auth: AuthId, vargs: Validation.ValidCreateActionArgs): Promise<CreateActionResultX>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageProvider](./storage.md#class-storageprovider)
+See also: [AuthId](#interface-authid), [CreateActionResultX](#interface-createactionresultx), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17447,10 +12268,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createAction
 
 ```ts
-export async function createAction(wallet: Wallet, auth: AuthId, vargs: Validation.ValidCreateActionArgs): Promise<CreateActionResultX> 
+export async function createAction(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidCreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<StorageCreateActionResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [CreateActionResultX](./client.md#interface-createactionresultx), [Wallet](./client.md#class-wallet)
+See also: [AuthId](#interface-authid), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17461,30 +12282,8 @@ Creates a coinbase transaction for the given block height.
 Uses OP_TRUE (0x51) as the output script so anyone can spend it.
 
 ```ts
-export function createCoinbaseTransaction(height: number): Transaction 
+export function createCoinbaseTransaction(height: number): Transaction
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: createDefaultIdbChaintracksOptions
-
-```ts
-export function createDefaultIdbChaintracksOptions(chain: Chain, whatsonchainApiKey: string = "", maxPerFile: number = 100000, maxRetained: number = 2, fetch?: ChaintracksFetchApi, cdnUrl: string = "https://cdn.projectbabbage.com/blockheaders/", liveHeightThreshold: number = 2000, reorgHeightThreshold: number = 400, bulkMigrationChunkSize: number = 500, batchInsertLimit: number = 400, addLiveRecursionLimit: number = 36): ChaintracksOptions 
-```
-
-See also: [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksOptions](./services.md#interface-chaintracksoptions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: createDefaultNoDbChaintracksOptions
-
-```ts
-export function createDefaultNoDbChaintracksOptions(chain: Chain, whatsonchainApiKey: string = "", maxPerFile: number = 100000, maxRetained: number = 2, fetch?: ChaintracksFetchApi, cdnUrl: string = "https://cdn.projectbabbage.com/blockheaders/", liveHeightThreshold: number = 2000, reorgHeightThreshold: number = 400, bulkMigrationChunkSize: number = 500, batchInsertLimit: number = 400, addLiveRecursionLimit: number = 36): ChaintracksOptions 
-```
-
-See also: [Chain](./client.md#type-chain), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksOptions](./services.md#interface-chaintracksoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17492,46 +12291,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createDefaultWalletServicesOptions
 
 ```ts
-export function createDefaultWalletServicesOptions(chain: Chain, arcCallbackUrl?: string, arcCallbackToken?: string, taalArcApiKey?: string, gorillaPoolArcApiKey?: string, bitailsApiKey?: string, deploymentId?: string, chaintracks?: ChaintracksClientApi): WalletServicesOptions 
+export function createDefaultWalletServicesOptions(chain: Chain, arcCallbackUrl?: string, arcCallbackToken?: string, taalArcApiKey?: string, gorillaPoolArcApiKey?: string, bitailsApiKey?: string, deploymentId?: string, chaintracks?: ChaintracksClientApi): WalletServicesOptions
 ```
 
-See also: [Chain](./client.md#type-chain), [ChaintracksClientApi](./services.md#interface-chaintracksclientapi), [WalletServicesOptions](./client.md#interface-walletservicesoptions)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: createIdbChaintracks
-
-```ts
-export async function createIdbChaintracks(chain: Chain, whatsonchainApiKey: string = "", maxPerFile: number = 100000, maxRetained: number = 2, fetch?: ChaintracksFetchApi, cdnUrl: string = "https://cdn.projectbabbage.com/blockheaders/", liveHeightThreshold: number = 2000, reorgHeightThreshold: number = 400, bulkMigrationChunkSize: number = 500, batchInsertLimit: number = 400, addLiveRecursionLimit: number = 36): Promise<{
-    chain: Chain;
-    maxPerFile: number;
-    fetch: ChaintracksFetchApi;
-    storage: ChaintracksStorageIdb;
-    chaintracks: Chaintracks;
-    available: Promise<void>;
-}> 
-```
-
-See also: [Chain](./client.md#type-chain), [Chaintracks](./services.md#class-chaintracks), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksStorageIdb](./services.md#class-chaintracksstorageidb)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: createNoDbChaintracks
-
-```ts
-export async function createNoDbChaintracks(chain: Chain, whatsonchainApiKey: string = "", maxPerFile: number = 100000, maxRetained: number = 2, fetch?: ChaintracksFetchApi, cdnUrl: string = "https://cdn.projectbabbage.com/blockheaders/", liveHeightThreshold: number = 2000, reorgHeightThreshold: number = 400, bulkMigrationChunkSize: number = 500, batchInsertLimit: number = 400, addLiveRecursionLimit: number = 36): Promise<{
-    chain: Chain;
-    maxPerFile: number;
-    fetch: ChaintracksFetchApi;
-    storage: ChaintracksStorageNoDb;
-    chaintracks: Chaintracks;
-    available: Promise<void>;
-}> 
-```
-
-See also: [Chain](./client.md#type-chain), [Chaintracks](./services.md#class-chaintracks), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi), [ChaintracksStorageNoDb](./services.md#class-chaintracksstoragenodb)
+See also: [Chain](#type-chain), [ChaintracksClientApi](#interface-chaintracksclientapi), [WalletServicesOptions](#interface-walletservicesoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17542,7 +12305,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function createStorageServiceChargeScript(pubKeyHex: PubKeyHex): {
     script: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -17551,10 +12314,21 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createSyncMap
 
 ```ts
-export function createSyncMap(): SyncMap 
+export function createSyncMap(): SyncMap
 ```
 
-See also: [SyncMap](./storage.md#interface-syncmap)
+See also: [SyncMap](#interface-syncmap)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: createUndiciHttpClient
+
+```ts
+export function createUndiciHttpClient(options?: UndiciHttpClientOptions): UndiciHttpClient
+```
+
+See also: [UndiciHttpClient](#class-undicihttpclient), [UndiciHttpClientOptions](#interface-undicihttpclientoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17578,7 +12352,7 @@ export function deserializeBaseBlockHeader(buffer: number[] | Uint8Array, offset
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [asString](./client.md#function-asstring), [readUInt32LE](./services.md#function-readuint32le)
+See also: [BaseBlockHeader](#interface-baseblockheader), [asString](#function-asstring), [readUInt32LE](#function-readuint32le)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17586,10 +12360,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: deserializeBaseBlockHeaders
 
 ```ts
-export function deserializeBaseBlockHeaders(buffer: number[] | Uint8Array, offset = 0, count?: number | undefined): BaseBlockHeader[] 
+export function deserializeBaseBlockHeaders(buffer: number[] | Uint8Array, offset = 0, count?: number | undefined): BaseBlockHeader[]
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader)
+See also: [BaseBlockHeader](#interface-baseblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17597,10 +12371,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: deserializeBlockHeader
 
 ```ts
-export function deserializeBlockHeader(buffer: number[] | Uint8Array, offset = 0, height: number): BlockHeader 
+export function deserializeBlockHeader(buffer: number[] | Uint8Array, height: number, offset = 0): BlockHeader
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17608,10 +12382,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: deserializeBlockHeaders
 
 ```ts
-export function deserializeBlockHeaders(firstHeight: number, buffer: number[] | Uint8Array, offset = 0, count?: number | undefined): BlockHeader[] 
+export function deserializeBlockHeaders(firstHeight: number, buffer: number[] | Uint8Array, offset = 0, count?: number | undefined): BlockHeader[]
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17626,7 +12400,7 @@ export function doubleSha256BE(data: number[] | Uint8Array): number[] {
 }
 ```
 
-See also: [doubleSha256LE](./client.md#function-doublesha256le)
+See also: [doubleSha256LE](#function-doublesha256le)
 
 Returns
 
@@ -17655,7 +12429,7 @@ export function doubleSha256LE(data: number[] | Uint8Array): number[] {
 }
 ```
 
-See also: [asArray](./client.md#function-asarray)
+See also: [asArray](#function-asarray)
 
 Returns
 
@@ -17669,27 +12443,6 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Function: fundWalletFromP2PKHOutpoints
-
-Funds a BRC-100 wallet by importing P2PKH UTXOs.
-
-Accepts outpoints + a P2PKH key pair, optionally with a pre-built BEEF.
-If no BEEF is provided, one is built via buildBeefForOutpoints.
-
-```ts
-export async function fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, getUnlockP2PKH: (priv: KeyPairAddress["privateKey"], satoshis: number) => ScriptTemplateUnlock, inputBEEF?: BEEF): Promise<{
-    outpoint: string;
-    txid?: string;
-    success: boolean;
-    error?: string;
-}[]> 
-```
-
-See also: [KeyPairAddress](./setup.md#interface-keypairaddress), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Function: generateChangeSdk
 
 Simplifications:
@@ -17699,10 +12452,10 @@ Simplifications:
 Confirms for each availbleChange output that it remains available as they are allocated and selects alternate if not.
 
 ```ts
-export async function generateChangeSdk(params: GenerateChangeSdkParams, allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>, releaseChangeInput: (outputId: number) => Promise<void>, logger?: WalletLoggerInterface): Promise<GenerateChangeSdkResult> 
+export async function generateChangeSdk(params: GenerateChangeSdkParams, allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>, releaseChangeInput: (outputId: number) => Promise<void>, logger?: WalletLoggerInterface): Promise<GenerateChangeSdkResult>
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput), [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [GenerateChangeSdkResult](./storage.md#interface-generatechangesdkresult), [logger](./client.md#variable-logger)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput), [GenerateChangeSdkParams](#interface-generatechangesdkparams), [GenerateChangeSdkResult](#interface-generatechangesdkresult), [logger](#variable-logger)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17714,10 +12467,10 @@ export function generateChangeSdkMakeStorage(availableChange: GenerateChangeSdkC
     allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>;
     releaseChangeInput: (outputId: number) => Promise<void>;
     getLog: () => string;
-} 
+}
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17732,7 +12485,7 @@ export function genesisBuffer(chain: Chain): number[] {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [genesisHeader](./services.md#function-genesisheader), [serializeBaseBlockHeader](./services.md#function-serializebaseblockheader)
+See also: [Chain](#type-chain), [genesisHeader](#function-genesisheader), [serializeBaseBlockHeader](#function-serializebaseblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17768,12 +12521,12 @@ export function genesisHeader(chain: Chain): BlockHeader {
                 hash: "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
             };
         case "mock":
-            throw new Error(`genesisHeader does not support 'mock' chain. Mock chain generates its own genesis block.`);
+            throw new Error("genesisHeader does not support 'mock' chain. Mock chain generates its own genesis block.");
     }
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain)
+See also: [BlockHeader](#interface-blockheader), [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17794,10 +12547,10 @@ be valid by verified proof are represented solely by 'txid'.
 If `knownTxids` is defined, any 'txid' required by the `Beef` that appears in the array is represented solely as a 'known' txid.
 
 ```ts
-export async function getBeefForTransaction(storage: StorageProvider, txid: string, options: StorageGetBeefOptions): Promise<Beef> 
+export async function getBeefForTransaction(storage: StorageProvider, txid: string, options: StorageGetBeefOptions): Promise<Beef>
 ```
 
-See also: [StorageGetBeefOptions](./client.md#interface-storagegetbeefoptions), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageGetBeefOptions](#interface-storagegetbeefoptions), [StorageProvider](#class-storageprovider)
 
 Argument Details
 
@@ -17812,10 +12565,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: getBeefForTxid
 
 ```ts
-export async function getBeefForTxid(services: Services, txid: string): Promise<Beef> 
+export async function getBeefForTxid(services: Services, txid: string): Promise<Beef>
 ```
 
-See also: [Services](./services.md#class-services)
+See also: [Services](#class-services)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17823,10 +12576,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: getExchangeRatesIo
 
 ```ts
-export async function getExchangeRatesIo(key: string, symbols?: string[]): Promise<ExchangeRatesIoApi> 
+export async function getExchangeRatesIo(key: string, symbols?: string[], httpClient: HttpClient = createUndiciHttpClient()): Promise<ExchangeRatesIoApi>
 ```
 
-See also: [ExchangeRatesIoApi](./services.md#interface-exchangeratesioapi)
+See also: [ExchangeRatesIoApi](#interface-exchangeratesioapi), [createUndiciHttpClient](#function-createundicihttpclient)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17834,27 +12587,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: getIdentityKey
 
 ```ts
-export async function getIdentityKey(wallet: CertOpsWallet): Promise<PubKeyHex> 
+export async function getIdentityKey(wallet: CertOpsWallet): Promise<PubKeyHex>
 ```
 
-See also: [CertOpsWallet](./client.md#interface-certopswallet)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: getListOutputsSpecOp
-
-Check basket and tags arguments passed to listOutputs to determine if they trigger a special operation execution mode.
-
-```ts
-export function getListOutputsSpecOp(basket: string, tags: string[]): {
-    specOp: ListOutputsSpecOp | undefined;
-    basket?: string;
-    tags: string[];
-} 
-```
-
-See also: [ListOutputsSpecOp](./storage.md#interface-listoutputsspecop)
+See also: [CertOpsWallet](#interface-certopswallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17873,14 +12609,14 @@ depending on chaintracks succeeding on proof verification.
 Increments attempts if proofs where requested.
 
 ```ts
-export async function getProofs(task: WalletMonitorTask, reqs: TableProvenTxReq[], indent = 0, countsAsAttempt = false, ignoreStatus = false, maxAcceptableHeight: number): Promise<{
+export async function getProofs(task: WalletMonitorTask, reqs: TableProvenTxReq[], maxAcceptableHeight: number, indent = 0, countsAsAttempt = false, ignoreStatus = false): Promise<{
     proven: TableProvenTxReq[];
     invalid: TableProvenTxReq[];
     log: string;
-}> 
+}>
 ```
 
-See also: [TableProvenTxReq](./storage.md#interface-tableproventxreq), [WalletMonitorTask](./monitor.md#class-walletmonitortask)
+See also: [TableProvenTxReq](#interface-tableproventxreq), [WalletMonitorTask](#class-walletmonitortask)
 
 Returns
 
@@ -17894,10 +12630,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Gets the next sync chunk of updated data from un-remoted storage (could be using a remote DB connection).
 
 ```ts
-export async function getSyncChunk(storage: StorageReader, args: RequestSyncChunkArgs): Promise<SyncChunk> 
+export async function getSyncChunk(storage: StorageReader, args: RequestSyncChunkArgs): Promise<SyncChunk>
 ```
 
-See also: [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [SyncChunk](./client.md#interface-syncchunk)
+See also: [RequestSyncChunkArgs](#interface-requestsyncchunkargs), [StorageReader](#class-storagereader), [SyncChunk](#interface-syncchunk)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17905,57 +12641,74 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: getWhatsOnChainBlockHeaderByHash
 
 ```ts
-export async function getWhatsOnChainBlockHeaderByHash(hash: string, chain: Chain = "main", apiKey?: string): Promise<BlockHeader | undefined> 
+export async function getWhatsOnChainBlockHeaderByHash(hash: string, chain: Chain = "main", apiKey?: string): Promise<BlockHeader | undefined>
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [Chain](./client.md#type-chain)
+See also: [BlockHeader](#interface-blockheader), [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Function: importSingleOutpoint
+##### Function: handlePostRawTxErrorResponse
+
+Classify an error-status WoC response and mutate `r` accordingly.
 
 ```ts
-export async function importSingleOutpoint(wallet: WalletInterface, beef: Beef, beefBin: BEEF, parsed: ParsedOutpoint, p2pkhKey: KeyPairAddress, getUnlockP2PKH: (priv: KeyPairAddress["privateKey"], satoshis: number) => ScriptTemplateUnlock): Promise<string> 
+export function handlePostRawTxErrorResponse(r: PostTxResultForTxid, nne: () => Record<string, unknown>, response: {
+    data?: unknown;
+    statusText?: unknown;
+    status?: unknown;
+    ok?: boolean;
+}): void
 ```
 
-See also: [KeyPairAddress](./setup.md#interface-keypairaddress), [ParsedOutpoint](./client.md#interface-parsedoutpoint), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock)
+See also: [PostTxResultForTxid](#interface-posttxresultfortxid)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Function: internalizeAction
+##### Function: handleScriptHashHistoryCatch
 
-Internalize Action allows a wallet to take ownership of outputs in a pre-existing transaction.
-The transaction may, or may not already be known to both the storage and user.
-
-Two types of outputs are handled: "wallet payments" and "basket insertions".
-
-A "basket insertion" output is considered a custom output and has no effect on the wallet's "balance".
-
-A "wallet payment" adds an outputs value to the wallet's change "balance". These outputs are assigned to the "default" basket.
-
-Processing starts with simple validation and then checks for a pre-existing transaction.
-If the transaction is already known to the user, then the outputs are reviewed against the existing outputs treatment,
-and merge rules are added to the arguments passed to the storage layer.
-The existing transaction must be in the 'unproven' or 'completed' status. Any other status is an error.
-
-When the transaction already exists, the description is updated. The isOutgoing sense is not changed.
-
-"basket insertion" Merge Rules:
-1. The "default" basket may not be specified as the insertion basket.
-2. A change output in the "default" basket may not be target of an insertion into a different basket.
-3. These baskets do not affect the wallet's balance and are typed "custom".
-
-"wallet payment" Merge Rules:
-1. Targetting an existing change "default" basket output results in a no-op. No error. No alterations made.
-2. Targetting a previously "custom" non-change output converts it into a change output. This alters the transaction's `satoshis`, and the wallet balance.
+Decide whether a caught error is retryable for script-hash history calls.
+If not retryable, sets `r.error` and returns false.
 
 ```ts
-export async function internalizeAction(storage: StorageProvider, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
+export function handleScriptHashHistoryCatch(r: GetScriptHashHistoryResult, error_: unknown, url: string, methodName: string, retry: number, maxRetry: number): boolean
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProvider](./storage.md#class-storageprovider)
+See also: [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: handleScriptHashHistoryResponse
+
+Inspect a WoC script-hash history response and update `r` in-place.
+
+Returns:
+ - `'continue'`  — rate-limited, caller should retry
+ - `'return'`    — done, caller should return `r`
+ - `'ok'`        — response was successful, continue parsing
+
+```ts
+export function handleScriptHashHistoryResponse(r: GetScriptHashHistoryResult, response: ScriptHashHistoryResponse, methodName: string, retry: number): "continue" | "return" | "ok"
+```
+
+See also: [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult), [ScriptHashHistoryResponse](#interface-scripthashhistoryresponse)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: handleUtxoConnReset
+
+Decide whether the ECONNRESET error is retryable and, if not, set `r.error`.
+Returns true when the caller should retry, false when it should return.
+
+```ts
+export function handleUtxoConnReset(r: GetUtxoStatusResult, error_: unknown, url: string, retry: number, maxRetry: number): boolean
+```
+
+See also: [GetUtxoStatusResult](#interface-getutxostatusresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -17988,10 +12741,46 @@ When the transaction already exists, the description is updated. The isOutgoing 
 2. Targetting a previously "custom" non-change output converts it into a change output. This alters the transaction's `amount`, and the wallet balance.
 
 ```ts
-export async function internalizeAction(wallet: Wallet, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
+export async function internalizeAction(wallet: Wallet, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [Wallet](./client.md#class-wallet)
+See also: [AuthId](#interface-authid), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [Wallet](#class-wallet)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: internalizeAction
+
+Internalize Action allows a wallet to take ownership of outputs in a pre-existing transaction.
+The transaction may, or may not already be known to both the storage and user.
+
+Two types of outputs are handled: "wallet payments" and "basket insertions".
+
+A "basket insertion" output is considered a custom output and has no effect on the wallet's "balance".
+
+A "wallet payment" adds an outputs value to the wallet's change "balance". These outputs are assigned to the "default" basket.
+
+Processing starts with simple validation and then checks for a pre-existing transaction.
+If the transaction is already known to the user, then the outputs are reviewed against the existing outputs treatment,
+and merge rules are added to the arguments passed to the storage layer.
+The existing transaction must be in the 'unproven' or 'completed' status. Any other status is an error.
+
+When the transaction already exists, the description is updated. The isOutgoing sense is not changed.
+
+"basket insertion" Merge Rules:
+1. The "default" basket may not be specified as the insertion basket.
+2. A change output in the "default" basket may not be target of an insertion into a different basket.
+3. These baskets do not affect the wallet's balance and are typed "custom".
+
+"wallet payment" Merge Rules:
+1. Targetting an existing change "default" basket output results in a no-op. No error. No alterations made.
+2. Targetting a previously "custom" non-change output converts it into a change output. This alters the transaction's `satoshis`, and the wallet balance.
+
+```ts
+export async function internalizeAction(storage: StorageProvider, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
+```
+
+See also: [AuthId](#interface-authid), [StorageInternalizeActionResult](#interface-storageinternalizeactionresult), [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18001,12 +12790,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Type guard function.
 
 ```ts
-export function isBaseBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader): header is BaseBlockHeader {
+export function isBaseBlockHeader(header: AnyBlockHeader): header is BaseBlockHeader {
     return typeof header.previousHash === "string";
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [AnyBlockHeader](#type-anyblockheader), [BaseBlockHeader](#interface-baseblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18016,12 +12805,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Type guard function.
 
 ```ts
-export function isBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader): header is LiveBlockHeader {
+export function isBlockHeader(header: AnyBlockHeader): header is LiveBlockHeader {
     return "height" in header && typeof header.previousHash === "string";
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [AnyBlockHeader](#type-anyblockheader), [LiveBlockHeader](#interface-liveblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18029,7 +12818,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: isCreateActionSpecOp
 
 ```ts
-export function isCreateActionSpecOp(label: string): boolean 
+export function isCreateActionSpecOp(label: string): boolean
 ```
 
 Returns
@@ -18066,24 +12855,23 @@ The following properties must match:
 
 ```ts
 export function isKnownValidBulkHeaderFile(vbf: BulkHeaderFileInfo): boolean {
-    if (!vbf || !vbf.fileHash)
+    if (!vbf?.fileHash)
         return false;
     const bf = validBulkHeaderFilesByFileHash()[vbf.fileHash];
-    if (!bf ||
-        bf.firstHeight !== vbf.firstHeight ||
-        bf.count !== vbf.count ||
-        bf.prevChainWork !== vbf.prevChainWork ||
-        bf.prevHash !== vbf.prevHash ||
-        bf.lastChainWork !== vbf.lastChainWork ||
-        bf.lastHash !== vbf.lastHash ||
-        bf.chain !== vbf.chain) {
+    if (bf?.firstHeight !== vbf.firstHeight ||
+        bf?.count !== vbf.count ||
+        bf?.prevChainWork !== vbf.prevChainWork ||
+        bf?.prevHash !== vbf.prevHash ||
+        bf?.lastChainWork !== vbf.lastChainWork ||
+        bf?.lastHash !== vbf.lastHash ||
+        bf?.chain !== vbf.chain) {
         return false;
     }
     return true;
 }
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [validBulkHeaderFilesByFileHash](./services.md#function-validbulkheaderfilesbyfilehash)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [validBulkHeaderFilesByFileHash](#function-validbulkheaderfilesbyfilehash)
 
 Returns
 
@@ -18095,7 +12883,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: isListActionsSpecOp
 
 ```ts
-export function isListActionsSpecOp(label: string): boolean 
+export function isListActionsSpecOp(label: string): boolean
 ```
 
 Returns
@@ -18113,7 +12901,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: isListOutputsSpecOp
 
 ```ts
-export function isListOutputsSpecOp(basket: string): boolean 
+export function isListOutputsSpecOp(basket: string): boolean
 ```
 
 Returns
@@ -18138,7 +12926,7 @@ export function isLive(header: BlockHeader | LiveBlockHeader): header is LiveBlo
 }
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18148,12 +12936,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Type guard function.
 
 ```ts
-export function isLiveBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader): header is LiveBlockHeader {
+export function isLiveBlockHeader(header: AnyBlockHeader): header is LiveBlockHeader {
     return "chainwork" in header && typeof header.previousHash === "string";
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [BlockHeader](./client.md#interface-blockheader), [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [AnyBlockHeader](#type-anyblockheader), [LiveBlockHeader](#interface-liveblockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18163,7 +12951,16 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Returns true if work1 is more work (greater than) work2
 
 ```ts
-export function isMoreWork(work1: string, work2: string): boolean 
+export function isMoreWork(work1: string, work2: string): boolean
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: isWalletToolboxOwnedHttpClient
+
+```ts
+export function isWalletToolboxOwnedHttpClient(client: unknown): boolean
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18175,19 +12972,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function keyOffsetToHashedSecret(pub: PublicKey, keyOffset?: string): {
     hashedSecret: BigNumber;
     keyOffset: string;
-} 
+}
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: listActionsIdb
-
-```ts
-export async function listActionsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-```
-
-See also: [AuthId](./client.md#interface-authid), [StorageIdb](./storage.md#class-storageidb)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18195,21 +12981,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listCertificates
 
 ```ts
-export async function listCertificates(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult> 
+export async function listCertificates(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: listOutputsIdb
-
-```ts
-export async function listOutputsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
-```
-
-See also: [AuthId](./client.md#interface-authid), [StorageIdb](./storage.md#class-storageidb)
+See also: [AuthId](#interface-authid), [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18220,7 +12995,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function lockScriptWithKeyOffsetFromPubKey(pubKey: string, keyOffset?: string): {
     script: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18229,7 +13004,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: logCreateActionArgs
 
 ```ts
-export function logCreateActionArgs(args: CreateActionArgs): object 
+export function logCreateActionArgs(args: CreateActionArgs): object
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18238,10 +13013,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: logWalletError
 
 ```ts
-export function logWalletError(eu: unknown, logger?: WalletLoggerInterface, label?: string): void 
+export function logWalletError(eu: unknown, logger?: WalletLoggerInterface, label?: string): void
 ```
 
-See also: [logger](./client.md#variable-logger)
+See also: [logger](#variable-logger)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18249,16 +13024,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: makeAtomicBeef
 
 ```ts
-export function makeAtomicBeef(tx: Transaction, beef: number[] | Beef): number[] 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: makeBrc114ActionTimeLabel
-
-```ts
-export function makeBrc114ActionTimeLabel(unixMillis: number): string 
+export function makeAtomicBeef(tx: Transaction, beef: number[] | Beef): number[]
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18269,10 +13035,84 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Derive a change output locking script
 
 ```ts
-export function makeChangeLock(out: StorageCreateTransactionSdkOutput, dctr: StorageCreateActionResult, args: Validation.ValidCreateActionArgs, changeKeys: KeyPair, wallet: Wallet): Script 
+export function makeChangeLock(out: StorageCreateTransactionSdkOutput, dctr: StorageCreateActionResult, args: Validation.ValidCreateActionArgs, changeKeys: KeyPair, wallet: Wallet): Script
 ```
 
-See also: [KeyPair](./client.md#interface-keypair), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageCreateTransactionSdkOutput](./client.md#interface-storagecreatetransactionsdkoutput), [Wallet](./client.md#class-wallet)
+See also: [KeyPair](#interface-keypair), [StorageCreateActionResult](#interface-storagecreateactionresult), [StorageCreateTransactionSdkOutput](#interface-storagecreatetransactionsdkoutput), [Wallet](#class-wallet)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: makeMerklePathNote
+
+```ts
+export function makeMerklePathNote(what: MerklePathNoteWhat, name: string, extra: Partial<MerklePathNote> = {}): MerklePathNote
+```
+
+See also: [MerklePathNote](#interface-merklepathnote), [MerklePathNoteWhat](#type-merklepathnotewhat)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: markStaleInputsAsSpent
+
+After any failed broadcast (doubleSpend, invalidTx, etc.), query each
+consumed-input outpoint of the failed transaction against on-chain
+UTXO state. For inputs the chain authoritatively confirms are spent
+(i.e. NOT a UTXO), update the corresponding wallet basket entry to
+spendable=false.
+
+Background: `updateTransactionStatus(failed)` optimistically restores
+all consumed-input outputs to spendable=true so the user can retry
+with the same inputs. For some failures (genuine doubleSpend, or any
+'missing-inputs' outcome where the input has been spent on chain by
+a different transaction), restoration is incorrect — the input is
+gone and restoring it produces an infinite missing-inputs loop on
+the next createAction → broadcast cycle. Apps cannot evict from the
+default basket on app-isolated wallets (admin-only policy), so this
+self-heal must run inside the wallet.
+
+Different broadcasters classify the same on-chain reality differently
+(ARC → doubleSpend, WhatsOnChain/Bitails → invalidTx via
+'missing-inputs'); this helper is broadcaster-agnostic because its
+decision is based on services.isUtxo, not the aggregate failure
+classification.
+
+Pre-broadcast races where concurrent createActions reach the same
+UTXO across separate app processes are out of scope; see PR
+description.
+
+Conservatively scoped:
+  - Only inputs found in the failing user's basket are touched.
+  - Inputs whose on-chain UTXO status cannot be determined (service
+    error / inconclusive) are left spendable=true. Eviction is opt-in
+    based on positive evidence of stale state.
+  - Inputs the chain confirms are still UTXOs (e.g. a competing tx
+    itself failed, or a malformed/fee failure where inputs are intact)
+    are left spendable=true — preserving the existing transient-retry
+    semantics callers depend on.
+
+Returns counts for instrumentation and the set of stale outpoints
+that were actually evicted (added to history note for diagnostics).
+
+```ts
+export async function markStaleInputsAsSpent(ar: AggregatePostBeefTxResult, storage: StorageProvider, services: sdk.WalletServices, trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<{
+    checked: number;
+    staleConfirmed: number;
+    staleOutpoints: string[];
+}>
+```
+
+See also: [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult), [StorageProvider](#class-storageprovider), [TrxToken](#interface-trxtoken), [WalletServices](#interface-walletservices), [logger](#variable-logger)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: markWalletToolboxOwnedHttpClient
+
+```ts
+export function markWalletToolboxOwnedHttpClient<T extends object>(client: T): T
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18280,8 +13120,58 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: maxDate
 
 ```ts
-export function maxDate(d1?: Date, d2?: Date): Date | undefined 
+export function maxDate(d1?: Date, d2?: Date): Date | undefined
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: mergeInputBeefs
+
+For each input of `rawTx`, ensure the source txid is represented in `beef`.
+
+When `requiredLevels` is undefined/0 and `knownTxids` contains the source txid,
+a txid-only stub is merged rather than recursing into storage.
+
+```ts
+export async function mergeInputBeefs(rawTx: number[], beef: Beef, trustSelf: "known" | undefined, knownTxids: string[] | undefined, trx: TrxToken | undefined, requiredLevels: number | undefined, getValidBeef: (txid: string, beef: Beef, trustSelf: "known" | undefined, knownTxids: string[] | undefined, trx: TrxToken | undefined, requiredLevels: number | undefined) => Promise<unknown>): Promise<void>
+```
+
+See also: [TrxToken](#interface-trxtoken)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: mergeInputsIntoBeef
+
+Convenience wrapper for the external-sharing path where `trustSelf` and
+`requiredLevels` are always absent.
+
+```ts
+export async function mergeInputsIntoBeef(rawTx: number[], beef: Beef, knownTxids: string[], trx: TrxToken | undefined, getValidBeef: (txid: string, beef: Beef, trustSelf: undefined, knownTxids: string[], trx: TrxToken | undefined) => Promise<unknown>): Promise<void>
+```
+
+See also: [TrxToken](#interface-trxtoken)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: notifyTransactionsOfProof
+
+Notify each transaction that a proof has been found.
+Mutates `req` history notes in place.
+
+The `addNote` and `flushNotes` callbacks avoid coupling this helper to a
+specific entity type.
+
+```ts
+export async function notifyTransactionsOfProof(ids: number[], provenTxId: number, addNote: (note: ReqHistoryNote) => void, flushNotes: () => Promise<void>, updateTransaction: (id: number, update: {
+    provenTxId: number;
+    status: "completed";
+}) => Promise<unknown>): Promise<void>
+```
+
+See also: [ReqHistoryNote](#interface-reqhistorynote)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18292,7 +13182,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function offsetPrivKey(privKey: string, keyOffset?: string): {
     offsetPrivKey: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18304,7 +13194,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function offsetPubKey(pubKey: string, keyOffset?: string): {
     offsetPubKey: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18313,42 +13203,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: optionalArraysEqual
 
 ```ts
-export function optionalArraysEqual(arr1?: Number[], arr2?: Number[]) 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: parseBrc114ActionTimeLabels
-
-```ts
-export function parseBrc114ActionTimeLabels(labels: string[] | undefined): ParsedBrc114ActionTimeLabels 
-```
-
-See also: [ParsedBrc114ActionTimeLabels](./client.md#type-parsedbrc114actiontimelabels)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: parseOutpoint
-
-Strictly parse an outpoint string into txid and vout components.
-
-```ts
-export function parseOutpoint(s: string): ParsedOutpoint 
-```
-
-See also: [ParsedOutpoint](./client.md#interface-parsedoutpoint)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: parseTxAndAssertId
-
-Parse raw hex into a Transaction and assert its hash matches the expected txid.
-
-```ts
-export function parseTxAndAssertId(rawHex: string, expectedTxid: string): Transaction 
+export function optionalArraysEqual(arr1?: Number[], arr2?: Number[])
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18357,10 +13212,28 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: parseTxScriptOffsets
 
 ```ts
-export function parseTxScriptOffsets(rawTx: number[]): TxScriptOffsets 
+export function parseTxScriptOffsets(rawTx: number[]): TxScriptOffsets
 ```
 
-See also: [TxScriptOffsets](./client.md#interface-txscriptoffsets)
+See also: [TxScriptOffsets](#interface-txscriptoffsets)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: populateUtxoDetails
+
+Populate UTXO details from a WoC result array
+
+```ts
+export function populateUtxoDetails(r: GetUtxoStatusResult, result: Array<{
+    tx_hash: string;
+    value: number;
+    height: number;
+    tx_pos: number;
+}>, outpoint?: string): void
+```
+
+See also: [GetUtxoStatusResult](#interface-getutxostatusresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18368,10 +13241,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: processAction
 
 ```ts
-export async function processAction(storage: StorageProvider, auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
+export async function processAction(prior: PendingSignAction | undefined, wallet: Wallet, auth: AuthId, vargs: Validation.ValidProcessActionArgs): Promise<StorageProcessActionResults>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvider](./storage.md#class-storageprovider)
+See also: [AuthId](#interface-authid), [PendingSignAction](#interface-pendingsignaction), [StorageProcessActionResults](#interface-storageprocessactionresults), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18379,10 +13252,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: processAction
 
 ```ts
-export async function processAction(prior: PendingSignAction | undefined, wallet: Wallet, auth: AuthId, vargs: Validation.ValidProcessActionArgs): Promise<StorageProcessActionResults> 
+export async function processAction(storage: StorageProvider, auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [PendingSignAction](./client.md#interface-pendingsignaction), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [Wallet](./client.md#class-wallet)
+See also: [AuthId](#interface-authid), [StorageProcessActionArgs](#interface-storageprocessactionargs), [StorageProcessActionResults](#interface-storageprocessactionresults), [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18390,21 +13263,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: proveCertificate
 
 ```ts
-export async function proveCertificate(wallet: Wallet, auth: AuthId, vargs: Validation.ValidProveCertificateArgs): Promise<ProveCertificateResult> 
+export async function proveCertificate(wallet: Wallet, auth: AuthId, vargs: Validation.ValidProveCertificateArgs): Promise<ProveCertificateResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [Wallet](./client.md#class-wallet)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: purgeDataIdb
-
-```ts
-export async function purgeDataIdb(storage: StorageIdb, params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
-```
-
-See also: [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [StorageIdb](./storage.md#class-storageidb), [TrxToken](./client.md#interface-trxtoken)
+See also: [AuthId](#interface-authid), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18412,7 +13274,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: randomBytes
 
 ```ts
-export function randomBytes(count: number): number[] 
+export function randomBytes(count: number): number[]
 ```
 
 Returns
@@ -18425,7 +13287,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: randomBytesBase64
 
 ```ts
-export function randomBytesBase64(count: number): string 
+export function randomBytesBase64(count: number): string
 ```
 
 Returns
@@ -18438,7 +13300,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: randomBytesHex
 
 ```ts
-export function randomBytesHex(count: number): string 
+export function randomBytesHex(count: number): string
 ```
 
 Returns
@@ -18451,7 +13313,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: readUInt32BE
 
 ```ts
-export function readUInt32BE(a: number[] | Uint8Array, offset: number): number 
+export function readUInt32BE(a: number[] | Uint8Array, offset: number): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18460,7 +13322,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: readUInt32LE
 
 ```ts
-export function readUInt32LE(a: number[] | Uint8Array, offset: number): number 
+export function readUInt32LE(a: number[] | Uint8Array, offset: number): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18469,41 +13331,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: redeemServiceCharges
 
 ```ts
-export function redeemServiceCharges(privateKeyWif: string, charges: TableCommission[]): {}[] 
+export function redeemServiceCharges(privateKeyWif: string, charges: TableCommission[]): Array<{}>
 ```
 
-See also: [TableCommission](./storage.md#interface-tablecommission)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: resolveAutoSigned
-
-```ts
-export function resolveAutoSigned(car: CreateActionResult, txid: string, vout: number): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: reviewStatusIdb
-
-Looks for unpropagated state:
-
-1. set transactions to 'failed' if not already failed and provenTxReq with matching txid has status of 'invalid'.
-2. sets transactions to 'completed' if provenTx with matching txid exists and current provenTxId is null.
-3. sets outputs to spendable true, spentBy undefined if spentBy is a transaction with status 'failed'.
-
-```ts
-export async function reviewStatusIdb(storage: StorageIdb, args: {
-    agedLimit: Date;
-    trx?: sdk.TrxToken;
-}): Promise<{
-    log: string;
-}> 
-```
-
-See also: [StorageIdb](./storage.md#class-storageidb), [TrxToken](./client.md#interface-trxtoken)
+See also: [TableCommission](#interface-tablecommission)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18511,10 +13342,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: selectBulkHeaderFiles
 
 ```ts
-export function selectBulkHeaderFiles(files: BulkHeaderFileInfo[], chain: Chain, maxPerFile: number): BulkHeaderFileInfo[] 
+export function selectBulkHeaderFiles(files: BulkHeaderFileInfo[], chain: Chain, maxPerFile: number): BulkHeaderFileInfo[]
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [Chain](./client.md#type-chain)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18536,7 +13367,7 @@ export function serializeBaseBlockHeader(header: BaseBlockHeader, buffer?: numbe
     writer.writeUInt32LE(header.bits);
     writer.writeUInt32LE(header.nonce);
     const data = writer.toArray();
-    if (buffer) {
+    if (buffer != null) {
         offset ||= 0;
         for (let i = 0; i < data.length; i++) {
             if (offset + i >= buffer.length) {
@@ -18549,7 +13380,7 @@ export function serializeBaseBlockHeader(header: BaseBlockHeader, buffer?: numbe
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [asArray](./client.md#function-asarray), [writeUInt32LE](./services.md#function-writeuint32le)
+See also: [BaseBlockHeader](#interface-baseblockheader), [asArray](#function-asarray), [writeUInt32LE](#function-writeuint32le)
 
 Returns
 
@@ -18561,10 +13392,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: serializeBaseBlockHeaders
 
 ```ts
-export function serializeBaseBlockHeaders(headers: BlockHeader[]): Uint8Array 
+export function serializeBaseBlockHeaders(headers: BlockHeader[]): Uint8Array
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18572,7 +13403,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: setDisableDoubleSpendCheckForTest
 
 ```ts
-export function setDisableDoubleSpendCheckForTest(v: boolean) 
+export function setDisableDoubleSpendCheckForTest(v: boolean)
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18592,7 +13423,7 @@ export function sha256Hash(data: number[] | Uint8Array): number[] {
 }
 ```
 
-See also: [asArray](./client.md#function-asarray)
+See also: [asArray](#function-asarray)
 
 Returns
 
@@ -18609,10 +13440,10 @@ Computes sha256 hash of file contents read as bytes with no encoding.
 export async function sha256HashOfBinaryFile(fs: ChaintracksFsApi, filepath: string, bufferSize = 80000): Promise<{
     hash: string;
     length: number;
-}> 
+}>
 ```
 
-See also: [ChaintracksFsApi](./services.md#interface-chaintracksfsapi)
+See also: [ChaintracksFsApi](#interface-chaintracksfsapi)
 
 Returns
 
@@ -18630,23 +13461,14 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 ##### Function: shareReqsWithWorld
 
-Verifies that all the txids are known reqs with ready-to-share status.
-Assigns a batch identifier and updates all the provenTxReqs.
-If not isDelayed, triggers an initial attempt to broadcast the batch and returns the results.
-
 ```ts
 export async function shareReqsWithWorld(storage: StorageProvider, userId: number, txids: string[], isDelayed: boolean, r?: GetReqsAndBeefResult, logger?: WalletLoggerInterface): Promise<{
     swr: SendWithResult[];
     ndr: ReviewActionResult[] | undefined;
-}> 
+}>
 ```
 
-See also: [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [ReviewActionResult](./client.md#interface-reviewactionresult), [StorageProvider](./storage.md#class-storageprovider), [logger](./client.md#variable-logger)
-
-Argument Details
-
-+ **r**
-  + Optional. Ignores txids and allows ProvenTxReqs and merged beef to be passed in.
+See also: [GetReqsAndBeefResult](#interface-getreqsandbeefresult), [ReviewActionResult](#interface-reviewactionresult), [StorageProvider](#class-storageprovider), [logger](#variable-logger)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18654,21 +13476,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: signAction
 
 ```ts
-export async function signAction(wallet: Wallet, auth: AuthId, args: SignActionArgs): Promise<SignActionResultX> 
+export async function signAction(wallet: Wallet, auth: AuthId, args: SignActionArgs): Promise<SignActionResultX>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [SignActionResultX](./client.md#interface-signactionresultx), [Wallet](./client.md#class-wallet)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: signAndComplete
-
-```ts
-export async function signAndComplete(wallet: WalletInterface, st: SignableTransaction, txid: string, vout: number, satoshis: number, p2pkhKey: KeyPairAddress, getUnlockP2PKH: (priv: KeyPairAddress["privateKey"], satoshis: number) => ScriptTemplateUnlock): Promise<string> 
-```
-
-See also: [KeyPairAddress](./setup.md#interface-keypairaddress), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock)
+See also: [AuthId](#interface-authid), [SignActionResultX](#interface-signactionresultx), [Wallet](#class-wallet)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18680,7 +13491,7 @@ If a log is being kept, add a time stamped line.
 ```ts
 export function stampLog(log: string | undefined | {
     log?: string;
-}, lineToAdd: string): string | undefined 
+}, lineToAdd: string): string | undefined
 ```
 
 Returns
@@ -18704,7 +13515,7 @@ Looks for two network crossings and adjusts clock for clock skew if found.
 Assumes log built by repeated calls to `stampLog`
 
 ```ts
-export function stampLogFormat(log?: string): string 
+export function stampLogFormat(log?: string): string
 ```
 
 Returns
@@ -18724,12 +13535,23 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Subtract Buffer encoded chainwork values
 
 ```ts
-export function subWork(work1: string, work2: string): string 
+export function subWork(work1: string, work2: string): string
 ```
 
 Returns
 
 work1 - work2 as Buffer encoded chainWork value
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: summarizePostBeefProviderAttemptsForTxid
+
+```ts
+export function summarizePostBeefProviderAttemptsForTxid(txid: string, pbrs: sdk.PostBeefResult[]): string[]
+```
+
+See also: [PostBeefResult](#interface-postbeefresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18756,7 +13578,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Throws a WERR_REVIEW_ACTIONS with a full set of properties to test data formats and propagation.
 
 ```ts
-export function throwDummyReviewActions() 
+export function throwDummyReviewActions()
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -18783,7 +13605,7 @@ export function toBinaryBaseBlockHeader(header: BaseBlockHeader): number[] {
 }
 ```
 
-See also: [BaseBlockHeader](./client.md#interface-baseblockheader), [asArray](./client.md#function-asarray), [writeUInt32LE](./services.md#function-writeuint32le)
+See also: [BaseBlockHeader](#interface-baseblockheader), [asArray](#function-asarray), [writeUInt32LE](#function-writeuint32le)
 
 Returns
 
@@ -18798,10 +13620,10 @@ Maps a Chain to a network preset suitable for LookupResolver / SHIPBroadcaster.
 Unlike `toWalletNetwork`, this returns `'local'` for `mock` chain.
 
 ```ts
-export function toLookupNetworkPreset(chain: Chain): "mainnet" | "testnet" | "local" 
+export function toLookupNetworkPreset(chain: Chain): "mainnet" | "testnet" | "local"
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18809,10 +13631,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: toWalletNetwork
 
 ```ts
-export function toWalletNetwork(chain: Chain): WalletNetwork 
+export function toWalletNetwork(chain: Chain): WalletNetwork
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18820,7 +13642,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: transactionInputSize
 
 ```ts
-export function transactionInputSize(scriptSize: number): number 
+export function transactionInputSize(scriptSize: number): number
 ```
 
 Returns
@@ -18838,7 +13660,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: transactionOutputSize
 
 ```ts
-export function transactionOutputSize(scriptSize: number): number 
+export function transactionOutputSize(scriptSize: number): number
 ```
 
 Returns
@@ -18860,7 +13682,7 @@ given the number of inputs and outputs,
 and the size of each script.
 
 ```ts
-export function transactionSize(inputs: number[], outputs: number[]): number 
+export function transactionSize(inputs: number[], outputs: number[]): number
 ```
 
 Returns
@@ -18880,10 +13702,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: updateChaintracksFiatExchangeRates
 
 ```ts
-export async function updateChaintracksFiatExchangeRates(targetCurrencies: string[], options: WalletServicesOptions): Promise<FiatExchangeRates> 
+export async function updateChaintracksFiatExchangeRates(targetCurrencies: string[], options: WalletServicesOptions): Promise<FiatExchangeRates>
 ```
 
-See also: [FiatExchangeRates](./client.md#interface-fiatexchangerates), [WalletServicesOptions](./client.md#interface-walletservicesoptions)
+See also: [FiatExchangeRates](#interface-fiatexchangerates), [WalletServicesOptions](#interface-walletservicesoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18891,10 +13713,40 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: updateExchangeratesapi
 
 ```ts
-export async function updateExchangeratesapi(targetCurrencies: string[], options: WalletServicesOptions): Promise<FiatExchangeRates> 
+export async function updateExchangeratesapi(targetCurrencies: string[], options: WalletServicesOptions): Promise<FiatExchangeRates>
 ```
 
-See also: [FiatExchangeRates](./client.md#interface-fiatexchangerates), [WalletServicesOptions](./client.md#interface-walletservicesoptions)
+See also: [FiatExchangeRates](#interface-fiatexchangerates), [WalletServicesOptions](#interface-walletservicesoptions)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: updateReqsFromAggregateResults
+
+For each txid in submitted `txids`:
+
+  Based on its aggregate status, and whether broadcast happening in background (isDelayed) or immediately (!isDelayed),
+  and iff current req.status is not 'unproven' or 'completed':
+
+    'success':
+      req.status => 'unmined', tx.status => 'unproven'
+    'doubleSpend':
+      req.status => 'doubleSpend', tx.status => 'failed'
+    'invalidTx':
+      req.status => 'invalid', tx.status => 'failed'
+    'serviceError':
+      increment req.attempts
+
+```ts
+export async function updateReqsFromAggregateResults(txids: string[], r: PostReqsToNetworkResult, apbrs: Record<string, AggregatePostBeefTxResult>, storage: StorageProvider, services?: sdk.WalletServices, trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<void>
+```
+
+See also: [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [StorageProvider](#class-storageprovider), [TrxToken](#interface-trxtoken), [WalletServices](#interface-walletservices), [logger](#variable-logger)
+
+Argument Details
+
++ **services**
+  + if valid, doubleSpend results will be verified (but only if not within a trx. e.g. trx must be undefined)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18904,10 +13756,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Hash map of known valid bulk header files by their `fileHash`.
 
 ```ts
-export function validBulkHeaderFilesByFileHash(): Record<string, BulkHeaderFileInfo> 
+export function validBulkHeaderFilesByFileHash(): Record<string, BulkHeaderFileInfo>
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 Returns
 
@@ -18921,10 +13773,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Throws Error if blockHash is in the dirtyHashes list.
 
 ```ts
-export function validateAgainstDirtyHashes(blockHash: string): void 
+export function validateAgainstDirtyHashes(blockHash: string): void
 ```
 
-See also: [blockHash](./services.md#function-blockhash)
+See also: [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -18938,7 +13790,7 @@ Validate headers contained in an array of bytes. The headers must be consecutive
 export function validateBufferOfHeaders(buffer: Uint8Array, previousHash: string, offset = 0, count = -1, previousChainWork?: string): {
     lastHeaderHash: string;
     lastChainWork: string | undefined;
-} 
+}
 ```
 
 Returns
@@ -18964,10 +13816,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Validates the contents of a bulk header file.
 
 ```ts
-export async function validateBulkFileData(bf: BulkHeaderFileInfo, prevHash: string, prevChainWork: string, fetch?: ChaintracksFetchApi): Promise<BulkHeaderFileInfo> 
+export async function validateBulkFileData(bf: BulkHeaderFileInfo, prevHash: string, prevChainWork: string, fetch?: ChaintracksFetchApi): Promise<BulkHeaderFileInfo>
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo), [ChaintracksFetchApi](./services.md#interface-chaintracksfetchapi)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo), [ChaintracksFetchApi](#interface-chaintracksfetchapi)
 
 Returns
 
@@ -18987,13 +13839,62 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Function: validateDate
+
+Shared entity-validation helpers used by both client-side storage remoting
+(StorageClientBase / StorageMobile) and the server-side StorageServer.
+
+These helpers normalise records returned from remote calls or database queries:
+  - Coerce date strings / timestamps to `Date` objects.
+  - Replace `null` values with `undefined`.
+  - Replace `Uint8Array` / `Buffer` values with plain `number[]` arrays.
+
+```ts
+export function validateDate(date: Date | string | number): Date
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateEntities
+
+Force uniform behaviour across database engines.
+Use to process all arrays of records with timestamps retrieved from database.
+
+```ts
+export function validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
+```
+
+See also: [EntityTimeStamp](#interface-entitytimestamp)
+
+Returns
+
+input `entities` array with contained values validated.
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateEntity
+
+Force uniform behaviour across database engines.
+Use to process all individual records with timestamps retrieved from database.
+
+```ts
+export function validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
+```
+
+See also: [EntityTimeStamp](#interface-entitytimestamp)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Function: validateGenerateChangeSdkParams
 
 ```ts
-export function validateGenerateChangeSdkParams(params: GenerateChangeSdkParams): ValidateGenerateChangeSdkParamsResult 
+export function validateGenerateChangeSdkParams(params: GenerateChangeSdkParams): ValidateGenerateChangeSdkParamsResult
 ```
 
-See also: [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [ValidateGenerateChangeSdkParamsResult](./storage.md#interface-validategeneratechangesdkparamsresult)
+See also: [GenerateChangeSdkParams](#interface-generatechangesdkparams), [ValidateGenerateChangeSdkParamsResult](#interface-validategeneratechangesdkparamsresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19004,10 +13905,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateGenerateChangeSdkResult(params: GenerateChangeSdkParams, r: GenerateChangeSdkResult): {
     ok: boolean;
     log: string;
-} 
+}
 ```
 
-See also: [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [GenerateChangeSdkResult](./storage.md#interface-generatechangesdkresult)
+See also: [GenerateChangeSdkParams](#interface-generatechangesdkparams), [GenerateChangeSdkResult](#interface-generatechangesdkresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19017,10 +13918,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Verifies that buffer begins with valid genesis block header for the specified chain.
 
 ```ts
-export function validateGenesisHeader(buffer: Uint8Array, chain: Chain): void 
+export function validateGenesisHeader(buffer: Uint8Array, chain: Chain): void
 ```
 
-See also: [Chain](./client.md#type-chain)
+See also: [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19031,7 +13932,7 @@ Ensures that a header has a valid proof-of-work
 Requires chain is 'main'
 
 ```ts
-export function validateHeaderDifficulty(hash: Buffer, bits: number) 
+export function validateHeaderDifficulty(hash: Buffer, bits: number)
 ```
 
 Returns
@@ -19054,10 +13955,10 @@ check its difficulty or validity relative to the chain of headers.
 Throws on format errors.
 
 ```ts
-export function validateHeaderFormat(header: BlockHeader): void 
+export function validateHeaderFormat(header: BlockHeader): void
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Returns
 
@@ -19074,10 +13975,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: validateScriptHash
 
 ```ts
-export function validateScriptHash(output: string, outputFormat?: GetUtxoStatusOutputFormat): string 
+export function validateScriptHash(output: string, outputFormat?: GetUtxoStatusOutputFormat): string
 ```
 
-See also: [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat)
+See also: [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19085,7 +13986,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: validateSecondsSinceEpoch
 
 ```ts
-export function validateSecondsSinceEpoch(time: number): Date 
+export function validateSecondsSinceEpoch(time: number): Date
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19094,10 +13995,24 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: validateStorageFeeModel
 
 ```ts
-export function validateStorageFeeModel(v?: StorageFeeModel): StorageFeeModel 
+export function validateStorageFeeModel(v?: StorageFeeModel): StorageFeeModel
 ```
 
-See also: [StorageFeeModel](./client.md#interface-storagefeemodel)
+See also: [StorageFeeModel](#interface-storagefeemodel)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateSyncChunkEntities
+
+Validate all entity arrays within a `SyncChunk` received from a remote storage call.
+Normalises timestamps, nulls, and binary fields in-place.
+
+```ts
+export function validateSyncChunkEntities(r: SyncChunk): SyncChunk
+```
+
+See also: [SyncChunk](#interface-syncchunk)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19110,11 +14025,17 @@ Returns the byte size required to encode number as Bitcoin VarUint
 export function varUintSize(val: number): 1 | 3 | 5 | 9 {
     if (val < 0)
         throw new WERR_INVALID_PARAMETER("varUint", "non-negative");
-    return val <= 252 ? 1 : val <= 65535 ? 3 : val <= 4294967295 ? 5 : 9;
+    if (val <= 252)
+        return 1;
+    if (val <= 65535)
+        return 3;
+    if (val <= 4294967295)
+        return 5;
+    return 9;
 }
 ```
 
-See also: [WERR_INVALID_PARAMETER](./client.md#class-werr_invalid_parameter)
+See also: [WERR_INVALID_PARAMETER](#class-werr_invalid_parameter)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19126,7 +14047,7 @@ Helper function.
 Verifies that a hex string is trimmed and lower case.
 
 ```ts
-export function verifyHexString(v: string): string 
+export function verifyHexString(v: string): string
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19139,7 +14060,7 @@ Helper function.
 Verifies that a database record identifier is an integer greater than zero.
 
 ```ts
-export function verifyId(id: number | undefined | null): number 
+export function verifyId(id: number | undefined | null): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19152,7 +14073,7 @@ Helper function.
 Verifies that an optional or null number has a numeric value.
 
 ```ts
-export function verifyInteger(v: number | null | undefined): number 
+export function verifyInteger(v: number | null | undefined): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19165,7 +14086,7 @@ Helper function.
 Verifies that an optional or null number has a numeric value.
 
 ```ts
-export function verifyNumber(v: number | null | undefined): number 
+export function verifyNumber(v: number | null | undefined): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19176,7 +14097,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Helper function.
 
 ```ts
-export function verifyOne<T>(results: T[], errorDescrition?: string): T 
+export function verifyOne<T>(results: T[], errorDescrition?: string): T
 ```
 
 Returns
@@ -19195,7 +14116,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Helper function.
 
 ```ts
-export function verifyOneOrNone<T>(results: T[]): T | undefined 
+export function verifyOneOrNone<T>(results: T[]): T | undefined
 ```
 
 Returns
@@ -19216,18 +14137,7 @@ Helper function.
 Verifies that an optional or null hex string is undefined or a trimmed lowercase string.
 
 ```ts
-export function verifyOptionalHexString(v?: string | null): string | undefined 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Function: verifyP2PKHOwnership
-
-Verify that a locking script is standard P2PKH and its hash160 matches the given public key.
-
-```ts
-export function verifyP2PKHOwnership(lockingScript: LockingScript, publicKey: PublicKey): void 
+export function verifyOptionalHexString(v?: string | null): string | undefined
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19240,7 +14150,7 @@ Helper function.
 Verifies that a possibly optional value has a value.
 
 ```ts
-export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
+export function verifyTruthy<T>(v: T | null | undefined, description?: string): T
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19249,7 +14159,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: verifyUnlockScripts
 
 ```ts
-export function verifyUnlockScripts(txid: string, beef: Beef): void 
+export function verifyUnlockScripts(txid: string, beef: Beef): void
 ```
 
 Argument Details
@@ -19271,17 +14181,17 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Returns an await'able Promise that resolves in the given number of msecs.
 
 ```ts
-export function wait(msecs: number): Promise<void> {
+export async function wait(msecs: number): Promise<void> {
     const MIN_WAIT = 0;
     const MAX_WAIT = 2 * 60 * 1000;
-    if (typeof msecs !== "number" || !Number.isFinite(msecs) || isNaN(msecs) || msecs < MIN_WAIT || msecs > MAX_WAIT) {
+    if (typeof msecs !== "number" || !Number.isFinite(msecs) || Number.isNaN(msecs) || msecs < MIN_WAIT || msecs > MAX_WAIT) {
         throw new WERR_INVALID_PARAMETER("msecs", `a number between ${MIN_WAIT} and ${MAX_WAIT} msecs, not ${msecs}.`);
     }
-    return new Promise(resolve => setTimeout(resolve, msecs));
+    return await new Promise(resolve => setTimeout(resolve, msecs));
 }
 ```
 
-See also: [WERR_INVALID_PARAMETER](./client.md#class-werr_invalid_parameter)
+See also: [WERR_INVALID_PARAMETER](#class-werr_invalid_parameter)
 
 Argument Details
 
@@ -19292,21 +14202,10 @@ Must be greater than zero and less than 2 minutes (120,000 msecs)
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Function: wocGetHeadersHeaderToBlockHeader
-
-```ts
-export function wocGetHeadersHeaderToBlockHeader(h: WocGetHeadersHeader): BlockHeader 
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader), [WocGetHeadersHeader](./services.md#interface-wocgetheadersheader)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Function: workBNtoBuffer
 
 ```ts
-export function workBNtoBuffer(work: BigNumber): string 
+export function workBNtoBuffer(work: BigNumber): string
 ```
 
 Returns
@@ -19324,7 +14223,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: writeUInt32BE
 
 ```ts
-export function writeUInt32BE(n: number, a: number[] | Uint8Array, offset: number): number 
+export function writeUInt32BE(n: number, a: number[] | Uint8Array, offset: number): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19333,7 +14232,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: writeUInt32LE
 
 ```ts
-export function writeUInt32LE(n: number, a: number[] | Uint8Array, offset: number): number 
+export function writeUInt32LE(n: number, a: number[] | Uint8Array, offset: number): number
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19343,23 +14242,66 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [Chain](#type-chain) | [GetUtxoStatusService](#type-getutxostatusservice) | [ReorgListener](#type-reorglistener) |
-| [CounterpartyPermissionEventHandler](#type-counterpartypermissioneventhandler) | [GroupedPermissionEventHandler](#type-groupedpermissioneventhandler) | [ReqHistoryNote](#type-reqhistorynote) |
-| [DBType](#type-dbtype) | [HeaderListener](#type-headerlistener) | [ReviewActionResultStatus](#type-reviewactionresultstatus) |
-| [EnqueueHandler](#type-enqueuehandler) | [InsertHeaderResult](#type-insertheaderresult) | [ScriptHashFormat](#type-scripthashformat) |
-| [EntityStorage](#type-entitystorage) | [MonitorStartupTaskMode](#type-monitorstartuptaskmode) | [ServicesCallHistory](#type-servicescallhistory) |
-| [ErrorHandler](#type-errorhandler) | [MonitorStorage](#type-monitorstorage) | [StopListenerToken](#type-stoplistenertoken) |
-| [FiatCurrencyCode](#type-fiatcurrencycode) | [ParsedBrc114ActionTimeLabels](#type-parsedbrc114actiontimelabels) | [StorageProvidedBy](#type-storageprovidedby) |
-| [GetMerklePathService](#type-getmerklepathservice) | [PermissionEventHandler](#type-permissioneventhandler) | [SyncProtocolVersion](#type-syncprotocolversion) |
-| [GetRawTxService](#type-getrawtxservice) | [PostBeefService](#type-postbeefservice) | [SyncStatus](#type-syncstatus) |
-| [GetScriptHashHistoryService](#type-getscripthashhistoryservice) | [PostReqsToNetworkDetailsStatus](#type-postreqstonetworkdetailsstatus) | [TransactionStatus](#type-transactionstatus) |
-| [GetStatusForTxidsService](#type-getstatusfortxidsservice) | [PostTxsService](#type-posttxsservice) | [UpdateFiatExchangeRateService](#type-updatefiatexchangerateservice) |
-| [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat) | [ProvenTxReqStatus](#type-proventxreqstatus) | [WalletLoggerLevel](#type-walletloggerlevel) |
+| [AnyBlockHeader](#type-anyblockheader) | [GetStatusForTxidsService](#type-getstatusfortxidsservice) | [PostTxsService](#type-posttxsservice) |
+| [ByteEncoding](#type-byteencoding) | [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat) | [ProvenTxReqStatus](#type-proventxreqstatus) |
+| [ByteInput](#type-byteinput) | [GetUtxoStatusService](#type-getutxostatusservice) | [ReorgListener](#type-reorglistener) |
+| [CacheResult](#type-cacheresult) | [HeaderListener](#type-headerlistener) | [ReviewActionResultStatus](#type-reviewactionresultstatus) |
+| [Chain](#type-chain) | [InsertHeaderResult](#type-insertheaderresult) | [ScriptHashFormat](#type-scripthashformat) |
+| [DBType](#type-dbtype) | [MerklePathNoteWhat](#type-merklepathnotewhat) | [StorageProvidedBy](#type-storageprovidedby) |
+| [EntityStorage](#type-entitystorage) | [MonitorStartupTaskMode](#type-monitorstartuptaskmode) | [SyncProtocolVersion](#type-syncprotocolversion) |
+| [FiatCurrencyCode](#type-fiatcurrencycode) | [MonitorStorage](#type-monitorstorage) | [SyncStatus](#type-syncstatus) |
+| [GetMerklePathService](#type-getmerklepathservice) | [PostBeefMode](#type-postbeefmode) | [TransactionStatus](#type-transactionstatus) |
+| [GetRawTxService](#type-getrawtxservice) | [PostBeefService](#type-postbeefservice) | [UpdateFiatExchangeRateService](#type-updatefiatexchangerateservice) |
+| [GetScriptHashHistoryService](#type-getscripthashhistoryservice) | [PostReqsToNetworkDetailsStatus](#type-postreqstonetworkdetailsstatus) | [WalletLoggerLevel](#type-walletloggerlevel) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
+##### Type: AnyBlockHeader
+
+Union of all block header variants
+
+```ts
+export type AnyBlockHeader = BaseBlockHeader | BlockHeader | LiveBlockHeader
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Type: ByteEncoding
+
+Encoding identifier for buffer-coercion helpers
+
+```ts
+export type ByteEncoding = "hex" | "utf8" | "base64"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Type: ByteInput
+
+Byte array, string, or Uint8Array accepted by buffer-coercion helpers
+
+```ts
+export type ByteInput = string | number[] | Uint8Array
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Type: CacheResult
+
+```ts
+export type CacheResult = "hit" | "miss"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Type: Chain
 
 ```ts
@@ -19369,33 +14311,11 @@ export type Chain = "main" | "test" | "teratest" | "mock"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Type: CounterpartyPermissionEventHandler
-
-```ts
-export type CounterpartyPermissionEventHandler = (request: CounterpartyPermissionRequest) => void | Promise<void>
-```
-
-See also: [CounterpartyPermissionRequest](./client.md#interface-counterpartypermissionrequest)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Type: DBType
 
 ```ts
-export type DBType = "SQLite" | "MySQL" | "IndexedDB"
+export type DBType = "MySQL" | "IndexedDB"
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: EnqueueHandler
-
-```ts
-export type EnqueueHandler = (header: BlockHeader) => void
-```
-
-See also: [BlockHeader](./client.md#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19406,18 +14326,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type EntityStorage = StorageProvider
 ```
 
-See also: [StorageProvider](./storage.md#class-storageprovider)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: ErrorHandler
-
-return true to ignore error, false to close service connection
-
-```ts
-export type ErrorHandler = (code: number, message: string) => boolean
-```
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19437,7 +14346,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type GetMerklePathService = (txid: string, services: WalletServices) => Promise<GetMerklePathResult>
 ```
 
-See also: [GetMerklePathResult](./client.md#interface-getmerklepathresult), [WalletServices](./client.md#interface-walletservices)
+See also: [GetMerklePathResult](#interface-getmerklepathresult), [WalletServices](#interface-walletservices)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19448,7 +14357,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type GetRawTxService = (txid: string, chain: Chain) => Promise<GetRawTxResult>
 ```
 
-See also: [Chain](./client.md#type-chain), [GetRawTxResult](./client.md#interface-getrawtxresult)
+See also: [Chain](#type-chain), [GetRawTxResult](#interface-getrawtxresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19459,7 +14368,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type GetScriptHashHistoryService = (hash: string) => Promise<GetScriptHashHistoryResult>
 ```
 
-See also: [GetScriptHashHistoryResult](./client.md#interface-getscripthashhistoryresult)
+See also: [GetScriptHashHistoryResult](#interface-getscripthashhistoryresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19470,7 +14379,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type GetStatusForTxidsService = (txids: string[]) => Promise<GetStatusForTxidsResult>
 ```
 
-See also: [GetStatusForTxidsResult](./client.md#interface-getstatusfortxidsresult)
+See also: [GetStatusForTxidsResult](#interface-getstatusfortxidsresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19490,20 +14399,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type GetUtxoStatusService = (output: string, outputFormat?: GetUtxoStatusOutputFormat, outpoint?: string) => Promise<GetUtxoStatusResult>
 ```
 
-See also: [GetUtxoStatusOutputFormat](./client.md#type-getutxostatusoutputformat), [GetUtxoStatusResult](./client.md#interface-getutxostatusresult)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: GroupedPermissionEventHandler
-
-Signature for functions that handle a grouped permission request event.
-
-```ts
-export type GroupedPermissionEventHandler = (request: GroupedPermissionRequest) => void | Promise<void>
-```
-
-See also: [GroupedPermissionRequest](./client.md#interface-groupedpermissionrequest)
+See also: [GetUtxoStatusOutputFormat](#type-getutxostatusoutputformat), [GetUtxoStatusResult](#interface-getutxostatusresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19514,7 +14410,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type HeaderListener = (header: BlockHeader) => void
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19536,7 +14432,16 @@ export type InsertHeaderResult = {
 }
 ```
 
-See also: [LiveBlockHeader](./services.md#interface-liveblockheader)
+See also: [LiveBlockHeader](#interface-liveblockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Type: MerklePathNoteWhat
+
+```ts
+export type MerklePathNoteWhat = "getMerklePathRetry" | "getMerklePathNotFound" | "getMerklePathBadStatus" | "getMerklePathNoData" | "getMerklePathSuccess" | "getMerklePathNoHeader" | "getMerklePathError" | "getMerklePathInternal"
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19556,36 +14461,16 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type MonitorStorage = WalletStorageManager
 ```
 
-See also: [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [WalletStorageManager](#class-walletstoragemanager)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Type: ParsedBrc114ActionTimeLabels
+##### Type: PostBeefMode
 
 ```ts
-export type ParsedBrc114ActionTimeLabels = {
-    from?: number;
-    to?: number;
-    timeFilterRequested: boolean;
-    remainingLabels: string[];
-}
+export type PostBeefMode = "PromiseAll" | "UntilSuccess"
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: PermissionEventHandler
-
-Signature for functions that handle a permission request event, e.g. "Please ask the user to allow basket X".
-
-```ts
-export type PermissionEventHandler = (request: PermissionRequest & {
-    requestID: string;
-}) => void | Promise<void>
-```
-
-See also: [PermissionRequest](./client.md#interface-permissionrequest)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19596,7 +14481,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type PostBeefService = (beef: Beef, txids: string[]) => Promise<PostBeefResult>
 ```
 
-See also: [PostBeefResult](./client.md#interface-postbeefresult)
+See also: [PostBeefResult](#interface-postbeefresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19627,7 +14512,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type PostTxsService = (beef: Beef, txids: string[], services: WalletServices) => Promise<PostTxsResult>
 ```
 
-See also: [PostTxsResult](./client.md#interface-posttxsresult), [WalletServices](./client.md#interface-walletservices)
+See also: [PostTxsResult](#interface-posttxsresult), [WalletServices](#interface-walletservices)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19681,20 +14566,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader, deactivatedHeaders?: BlockHeader[]) => void
 ```
 
-See also: [BlockHeader](./client.md#interface-blockheader)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: ReqHistoryNote
-
-```ts
-export type ReqHistoryNote = {
-    when?: string;
-    what: string;
-    [key: string]: boolean | string | number | undefined;
-}
-```
+See also: [BlockHeader](#interface-blockheader)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19720,39 +14592,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export type ScriptHashFormat = "hashLE" | "hashBE" | "script"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: ServicesCallHistory
-
-Type for the service call history returned by Services.getServicesCallHistory.
-
-```ts
-export type ServicesCallHistory = {
-    version: number;
-    getMerklePath: ServiceCallHistory;
-    getRawTx: ServiceCallHistory;
-    postBeef: ServiceCallHistory;
-    getUtxoStatus: ServiceCallHistory;
-    getStatusForTxids: ServiceCallHistory;
-    getScriptHashHistory: ServiceCallHistory;
-    updateFiatExchangeRates: ServiceCallHistory;
-}
-```
-
-See also: [ServiceCallHistory](./client.md#interface-servicecallhistory)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Type: StopListenerToken
-
-```ts
-export type StopListenerToken = {
-    stop: (() => void) | undefined;
-}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -19808,7 +14647,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type UpdateFiatExchangeRateService = (targetCurrencies: string[], options: WalletServicesOptions) => Promise<FiatExchangeRates>
 ```
 
-See also: [FiatExchangeRates](./client.md#interface-fiatexchangerates), [WalletServicesOptions](./client.md#interface-walletservicesoptions)
+See also: [FiatExchangeRates](#interface-fiatexchangerates), [WalletServicesOptions](#interface-walletservicesoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19832,68 +14671,24 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Variables
 
-| | | |
-| --- | --- | --- |
-| [ARGON2ID_DEFAULT_HASH_LENGTH](#variable-argon2id_default_hash_length) | [aggregateActionResults](#variable-aggregateactionresults) | [specOpFailedActions](#variable-specopfailedactions) |
-| [ARGON2ID_DEFAULT_ITERATIONS](#variable-argon2id_default_iterations) | [brc29ProtocolID](#variable-brc29protocolid) | [specOpInvalidChange](#variable-specopinvalidchange) |
-| [ARGON2ID_DEFAULT_MEMORY_KIB](#variable-argon2id_default_memory_kib) | [dirtyHashes](#variable-dirtyhashes) | [specOpNoSendActions](#variable-specopnosendactions) |
-| [ARGON2ID_DEFAULT_PARALLELISM](#variable-argon2id_default_parallelism) | [getLabelToSpecOp](#variable-getlabeltospecop) | [specOpSetWalletChangeParams](#variable-specopsetwalletchangeparams) |
-| [DEFAULT_PROFILE_ID](#variable-default_profile_id) | [logger](#variable-logger) | [specOpThrowReviewActions](#variable-specopthrowreviewactions) |
-| [DEFAULT_SETTINGS](#variable-default_settings) | [maxChangeOutputsPerTransaction](#variable-maxchangeoutputspertransaction) | [specOpWalletBalance](#variable-specopwalletbalance) |
-| [PBKDF2_NUM_ROUNDS](#variable-pbkdf2_num_rounds) | [maxPossibleSatoshis](#variable-maxpossiblesatoshis) | [transactionColumnsWithoutRawTx](#variable-transactioncolumnswithoutrawtx) |
-| [ProvenTxReqNonTerminalStatus](#variable-proventxreqnonterminalstatus) | [outputColumnsWithoutLockingScript](#variable-outputcolumnswithoutlockingscript) | [transformVerifiableCertificatesWithTrust](#variable-transformverifiablecertificateswithtrust) |
-| [ProvenTxReqTerminalStatus](#variable-proventxreqterminalstatus) | [parseResults](#variable-parseresults) | [validBulkHeaderFiles](#variable-validbulkheaderfiles) |
-| [TESTNET_DEFAULT_SETTINGS](#variable-testnet_default_settings) | [queryOverlay](#variable-queryoverlay) |  |
+| | |
+| --- | --- |
+| [DEFAULT_SETTINGS](#variable-default_settings) | [parseResults](#variable-parseresults) |
+| [ProvenTxReqNonTerminalStatus](#variable-proventxreqnonterminalstatus) | [queryOverlay](#variable-queryoverlay) |
+| [ProvenTxReqTerminalStatus](#variable-proventxreqterminalstatus) | [specOpFailedActions](#variable-specopfailedactions) |
+| [TESTNET_DEFAULT_SETTINGS](#variable-testnet_default_settings) | [specOpInvalidChange](#variable-specopinvalidchange) |
+| [aggregateActionResults](#variable-aggregateactionresults) | [specOpNoSendActions](#variable-specopnosendactions) |
+| [brc29ProtocolID](#variable-brc29protocolid) | [specOpSetWalletChangeParams](#variable-specopsetwalletchangeparams) |
+| [dirtyHashes](#variable-dirtyhashes) | [specOpThrowReviewActions](#variable-specopthrowreviewactions) |
+| [logger](#variable-logger) | [specOpWalletBalance](#variable-specopwalletbalance) |
+| [maxChangeOutputsPerTransaction](#variable-maxchangeoutputspertransaction) | [transactionColumnsWithoutRawTx](#variable-transactioncolumnswithoutrawtx) |
+| [maxPossibleSatoshis](#variable-maxpossiblesatoshis) | [transformVerifiableCertificatesWithTrust](#variable-transformverifiablecertificateswithtrust) |
+| [outputColumnsWithoutLockingScript](#variable-outputcolumnswithoutlockingscript) | [validBulkHeaderFiles](#variable-validbulkheaderfiles) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
-##### Variable: ARGON2ID_DEFAULT_HASH_LENGTH
-
-```ts
-ARGON2ID_DEFAULT_HASH_LENGTH = 32
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: ARGON2ID_DEFAULT_ITERATIONS
-
-```ts
-ARGON2ID_DEFAULT_ITERATIONS = 7
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: ARGON2ID_DEFAULT_MEMORY_KIB
-
-```ts
-ARGON2ID_DEFAULT_MEMORY_KIB = 131072
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: ARGON2ID_DEFAULT_PARALLELISM
-
-```ts
-ARGON2ID_DEFAULT_PARALLELISM = 1
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: DEFAULT_PROFILE_ID
-
-```ts
-DEFAULT_PROFILE_ID = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 ##### Variable: DEFAULT_SETTINGS
 
 ```ts
@@ -19922,16 +14717,7 @@ DEFAULT_SETTINGS = {
 } as WalletSettings
 ```
 
-See also: [WalletSettings](./client.md#interface-walletsettings)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: PBKDF2_NUM_ROUNDS
-
-```ts
-PBKDF2_NUM_ROUNDS = 7777
-```
+See also: [WalletSettings](#interface-walletsettings)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19952,7 +14738,7 @@ ProvenTxReqNonTerminalStatus: ProvenTxReqStatus[] = [
 ]
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus)
+See also: [ProvenTxReqStatus](#type-proventxreqstatus)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19963,7 +14749,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ProvenTxReqTerminalStatus: ProvenTxReqStatus[] = ["completed", "invalid", "doubleSpend"]
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus)
+See also: [ProvenTxReqStatus](#type-proventxreqstatus)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -19983,7 +14769,7 @@ TESTNET_DEFAULT_SETTINGS: WalletSettings = {
 }
 ```
 
-See also: [DEFAULT_SETTINGS](./client.md#variable-default_settings), [WalletSettings](./client.md#interface-walletsettings)
+See also: [DEFAULT_SETTINGS](#variable-default_settings), [WalletSettings](#interface-walletsettings)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -20000,7 +14786,7 @@ aggregateActionResults = async (storage: StorageProvider, sendWithResultReqs: Se
     for (const ar of sendWithResultReqs) {
         const txid = ar.txid;
         const d = postToNetworkResult.details.find(d => d.txid === txid);
-        if (!d)
+        if (d == null)
             throw new WERR_INTERNAL(`missing details for ${txid}`);
         const arNdr: ReviewActionResult = { txid: d.txid, status: "success", competingTxs: d.competingTxs };
         switch (d.status) {
@@ -20010,7 +14796,7 @@ aggregateActionResults = async (storage: StorageProvider, sendWithResultReqs: Se
             case "doubleSpend":
                 ar.status = "failed";
                 arNdr.status = "doubleSpend";
-                if (d.competingTxs)
+                if (d.competingTxs != null)
                     arNdr.competingBeef = await createMergedBeefOfTxids(d.competingTxs, storage);
                 break;
             case "serviceError":
@@ -20033,7 +14819,7 @@ aggregateActionResults = async (storage: StorageProvider, sendWithResultReqs: Se
 }
 ```
 
-See also: [PostReqsToNetworkResult](./storage.md#interface-postreqstonetworkresult), [ReviewActionResult](./client.md#interface-reviewactionresult), [StorageProvider](./storage.md#class-storageprovider), [WERR_INTERNAL](./client.md#class-werr_internal), [processAction](./storage.md#function-processaction)
+See also: [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [ReviewActionResult](#interface-reviewactionresult), [StorageProvider](#class-storageprovider), [WERR_INTERNAL](#class-werr_internal), [processAction](#function-processaction)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -20055,49 +14841,6 @@ dirtyHashes = {
     "0000000000000000004626ff6e3b936941d341c5932ece4357eeccac44e6d56c": "This is the first header of the invalid ABC chain."
 }
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-##### Variable: getLabelToSpecOp
-
-```ts
-getLabelToSpecOp: () => Record<string, ListActionsSpecOp> = () => {
-    return {
-        [specOpNoSendActions]: {
-            name: "noSendActions",
-            labelsToIntercept: ["abort"],
-            setStatusFilter: () => ["nosend"],
-            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]): Promise<void> => {
-                if (specOpLabels.indexOf("abort") >= 0) {
-                    for (const tx of txs) {
-                        if (tx.status === "nosend") {
-                            await s.abortAction(auth, { reference: tx.reference! });
-                            tx.status = "failed";
-                        }
-                    }
-                }
-            }
-        },
-        [specOpFailedActions]: {
-            name: "failedActions",
-            labelsToIntercept: ["unfail"],
-            setStatusFilter: () => ["failed"],
-            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]): Promise<void> => {
-                if (specOpLabels.indexOf("unfail") >= 0) {
-                    for (const tx of txs) {
-                        if (tx.status === "failed") {
-                            await s.updateTransaction(tx.transactionId!, { status: "unfail" });
-                        }
-                    }
-                }
-            }
-        }
-    };
-}
-```
-
-See also: [AuthId](./client.md#interface-authid), [ListActionsSpecOp](./storage.md#interface-listactionsspecop), [StorageProvider](./storage.md#class-storageprovider), [TableTransaction](./storage.md#interface-tabletransaction), [specOpFailedActions](./client.md#variable-specopfailedactions), [specOpNoSendActions](./client.md#variable-specopnosendactions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -20161,7 +14904,9 @@ outputColumnsWithoutLockingScript = [
     "sequenceNumber",
     "spendingDescription",
     "scriptLength",
-    "scriptOffset"
+    "scriptOffset",
+    "scriptHash",
+    "cacheUpdatedAt"
 ]
 ```
 
@@ -20210,7 +14955,7 @@ queryOverlay = async (query: unknown, resolver: LookupResolver): Promise<Verifia
 }
 ```
 
-See also: [parseResults](./client.md#variable-parseresults)
+See also: [parseResults](#variable-parseresults)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -20304,7 +15049,7 @@ transformVerifiableCertificatesWithTrust = (trustSettings: TrustSettings, certif
             return;
         if (!certifierCache[certifier]) {
             const found = trustSettings.trustedCertifiers.find(x => x.identityKey === certifier);
-            if (!found)
+            if (found == null)
                 return;
             certifierCache[certifier] = found;
         }
@@ -20341,7 +15086,7 @@ transformVerifiableCertificatesWithTrust = (trustSettings: TrustSettings, certif
 }
 ```
 
-See also: [Certifier](./client.md#interface-certifier), [ExtendedVerifiableCertificate](./client.md#interface-extendedverifiablecertificate), [TrustSettings](./client.md#interface-trustsettings)
+See also: [Certifier](#interface-certifier), [ExtendedVerifiableCertificate](#interface-extendedverifiablecertificate), [TrustSettings](#interface-trustsettings)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -20715,7 +15460,7 @@ validBulkHeaderFiles: BulkHeaderFileInfo[] = [
 ]
 ```
 
-See also: [BulkHeaderFileInfo](./services.md#interface-bulkheaderfileinfo)
+See also: [BulkHeaderFileInfo](#interface-bulkheaderfileinfo)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 

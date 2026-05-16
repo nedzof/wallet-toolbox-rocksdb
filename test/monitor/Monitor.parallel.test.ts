@@ -4,6 +4,7 @@ import { wait } from '../../src/utility/utilityHelpers'
 import { EventBus } from '../../src/events/EventBus'
 import { BlockHeader, GetUtxoStatusResult } from '../../src/sdk/WalletServices.interfaces'
 import { TaskCheckForProofs } from '../../src/monitor/tasks/TaskCheckForProofs'
+import { TaskSendWaiting } from '../../src/monitor/tasks/TaskSendWaiting'
 import { Services } from '../../src/services/Services'
 
 describe('Monitor parallel task execution', () => {
@@ -27,6 +28,19 @@ describe('Monitor parallel task execution', () => {
     expect(second.lastRunMsecsSinceEpoch).toBeGreaterThan(0)
   })
 
+  test('runOnce respects the configured task concurrency cap', async () => {
+    const monitor = new Monitor(makeMonitorOptions({ taskRunConcurrency: 2 }))
+    const counters = { active: 0, maxActive: 0, runs: 0 }
+    for (const name of ['first', 'second', 'third', 'fourth']) {
+      monitor.addTask(new ActiveCountingTask(monitor, name, 30, counters))
+    }
+
+    await monitor.runOnce()
+
+    expect(counters.runs).toBe(4)
+    expect(counters.maxActive).toBeLessThanOrEqual(2)
+  })
+
   test('startTasks schedules fast tasks without waiting for slower task cadence', async () => {
     const monitor = new Monitor(makeMonitorOptions({ taskRunWaitMsecs: 10, taskRunConcurrency: 2 }))
     const slow = new CountingTask(monitor, 'slow', 80)
@@ -41,6 +55,21 @@ describe('Monitor parallel task execution', () => {
 
     expect(slow.runs).toBeGreaterThanOrEqual(1)
     expect(fast.runs).toBeGreaterThan(slow.runs)
+  })
+
+  test('broadcastConfig tunes SendWaiting chunk and concurrency', () => {
+    const monitor = new Monitor(makeMonitorOptions({
+      startupTaskMode: 'default',
+      broadcastConfig: {
+        chunkLimit: 12,
+        maxConcurrency: 7,
+        connectionPoolSize: 50
+      }
+    }))
+    const task = monitor._tasks.find(task => task instanceof TaskSendWaiting) as TaskSendWaiting | undefined
+
+    expect(task?.chunkLimit).toBe(12)
+    expect(task?.processConcurrency).toBe(7)
   })
 
   test('emits one reorg event when Chaintracks event sync is wired through Monitor', async () => {
@@ -76,12 +105,12 @@ describe('Monitor parallel task execution', () => {
     eventBus.onBlockMined(event => blocks.push(event))
     const monitor = new Monitor(makeMonitorOptions({ eventBus }))
 
-    monitor.processBlockMinedNotice(123, 'abc')
+    monitor.processBlockMinedNotice(123, 'abc', undefined, ['txid.1'])
 
     expect(monitor.lastNewBlockHeight).toBe(123)
     expect(monitor.lastNewHeaderWhen).toBeInstanceOf(Date)
     expect(TaskCheckForProofs.checkNow).toBe(true)
-    expect(blocks).toEqual([expect.objectContaining({ blockHeight: 123, blockHash: 'abc' })])
+    expect(blocks).toEqual([expect.objectContaining({ blockHeight: 123, blockHash: 'abc', outpoints: ['txid.1'] })])
     TaskCheckForProofs.checkNow = false
   })
 
@@ -163,6 +192,30 @@ class CountingTask extends WalletMonitorTask {
   async runTask (): Promise<string> {
     this.runs++
     await wait(this.delayMs)
+    return ''
+  }
+}
+
+class ActiveCountingTask extends WalletMonitorTask {
+  constructor (
+    monitor: Monitor,
+    name: string,
+    private readonly delayMs: number,
+    private readonly counters: { active: number, maxActive: number, runs: number }
+  ) {
+    super(monitor, name)
+  }
+
+  trigger (): { run: boolean } {
+    return { run: true }
+  }
+
+  async runTask (): Promise<string> {
+    this.counters.runs++
+    this.counters.active++
+    this.counters.maxActive = Math.max(this.counters.maxActive, this.counters.active)
+    await wait(this.delayMs)
+    this.counters.active--
     return ''
   }
 }

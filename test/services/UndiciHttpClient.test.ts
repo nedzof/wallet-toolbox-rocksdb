@@ -77,4 +77,24 @@ describe('UndiciHttpClient', () => {
     expect((http1Only as any).pipelining).toBe(1)
     expect((http1Only as any).allowH2).toBe(false)
   })
+
+  test('reuses one undici Pool per origin and clears pools on close', async () => {
+    const client = new UndiciHttpClient({ connections: 1, pipelining: 1 })
+    const pools = (client as any).pools as Map<string, unknown>
+
+    expect(pools.size).toBe(0)
+    try {
+      await client.request(`${baseUrl}/json`, { method: 'GET' })
+      expect(pools.size).toBe(1)
+      const firstPool = pools.get(baseUrl)
+
+      await client.request(`${baseUrl}/text`, { method: 'GET' })
+
+      expect(pools.size).toBe(1)
+      expect(pools.get(baseUrl)).toBe(firstPool)
+    } finally {
+      await client.close()
+    }
+    expect(pools.size).toBe(0)
+  })
 })

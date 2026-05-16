@@ -1,11 +1,11 @@
 module.exports = {
   forbidden: [
     {
-      name: 'no-redis-bullmq-nats',
+      name: 'no-redis-bullmq-nats-sqlite',
       severity: 'error',
-      comment: 'Single-instance wallet-toolbox runtime must not depend on Redis, BullMQ, or NATS.',
+      comment: 'Single-instance wallet-toolbox runtime must not depend on Redis, BullMQ, NATS, or SQLite runtimes.',
       from: { path: '^src' },
-      to: { dependencyTypes: ['npm'], path: '^(bullmq|ioredis|redis|nats)$' }
+      to: { dependencyTypes: ['npm'], path: '^(bullmq|ioredis|redis|nats|better-sqlite3|sqlite3)$' }
     },
     {
       name: 'cache-no-storage-implementation',
@@ -41,6 +41,20 @@ module.exports = {
       comment: 'Broadcast orchestration must not depend on a concrete storage backend.',
       from: { path: '^src/broadcast' },
       to: { path: '^src/storage/rocksdb' }
+    },
+    {
+      name: 'messaging-no-business-layers',
+      severity: 'error',
+      comment: 'Wallet-local messaging adapters must not own storage, monitor, or service-provider runtime logic.',
+      from: { path: '^src/messaging' },
+      to: { path: '^src/(storage|monitor|services)' }
+    },
+    {
+      name: 'messaging-no-external-runtime',
+      severity: 'error',
+      comment: 'Wallet-local messaging adapters must remain in-process and must not import external runtime buses.',
+      from: { path: '^src/messaging' },
+      to: { dependencyTypes: ['npm'] }
     },
     {
       name: 'no-circular',

@@ -1,14 +1,14 @@
 # CLAUDE.md — @bsv/wallet-toolbox v2.1.24
 
 ## Purpose
-The Wallet Toolbox is the reference implementation of the BRC-100 wallet standard. It connects the SDK's cryptographic primitives to real storage backends (SQLite, MySQL, IndexedDB), network services (ARC, WhatsOnChain, Chaintracks), and signing flows to provide a complete, production-ready wallet that developers can use directly or customize for their own wallet apps (like BSV Desktop or BSV Browser).
+The Wallet Toolbox is the reference implementation of the BRC-100 wallet standard. It connects the SDK's cryptographic primitives to real storage backends (MySQL, IndexedDB, remote storage, RocksDB), network services (ARC, WhatsOnChain, Chaintracks), and signing flows to provide a complete, production-ready wallet that developers can use directly or customize for their own wallet apps (like BSV Desktop or BSV Browser).
 
 ## Public API Surface
 
 ### Main Setup Exports
 - **`SetupWallet(config?)`** — Factory function returning a fully initialized `Wallet` instance with sensible defaults; config includes `env: 'main' | 'test'`, `endpointUrl`, `chain`
 - **`Setup(options)`** — Advanced configuration factory with explicit storage, services, and key manager injection
-- **`SetupClient(options)`** — Browser-only setup excluding Node.js storage backends (Knex/SQLite/MySQL)
+- **`SetupClient(options)`** — Browser-only setup excluding Node.js storage backends (Knex/MySQL/RocksDB)
 - **`SetupWallet(config)`** — Convenience wrapper around `Setup`
 
 ### Core Wallet Class
@@ -28,7 +28,7 @@ The Wallet Toolbox is the reference implementation of the BRC-100 wallet standar
 
 ### Storage Layer
 From `storage/` — pluggable backends:
-- **`KnexWalletStorage`** — SQL backend (SQLite, MySQL, PostgreSQL) via Knex query builder
+- **`KnexWalletStorage`** — SQL backend for MySQL via Knex query builder
 - **`IndexedDBWalletStorage`** — Browser IndexedDB (client and mobile builds)
 - **`RemoteWalletStorage`** — HTTP client for remote server (client/server via HTTPS)
 - **`StorageProvider`** — Factory pattern for storage selection
@@ -101,12 +101,13 @@ From `mockchain/` — in-memory blockchain for testing:
 
 ## Real Usage Patterns
 
-### 1. Create wallet with default SQLite storage (Node.js)
+### 1. Create wallet with remote storage
 ```typescript
 import { SetupWallet } from '@bsv/wallet-toolbox'
 
 const wallet = await SetupWallet({
-  env: 'main'  // mainnet
+  env: 'main',  // mainnet
+  endpointUrl: 'https://wallet-server.example.com'
 })
 
 // Ready to use immediately
@@ -154,13 +155,9 @@ const keyManager = new PrivilegedKeyManager({
   passwordHash: '...'
 })
 
-const wallet = await Setup({
-  keyManager,
-  services: await Services.build('main'),
-  storage: await KnexWalletStorage.build({
-    client: 'sqlite3',
-    filename: './wallet.db'
-  })
+const wallet = await Setup.createWalletMySQL({
+  env: Setup.getEnv('main'),
+  databaseName: 'wallet'
 })
 ```
 
@@ -214,7 +211,7 @@ const broadcastResp = await tx.broadcast()
 - **SignableTransaction** — Wallet's opaque reference to a created action. App requests wallet to sign this reference; wallet does the actual ECDSA signing.
 - **Certificate** — P2P authentication proof. Identity key + signature over challenge. Used for peer-to-peer overlay protocols.
 - **Protocol** — Namespace for overlay services (e.g., "BTMS" tokens, "Document Registry", custom apps). Each protocol has its own permissions, topics, and discovery.
-- **Storage Backend** — Pluggable abstraction. Same `Wallet` code works with SQLite (Node.js), IndexedDB (browser), or remote HTTPS server without code changes.
+- **Storage Backend** — Pluggable abstraction. Same `Wallet` code works with MySQL, IndexedDB (browser), remote HTTPS server, or RocksDB-backed wallet state without code changes.
 - **Chain Tracker** — Maintains blockchain state (headers, confirmed height). Enables SPV-based transaction verification without full node.
 - **Monitor** — Background daemon that polls wallets' own transactions and updates confirmed status without app polling.
 - **Key Derivation** — BRC-42/43 protocol-based hierarchical key generation. Each protocol can request keys from a single root without exposing the root.
@@ -225,12 +222,16 @@ const broadcastResp = await tx.broadcast()
 - **`@bsv/sdk`** ^2.0.14 — Crypto primitives and transaction library
 - **`@bsv/auth-express-middleware`** ^2.0.5 — Auth for Express routes
 - **`@bsv/payment-express-middleware`** ^2.0.2 — Payment handling middleware
-- **`better-sqlite3`** ^12.6.2 — SQLite engine for Node.js storage
 - **`express`** ^4.21.2 — Web framework for server routes (optional for client builds)
 - **`hash-wasm`** ^4.12.0 — Cryptographic hashing
 - **`idb`** ^8.0.2 — IndexedDB wrapper for browser storage
 - **`knex`** ^3.1.0 — SQL query builder for database abstraction
 - **`mysql2`** ^3.12.0 — MySQL driver for database storage
+- **`@harperfast/rocksdb-js`** 1.2.0 — RocksDB binding for Node.js wallet state storage
+- **`lru-cache`**, **`node-cache`** — In-memory wallet cache layers
+- **`p-limit`**, **`p-queue`** — Bounded concurrency and in-process queueing
+- **`prom-client`** — Prometheus metrics
+- **`undici`** — Pooled HTTP client
 - **`ws`** ^8.18.3 — WebSocket for relay and overlay connections
 
 ### Peer Deps
@@ -242,7 +243,7 @@ const broadcastResp = await tx.broadcast()
 
 ## Common Pitfalls / Gotchas
 
-1. **Storage backend mismatch** — `SetupClient` excludes SQLite/MySQL. Don't try to use Knex in browser builds; it will fail at runtime. Use IndexedDB or RemoteWalletStorage for client/mobile.
+1. **Storage backend mismatch** — `SetupClient` excludes Knex/MySQL/RocksDB. Don't try to use Node-only storage in browser builds; it will fail at runtime. Use IndexedDB or RemoteWalletStorage for client/mobile.
 
 2. **Wallet state consistency** — If monitor is not running, wallet won't know about confirmations. Apps must either run monitor or poll `listActions()` manually.
 
@@ -296,6 +297,6 @@ const broadcastResp = await tx.broadcast()
 - **@bsv/btms-permission-module** — BTMS tokens register as permission module; wallet-toolbox hosts the permission manager
 - **@bsv/wallet-relay** — Mobile wallet pairing uses wallet-toolbox as the wallet backend
 - **Express middleware** — auth-express-middleware and payment-express-middleware authenticate and validate requests
-- **Database drivers** — Knex abstracts SQLite (better-sqlite3) and MySQL (mysql2)
+- **Database drivers** — Knex uses MySQL (`mysql2`) for Node.js SQL storage
 - **ARC/WhatsOnChain/Chaintracks** — Network service integrations via HTTP
 - **Browser APIs** — IndexedDBWalletStorage uses IndexedDB API; EntropyCollector uses mouse/touch events

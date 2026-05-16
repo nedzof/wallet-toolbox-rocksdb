@@ -92,7 +92,7 @@ describe('RocksDbWalletStore', () => {
 
       const newScript = [0x52]
       const newHash = hashOutputLockingScript(newScript)
-      await store.putOutput({
+      await store.updateOutput({
         ...output,
         spendable: false,
         basketId: 11,
@@ -107,6 +107,73 @@ describe('RocksDbWalletStore', () => {
       await store.deleteOutput(1)
       expect(await store.findOutputsByScriptHash(newHash)).toEqual([])
       expect(await store.findOutputsByOutpoints(7, [{ txid, vout: 0 }])).toEqual({})
+    } finally {
+      store.close()
+    }
+  })
+
+  test('ignores stale secondary index records that no longer match primary outputs', async () => {
+    const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
+    try {
+      const txid = 'b'.repeat(64)
+      const output = makeOutput({
+        outputId: 2,
+        userId: 7,
+        basketId: 10,
+        spendable: false,
+        txid,
+        vout: 0,
+        lockingScript: [0x51]
+      })
+      const staleScriptHash = hashOutputLockingScript([0x52])
+
+      await store.putOutput(output)
+      await store.put({ key: `output!scriptHash!${staleScriptHash}!${pad(2)}`, value: { outputId: 2 } })
+      await store.put({ key: `output!spendable!${pad(7)}!all!${pad(2)}`, value: { outputId: 2 } })
+      await store.put({ key: `output!spendable!${pad(7)}!basket!${pad(10)}!${pad(2)}`, value: { outputId: 2 } })
+      await store.put({ key: `output!outpoint!${pad(8)}!${txid}!${pad(0)}`, value: { outputId: 2 } })
+
+      expect(await store.findOutputsByScriptHash(staleScriptHash)).toEqual([])
+      expect(await store.findSpendableOutputs(7)).toEqual([])
+      expect(await store.findSpendableOutputs(7, 10)).toEqual([])
+      expect(await store.findOutputsByOutpoints(8, [{ txid, vout: 0 }])).toEqual({})
+    } finally {
+      store.close()
+    }
+  })
+
+  test('rebuilds output indexes and backfills script hash metadata on primary outputs', async () => {
+    const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
+    try {
+      const txid = 'c'.repeat(64)
+      const lockingScript = [0x51]
+      const scriptHash = hashOutputLockingScript(lockingScript)
+      const staleScriptHash = hashOutputLockingScript([0x52])
+      const output = makeOutput({
+        outputId: 3,
+        userId: 8,
+        basketId: 12,
+        spendable: true,
+        txid,
+        vout: 1,
+        lockingScript
+      })
+
+      await store.put({ key: `output!id!${pad(3)}`, value: output })
+      await store.put({ key: `output!scriptHash!${staleScriptHash}!${pad(999)}`, value: { outputId: 999 } })
+      await store.put({ key: `output!spendable!${pad(8)}!all!${pad(999)}`, value: { outputId: 999 } })
+
+      expect(await store.findOutputsByScriptHash(scriptHash)).toEqual([])
+      expect(await store.findSpendableOutputs(8)).toEqual([])
+
+      await expect(store.rebuildOutputIndexes()).resolves.toBe(1)
+
+      expect((await store.findOutputsByScriptHash(scriptHash)).map(o => o.outputId)).toEqual([3])
+      expect((await store.findSpendableOutputs(8)).map(o => o.outputId)).toEqual([3])
+      expect((await store.findSpendableOutputs(8, 12)).map(o => o.outputId)).toEqual([3])
+      expect(Object.keys(await store.findOutputsByOutpoints(8, [{ txid, vout: 1 }]))).toEqual([`${txid}.1`])
+      expect(await store.findOutputsByScriptHash(staleScriptHash)).toEqual([])
+      expect((await store.get<TableOutput>(`output!id!${pad(3)}`))?.value.scriptHash).toBe(scriptHash)
     } finally {
       store.close()
     }
@@ -133,6 +200,13 @@ describe('RocksDbWalletStore', () => {
       disableWAL: false,
       enableStats: true,
       noBlockCache: true,
+      pessimistic: true,
+      readOnly: false,
+      statsLevel: 1,
+      transactionLogMaxAgeThreshold: 0.5,
+      transactionLogMaxSize: 32 * 1024 * 1024,
+      transactionLogRetention: '7d',
+      transactionLogsPath: path.join(dir, 'transaction-logs'),
       blockCacheSize: 64 * 1024 * 1024,
       compactOnClose: true
     })
@@ -142,12 +216,31 @@ describe('RocksDbWalletStore', () => {
         disableWAL: false,
         enableStats: true,
         noBlockCache: true,
+        pessimistic: true,
+        readOnly: false,
+        statsLevel: 1,
+        transactionLogMaxAgeThreshold: 0.5,
+        transactionLogMaxSize: 32 * 1024 * 1024,
+        transactionLogRetention: '7d',
+        transactionLogsPath: path.join(dir, 'transaction-logs'),
         blockCacheSize: 64 * 1024 * 1024,
         compactOnClose: true
       })
     } finally {
       store.close()
     }
+  })
+
+  test('rejects source-doc RocksDB tuning knobs unsupported by the current binding', async () => {
+    await expect(RocksDbWalletStore.open({
+      path: path.join(dir, 'wallet.rocksdb'),
+      writeBufferSize: 64 * 1024 * 1024
+    } as any)).rejects.toThrow('ROCKSDB_WALLET_STORE_UNSUPPORTED_OPTION:writeBufferSize')
+
+    await expect(RocksDbWalletStore.open({
+      path: path.join(dir, 'wallet.rocksdb'),
+      writeOptions: { sync: false, compression: 'lz4' }
+    } as any)).rejects.toThrow('ROCKSDB_WALLET_STORE_UNSUPPORTED_OPTION:writeOptions')
   })
 
   test('records storage query latency metrics when metrics are provided', async () => {
@@ -184,6 +277,23 @@ describe('RocksDbWalletStore', () => {
       store.close()
     }
   })
+
+  test('prepares the store for an operator filesystem snapshot', async () => {
+    const dbPath = path.join(dir, 'wallet.rocksdb')
+    const store = await RocksDbWalletStore.open({ path: dbPath })
+    try {
+      await store.put({ key: 'snapshot!keep', value: { ok: true } })
+
+      const prepared = await store.prepareForFilesystemSnapshot({ compact: true })
+
+      expect(prepared.path).toBe(dbPath)
+      expect(prepared.compacted).toBe(true)
+      expect(prepared.preparedAt).toBeInstanceOf(Date)
+      expect((await store.get<{ ok: boolean }>('snapshot!keep'))?.value.ok).toBe(true)
+    } finally {
+      store.close()
+    }
+  })
 })
 
 function makeOutput (overrides: Partial<TableOutput>): TableOutput {
@@ -204,4 +314,8 @@ function makeOutput (overrides: Partial<TableOutput>): TableOutput {
     type: 'custom',
     ...overrides
   }
+}
+
+function pad (value: number): string {
+  return value.toString().padStart(16, '0')
 }

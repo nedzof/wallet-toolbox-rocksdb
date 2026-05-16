@@ -112,7 +112,6 @@ DEV_KEYS = '{
     // Identity keys of the lead maintainer of this repo...
     const identityKey = chain === 'main' ? process.env.MY_MAIN_IDENTITY : process.env.MY_TEST_IDENTITY
     const identityKey2 = chain === 'main' ? process.env.MY_MAIN_IDENTITY2 : process.env.MY_TEST_IDENTITY2
-    const filePath = chain === 'main' ? process.env.MY_MAIN_FILEPATH : process.env.MY_TEST_FILEPATH
     const DEV_KEYS = process.env.DEV_KEYS || '{}'
     const mySQLConnection = process.env.MYSQL_CONNECTION || '{}'
     const taalApiKey = verifyTruthy(
@@ -126,7 +125,6 @@ DEV_KEYS = '{
       chain,
       identityKey,
       identityKey2,
-      filePath,
       taalApiKey,
       devKeys: JSON.parse(DEV_KEYS) as Record<string, string>,
       mySQLConnection
@@ -354,7 +352,7 @@ DEV_KEYS = '{
   /**
    * Adds `Knex` based storage to a `Wallet` configured by `Setup.createWalletOnly`
    *
-   * @param args.knex `Knex` object configured for either MySQL or SQLite database access.
+   * @param args.knex `Knex` object configured for MySQL database access.
    * Schema will be created and migrated as needed.
    * For MySQL, a schema corresponding to databaseName must exist with full access permissions.
    * @param args.databaseName Name for this storage. For MySQL, the schema name within the MySQL instance.
@@ -399,19 +397,6 @@ DEV_KEYS = '{
   /**
    * @publicbody
    */
-  static createSQLiteKnex (filename: string): Knex {
-    const config: Knex.Config = {
-      client: 'better-sqlite3',
-      connection: { filename },
-      useNullAsDefault: true
-    }
-    const knex = makeKnex(config)
-    return knex
-  }
-
-  /**
-   * @publicbody
-   */
   static createMySQLKnex (connection: string, database?: string): Knex {
     const c: Knex.MySql2ConnectionConfig = JSON.parse(connection)
     if (database) {
@@ -436,16 +421,6 @@ DEV_KEYS = '{
       knex: Setup.createMySQLKnex(args.env.mySQLConnection, args.databaseName)
     })
   }
-
-  /**
-   * @publicbody
-   */
-  static async createWalletSQLite (args: SetupWalletSQLiteArgs): Promise<SetupWalletKnex> {
-    return await this.createWalletKnex({
-      ...args,
-      knex: Setup.createSQLiteKnex(args.filePath)
-    })
-  }
 }
 
 /**
@@ -457,7 +432,6 @@ DEV_KEYS = '{
  *
  * Extension `SetupWalletMySQLArgs` used by `createWalletMySQL` to construct a `SetupWalletKnex`.
  *
- * Extension `SetupWalletSQLiteArgs` used by `createWalletSQLite` to construct a `SetupWalletKnex`.
  */
 export interface SetupWalletArgs {
   /**
@@ -502,14 +476,6 @@ export interface SetupWalletMySQLArgs extends SetupWalletArgs {
 /**
  *
  */
-export interface SetupWalletSQLiteArgs extends SetupWalletArgs {
-  filePath: string
-  databaseName: string
-}
-
-/**
- *
- */
 export interface SetupWalletKnex extends SetupWallet {
   activeStorage: StorageKnex
   userId: number
@@ -544,10 +510,6 @@ export interface SetupEnv {
    * A secondary identity key (public key), used to test exchanges with other users.
    */
   identityKey2: string
-  /**
-   * Filepath to sqlite file to be used for identityKey wallet.
-   */
-  filePath: string | undefined
   /**
    * A vaild TAAL API key for use by `Services`
    */

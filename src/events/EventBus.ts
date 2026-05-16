@@ -7,6 +7,7 @@ export interface BlockEvent {
   blockHash?: string
   timestamp: number
   header?: BlockHeader
+  outpoints?: string[]
 }
 
 export interface UtxoInvalidationEvent {
@@ -42,11 +43,23 @@ export class EventBus extends EventEmitter {
     this.on(EventBus.BLOCK_MINED, handler)
   }
 
+  offBlockMined (handler: (event: BlockEvent) => void): void {
+    this.off(EventBus.BLOCK_MINED, handler)
+  }
+
   onUtxoInvalidation (handler: (event: UtxoInvalidationEvent) => void): void {
     this.on(EventBus.UTXO_INVALIDATE, handler)
   }
 
+  offUtxoInvalidation (handler: (event: UtxoInvalidationEvent) => void): void {
+    this.off(EventBus.UTXO_INVALIDATE, handler)
+  }
+
   onReorg (handler: (event: ReorgEvent) => void): void {
     this.on(EventBus.REORG, handler)
+  }
+
+  offReorg (handler: (event: ReorgEvent) => void): void {
+    this.off(EventBus.REORG, handler)
   }
 }

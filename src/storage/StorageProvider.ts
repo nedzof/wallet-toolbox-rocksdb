@@ -797,7 +797,7 @@ export abstract class StorageProvider extends StorageReaderWriter implements Wal
     const invalidSpendableOutputs: TableOutput[] = []
     const users = await this.findUsers({ partial: {} })
     const services = this.getServices()
-    const limit = pLimit(50)
+    const limit = pLimit(STORAGE_PROVIDER_BULK_READ_CONCURRENCY)
     const checks: Array<Promise<void>> = []
 
     for (const { userId } of users) {

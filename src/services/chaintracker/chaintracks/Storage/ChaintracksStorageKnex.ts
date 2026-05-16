@@ -23,8 +23,7 @@ export interface ChaintracksStorageKnexOptions extends ChaintracksStorageBaseOpt
 }
 
 /**
- * Implements the ChaintracksStorageApi using Knex.js for both MySql and Sqlite support.
- * Also see `chaintracksStorageMemory` which leverages Knex support for an in memory database.
+ * Implements the ChaintracksStorageApi using Knex.js for MySQL support.
  */
 export class ChaintracksStorageKnex extends ChaintracksStorageBase implements ChaintracksStorageBulkFileApi {
   static createStorageKnexOptions (chain: Chain, knex?: Knex): ChaintracksStorageKnexOptions {

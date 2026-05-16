@@ -9,7 +9,7 @@ to what was previously a backup.
 The [StorageClient](#class-storageclient) implements a cloud based storage provider via JSON-RPC. The [StorageServer](#class-storageserver) class
 and `@bsv/wallet-infra` package can be used to host such a JSON-RPC server.
 
-The [StorageKnex](#class-storageknex) class implements `Knex` based database storage with explicit support for both MySQL and SQLite.
+The [StorageKnex](#class-storageknex) class implements `Knex` based database storage with explicit support for MySQL.
 
 [Return To Top](./README.md)
 
@@ -22,7 +22,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [AdminStatsResult](#interface-adminstatsresult) | [ProvenTxFromTxidResult](#interface-proventxfromtxidresult) | [TableOutputBasket](#interface-tableoutputbasket) |
+| [AdminStatsResult](#interface-adminstatsresult) | [PostReqsToNetworkResult](#interface-postreqstonetworkresult) | [TableOutput](#interface-tableoutput) |
+| [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult) | [ProvenTxFromTxidResult](#interface-proventxfromtxidresult) | [TableOutputBasket](#interface-tableoutputbasket) |
 | [CommitNewTxResults](#interface-commitnewtxresults) | [ProvenTxReqHistory](#interface-proventxreqhistory) | [TableOutputTag](#interface-tableoutputtag) |
 | [EntitySyncMap](#interface-entitysyncmap) | [ProvenTxReqHistorySummaryApi](#interface-proventxreqhistorysummaryapi) | [TableOutputTagMap](#interface-tableoutputtagmap) |
 | [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput) | [ProvenTxReqNotify](#interface-proventxreqnotify) | [TableOutputX](#interface-tableoutputx) |
@@ -38,9 +39,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [ListOutputsSpecOp](#interface-listoutputsspecop) | [TableCertificate](#interface-tablecertificate) | [ValidateGenerateChangeSdkParamsResult](#interface-validategeneratechangesdkparamsresult) |
 | [MonitorAdminContext](#interface-monitoradmincontext) | [TableCertificateField](#interface-tablecertificatefield) | [VerifyAndRepairBeefResult](#interface-verifyandrepairbeefresult) |
 | [MonitorAdminContextConfig](#interface-monitoradmincontextconfig) | [TableCertificateX](#interface-tablecertificatex) | [WalletStorageServerOptions](#interface-walletstorageserveroptions) |
-| [PostBeefResultForTxidApi](#interface-postbeefresultfortxidapi) | [TableCommission](#interface-tablecommission) | [XValidCreateActionOutput](#interface-xvalidcreateactionoutput) |
-| [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails) | [TableMonitorEvent](#interface-tablemonitorevent) |  |
-| [PostReqsToNetworkResult](#interface-postreqstonetworkresult) | [TableOutput](#interface-tableoutput) |  |
+| [PostBeefResultForTxidApi](#interface-postbeefresultfortxidapi) | [TableCommission](#interface-tablecommission) | [WalletStorageServerRateLimitOptions](#interface-walletstorageserverratelimitoptions) |
+| [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails) | [TableMonitorEvent](#interface-tablemonitorevent) | [XValidCreateActionOutput](#interface-xvalidcreateactionoutput) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -55,7 +55,37 @@ export interface AdminStatsResult extends StorageAdminStats {
 }
 ```
 
-See also: [ServicesCallHistory](./client.md#type-servicescallhistory), [StorageAdminStats](./storage.md#interface-storageadminstats)
+See also: [StorageAdminStats](#interface-storageadminstats)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: AggregatePostBeefTxResult
+
+```ts
+export interface AggregatePostBeefTxResult {
+    txid: string;
+    txidResults: sdk.PostTxResultForTxid[];
+    status: AggregateStatus;
+    vreq: PostReqsToNetworkDetails;
+    successCount: number;
+    doubleSpendCount: number;
+    statusErrorCount: number;
+    serviceErrorCount: number;
+    providerAttempts: string[];
+    competingTxs: string[];
+}
+```
+
+See also: [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails)
+
+###### Property competingTxs
+
+Any competing double spend txids reported for this txid
+
+```ts
+competingTxs: string[]
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -69,7 +99,7 @@ export interface CommitNewTxResults {
 }
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq)
+See also: [EntityProvenTxReq](#class-entityproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -184,7 +214,7 @@ export interface GenerateChangeSdkParams {
 }
 ```
 
-See also: [GenerateChangeSdkInput](./storage.md#interface-generatechangesdkinput), [GenerateChangeSdkOutput](./storage.md#interface-generatechangesdkoutput), [StorageFeeModel](./client.md#interface-storagefeemodel)
+See also: [GenerateChangeSdkInput](#interface-generatechangesdkinput), [GenerateChangeSdkOutput](#interface-generatechangesdkoutput)
 
 ###### Property changeFirstSatoshis
 
@@ -265,7 +295,7 @@ export interface GenerateChangeSdkResult {
 }
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput), [GenerateChangeSdkChangeOutput](./storage.md#interface-generatechangesdkchangeoutput)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput), [GenerateChangeSdkChangeOutput](#interface-generatechangesdkchangeoutput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -278,7 +308,7 @@ export interface GenerateChangeSdkStorageChange extends GenerateChangeSdkChangeI
 }
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -295,7 +325,7 @@ export interface GetReqsAndBeefDetail {
 }
 ```
 
-See also: [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -309,7 +339,7 @@ export interface GetReqsAndBeefResult {
 }
 ```
 
-See also: [GetReqsAndBeefDetail](./storage.md#interface-getreqsandbeefdetail)
+See also: [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -321,11 +351,11 @@ export interface ListActionsSpecOp {
     name: string;
     labelsToIntercept?: string[];
     setStatusFilter?: () => TransactionStatus[];
-    postProcess?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]) => Promise<void>;
+    postProcess?: (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Array<Partial<TableTransaction>>) => Promise<void>;
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider), [TableTransaction](./storage.md#interface-tabletransaction), [TransactionStatus](./client.md#type-transactionstatus)
+See also: [StorageProvider](#class-storageprovider), [TableTransaction](#interface-tabletransaction)
 
 ###### Property labelsToIntercept
 
@@ -358,7 +388,7 @@ export interface ListOutputsSpecOp {
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider), [TableOutput](./storage.md#interface-tableoutput)
+See also: [StorageProvider](#class-storageprovider), [TableOutput](#interface-tableoutput)
 
 ###### Property tagsParamsCount
 
@@ -399,7 +429,7 @@ export interface MonitorAdminContext {
 }
 ```
 
-See also: [MonitorAdminContextConfig](./storage.md#interface-monitoradmincontextconfig), [MonitorDaemon](./monitor.md#class-monitordaemon), [Wallet](./client.md#class-wallet)
+See also: [MonitorAdminContextConfig](#interface-monitoradmincontextconfig)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -414,8 +444,6 @@ export interface MonitorAdminContextConfig {
     adminIdentityKeys: string[];
 }
 ```
-
-See also: [Chain](./client.md#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -432,8 +460,6 @@ export interface PostBeefResultForTxidApi {
     merklePath?: string;
 }
 ```
-
-See also: [blockHash](./services.md#function-blockhash)
 
 ###### Property alreadyKnown
 
@@ -467,7 +493,7 @@ export interface PostReqsToNetworkDetails {
 }
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq), [PostReqsToNetworkDetailsStatus](./storage.md#type-postreqstonetworkdetailsstatus)
+See also: [EntityProvenTxReq](#class-entityproventxreq), [PostReqsToNetworkDetailsStatus](#type-postreqstonetworkdetailsstatus)
 
 ###### Property competingTxs
 
@@ -491,7 +517,7 @@ export interface PostReqsToNetworkResult {
 }
 ```
 
-See also: [PostReqsToNetworkDetails](./storage.md#interface-postreqstonetworkdetails)
+See also: [PostReqsToNetworkDetails](#interface-postreqstonetworkdetails)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -505,7 +531,7 @@ export interface ProvenTxFromTxidResult {
 }
 ```
 
-See also: [EntityProvenTx](./storage.md#class-entityproventx)
+See also: [EntityProvenTx](#class-entityproventx)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -518,8 +544,6 @@ export interface ProvenTxReqHistory {
 }
 ```
 
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
-
 ###### Property notes
 
 Keys are Date().toISOString()
@@ -528,7 +552,6 @@ Values are a description of what happened.
 ```ts
 notes?: ReqHistoryNote[]
 ```
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -647,7 +670,7 @@ export interface StorageIdbOptions extends StorageProviderOptions {
 }
 ```
 
-See also: [StorageProviderOptions](./storage.md#interface-storageprovideroptions)
+See also: [StorageProviderOptions](#interface-storageprovideroptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -696,6 +719,13 @@ export interface StorageIdbSchema {
             userId: number;
             transactionId: number;
             basketId: number;
+            scriptHash: string;
+            userId_basketId_spendable_scriptHash: [
+                number,
+                number,
+                boolean,
+                string
+            ];
             spentBy: string;
             transactionId_vout_userId: [
                 number,
@@ -804,7 +834,7 @@ export interface StorageIdbSchema {
 }
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [SyncStatus](./client.md#type-syncstatus), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TransactionStatus](./client.md#type-transactionstatus)
+See also: [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -817,7 +847,7 @@ export interface StorageKnexOptions extends StorageProviderOptions {
 }
 ```
 
-See also: [StorageProviderOptions](./storage.md#interface-storageprovideroptions)
+See also: [StorageProviderOptions](#interface-storageprovideroptions)
 
 ###### Property knex
 
@@ -841,7 +871,7 @@ export interface StorageProviderOptions extends StorageReaderWriterOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [StorageFeeModel](./client.md#interface-storagefeemodel), [StorageReaderWriterOptions](./storage.md#interface-storagereaderwriteroptions)
+See also: [StorageReaderWriterOptions](#interface-storagereaderwriteroptions)
 
 ###### Property commissionPubKeyHex
 
@@ -873,8 +903,6 @@ export interface StorageReaderOptions {
 }
 ```
 
-See also: [Chain](./client.md#type-chain)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -885,7 +913,7 @@ export interface StorageReaderWriterOptions extends StorageReaderOptions {
 }
 ```
 
-See also: [StorageReaderOptions](./storage.md#interface-storagereaderoptions)
+See also: [StorageReaderOptions](#interface-storagereaderoptions)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -922,7 +950,7 @@ export interface SyncMap {
 }
 ```
 
-See also: [EntitySyncMap](./storage.md#interface-entitysyncmap)
+See also: [EntitySyncMap](#interface-entitysyncmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -946,8 +974,6 @@ export interface TableCertificate extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -965,8 +991,6 @@ export interface TableCertificateField extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -978,7 +1002,7 @@ export interface TableCertificateX extends TableCertificate {
 }
 ```
 
-See also: [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield)
+See also: [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -999,8 +1023,6 @@ export interface TableCommission extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1015,8 +1037,6 @@ export interface TableMonitorEvent extends sdk.EntityTimeStamp {
     details?: string;
 }
 ```
-
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1050,10 +1070,10 @@ export interface TableOutput extends sdk.EntityTimeStamp {
     scriptLength?: number;
     scriptOffset?: number;
     lockingScript?: number[];
+    scriptHash?: string;
+    cacheUpdatedAt?: Date;
 }
 ```
-
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [StorageProvidedBy](./client.md#type-storageprovidedby)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1073,8 +1093,6 @@ export interface TableOutputBasket extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1091,8 +1109,6 @@ export interface TableOutputTag extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1108,8 +1124,6 @@ export interface TableOutputTagMap extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1122,7 +1136,7 @@ export interface TableOutputX extends TableOutput {
 }
 ```
 
-See also: [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag)
+See also: [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1144,8 +1158,6 @@ export interface TableProvenTx extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [blockHash](./services.md#function-blockhash)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1166,10 +1178,12 @@ export interface TableProvenTxReq extends TableProvenTxReqDynamics {
     notify: string;
     rawTx: number[];
     inputBEEF?: number[];
+    wasBroadcast?: boolean;
+    rebroadcastAttempts?: number;
 }
 ```
 
-See also: [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [TableProvenTxReqDynamics](./storage.md#interface-tableproventxreqdynamics)
+See also: [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics)
 
 ###### Property attempts
 
@@ -1211,6 +1225,27 @@ Parses to `ProvenTxReqNotifyApi`.
 
 ```ts
 notify: string
+```
+
+###### Property rebroadcastAttempts
+
+Count of how many times this req has been reset to 'unsent' for rebroadcast
+after proof check timeout. Used by the circuit-breaker (maxRebroadcastAttempts).
+Defaults to 0 (added by migration 2026-04-30-001).
+
+```ts
+rebroadcastAttempts?: number
+```
+
+###### Property wasBroadcast
+
+Set to true the first time this req transitions to 'unmined' or 'callback' status,
+indicating the transaction was successfully broadcast to the network.
+Used to distinguish rebroadcast candidates from transactions that were never sent.
+Defaults to false (added by migration 2026-04-30-001).
+
+```ts
+wasBroadcast?: boolean
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -1230,10 +1265,10 @@ export interface TableProvenTxReqDynamics extends sdk.EntityTimeStamp {
     batch?: string;
     history: string;
     notify: string;
+    wasBroadcast?: boolean;
+    rebroadcastAttempts?: number;
 }
 ```
-
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [ProvenTxReqStatus](./client.md#type-proventxreqstatus)
 
 ###### Property attempts
 
@@ -1277,6 +1312,24 @@ Parses to `ProvenTxReqNotifyApi`.
 notify: string
 ```
 
+###### Property rebroadcastAttempts
+
+Count of rebroadcast cycles for this req. Used by the circuit-breaker.
+Defaults to 0 (added by migration 2026-04-30-001).
+
+```ts
+rebroadcastAttempts?: number
+```
+
+###### Property wasBroadcast
+
+Set to true the first time this req transitions to 'unmined' or 'callback' status.
+Defaults to false (added by migration 2026-04-30-001).
+
+```ts
+wasBroadcast?: boolean
+```
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1289,12 +1342,10 @@ export interface TableSettings extends sdk.StorageIdentity, sdk.EntityTimeStamp 
     storageIdentityKey: string;
     storageName: string;
     chain: sdk.Chain;
-    dbtype: "SQLite" | "MySQL" | "IndexedDB";
+    dbtype: "MySQL" | "IndexedDB";
     maxOutputScript: number;
 }
 ```
-
-See also: [Chain](./client.md#type-chain), [EntityTimeStamp](./client.md#interface-entitytimestamp), [StorageIdentity](./client.md#interface-storageidentity)
 
 ###### Property storageIdentityKey
 
@@ -1336,8 +1387,6 @@ export interface TableSyncState extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [SyncStatus](./client.md#type-syncstatus)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1362,8 +1411,6 @@ export interface TableTransaction extends sdk.EntityTimeStamp {
     rawTx?: number[];
 }
 ```
-
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [TransactionStatus](./client.md#type-transactionstatus)
 
 ###### Property isOutgoing
 
@@ -1417,8 +1464,6 @@ export interface TableTxLabel extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1434,8 +1479,6 @@ export interface TableTxLabelMap extends sdk.EntityTimeStamp {
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1450,8 +1493,6 @@ export interface TableUser extends sdk.EntityTimeStamp {
     activeStorage: string;
 }
 ```
-
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 ###### Property activeStorage
 
@@ -1498,8 +1539,6 @@ export interface VerifyAndRepairBeefResult {
 }
 ```
 
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1513,10 +1552,23 @@ export interface WalletStorageServerOptions {
     calculateRequestPrice?: (req: Request) => number | Promise<number>;
     adminIdentityKeys?: string[];
     makeLogger?: MakeWalletLogger;
+    rateLimit?: WalletStorageServerRateLimitOptions;
 }
 ```
 
-See also: [Wallet](./client.md#class-wallet)
+See also: [WalletStorageServerRateLimitOptions](#interface-walletstorageserverratelimitoptions)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Interface: WalletStorageServerRateLimitOptions
+
+```ts
+export interface WalletStorageServerRateLimitOptions {
+    maxRequests: number;
+    windowMs: number;
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1533,8 +1585,6 @@ export interface XValidCreateActionOutput extends Validation.ValidCreateActionOu
 }
 ```
 
-See also: [StorageProvidedBy](./client.md#type-storageprovidedby)
-
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -1542,15 +1592,16 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [AdminServer](#class-adminserver) | [EntityProvenTx](#class-entityproventx) | [StorageClient](#class-storageclient) |
-| [EntityBase](#class-entitybase) | [EntityProvenTxReq](#class-entityproventxreq) | [StorageIdb](#class-storageidb) |
-| [EntityCertificate](#class-entitycertificate) | [EntitySyncState](#class-entitysyncstate) | [StorageKnex](#class-storageknex) |
-| [EntityCertificateField](#class-entitycertificatefield) | [EntityTransaction](#class-entitytransaction) | [StorageProvider](#class-storageprovider) |
-| [EntityCommission](#class-entitycommission) | [EntityTxLabel](#class-entitytxlabel) | [StorageReader](#class-storagereader) |
-| [EntityOutput](#class-entityoutput) | [EntityTxLabelMap](#class-entitytxlabelmap) | [StorageReaderWriter](#class-storagereaderwriter) |
-| [EntityOutputBasket](#class-entityoutputbasket) | [EntityUser](#class-entityuser) | [StorageServer](#class-storageserver) |
-| [EntityOutputTag](#class-entityoutputtag) | [KnexMigrations](#class-knexmigrations) | [StorageSyncReader](#class-storagesyncreader) |
-| [EntityOutputTagMap](#class-entityoutputtagmap) | [MergeEntity](#class-mergeentity) | [WalletStorageManager](#class-walletstoragemanager) |
+| [AdminServer](#class-adminserver) | [EntityProvenTxReq](#class-entityproventxreq) | [StorageIdb](#class-storageidb) |
+| [EntityBase](#class-entitybase) | [EntitySyncState](#class-entitysyncstate) | [StorageKnex](#class-storageknex) |
+| [EntityCertificate](#class-entitycertificate) | [EntityTransaction](#class-entitytransaction) | [StorageProvider](#class-storageprovider) |
+| [EntityCertificateField](#class-entitycertificatefield) | [EntityTxLabel](#class-entitytxlabel) | [StorageReader](#class-storagereader) |
+| [EntityCommission](#class-entitycommission) | [EntityTxLabelMap](#class-entitytxlabelmap) | [StorageReaderWriter](#class-storagereaderwriter) |
+| [EntityOutput](#class-entityoutput) | [EntityUser](#class-entityuser) | [StorageServer](#class-storageserver) |
+| [EntityOutputBasket](#class-entityoutputbasket) | [KnexMigrations](#class-knexmigrations) | [StorageSyncReader](#class-storagesyncreader) |
+| [EntityOutputTag](#class-entityoutputtag) | [MergeEntity](#class-mergeentity) | [WalletStorageManager](#class-walletstoragemanager) |
+| [EntityOutputTagMap](#class-entityoutputtagmap) | [StorageClient](#class-storageclient) |  |
+| [EntityProvenTx](#class-entityproventx) | [StorageClientBase](#class-storageclientbase) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1560,13 +1611,13 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class AdminServer {
-    constructor(private readonly context: MonitorAdminContext) 
-    start(): void 
-    async close(): Promise<void> 
+    constructor(private readonly context: MonitorAdminContext)
+    start(): void
+    async close(): Promise<void>
 }
 ```
 
-See also: [MonitorAdminContext](./storage.md#interface-monitoradmincontext)
+See also: [MonitorAdminContext](#interface-monitoradmincontext)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1576,7 +1627,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export abstract class EntityBase<T> {
     api: T;
-    constructor(api: T) 
+    constructor(api: T)
     abstract get id(): number;
     abstract get entityName(): string;
     abstract get entityTable(): string;
@@ -1584,11 +1635,11 @@ export abstract class EntityBase<T> {
     abstract equals(ei: T, syncMap?: SyncMap): boolean;
     abstract mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>;
     abstract mergeExisting(storage: EntityStorage, since: Date | undefined, ei: T, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>;
-    toApi(): T 
+    toApi(): T
 }
 ```
 
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap)
 
 ###### Method equals
 
@@ -1599,7 +1650,7 @@ Tests for equality or 'merge' / 'convergent' equality if syncMap is provided.
 ```ts
 abstract equals(ei: T, syncMap?: SyncMap): boolean
 ```
-See also: [SyncMap](./storage.md#interface-syncmap)
+See also: [SyncMap](#interface-syncmap)
 
 ###### Method mergeExisting
 
@@ -1609,7 +1660,7 @@ from external `ei` to this existing local EntityUser
 ```ts
 abstract mergeExisting(storage: EntityStorage, since: Date | undefined, ei: T, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap)
 
 Returns
 
@@ -1624,7 +1675,7 @@ as a copy of the external object.
 ```ts
 abstract mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap)
 
 Argument Details
 
@@ -1639,7 +1690,7 @@ The `toApi` method forces an `updateApi` before returning the underlying,
 now updated, Api object.
 
 ```ts
-toApi(): T 
+toApi(): T
 ```
 
 Returns
@@ -1667,48 +1718,48 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityCertificate extends EntityBase<TableCertificate> {
-    constructor(api?: TableCertificate) 
-    override updateApi(): void 
-    get certificateId() 
-    set certificateId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get type() 
-    set type(v: string) 
-    get subject() 
-    set subject(v: string) 
-    get verifier() 
-    set verifier(v: string | undefined) 
-    get serialNumber() 
-    set serialNumber(v: string) 
-    get certifier() 
-    set certifier(v: string) 
-    get revocationOutpoint() 
-    set revocationOutpoint(v: string) 
-    get signature() 
-    set signature(v: string) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCertificate, syncMap?: SyncMap): boolean 
+    constructor(api?: TableCertificate)
+    override updateApi(): void
+    get certificateId()
+    set certificateId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get userId()
+    set userId(v: number)
+    get type()
+    set type(v: string)
+    get subject()
+    set subject(v: string)
+    get verifier()
+    set verifier(v: string | undefined)
+    get serialNumber()
+    set serialNumber(v: string)
+    get certifier()
+    set certifier(v: string)
+    get revocationOutpoint()
+    set revocationOutpoint(v: string)
+    get signature()
+    set signature(v: string)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableCertificate, syncMap?: SyncMap): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableCertificate, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityCertificate;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificate, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificate, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCertificate](./storage.md#interface-tablecertificate), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableCertificate](#interface-tablecertificate)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1717,37 +1768,37 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityCertificateField extends EntityBase<TableCertificateField> {
-    constructor(api?: TableCertificateField) 
-    override updateApi(): void 
-    get userId() 
-    set userId(v: number) 
-    get certificateId() 
-    set certificateId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get fieldName() 
-    set fieldName(v: string) 
-    get fieldValue() 
-    set fieldValue(v: string) 
-    get masterKey() 
-    set masterKey(v: string) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCertificateField, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableCertificateField)
+    override updateApi(): void
+    get userId()
+    set userId(v: number)
+    get certificateId()
+    set certificateId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get fieldName()
+    set fieldName(v: string)
+    get fieldValue()
+    set fieldValue(v: string)
+    get masterKey()
+    set masterKey(v: string)
+    override get id(): number
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableCertificateField, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableCertificateField, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityCertificateField;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificateField, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCertificateField, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableCertificateField](#interface-tablecertificatefield)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1756,42 +1807,42 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityCommission extends EntityBase<TableCommission> {
-    constructor(api?: TableCommission) 
-    override updateApi(): void 
-    get commissionId() 
-    set commissionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get userId() 
-    set userId(v: number) 
-    get isRedeemed() 
-    set isRedeemed(v: boolean) 
-    get keyOffset() 
-    set keyOffset(v: string) 
-    get lockingScript() 
-    set lockingScript(v: number[]) 
-    get satoshis() 
-    set satoshis(v: number) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableCommission, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableCommission)
+    override updateApi(): void
+    get commissionId()
+    set commissionId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get transactionId()
+    set transactionId(v: number)
+    get userId()
+    set userId(v: number)
+    get isRedeemed()
+    set isRedeemed(v: boolean)
+    get keyOffset()
+    set keyOffset(v: string)
+    get lockingScript()
+    set lockingScript(v: number[])
+    get satoshis()
+    set satoshis(v: number)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableCommission, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableCommission, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityCommission;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCommission, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableCommission, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableCommission](./storage.md#interface-tablecommission), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableCommission](#interface-tablecommission)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1800,72 +1851,72 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityOutput extends EntityBase<TableOutput> {
-    constructor(api?: TableOutput) 
-    override updateApi(): void 
-    get outputId() 
-    set outputId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get basketId() 
-    set basketId(v: number | undefined) 
-    get spentBy() 
-    set spentBy(v: number | undefined) 
-    get vout() 
-    set vout(v: number) 
-    get satoshis() 
-    set satoshis(v: number) 
-    get outputDescription() 
-    set outputDescription(v: string) 
-    get spendable() 
-    set spendable(v: boolean) 
-    get change() 
-    set change(v: boolean) 
-    get txid() 
-    set txid(v: string | undefined) 
-    get type() 
-    set type(v: string) 
-    get providedBy() 
-    set providedBy(v: StorageProvidedBy) 
-    get purpose() 
-    set purpose(v: string) 
-    get spendingDescription() 
-    set spendingDescription(v: string | undefined) 
-    get derivationPrefix() 
-    set derivationPrefix(v: string | undefined) 
-    get derivationSuffix() 
-    set derivationSuffix(v: string | undefined) 
-    get senderIdentityKey() 
-    set senderIdentityKey(v: string | undefined) 
-    get customInstructions() 
-    set customInstructions(v: string | undefined) 
-    get lockingScript() 
-    set lockingScript(v: number[] | undefined) 
-    get scriptLength() 
-    set scriptLength(v: number | undefined) 
-    get scriptOffset() 
-    set scriptOffset(v: number | undefined) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutput, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableOutput)
+    override updateApi(): void
+    get outputId()
+    set outputId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get userId()
+    set userId(v: number)
+    get transactionId()
+    set transactionId(v: number)
+    get basketId()
+    set basketId(v: number | undefined)
+    get spentBy()
+    set spentBy(v: number | undefined)
+    get vout()
+    set vout(v: number)
+    get satoshis()
+    set satoshis(v: number)
+    get outputDescription()
+    set outputDescription(v: string)
+    get spendable()
+    set spendable(v: boolean)
+    get change()
+    set change(v: boolean)
+    get txid()
+    set txid(v: string | undefined)
+    get type()
+    set type(v: string)
+    get providedBy()
+    set providedBy(v: StorageProvidedBy)
+    get purpose()
+    set purpose(v: string)
+    get spendingDescription()
+    set spendingDescription(v: string | undefined)
+    get derivationPrefix()
+    set derivationPrefix(v: string | undefined)
+    get derivationSuffix()
+    set derivationSuffix(v: string | undefined)
+    get senderIdentityKey()
+    set senderIdentityKey(v: string | undefined)
+    get customInstructions()
+    set customInstructions(v: string | undefined)
+    get lockingScript()
+    set lockingScript(v: number[] | undefined)
+    get scriptLength()
+    set scriptLength(v: number | undefined)
+    get scriptOffset()
+    set scriptOffset(v: number | undefined)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableOutput, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutput, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityOutput;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutput, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutput, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [StorageProvidedBy](./client.md#type-storageprovidedby), [SyncMap](./storage.md#interface-syncmap), [TableOutput](./storage.md#interface-tableoutput), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableOutput](#interface-tableoutput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1874,40 +1925,40 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityOutputBasket extends EntityBase<TableOutputBasket> {
-    constructor(api?: TableOutputBasket) 
-    get basketId() 
-    set basketId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get userId() 
-    set userId(v: number) 
-    get name() 
-    set name(v: string) 
-    get numberOfDesiredUTXOs() 
-    set numberOfDesiredUTXOs(v: number) 
-    get minimumDesiredUTXOValue() 
-    set minimumDesiredUTXOValue(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override updateApi(): void 
-    override equals(ei: TableOutputBasket, syncMap?: SyncMap): boolean 
+    constructor(api?: TableOutputBasket)
+    get basketId()
+    set basketId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get userId()
+    set userId(v: number)
+    get name()
+    set name(v: string)
+    get numberOfDesiredUTXOs()
+    set numberOfDesiredUTXOs(v: number)
+    get minimumDesiredUTXOValue()
+    set minimumDesiredUTXOValue(v: number)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id()
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override updateApi(): void
+    override equals(ei: TableOutputBasket, syncMap?: SyncMap): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputBasket, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityOutputBasket;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputBasket, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputBasket, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableOutputBasket](#interface-tableoutputbasket)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1916,36 +1967,36 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityOutputTag extends EntityBase<TableOutputTag> {
-    constructor(api?: TableOutputTag) 
-    override updateApi(): void 
-    get outputTagId() 
-    set outputTagId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get tag() 
-    set tag(v: string) 
-    get userId() 
-    set userId(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutputTag, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableOutputTag)
+    override updateApi(): void
+    get outputTagId()
+    set outputTagId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get tag()
+    set tag(v: string)
+    get userId()
+    set userId(v: number)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableOutputTag, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputTag, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityOutputTag;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTag, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTag, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputTag](./storage.md#interface-tableoutputtag), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableOutputTag](#interface-tableoutputtag)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1954,33 +2005,33 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityOutputTagMap extends EntityBase<TableOutputTagMap> {
-    constructor(api?: TableOutputTagMap) 
-    override updateApi(): void 
-    get outputTagId() 
-    set outputTagId(v: number) 
-    get outputId() 
-    set outputId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableOutputTagMap, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableOutputTagMap)
+    override updateApi(): void
+    get outputTagId()
+    set outputTagId(v: number)
+    get outputId()
+    set outputId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id(): number
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableOutputTagMap, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableOutputTagMap, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityOutputTagMap;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTagMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableOutputTagMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableOutputTagMap](#interface-tableoutputtagmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1989,57 +2040,57 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityProvenTx extends EntityBase<TableProvenTx> {
-    static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult> 
-    constructor(api?: TableProvenTx) 
-    override updateApi(): void 
-    getMerklePath(): MerklePath 
+    static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult>
+    constructor(api?: TableProvenTx)
+    override updateApi(): void
+    getMerklePath(): MerklePath
     _mp?: MerklePath;
-    get provenTxId() 
-    set provenTxId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get txid() 
-    set txid(v: string) 
-    get height() 
-    set height(v: number) 
-    get index() 
-    set index(v: number) 
-    get merklePath() 
-    set merklePath(v: number[]) 
-    get rawTx() 
-    set rawTx(v: number[]) 
-    get blockHash() 
-    set blockHash(v: string) 
-    get merkleRoot() 
-    set merkleRoot(v: string) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableProvenTx, syncMap?: SyncMap | undefined): boolean 
+    get provenTxId()
+    set provenTxId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get txid()
+    set txid(v: string)
+    get height()
+    set height(v: number)
+    get index()
+    set index(v: number)
+    get merklePath()
+    set merklePath(v: number[])
+    get rawTx()
+    set rawTx(v: number[])
+    get blockHash()
+    set blockHash(v: string)
+    get merkleRoot()
+    set merkleRoot(v: string)
+    override get id()
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableProvenTx, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityProvenTx;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    static getProofAttemptsLimit = 8;
-    static getProofMinutes = 60;
-    static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean): Promise<EntityProvenTx | undefined> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTx, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
+    static readonly getProofAttemptsLimit = 8;
+    static readonly getProofMinutes = 60;
+    static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean, maxRebroadcastAttempts = 0): Promise<EntityProvenTx | undefined>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [EntityStorage](./storage.md#type-entitystorage), [GetMerklePathResult](./client.md#interface-getmerklepathresult), [ProvenTxFromTxidResult](./storage.md#interface-proventxfromtxidresult), [SyncMap](./storage.md#interface-syncmap), [TableProvenTx](./storage.md#interface-tableproventx), [TrxToken](./client.md#interface-trxtoken), [WalletServices](./client.md#interface-walletservices), [blockHash](./services.md#function-blockhash)
+See also: [EntityBase](#class-entitybase), [EntityProvenTxReq](#class-entityproventxreq), [EntityStorage](#type-entitystorage), [ProvenTxFromTxidResult](#interface-proventxfromtxidresult), [SyncMap](#interface-syncmap), [TableProvenTx](#interface-tableproventx)
 
 ###### Property getProofAttemptsLimit
 
 How high attempts can go before status is forced to invalid
 
 ```ts
-static getProofAttemptsLimit = 8
+static readonly getProofAttemptsLimit = 8
 ```
 
 ###### Property getProofMinutes
@@ -2047,7 +2098,7 @@ static getProofAttemptsLimit = 8
 How many hours we have to try for a poof
 
 ```ts
-static getProofMinutes = 60
+static readonly getProofMinutes = 60
 ```
 
 ###### Method fromReq
@@ -2057,9 +2108,9 @@ Try to create a new ProvenTx from a ProvenTxReq and GetMerkleProofResultApi
 Otherwise it returns undefined and updates req.status to either 'unknown', 'invalid', or 'unconfirmed'
 
 ```ts
-static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean): Promise<EntityProvenTx | undefined> 
+static async fromReq(req: EntityProvenTxReq, gmpResult: GetMerklePathResult, countsAsAttempt: boolean, maxRebroadcastAttempts = 0): Promise<EntityProvenTx | undefined>
 ```
-See also: [EntityProvenTx](./storage.md#class-entityproventx), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [GetMerklePathResult](./client.md#interface-getmerklepathresult)
+See also: [EntityProvenTx](#class-entityproventx), [EntityProvenTxReq](#class-entityproventxreq)
 
 ###### Method fromTxid
 
@@ -2074,14 +2125,14 @@ The returned ProvenTx and ProvenTxReq objects have not been added to the storage
 this is optional and can be done by the caller if appropriate.
 
 ```ts
-static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult> 
+static async fromTxid(txid: string, services: WalletServices, rawTx?: number[]): Promise<ProvenTxFromTxidResult>
 ```
-See also: [ProvenTxFromTxidResult](./storage.md#interface-proventxfromtxidresult), [WalletServices](./client.md#interface-walletservices)
+See also: [ProvenTxFromTxidResult](#interface-proventxfromtxidresult)
 
 ###### Method getMerklePath
 
 ```ts
-getMerklePath(): MerklePath 
+getMerklePath(): MerklePath
 ```
 
 Returns
@@ -2095,75 +2146,84 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityProvenTxReq extends EntityBase<TableProvenTxReq> {
-    static async fromStorageTxid(storage: EntityStorage, txid: string, trx?: TrxToken): Promise<EntityProvenTxReq | undefined> 
-    static async fromStorageId(storage: EntityStorage, id: number, trx?: TrxToken): Promise<EntityProvenTxReq> 
-    static fromTxid(txid: string, rawTx: number[], inputBEEF?: number[]): EntityProvenTxReq 
+    static readonly wasBroadcastStatuses: ProvenTxReqStatus[] = ["unmined", "callback", "unconfirmed", "completed"];
+    static async fromStorageTxid(storage: EntityStorage, txid: string, trx?: TrxToken): Promise<EntityProvenTxReq | undefined>
+    static async fromStorageId(storage: EntityStorage, id: number, trx?: TrxToken): Promise<EntityProvenTxReq>
+    static fromTxid(txid: string, rawTx: number[], inputBEEF?: number[]): EntityProvenTxReq
     history: ProvenTxReqHistory;
     notify: ProvenTxReqNotify;
-    packApiHistory() 
-    packApiNotify() 
-    unpackApiHistory() 
-    unpackApiNotify() 
-    get apiHistory(): string 
-    get apiNotify(): string 
-    set apiHistory(v: string) 
-    set apiNotify(v: string) 
-    updateApi(): void 
-    unpackApi(): void 
-    async refreshFromStorage(storage: EntityStorage | WalletStorageManager, trx?: TrxToken): Promise<void> 
-    constructor(api?: TableProvenTxReq) 
-    historySince(since: Date): ProvenTxReqHistory 
-    historyPretty(since?: Date, indent = 0): string 
-    prettyNote(note: ReqHistoryNote): string 
-    getHistorySummary(): ProvenTxReqHistorySummaryApi 
-    parseHistoryNote(note: ReqHistoryNote, summary?: ProvenTxReqHistorySummaryApi): string 
-    addNotifyTransactionId(id: number) 
-    addHistoryNote(note: ReqHistoryNote, noDupes?: boolean) 
-    async updateStorage(storage: EntityStorage, trx?: TrxToken) 
-    async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken) 
-    async insertOrMerge(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTxReq> 
-    get status() 
-    set status(v: ProvenTxReqStatus) 
-    get provenTxReqId() 
-    set provenTxReqId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get txid() 
-    set txid(v: string) 
-    get inputBEEF() 
-    set inputBEEF(v: number[] | undefined) 
-    get rawTx() 
-    set rawTx(v: number[]) 
-    get attempts() 
-    set attempts(v: number) 
-    get provenTxId() 
-    set provenTxId(v: number | undefined) 
-    get notified() 
-    set notified(v: boolean) 
-    get batch() 
-    set batch(v: string | undefined) 
-    override get id() 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean 
+    packApiHistory()
+    packApiNotify()
+    unpackApiHistory()
+    unpackApiNotify()
+    get apiHistory(): string
+    get apiNotify(): string
+    set apiHistory(v: string)
+    set apiNotify(v: string)
+    updateApi(): void
+    unpackApi(): void
+    async refreshFromStorage(storage: EntityStorage | WalletStorageManager, trx?: TrxToken): Promise<void>
+    constructor(api?: TableProvenTxReq)
+    historySince(since: Date): ProvenTxReqHistory
+    historyPretty(since?: Date, indent = 0): string
+    prettyNote(note: ReqHistoryNote): string
+    getHistorySummary(): ProvenTxReqHistorySummaryApi
+    parseHistoryNote(note: ReqHistoryNote, summary?: ProvenTxReqHistorySummaryApi): string
+    addNotifyTransactionId(id: number)
+    addHistoryNote(note: ReqHistoryNote, noDupes?: boolean)
+    async updateStorage(storage: EntityStorage, trx?: TrxToken)
+    async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken)
+    async insertOrMerge(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTxReq>
+    get status()
+    set status(v: ProvenTxReqStatus)
+    get provenTxReqId()
+    set provenTxReqId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get txid()
+    set txid(v: string)
+    get inputBEEF()
+    set inputBEEF(v: number[] | undefined)
+    get rawTx()
+    set rawTx(v: number[])
+    get attempts()
+    set attempts(v: number)
+    get provenTxId()
+    set provenTxId(v: number | undefined)
+    get notified()
+    set notified(v: boolean)
+    get batch()
+    set batch(v: string | undefined)
+    get wasBroadcast(): boolean
+    set wasBroadcast(v: boolean)
+    get rebroadcastAttempts(): number
+    set rebroadcastAttempts(v: number)
+    applyProofTimeout(maxRebroadcastAttempts = 0): {
+        action: "invalid" | "rebroadcast";
+        rebroadcastAttempts: number;
+    }
+    override get id()
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityProvenTxReq;
         eiId: number;
-    }> 
-    mapNotifyTransactionIds(syncMap: SyncMap): void 
-    mergeNotifyTransactionIds(ei: TableProvenTxReq, syncMap?: SyncMap): void 
-    mergeHistory(ei: TableProvenTxReq, syncMap?: SyncMap, noDupes?: boolean): void 
-    static isTerminalStatus(status: ProvenTxReqStatus): boolean 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    mapNotifyTransactionIds(syncMap: SyncMap): void
+    mergeNotifyTransactionIds(ei: TableProvenTxReq, syncMap?: SyncMap): void
+    mergeHistory(ei: TableProvenTxReq, syncMap?: SyncMap, noDupes?: boolean): void
+    static isTerminalStatus(status: ProvenTxReqStatus): boolean
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [ProvenTxReqHistory](./storage.md#interface-proventxreqhistory), [ProvenTxReqHistorySummaryApi](./storage.md#interface-proventxreqhistorysummaryapi), [ProvenTxReqNotify](./storage.md#interface-proventxreqnotify), [ProvenTxReqStatus](./client.md#type-proventxreqstatus), [ReqHistoryNote](./client.md#type-reqhistorynote), [StorageProvider](./storage.md#class-storageprovider), [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [ProvenTxReqHistory](#interface-proventxreqhistory), [ProvenTxReqHistorySummaryApi](#interface-proventxreqhistorysummaryapi), [ProvenTxReqNotify](#interface-proventxreqnotify), [StorageProvider](#class-storageprovider), [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq), [WalletStorageManager](#class-walletstoragemanager)
 
 ###### Method addHistoryNote
 
@@ -2171,9 +2231,8 @@ Adds a note to history.
 Notes with identical property values to an existing note are ignored.
 
 ```ts
-addHistoryNote(note: ReqHistoryNote, noDupes?: boolean) 
+addHistoryNote(note: ReqHistoryNote, noDupes?: boolean)
 ```
-See also: [ReqHistoryNote](./client.md#type-reqhistorynote)
 
 Argument Details
 
@@ -2187,18 +2246,18 @@ Argument Details
 'convergent' equality must satisfy (A sync B) equals (B sync A)
 
 ```ts
-override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean 
+override equals(ei: TableProvenTxReq, syncMap?: SyncMap | undefined): boolean
 ```
-See also: [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq)
 
 ###### Method historySince
 
 Returns history to only what followed since date.
 
 ```ts
-historySince(since: Date): ProvenTxReqHistory 
+historySince(since: Date): ProvenTxReqHistory
 ```
-See also: [ProvenTxReqHistory](./storage.md#interface-proventxreqhistory)
+See also: [ProvenTxReqHistory](#interface-proventxreqhistory)
 
 ###### Method mergeExisting
 
@@ -2214,18 +2273,18 @@ passing through `notifying`. Thus a full convergent merge passes through these s
 On terminal failure: `doubleSpend` trumps `invalid` as it contains more data.
 
 ```ts
-override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableProvenTxReq, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableProvenTxReq](#interface-tableproventxreq)
 
 ###### Method updateStorage
 
 Updates database record with current state of this EntityUser
 
 ```ts
-async updateStorage(storage: EntityStorage, trx?: TrxToken) 
+async updateStorage(storage: EntityStorage, trx?: TrxToken)
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage)
 
 ###### Method updateStorageDynamicProperties
 
@@ -2240,9 +2299,9 @@ Update storage with changes to non-static properties:
   batch
 
 ```ts
-async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken) 
+async updateStorageDynamicProperties(storage: WalletStorageManager | StorageProvider, trx?: TrxToken)
 ```
-See also: [StorageProvider](./storage.md#class-storageprovider), [TrxToken](./client.md#interface-trxtoken), [WalletStorageManager](./storage.md#class-walletstoragemanager)
+See also: [StorageProvider](#class-storageprovider), [WalletStorageManager](#class-walletstoragemanager)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2251,47 +2310,47 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntitySyncState extends EntityBase<TableSyncState> {
-    constructor(api?: TableSyncState) 
-    validateSyncMap(sm: SyncMap) 
-    static async fromStorage(storage: WalletStorageSync, userIdentityKey: string, remoteSettings: TableSettings): Promise<EntitySyncState> 
-    async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken) 
-    override updateApi(notSyncMap?: boolean): void 
-    set created_at(v: Date) 
-    get created_at() 
-    set updated_at(v: Date) 
-    get updated_at() 
-    set userId(v: number) 
-    get userId() 
-    set storageIdentityKey(v: string) 
-    get storageIdentityKey() 
-    set storageName(v: string) 
-    get storageName() 
-    set init(v: boolean) 
-    get init() 
-    set refNum(v: string) 
-    get refNum() 
-    set status(v: SyncStatus) 
-    get status(): SyncStatus 
-    set when(v: Date | undefined) 
-    get when() 
-    set satoshis(v: number | undefined) 
-    get satoshis() 
-    get apiErrorLocal() 
-    get apiErrorOther() 
-    get apiSyncMap() 
-    override get id(): number 
-    set id(id: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    static mergeIdMap(fromMap: Record<number, number>, toMap: Record<number, number>) 
-    mergeSyncMap(iSyncMap: SyncMap) 
+    constructor(api?: TableSyncState)
+    validateSyncMap(sm: SyncMap)
+    static async fromStorage(storage: WalletStorageSync, userIdentityKey: string, remoteSettings: TableSettings): Promise<EntitySyncState>
+    async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken)
+    override updateApi(notSyncMap?: boolean): void
+    set created_at(v: Date)
+    get created_at()
+    set updated_at(v: Date)
+    get updated_at()
+    set userId(v: number)
+    get userId()
+    set storageIdentityKey(v: string)
+    get storageIdentityKey()
+    set storageName(v: string)
+    get storageName()
+    set init(v: boolean)
+    get init()
+    set refNum(v: string)
+    get refNum()
+    set status(v: SyncStatus)
+    get status(): SyncStatus
+    set when(v: Date | undefined)
+    get when()
+    set satoshis(v: number | undefined)
+    get satoshis()
+    get apiErrorLocal()
+    get apiErrorOther()
+    get apiSyncMap()
+    override get id(): number
+    set id(id: number)
+    override get entityName(): string
+    override get entityTable(): string
+    static mergeIdMap(fromMap: Record<number, number>, toMap: Record<number, number>)
+    mergeSyncMap(iSyncMap: SyncMap)
     errorLocal: SyncError | undefined;
     errorOther: SyncError | undefined;
     syncMap: SyncMap;
-    override equals(ei: TableSyncState, syncMap?: SyncMap | undefined): boolean 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableSyncState, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    makeRequestSyncChunkArgs(forIdentityKey: string, forStorageIdentityKey: string, maxRoughSize?: number, maxItems?: number): RequestSyncChunkArgs 
+    override equals(ei: TableSyncState, syncMap?: SyncMap | undefined): boolean
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableSyncState, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
+    makeRequestSyncChunkArgs(forIdentityKey: string, forStorageIdentityKey: string, maxRoughSize?: number, maxItems?: number): RequestSyncChunkArgs
     static syncChunkSummary(c: SyncChunk): string {
         let log = "";
         log += `SYNC CHUNK SUMMARY
@@ -2299,28 +2358,28 @@ export class EntitySyncState extends EntityBase<TableSyncState> {
   to storage: ${c.toStorageIdentityKey}
   for user: ${c.userIdentityKey}
 `;
-        if (c.user)
+        if (c.user != null)
             log += `  USER activeStorage ${c.user.activeStorage}\n`;
-        if (!!c.provenTxs) {
-            log += `  PROVEN_TXS\n`;
+        if (c.provenTxs != null) {
+            log += "  PROVEN_TXS\n";
             for (const r of c.provenTxs) {
                 log += `    ${r.provenTxId} ${r.txid}\n`;
             }
         }
-        if (!!c.provenTxReqs) {
-            log += `  PROVEN_TX_REQS\n`;
+        if (c.provenTxReqs != null) {
+            log += "  PROVEN_TX_REQS\n";
             for (const r of c.provenTxReqs) {
                 log += `    ${r.provenTxReqId} ${r.txid} ${r.status} ${r.provenTxId || ""}\n`;
             }
         }
-        if (!!c.transactions) {
-            log += `  TRANSACTIONS\n`;
+        if (c.transactions != null) {
+            log += "  TRANSACTIONS\n";
             for (const r of c.transactions) {
                 log += `    ${r.transactionId} ${r.txid} ${r.status} ${r.provenTxId || ""} sats:${r.satoshis}\n`;
             }
         }
-        if (!!c.outputs) {
-            log += `  OUTPUTS\n`;
+        if (c.outputs != null) {
+            log += "  OUTPUTS\n";
             for (const r of c.outputs) {
                 log += `    ${r.outputId} ${r.txid}.${r.vout} ${r.transactionId} ${r.spendable ? "spendable" : ""} sats:${r.satoshis}\n`;
             }
@@ -2332,29 +2391,29 @@ export class EntitySyncState extends EntityBase<TableSyncState> {
         maxUpdated_at: Date | undefined;
         updates: number;
         inserts: number;
-    }> 
+    }>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk), [SyncError](./storage.md#interface-syncerror), [SyncMap](./storage.md#interface-syncmap), [SyncStatus](./client.md#type-syncstatus), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TrxToken](./client.md#interface-trxtoken), [WalletStorageSync](./client.md#interface-walletstoragesync)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncError](#interface-syncerror), [SyncMap](#interface-syncmap), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate)
 
 ###### Method mergeSyncMap
 
 Merge additions to the syncMap
 
 ```ts
-mergeSyncMap(iSyncMap: SyncMap) 
+mergeSyncMap(iSyncMap: SyncMap)
 ```
-See also: [SyncMap](./storage.md#interface-syncmap)
+See also: [SyncMap](#interface-syncmap)
 
 ###### Method updateStorage
 
 Handles both insert and update based on id value: zero indicates insert.
 
 ```ts
-async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken) 
+async updateStorage(storage: EntityStorage, notSyncMap?: boolean, trx?: TrxToken)
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage)
 
 Argument Details
 
@@ -2368,63 +2427,63 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityTransaction extends EntityBase<TableTransaction> {
-    getBsvTx(): BsvTransaction | undefined 
-    getBsvTxIns(): TransactionInput[] 
-    async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]> 
-    constructor(api?: TableTransaction) 
-    override updateApi(): void 
-    get transactionId() 
-    set transactionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get version() 
-    set version(v: number | undefined) 
-    get lockTime() 
-    set lockTime(v: number | undefined) 
-    get isOutgoing() 
-    set isOutgoing(v: boolean) 
-    get status() 
-    set status(v: TransactionStatus) 
-    get userId() 
-    set userId(v: number) 
-    get provenTxId() 
-    set provenTxId(v: number | undefined) 
-    get satoshis() 
-    set satoshis(v: number) 
-    get txid() 
-    set txid(v: string | undefined) 
-    get reference() 
-    set reference(v: string) 
-    get inputBEEF() 
-    set inputBEEF(v: number[] | undefined) 
-    get description() 
-    set description(v: string) 
-    get rawTx() 
-    set rawTx(v: number[] | undefined) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTransaction, syncMap?: SyncMap | undefined): boolean 
+    getBsvTx(): BsvTransaction | undefined
+    getBsvTxIns(): TransactionInput[]
+    async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]>
+    constructor(api?: TableTransaction)
+    override updateApi(): void
+    get transactionId()
+    set transactionId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get version()
+    set version(v: number | undefined)
+    get lockTime()
+    set lockTime(v: number | undefined)
+    get isOutgoing()
+    set isOutgoing(v: boolean)
+    get status()
+    set status(v: TransactionStatus)
+    get userId()
+    set userId(v: number)
+    get provenTxId()
+    set provenTxId(v: number | undefined)
+    get satoshis()
+    set satoshis(v: number)
+    get txid()
+    set txid(v: string | undefined)
+    get reference()
+    set reference(v: string)
+    get inputBEEF()
+    set inputBEEF(v: number[] | undefined)
+    get description()
+    set description(v: string)
+    get rawTx()
+    set rawTx(v: number[] | undefined)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableTransaction, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableTransaction, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityTransaction;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTransaction, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
-    async getProvenTx(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTx | undefined> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTransaction, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
+    async getProvenTx(storage: EntityStorage, trx?: TrxToken): Promise<EntityProvenTx | undefined>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityProvenTx](./storage.md#class-entityproventx), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableOutput](./storage.md#interface-tableoutput), [TableTransaction](./storage.md#interface-tabletransaction), [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityProvenTx](#class-entityproventx), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableOutput](#interface-tableoutput), [TableTransaction](#interface-tabletransaction)
 
 ###### Method getBsvTxIns
 
 ```ts
-getBsvTxIns(): TransactionInput[] 
+getBsvTxIns(): TransactionInput[]
 ```
 
 Returns
@@ -2438,9 +2497,9 @@ Uses both spentBy and rawTx inputs (if available) to locate inputs from among us
 Not all transaction inputs correspond to prior storage outputs.
 
 ```ts
-async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]> 
+async getInputs(storage: EntityStorage, trx?: TrxToken): Promise<TableOutput[]>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [TableOutput](./storage.md#interface-tableoutput), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [TableOutput](#interface-tableoutput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2449,36 +2508,36 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityTxLabel extends EntityBase<TableTxLabel> {
-    constructor(api?: TableTxLabel) 
-    override updateApi(): void 
-    get txLabelId() 
-    set txLabelId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get label() 
-    set label(v: string) 
-    get userId() 
-    set userId(v: number) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTxLabel, syncMap?: SyncMap): boolean 
+    constructor(api?: TableTxLabel)
+    override updateApi(): void
+    get txLabelId()
+    set txLabelId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get label()
+    set label(v: string)
+    get userId()
+    set userId(v: number)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableTxLabel, syncMap?: SyncMap): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableTxLabel, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityTxLabel;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabel, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabel, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableTxLabel](./storage.md#interface-tabletxlabel), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableTxLabel](#interface-tabletxlabel)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2487,33 +2546,33 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityTxLabelMap extends EntityBase<TableTxLabelMap> {
-    constructor(api?: TableTxLabelMap) 
-    override updateApi(): void 
-    get txLabelId() 
-    set txLabelId(v: number) 
-    get transactionId() 
-    set transactionId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get isDeleted() 
-    set isDeleted(v: boolean) 
-    override get id(): number 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableTxLabelMap, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableTxLabelMap)
+    override updateApi(): void
+    get txLabelId()
+    set txLabelId(v: number)
+    get transactionId()
+    set transactionId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get isDeleted()
+    set isDeleted(v: boolean)
+    override get id(): number
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableTxLabelMap, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableTxLabelMap, syncMap: SyncMap, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityTxLabelMap;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabelMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableTxLabelMap, syncMap: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableTxLabelMap](#interface-tabletxlabelmap)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2522,34 +2581,34 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class EntityUser extends EntityBase<TableUser> {
-    constructor(api?: TableUser) 
-    override updateApi(): void 
-    get userId() 
-    set userId(v: number) 
-    get created_at() 
-    set created_at(v: Date) 
-    get updated_at() 
-    set updated_at(v: Date) 
-    get identityKey() 
-    set identityKey(v: string) 
-    get activeStorage() 
-    set activeStorage(v: string) 
-    override get id(): number 
-    override set id(v: number) 
-    override get entityName(): string 
-    override get entityTable(): string 
-    override equals(ei: TableUser, syncMap?: SyncMap | undefined): boolean 
+    constructor(api?: TableUser)
+    override updateApi(): void
+    get userId()
+    set userId(v: number)
+    get created_at()
+    set created_at(v: Date)
+    get updated_at()
+    set updated_at(v: Date)
+    get identityKey()
+    set identityKey(v: string)
+    get activeStorage()
+    set activeStorage(v: string)
+    override get id(): number
+    override set id(v: number)
+    override get entityName(): string
+    override get entityTable(): string
+    override equals(ei: TableUser, syncMap?: SyncMap | undefined): boolean
     static async mergeFind(storage: EntityStorage, userId: number, ei: TableUser, trx?: TrxToken): Promise<{
         found: boolean;
         eo: EntityUser;
         eiId: number;
-    }> 
-    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void> 
-    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableUser, syncMap?: SyncMap, trx?: TrxToken): Promise<boolean> 
+    }>
+    override async mergeNew(storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<void>
+    override async mergeExisting(storage: EntityStorage, since: Date | undefined, ei: TableUser, syncMap?: SyncMap, trx?: TrxToken): Promise<boolean>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap), [TableUser](#interface-tableuser)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -2559,24 +2618,21 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export class KnexMigrations implements MigrationSource<string> {
     migrations: Record<string, Migration> = {};
-    constructor(public chain: Chain, public storageName: string, public storageIdentityKey: string, public maxOutputScriptLength: number) 
-    async getMigrations(): Promise<string[]> 
-    getMigrationName(migration: string) 
-    async getMigration(migration: string): Promise<Migration> 
-    async getLatestMigration(): Promise<string> 
-    static async latestMigration(): Promise<string> 
-    setupMigrations(chain: string, storageName: string, storageIdentityKey: string, maxOutputScriptLength: number): Record<string, Migration> 
+    constructor(public chain: Chain, public storageName: string, public storageIdentityKey: string, public maxOutputScriptLength: number)
+    async getMigrations(): Promise<string[]>
+    getMigrationName(migration: string)
+    async getMigration(migration: string): Promise<Migration>
+    async getLatestMigration(): Promise<string>
+    static async latestMigration(): Promise<string>
+    setupMigrations(chain: string, storageName: string, storageIdentityKey: string, maxOutputScriptLength: number): Record<string, Migration>
 }
 ```
-
-See also: [Chain](./client.md#type-chain)
 
 ###### Constructor
 
 ```ts
-constructor(public chain: Chain, public storageName: string, public storageIdentityKey: string, public maxOutputScriptLength: number) 
+constructor(public chain: Chain, public storageName: string, public storageIdentityKey: string, public maxOutputScriptLength: number)
 ```
-See also: [Chain](./client.md#type-chain)
 
 Argument Details
 
@@ -2597,16 +2653,16 @@ export class MergeEntity<API extends EntityTimeStamp, DE extends EntityBase<API>
         found: boolean;
         eo: DE;
         eiId: number;
-    }>, public esm: EntitySyncMap) 
-    updateSyncMap(map: Record<number, number>, inId: number, outId: number) 
+    }>, public esm: EntitySyncMap)
+    updateSyncMap(map: Record<number, number>, inId: number, outId: number)
     async merge(since: Date | undefined, storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<{
         inserts: number;
         updates: number;
-    }> 
+    }>
 }
 ```
 
-See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage.md#type-entitystorage), [EntitySyncMap](./storage.md#interface-entitysyncmap), [EntityTimeStamp](./client.md#interface-entitytimestamp), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityBase](#class-entitybase), [EntityStorage](#type-entitystorage), [EntitySyncMap](#interface-entitysyncmap), [SyncMap](#interface-syncmap)
 
 ###### Method merge
 
@@ -2614,9 +2670,9 @@ See also: [EntityBase](./storage.md#class-entitybase), [EntityStorage](./storage
 async merge(since: Date | undefined, storage: EntityStorage, userId: number, syncMap: SyncMap, trx?: TrxToken): Promise<{
     inserts: number;
     updates: number;
-}> 
+}>
 ```
-See also: [EntityStorage](./storage.md#type-entitystorage), [SyncMap](./storage.md#interface-syncmap), [TrxToken](./client.md#interface-trxtoken)
+See also: [EntityStorage](#type-entitystorage), [SyncMap](#interface-syncmap)
 
 Argument Details
 
@@ -2642,60 +2698,97 @@ the party making requests of the remote service.
 For details of the API implemented, follow the "See also" link for the `WalletStorageProvider` interface.
 
 ```ts
-export class StorageClient implements WalletStorageProvider {
-    readonly endpointUrl: string;
-    public settings?: TableSettings;
-    constructor(wallet: WalletInterface, endpointUrl: string) 
-    isStorageProvider(): boolean 
-    isAvailable(): boolean 
-    getSettings(): TableSettings 
-    async makeAvailable(): Promise<TableSettings> 
-    async destroy(): Promise<void> 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    getServices(): WalletServices 
-    setServices(v: WalletServices): void 
-    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
-    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
-    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
-    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
-    async findOrInsertUser(identityKey): Promise<{
-        user: TableUser;
-        isNew: boolean;
-    }> 
-    async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
-        syncState: TableSyncState;
-        isNew: boolean;
-    }> 
-    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
-    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
-    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
-    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
-    async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk> 
-    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
-    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
-    validateDate(date: Date | string | number): Date 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+export class StorageClient extends StorageClientBase {
+    constructor(wallet: WalletInterface, endpointUrl: string)
+    protected async rpcCall<T>(method: string, params: unknown[]): Promise<T>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [EntityTimeStamp](./client.md#interface-entitytimestamp), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableUser](./storage.md#interface-tableuser), [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult), [WalletServices](./client.md#interface-walletservices), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [createAction](./storage.md#function-createaction), [getSyncChunk](./storage.md#function-getsyncchunk), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [processAction](./storage.md#function-processaction)
+See also: [StorageClientBase](#class-storageclientbase)
+
+###### Method rpcCall
+
+Make a JSON-RPC call to the remote server.
+
+```ts
+protected async rpcCall<T>(method: string, params: unknown[]): Promise<T>
+```
+
+Argument Details
+
++ **method**
+  + The WalletStorage method name to call.
++ **params**
+  + The array of parameters to pass to the method in order.
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Class: StorageClientBase
+
+Abstract base class shared by `StorageClient` and `StorageMobile`.
+
+Contains all `WalletStorageProvider` method implementations and entity-validation
+helpers. Subclasses only need to provide `rpcCall`, which differs between
+the full (logger-aware) and mobile (lightweight) variants.
+
+```ts
+export abstract class StorageClientBase implements WalletStorageProvider {
+    readonly endpointUrl: string;
+    protected readonly authClient: AuthFetch;
+    protected nextId = 1;
+    public settings?: TableSettings;
+    constructor(wallet: WalletInterface, endpointUrl: string)
+    isStorageProvider(): boolean
+    protected abstract rpcCall<T>(method: string, params: unknown[]): Promise<T>;
+    isAvailable(): boolean
+    getSettings(): TableSettings
+    async makeAvailable(): Promise<TableSettings>
+    async destroy(): Promise<void>
+    async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    getServices(): WalletServices
+    setServices(v: WalletServices): void
+    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
+    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
+    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
+    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
+    async findOrInsertUser(identityKey): Promise<{
+        user: TableUser;
+        isNew: boolean;
+    }>
+    async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
+        syncState: TableSyncState;
+        isNew: boolean;
+    }>
+    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
+    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
+    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
+    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
+    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
+    async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>
+    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
+    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
+    validateDate(date: Date | string | number): Date
+    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
+    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
+}
+```
+
+See also: [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableUser](#interface-tableuser), [createAction](#function-createaction), [getSyncChunk](#function-getsyncchunk), [internalizeAction](#function-internalizeaction), [listActions](#function-listactions), [listCertificates](#function-listcertificates), [listOutputs](#function-listoutputs), [processAction](#function-processaction), [validateDate](#function-validatedate), [validateEntities](#function-validateentities), [validateEntity](#function-validateentity)
 
 ###### Method abortAction
 
 Aborts an action by `reference` string.
 
 ```ts
-async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
+async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Returns
 
@@ -2714,9 +2807,8 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `createAction`.
 
 ```ts
-async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
+async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult)
 
 Returns
 
@@ -2735,7 +2827,7 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Called to cleanup resources when no further use of this object will occur.
 
 ```ts
-async destroy(): Promise<void> 
+async destroy(): Promise<void>
 ```
 
 ###### Method findCertificatesAuth
@@ -2746,9 +2838,9 @@ This certificate retrieval method supports internal wallet operations.
 Field values are stored and retrieved encrypted.
 
 ```ts
-async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
+async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [TableCertificateX](./storage.md#interface-tablecertificatex)
+See also: [TableCertificateX](#interface-tablecertificatex)
 
 Returns
 
@@ -2770,9 +2862,9 @@ Used to both find and insert a `TableSyncState` record for the user to track wal
 async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
     syncState: TableSyncState;
     isNew: boolean;
-}> 
+}>
 ```
-See also: [AuthId](./client.md#interface-authid), [TableSyncState](./storage.md#interface-tablesyncstate)
+See also: [TableSyncState](#interface-tablesyncstate)
 
 Returns
 
@@ -2797,9 +2889,9 @@ It is up to the remote storage whether to allow creation of new users by this me
 async findOrInsertUser(identityKey): Promise<{
     user: TableUser;
     isNew: boolean;
-}> 
+}>
 ```
-See also: [TableUser](./storage.md#interface-tableuser)
+See also: [TableUser](#interface-tableuser)
 
 Returns
 
@@ -2817,9 +2909,9 @@ Find output baskets.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
+async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [TableOutputBasket](./storage.md#interface-tableoutputbasket)
+See also: [TableOutputBasket](#interface-tableoutputbasket)
 
 Returns
 
@@ -2840,9 +2932,9 @@ Find outputs.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
+async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
 ```
-See also: [AuthId](./client.md#interface-authid), [FindOutputsArgs](./client.md#interface-findoutputsargs), [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
 Returns
 
@@ -2863,9 +2955,9 @@ Find requests for transaction proofs.
 This retrieval method supports internal wallet operations.
 
 ```ts
-async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
+async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
 ```
-See also: [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [TableProvenTxReq](./storage.md#interface-tableproventxreq)
+See also: [TableProvenTxReq](#interface-tableproventxreq)
 
 Returns
 
@@ -2884,9 +2976,8 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Remote storage does not offer `Services` to remote clients.
 
 ```ts
-getServices(): WalletServices 
+getServices(): WalletServices
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
 
 Throws
 
@@ -2895,9 +2986,9 @@ WERR_INVALID_OPERATION
 ###### Method getSettings
 
 ```ts
-getSettings(): TableSettings 
+getSettings(): TableSettings
 ```
-See also: [TableSettings](./storage.md#interface-tablesettings)
+See also: [TableSettings](#interface-tablesettings)
 
 Returns
 
@@ -2915,9 +3006,8 @@ The normal data flow is for the active storage to push backups as a sequence of 
 Also supports recovery where non-active storage can attempt to merge available data prior to becoming active.
 
 ```ts
-async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk> 
+async getSyncChunk(args: RequestSyncChunkArgs): Promise<SyncChunk>
 ```
-See also: [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk)
 
 Returns
 
@@ -2933,9 +3023,9 @@ Argument Details
 Inserts a new certificate with fields and keyring into remote storage.
 
 ```ts
-async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
+async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid), [TableCertificateX](./storage.md#interface-tablecertificatex)
+See also: [TableCertificateX](#interface-tablecertificatex)
 
 Returns
 
@@ -2956,9 +3046,8 @@ Updates internalized outputs in remote storage.
 Triggers proof validation of containing transaction.
 
 ```ts
-async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
+async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult)
 
 Returns
 
@@ -2975,7 +3064,7 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 ###### Method isAvailable
 
 ```ts
-isAvailable(): boolean 
+isAvailable(): boolean
 ```
 
 Returns
@@ -2988,7 +3077,7 @@ The `StorageClient` implements the `WalletStorageProvider` interface.
 It does not implement the lower level `StorageProvider` interface.
 
 ```ts
-isStorageProvider(): boolean 
+isStorageProvider(): boolean
 ```
 
 Returns
@@ -3000,9 +3089,8 @@ false
 Storage level processing for wallet `listActions`.
 
 ```ts
-async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
+async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Returns
 
@@ -3021,9 +3109,8 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `listCertificates`.
 
 ```ts
-async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
+async listCertificates(auth: AuthId, vargs: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Returns
 
@@ -3042,9 +3129,8 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Storage level processing for wallet `listOutputs`.
 
 ```ts
-async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
+async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Returns
 
@@ -3064,9 +3150,9 @@ Must be called prior to making use of storage.
 Retreives `TableSettings` from remote storage provider.
 
 ```ts
-async makeAvailable(): Promise<TableSettings> 
+async makeAvailable(): Promise<TableSettings>
 ```
-See also: [TableSettings](./storage.md#interface-tablesettings)
+See also: [TableSettings](#interface-tablesettings)
 
 Returns
 
@@ -3078,7 +3164,7 @@ Requests schema migration to latest.
 Typically remote storage will ignore this request.
 
 ```ts
-async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
+async migrate(storageName: string, storageIdentityKey: string): Promise<string>
 ```
 
 Returns
@@ -3099,9 +3185,8 @@ Storage level processing for wallet `createAction` and `signAction`.
 Handles remaining storage tasks once a fully signed transaction has been completed. This is common to both `createAction` and `signAction`.
 
 ```ts
-async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
+async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
 ```
-See also: [AuthId](./client.md#interface-authid), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults)
 
 Returns
 
@@ -3122,9 +3207,8 @@ Process a "chunk" of replication data for the user.
 The normal data flow is for the active storage to push backups as a sequence of data chunks to backup storage providers.
 
 ```ts
-async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
+async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
 ```
-See also: [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [SyncChunk](./client.md#interface-syncchunk)
 
 Returns
 
@@ -3145,9 +3229,8 @@ For storage supporting replication records must be kept of deletions. Therefore 
 when relinquished, and no longer returned by `listCertificates`, but are still retained by storage.
 
 ```ts
-async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
+async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Argument Details
 
@@ -3164,9 +3247,8 @@ Relinquish an output.
 Relinquishing an output removes the output from whatever basket was tracking it.
 
 ```ts
-async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
+async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Argument Details
 
@@ -3176,6 +3258,22 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 + **args**
   + original wallet `relinquishOutput` args.
 
+###### Method rpcCall
+
+Make a JSON-RPC call to the remote server.
+Implemented differently by each subclass (with or without logger support).
+
+```ts
+protected abstract rpcCall<T>(method: string, params: unknown[]): Promise<T>
+```
+
+Argument Details
+
++ **method**
+  + The WalletStorage method name to call.
++ **params**
+  + The array of parameters to pass to the method in order.
+
 ###### Method setActive
 
 Ensures up-to-date wallet data replication to all configured backup storage providers,
@@ -3183,9 +3281,8 @@ then promotes one of the configured backups to active,
 demoting the current active to new backup.
 
 ```ts
-async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
+async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 Argument Details
 
@@ -3200,9 +3297,8 @@ This must match the `AuthFetch` identity securing the remote conneciton.
 Ignored. Remote storage cannot share `Services` with remote clients.
 
 ```ts
-setServices(v: WalletServices): void 
+setServices(v: WalletServices): void
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
 
 ###### Method updateProvenTxReqWithNewProvenTx
 
@@ -3213,9 +3309,8 @@ Handles the data received when a new transaction proof is found in response to a
   - Updates the proof request record to 'completed' status which enables delayed deletion.
 
 ```ts
-async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
 ```
-See also: [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult)
 
 Returns
 
@@ -3232,9 +3327,8 @@ Helper to force uniform behavior across database engines.
 Use to process all arrays of records with time stamps retreived from database.
 
 ```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Returns
 
@@ -3246,9 +3340,8 @@ Helper to force uniform behavior across database engines.
 Use to process all individual records with time stamps retreived from database.
 
 ```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
+validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3262,77 +3355,77 @@ via the promises wrapper package `idb`.
 export class StorageIdb extends StorageProvider implements WalletStorageProvider {
     dbName: string;
     db?: IDBPDatabase<StorageIdbSchema>;
-    constructor(options: StorageIdbOptions) 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
-    toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly"> 
-    async readSettings(trx?: TrxToken): Promise<TableSettings> 
-    async initDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
+    constructor(options: StorageIdbOptions)
+    async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>>
+    toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly">
+    async readSettings(trx?: TrxToken): Promise<TableSettings>
+    async initDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>>
     async reviewStatus(args: {
         agedLimit: Date;
         trx?: TrxToken;
     }): Promise<{
         log: string;
-    }> 
-    async purgeData(params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
-    async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
-    async getProvenOrRawTx(txid: string, trx?: TrxToken): Promise<ProvenOrRawTx> 
-    async getRawTxOfKnownValidTransaction(txid?: string, offset?: number, length?: number, trx?: TrxToken): Promise<number[] | undefined> 
-    async getLabelsForTransactionId(transactionId?: number, trx?: TrxToken): Promise<TableTxLabel[]> 
-    async getTagsForOutputId(outputId: number, trx?: TrxToken): Promise<TableOutputTag[]> 
-    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number> 
-    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
-    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
-    async dropAllData(): Promise<void> 
-    async filterOutputTagMaps(args: FindOutputTagMapsArgs, filtered: (v: TableOutputTagMap) => void, userId?: number): Promise<void> 
-    async findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]> 
-    async filterProvenTxReqs(args: FindProvenTxReqsArgs, filtered: (v: TableProvenTxReq) => void, userId?: number): Promise<void> 
-    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async filterProvenTxs(args: FindProvenTxsArgs, filtered: (v: TableProvenTx) => void, userId?: number): Promise<void> 
-    async findProvenTxs(args: FindProvenTxsArgs): Promise<TableProvenTx[]> 
-    async filterTxLabelMaps(args: FindTxLabelMapsArgs, filtered: (v: TableTxLabelMap) => void, userId?: number): Promise<void> 
-    async findTxLabelMaps(args: FindTxLabelMapsArgs): Promise<TableTxLabelMap[]> 
-    async countOutputTagMaps(args: FindOutputTagMapsArgs): Promise<number> 
-    async countProvenTxReqs(args: FindProvenTxReqsArgs): Promise<number> 
-    async countProvenTxs(args: FindProvenTxsArgs): Promise<number> 
-    async countTxLabelMaps(args: FindTxLabelMapsArgs): Promise<number> 
-    async insertCertificate(certificate: TableCertificateX, trx?: TrxToken): Promise<number> 
-    async insertCertificateField(certificateField: TableCertificateField, trx?: TrxToken): Promise<void> 
-    async insertCommission(commission: TableCommission, trx?: TrxToken): Promise<number> 
-    async insertMonitorEvent(event: TableMonitorEvent, trx?: TrxToken): Promise<number> 
-    async insertOutput(output: TableOutput, trx?: TrxToken): Promise<number> 
-    async insertOutputBasket(basket: TableOutputBasket, trx?: TrxToken): Promise<number> 
-    async insertOutputTag(tag: TableOutputTag, trx?: TrxToken): Promise<number> 
-    async insertOutputTagMap(tagMap: TableOutputTagMap, trx?: TrxToken): Promise<void> 
-    async insertProvenTx(tx: TableProvenTx, trx?: TrxToken): Promise<number> 
-    async insertProvenTxReq(tx: TableProvenTxReq, trx?: TrxToken): Promise<number> 
-    async insertSyncState(syncState: TableSyncState, trx?: TrxToken): Promise<number> 
-    async insertTransaction(tx: TableTransaction, trx?: TrxToken): Promise<number> 
-    async insertTxLabel(label: TableTxLabel, trx?: TrxToken): Promise<number> 
-    async insertTxLabelMap(labelMap: TableTxLabelMap, trx?: TrxToken): Promise<void> 
-    async insertUser(user: TableUser, trx?: TrxToken): Promise<number> 
-    async updateIdb<T>(id: number | number[], update: Partial<T>, keyProp: string, storeName: string, trx?: TrxToken): Promise<number> 
-    async updateIdbKey<T>(key: (number | string)[], update: Partial<T>, keyProps: string[], storeName: string, trx?: TrxToken): Promise<number> 
-    async updateCertificate(id: number, update: Partial<TableCertificate>, trx?: TrxToken): Promise<number> 
-    async updateCertificateField(certificateId: number, fieldName: string, update: Partial<TableCertificateField>, trx?: TrxToken): Promise<number> 
-    async updateCommission(id: number, update: Partial<TableCommission>, trx?: TrxToken): Promise<number> 
-    async updateMonitorEvent(id: number, update: Partial<TableMonitorEvent>, trx?: TrxToken): Promise<number> 
-    async updateOutput(id: number, update: Partial<TableOutput>, trx?: TrxToken): Promise<number> 
-    async updateOutputBasket(id: number, update: Partial<TableOutputBasket>, trx?: TrxToken): Promise<number> 
-    async updateOutputTag(id: number, update: Partial<TableOutputTag>, trx?: TrxToken): Promise<number> 
-    async updateProvenTx(id: number, update: Partial<TableProvenTx>, trx?: TrxToken): Promise<number> 
-    async updateProvenTxReq(id: number | number[], update: Partial<TableProvenTxReq>, trx?: TrxToken): Promise<number> 
-    async updateSyncState(id: number, update: Partial<TableSyncState>, trx?: TrxToken): Promise<number> 
-    async updateTransaction(id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number> 
-    async updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number> 
-    async updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number> 
-    async updateOutputTagMap(outputId: number, tagId: number, update: Partial<TableOutputTagMap>, trx?: TrxToken): Promise<number> 
-    async updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number> 
-    async destroy(): Promise<void> 
+    }>
+    async purgeData(params: PurgeParams, trx?: TrxToken): Promise<PurgeResults>
+    async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined>
+    async getProvenOrRawTx(txid: string, trx?: TrxToken): Promise<ProvenOrRawTx>
+    async getRawTxOfKnownValidTransaction(txid?: string, offset?: number, length?: number, trx?: TrxToken): Promise<number[] | undefined>
+    async getLabelsForTransactionId(transactionId?: number, trx?: TrxToken): Promise<TableTxLabel[]>
+    async getTagsForOutputId(outputId: number, trx?: TrxToken): Promise<TableOutputTag[]>
+    async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
+    async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number>
+    async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
+    async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
+    async dropAllData(): Promise<void>
+    async filterOutputTagMaps(args: FindOutputTagMapsArgs, filtered: (v: TableOutputTagMap) => void, userId?: number): Promise<void>
+    async findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]>
+    async filterProvenTxReqs(args: FindProvenTxReqsArgs, filtered: (v: TableProvenTxReq) => void, userId?: number): Promise<void>
+    async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    async filterProvenTxs(args: FindProvenTxsArgs, filtered: (v: TableProvenTx) => void, userId?: number): Promise<void>
+    async findProvenTxs(args: FindProvenTxsArgs): Promise<TableProvenTx[]>
+    async filterTxLabelMaps(args: FindTxLabelMapsArgs, filtered: (v: TableTxLabelMap) => void, userId?: number): Promise<void>
+    async findTxLabelMaps(args: FindTxLabelMapsArgs): Promise<TableTxLabelMap[]>
+    async countOutputTagMaps(args: FindOutputTagMapsArgs): Promise<number>
+    async countProvenTxReqs(args: FindProvenTxReqsArgs): Promise<number>
+    async countProvenTxs(args: FindProvenTxsArgs): Promise<number>
+    async countTxLabelMaps(args: FindTxLabelMapsArgs): Promise<number>
+    async insertCertificate(certificate: TableCertificateX, trx?: TrxToken): Promise<number>
+    async insertCertificateField(certificateField: TableCertificateField, trx?: TrxToken): Promise<void>
+    async insertCommission(commission: TableCommission, trx?: TrxToken): Promise<number>
+    async insertMonitorEvent(event: TableMonitorEvent, trx?: TrxToken): Promise<number>
+    async insertOutput(output: TableOutput, trx?: TrxToken): Promise<number>
+    async insertOutputBasket(basket: TableOutputBasket, trx?: TrxToken): Promise<number>
+    async insertOutputTag(tag: TableOutputTag, trx?: TrxToken): Promise<number>
+    async insertOutputTagMap(tagMap: TableOutputTagMap, trx?: TrxToken): Promise<void>
+    async insertProvenTx(tx: TableProvenTx, trx?: TrxToken): Promise<number>
+    async insertProvenTxReq(tx: TableProvenTxReq, trx?: TrxToken): Promise<number>
+    async insertSyncState(syncState: TableSyncState, trx?: TrxToken): Promise<number>
+    async insertTransaction(tx: TableTransaction, trx?: TrxToken): Promise<number>
+    async insertTxLabel(label: TableTxLabel, trx?: TrxToken): Promise<number>
+    async insertTxLabelMap(labelMap: TableTxLabelMap, trx?: TrxToken): Promise<void>
+    async insertUser(user: TableUser, trx?: TrxToken): Promise<number>
+    async updateIdb<T>(id: number | number[], update: Partial<T>, keyProp: string, storeName: string, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<number>
+    async updateIdbKey<T>(key: Array<number | string>, update: Partial<T>, keyProps: string[], storeName: string, trx?: TrxToken): Promise<number>
+    async updateCertificate(id: number, update: Partial<TableCertificate>, trx?: TrxToken): Promise<number>
+    async updateCertificateField(certificateId: number, fieldName: string, update: Partial<TableCertificateField>, trx?: TrxToken): Promise<number>
+    async updateCommission(id: number, update: Partial<TableCommission>, trx?: TrxToken): Promise<number>
+    async updateMonitorEvent(id: number, update: Partial<TableMonitorEvent>, trx?: TrxToken): Promise<number>
+    async updateOutput(id: number, update: Partial<TableOutput>, trx?: TrxToken): Promise<number>
+    async updateOutputBasket(id: number, update: Partial<TableOutputBasket>, trx?: TrxToken): Promise<number>
+    async updateOutputTag(id: number, update: Partial<TableOutputTag>, trx?: TrxToken): Promise<number>
+    async updateProvenTx(id: number, update: Partial<TableProvenTx>, trx?: TrxToken): Promise<number>
+    async updateProvenTxReq(id: number | number[], update: Partial<TableProvenTxReq>, trx?: TrxToken): Promise<number>
+    async updateSyncState(id: number, update: Partial<TableSyncState>, trx?: TrxToken): Promise<number>
+    async updateTransaction(id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number>
+    async updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number>
+    async updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number>
+    async updateOutputTagMap(outputId: number, tagId: number, update: Partial<TableOutputTagMap>, trx?: TrxToken): Promise<number>
+    async updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number>
+    async destroy(): Promise<void>
     allStores: string[] = [
         "certificates",
         "certificate_fields",
@@ -3350,55 +3443,55 @@ export class StorageIdb extends StorageProvider implements WalletStorageProvider
         "tx_labels_map",
         "users"
     ];
-    async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T> 
-    async filterCertificateFields(args: FindCertificateFieldsArgs, filtered: (v: TableCertificateField) => void): Promise<void> 
-    async findCertificateFields(args: FindCertificateFieldsArgs): Promise<TableCertificateField[]> 
-    async filterCertificates(args: FindCertificatesArgs, filtered: (v: TableCertificateX) => void): Promise<void> 
-    async findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async filterCommissions(args: FindCommissionsArgs, filtered: (v: TableCommission) => void): Promise<void> 
-    async findCommissions(args: FindCommissionsArgs): Promise<TableCommission[]> 
-    async filterMonitorEvents(args: FindMonitorEventsArgs, filtered: (v: TableMonitorEvent) => void): Promise<void> 
-    async findMonitorEvents(args: FindMonitorEventsArgs): Promise<TableMonitorEvent[]> 
-    async filterOutputBaskets(args: FindOutputBasketsArgs, filtered: (v: TableOutputBasket) => void): Promise<void> 
-    async findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async filterOutputs(args: FindOutputsArgs, filtered: (v: TableOutput) => void, tagIds?: number[], isQueryModeAll?: boolean): Promise<void> 
-    async findOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<TableOutput[]> 
-    async filterOutputTags(args: FindOutputTagsArgs, filtered: (v: TableOutputTag) => void): Promise<void> 
-    async findOutputTags(args: FindOutputTagsArgs): Promise<TableOutputTag[]> 
-    async filterSyncStates(args: FindSyncStatesArgs, filtered: (v: TableSyncState) => void): Promise<void> 
-    async findSyncStates(args: FindSyncStatesArgs): Promise<TableSyncState[]> 
-    async filterTransactions(args: FindTransactionsArgs, filtered: (v: TableTransaction) => void, labelIds?: number[], isQueryModeAll?: boolean): Promise<void> 
-    async findTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<TableTransaction[]> 
-    async filterTxLabels(args: FindTxLabelsArgs, filtered: (v: TableTxLabel) => void): Promise<void> 
-    async findTxLabels(args: FindTxLabelsArgs): Promise<TableTxLabel[]> 
-    async filterUsers(args: FindUsersArgs, filtered: (v: TableUser) => void): Promise<void> 
-    async findUsers(args: FindUsersArgs): Promise<TableUser[]> 
-    async countCertificateFields(args: FindCertificateFieldsArgs): Promise<number> 
-    async countCertificates(args: FindCertificatesArgs): Promise<number> 
-    async countCommissions(args: FindCommissionsArgs): Promise<number> 
-    async countMonitorEvents(args: FindMonitorEventsArgs): Promise<number> 
-    async countOutputBaskets(args: FindOutputBasketsArgs): Promise<number> 
-    async countOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<number> 
-    async countOutputTags(args: FindOutputTagsArgs): Promise<number> 
-    async countSyncStates(args: FindSyncStatesArgs): Promise<number> 
-    async countTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<number> 
-    async countTxLabels(args: FindTxLabelsArgs): Promise<number> 
-    async countUsers(args: FindUsersArgs): Promise<number> 
-    async getProvenTxsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTx[]> 
-    async getProvenTxReqsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTxReq[]> 
-    async getTxLabelMapsForUser(args: FindForUserSincePagedArgs): Promise<TableTxLabelMap[]> 
-    async getOutputTagMapsForUser(args: FindForUserSincePagedArgs): Promise<TableOutputTagMap[]> 
-    async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType> 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
-    validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
-    async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
-    async validateRawTransaction(t: TableTransaction, trx?: TrxToken): Promise<void> 
-    async adminStats(adminIdentityKey: string): Promise<StorageAdminStats> 
+    async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T>
+    async filterCertificateFields(args: FindCertificateFieldsArgs, filtered: (v: TableCertificateField) => void): Promise<void>
+    async findCertificateFields(args: FindCertificateFieldsArgs): Promise<TableCertificateField[]>
+    async filterCertificates(args: FindCertificatesArgs, filtered: (v: TableCertificateX) => void): Promise<void>
+    async findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    async filterCommissions(args: FindCommissionsArgs, filtered: (v: TableCommission) => void): Promise<void>
+    async findCommissions(args: FindCommissionsArgs): Promise<TableCommission[]>
+    async filterMonitorEvents(args: FindMonitorEventsArgs, filtered: (v: TableMonitorEvent) => void): Promise<void>
+    async findMonitorEvents(args: FindMonitorEventsArgs): Promise<TableMonitorEvent[]>
+    async filterOutputBaskets(args: FindOutputBasketsArgs, filtered: (v: TableOutputBasket) => void): Promise<void>
+    async findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async filterOutputs(args: FindOutputsArgs, filtered: (v: TableOutput) => void, tagIds?: number[], isQueryModeAll?: boolean): Promise<void>
+    async findOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<TableOutput[]>
+    async filterOutputTags(args: FindOutputTagsArgs, filtered: (v: TableOutputTag) => void): Promise<void>
+    async findOutputTags(args: FindOutputTagsArgs): Promise<TableOutputTag[]>
+    async filterSyncStates(args: FindSyncStatesArgs, filtered: (v: TableSyncState) => void): Promise<void>
+    async findSyncStates(args: FindSyncStatesArgs): Promise<TableSyncState[]>
+    async filterTransactions(args: FindTransactionsArgs, filtered: (v: TableTransaction) => void, labelIds?: number[], isQueryModeAll?: boolean): Promise<void>
+    async findTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<TableTransaction[]>
+    async filterTxLabels(args: FindTxLabelsArgs, filtered: (v: TableTxLabel) => void): Promise<void>
+    async findTxLabels(args: FindTxLabelsArgs): Promise<TableTxLabel[]>
+    async filterUsers(args: FindUsersArgs, filtered: (v: TableUser) => void): Promise<void>
+    async findUsers(args: FindUsersArgs): Promise<TableUser[]>
+    async countCertificateFields(args: FindCertificateFieldsArgs): Promise<number>
+    async countCertificates(args: FindCertificatesArgs): Promise<number>
+    async countCommissions(args: FindCommissionsArgs): Promise<number>
+    async countMonitorEvents(args: FindMonitorEventsArgs): Promise<number>
+    async countOutputBaskets(args: FindOutputBasketsArgs): Promise<number>
+    async countOutputs(args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<number>
+    async countOutputTags(args: FindOutputTagsArgs): Promise<number>
+    async countSyncStates(args: FindSyncStatesArgs): Promise<number>
+    async countTransactions(args: FindTransactionsArgs, labelIds?: number[], isQueryModeAll?: boolean): Promise<number>
+    async countTxLabels(args: FindTxLabelsArgs): Promise<number>
+    async countUsers(args: FindUsersArgs): Promise<number>
+    async getProvenTxsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTx[]>
+    async getProvenTxReqsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTxReq[]>
+    async getTxLabelMapsForUser(args: FindForUserSincePagedArgs): Promise<TableTxLabelMap[]>
+    async getOutputTagMapsForUser(args: FindForUserSincePagedArgs): Promise<TableOutputTagMap[]>
+    async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType>
+    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T
+    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[]
+    validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T>
+    async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any>
+    async validateRawTransaction(t: TableTransaction, trx?: TrxToken): Promise<void>
+    async adminStats(adminIdentityKey: string): Promise<StorageAdminStats>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [DBType](./storage.md#type-dbtype), [EntityTimeStamp](./client.md#interface-entitytimestamp), [FindCertificateFieldsArgs](./client.md#interface-findcertificatefieldsargs), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindCommissionsArgs](./client.md#interface-findcommissionsargs), [FindForUserSincePagedArgs](./client.md#interface-findforusersincepagedargs), [FindMonitorEventsArgs](./client.md#interface-findmonitoreventsargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputTagMapsArgs](./client.md#interface-findoutputtagmapsargs), [FindOutputTagsArgs](./client.md#interface-findoutputtagsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [FindProvenTxsArgs](./client.md#interface-findproventxsargs), [FindSyncStatesArgs](./client.md#interface-findsyncstatesargs), [FindTransactionsArgs](./client.md#interface-findtransactionsargs), [FindTxLabelMapsArgs](./client.md#interface-findtxlabelmapsargs), [FindTxLabelsArgs](./client.md#interface-findtxlabelsargs), [FindUsersArgs](./client.md#interface-findusersargs), [ProvenOrRawTx](./client.md#interface-provenorrawtx), [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [StorageAdminStats](./storage.md#interface-storageadminstats), [StorageIdbOptions](./storage.md#interface-storageidboptions), [StorageIdbSchema](./storage.md#interface-storageidbschema), [StorageProvider](./storage.md#class-storageprovider), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [listActions](./storage.md#function-listactions), [listOutputs](./storage.md#function-listoutputs), [purgeData](./storage.md#function-purgedata), [reviewStatus](./storage.md#function-reviewstatus)
+See also: [DBType](#type-dbtype), [StorageAdminStats](#interface-storageadminstats), [StorageIdbOptions](#interface-storageidboptions), [StorageIdbSchema](#interface-storageidbschema), [StorageProvider](#class-storageprovider), [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCertificateX](#interface-tablecertificatex), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser), [listActions](#function-listactions), [listOutputs](#function-listoutputs), [purgeData](#function-purgedata), [reviewStatus](#function-reviewstatus), [validateEntities](#function-validateentities), [validateEntity](#function-validateentity)
 
 ###### Method allocateChangeInput
 
@@ -3412,9 +3505,9 @@ Outputs must belong to userId and basketId and have spendable true.
 Their corresponding transaction must have status of 'completed', 'unproven', or 'sending' (if excludeSending is false).
 
 ```ts
-async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
+async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined>
 ```
-See also: [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
 Returns
 
@@ -3429,7 +3522,7 @@ If the database has already been created in this context, `storageName` and `sto
 are ignored.
 
 ```ts
-async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
+async migrate(storageName: string, storageIdentityKey: string): Promise<string>
 ```
 
 ###### Method readSettings
@@ -3441,9 +3534,9 @@ it is where async initialization occurs.
 After initialization, cached settings are returned.
 
 ```ts
-async readSettings(trx?: TrxToken): Promise<TableSettings> 
+async readSettings(trx?: TrxToken): Promise<TableSettings>
 ```
-See also: [TableSettings](./storage.md#interface-tablesettings), [TrxToken](./client.md#interface-trxtoken)
+See also: [TableSettings](#interface-tablesettings)
 
 ###### Method toDbTrx
 
@@ -3451,9 +3544,9 @@ Convert the standard optional `TrxToken` parameter into either a direct knex dat
 or a Knex.Transaction as appropriate.
 
 ```ts
-toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly"> 
+toDbTrx(stores: string[], mode: "readonly" | "readwrite", trx?: TrxToken): IDBPTransaction<StorageIdbSchema, string[], "readwrite" | "readonly">
 ```
-See also: [StorageIdbSchema](./storage.md#interface-storageidbschema), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageIdbSchema](#interface-storageidbschema)
 
 ###### Method validateEntities
 
@@ -3461,9 +3554,8 @@ Helper to force uniform behavior across database engines.
 Use to process all arrays of records with time stamps retreived from database.
 
 ```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
+validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[]
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Returns
 
@@ -3475,9 +3567,8 @@ Helper to force uniform behavior across database engines.
 Use to process all individual records with time stamps or number[] retreived from database.
 
 ```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
+validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 ###### Method validateEntityForInsert
 
@@ -3485,9 +3576,8 @@ Helper to force uniform behavior across database engines.
 Use to process new entities being inserted into the database.
 
 ```ts
-async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
+async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any>
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method validatePartialForUpdate
 
@@ -3495,18 +3585,17 @@ Helper to force uniform behavior across database engines.
 Use to process the update template for entities being updated.
 
 ```ts
-validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
+validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T>
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 ###### Method verifyDB
 
 Following initial database initialization, this method verfies that db is ready for use.
 
 ```ts
-async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>> 
+async verifyDB(storageName?: string, storageIdentityKey?: string): Promise<IDBPDatabase<StorageIdbSchema>>
 ```
-See also: [StorageIdbSchema](./storage.md#interface-storageidbschema)
+See also: [StorageIdbSchema](#interface-storageidbschema)
 
 Throws
 
@@ -3520,136 +3609,136 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export class StorageKnex extends StorageProvider implements WalletStorageProvider {
     knex: Knex;
-    constructor(options: StorageKnexOptions) 
-    async readSettings(): Promise<TableSettings> 
-    override async getProvenOrRawTx(txid: string, trx?: TrxToken): Promise<ProvenOrRawTx> 
-    dbTypeSubstring(source: string, fromOffset: number, forLength?: number) 
-    override async getRawTxOfKnownValidTransaction(txid?: string, offset?: number, length?: number, trx?: TrxToken): Promise<number[] | undefined> 
-    getProvenTxsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder 
-    override async getProvenTxsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTx[]> 
-    getProvenTxReqsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder 
-    override async getProvenTxReqsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTxReq[]> 
-    getTxLabelMapsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder 
-    override async getTxLabelMapsForUser(args: FindForUserSincePagedArgs): Promise<TableTxLabelMap[]> 
-    getOutputTagMapsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder 
-    override async getOutputTagMapsForUser(args: FindForUserSincePagedArgs): Promise<TableOutputTagMap[]> 
-    override async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    override async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    override async insertProvenTx(tx: TableProvenTx, trx?: TrxToken): Promise<number> 
-    override async insertProvenTxReq(tx: TableProvenTxReq, trx?: TrxToken): Promise<number> 
-    override async insertUser(user: TableUser, trx?: TrxToken): Promise<number> 
-    override async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number> 
-    override async insertCertificate(certificate: TableCertificateX, trx?: TrxToken): Promise<number> 
-    override async insertCertificateField(certificateField: TableCertificateField, trx?: TrxToken): Promise<void> 
-    override async insertOutputBasket(basket: TableOutputBasket, trx?: TrxToken): Promise<number> 
-    override async insertTransaction(tx: TableTransaction, trx?: TrxToken): Promise<number> 
-    override async insertCommission(commission: TableCommission, trx?: TrxToken): Promise<number> 
-    override async insertOutput(output: TableOutput, trx?: TrxToken): Promise<number> 
-    override async insertOutputTag(tag: TableOutputTag, trx?: TrxToken): Promise<number> 
-    override async insertOutputTagMap(tagMap: TableOutputTagMap, trx?: TrxToken): Promise<void> 
-    override async insertTxLabel(label: TableTxLabel, trx?: TrxToken): Promise<number> 
-    override async insertTxLabelMap(labelMap: TableTxLabelMap, trx?: TrxToken): Promise<void> 
-    override async insertMonitorEvent(event: TableMonitorEvent, trx?: TrxToken): Promise<number> 
-    override async insertSyncState(syncState: TableSyncState, trx?: TrxToken): Promise<number> 
-    override async updateCertificateField(certificateId: number, fieldName: string, update: Partial<TableCertificateField>, trx?: TrxToken): Promise<number> 
-    override async updateCertificate(id: number, update: Partial<TableCertificate>, trx?: TrxToken): Promise<number> 
-    override async updateCommission(id: number, update: Partial<TableCommission>, trx?: TrxToken): Promise<number> 
-    override async updateOutputBasket(id: number, update: Partial<TableOutputBasket>, trx?: TrxToken): Promise<number> 
-    override async updateOutput(id: number, update: Partial<TableOutput>, trx?: TrxToken): Promise<number> 
-    override async updateOutputTagMap(outputId: number, tagId: number, update: Partial<TableOutputTagMap>, trx?: TrxToken): Promise<number> 
-    override async updateOutputTag(id: number, update: Partial<TableOutputTag>, trx?: TrxToken): Promise<number> 
-    override async updateProvenTxReq(id: number | number[], update: Partial<TableProvenTxReq>, trx?: TrxToken): Promise<number> 
-    override async updateProvenTx(id: number, update: Partial<TableProvenTx>, trx?: TrxToken): Promise<number> 
-    override async updateSyncState(id: number, update: Partial<TableSyncState>, trx?: TrxToken): Promise<number> 
-    override async updateTransaction(id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number> 
-    override async updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number> 
-    override async updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number> 
-    override async updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number> 
-    override async updateMonitorEvent(id: number, update: Partial<TableMonitorEvent>, trx?: TrxToken): Promise<number> 
-    setupQuery<T extends object>(table: string, args: FindPartialSincePagedArgs<T>): Knex.QueryBuilder 
-    findCertificateFieldsQuery(args: FindCertificateFieldsArgs): Knex.QueryBuilder 
-    findCertificatesQuery(args: FindCertificatesArgs): Knex.QueryBuilder 
-    findCommissionsQuery(args: FindCommissionsArgs): Knex.QueryBuilder 
-    findOutputBasketsQuery(args: FindOutputBasketsArgs): Knex.QueryBuilder 
-    findOutputsQuery(args: FindOutputsArgs, count?: boolean): Knex.QueryBuilder 
-    findOutputTagMapsQuery(args: FindOutputTagMapsArgs): Knex.QueryBuilder 
-    findOutputTagsQuery(args: FindOutputTagsArgs): Knex.QueryBuilder 
-    findProvenTxReqsQuery(args: FindProvenTxReqsArgs): Knex.QueryBuilder 
-    findProvenTxsQuery(args: FindProvenTxsArgs): Knex.QueryBuilder 
-    findStaleMerkleRootsQuery(args: FindStaleMerkleRootsArgs): Knex.QueryBuilder 
-    findSyncStatesQuery(args: FindSyncStatesArgs): Knex.QueryBuilder 
-    findTransactionsQuery(args: FindTransactionsArgs, count?: boolean): Knex.QueryBuilder 
-    findTxLabelMapsQuery(args: FindTxLabelMapsArgs): Knex.QueryBuilder 
-    findTxLabelsQuery(args: FindTxLabelsArgs): Knex.QueryBuilder 
-    findUsersQuery(args: FindUsersArgs): Knex.QueryBuilder 
-    findMonitorEventsQuery(args: FindMonitorEventsArgs): Knex.QueryBuilder 
-    override async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    override async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    override async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]> 
-    override async findCertificateFields(args: FindCertificateFieldsArgs): Promise<TableCertificateField[]> 
-    override async findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]> 
-    override async findCommissions(args: FindCommissionsArgs): Promise<TableCommission[]> 
-    override async findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    override async findOutputs(args: FindOutputsArgs): Promise<TableOutput[]> 
-    override async findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]> 
-    override async findOutputTags(args: FindOutputTagsArgs): Promise<TableOutputTag[]> 
-    override async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    override async findProvenTxs(args: FindProvenTxsArgs): Promise<TableProvenTx[]> 
-    override async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]> 
-    override async findSyncStates(args: FindSyncStatesArgs): Promise<TableSyncState[]> 
-    override async findTransactions(args: FindTransactionsArgs): Promise<TableTransaction[]> 
-    override async findTxLabelMaps(args: FindTxLabelMapsArgs): Promise<TableTxLabelMap[]> 
-    override async findTxLabels(args: FindTxLabelsArgs): Promise<TableTxLabel[]> 
-    override async findUsers(args: FindUsersArgs): Promise<TableUser[]> 
-    override async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]> 
-    override async findMonitorEvents(args: FindMonitorEventsArgs): Promise<TableMonitorEvent[]> 
-    async getCount<T extends object>(q: Knex.QueryBuilder<T, T[]>): Promise<number> 
-    override async countCertificateFields(args: FindCertificateFieldsArgs): Promise<number> 
-    override async countCertificates(args: FindCertificatesArgs): Promise<number> 
-    override async countCommissions(args: FindCommissionsArgs): Promise<number> 
-    override async countOutputBaskets(args: FindOutputBasketsArgs): Promise<number> 
-    override async countOutputs(args: FindOutputsArgs): Promise<number> 
-    override async countOutputTagMaps(args: FindOutputTagMapsArgs): Promise<number> 
-    override async countOutputTags(args: FindOutputTagsArgs): Promise<number> 
-    override async countProvenTxReqs(args: FindProvenTxReqsArgs): Promise<number> 
-    override async countProvenTxs(args: FindProvenTxsArgs): Promise<number> 
-    override async countSyncStates(args: FindSyncStatesArgs): Promise<number> 
-    override async countTransactions(args: FindTransactionsArgs): Promise<number> 
-    override async countTxLabelMaps(args: FindTxLabelMapsArgs): Promise<number> 
-    override async countTxLabels(args: FindTxLabelsArgs): Promise<number> 
-    override async countUsers(args: FindUsersArgs): Promise<number> 
-    override async countMonitorEvents(args: FindMonitorEventsArgs): Promise<number> 
-    override async destroy(): Promise<void> 
-    override async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    override async dropAllData(): Promise<void> 
-    override async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T> 
-    toDb(trx?: TrxToken) 
-    async validateRawTransaction(t: TableTransaction, trx?: TrxToken): Promise<void> 
+    constructor(options: StorageKnexOptions)
+    async readSettings(): Promise<TableSettings>
+    override async getProvenOrRawTx(txid: string, trx?: TrxToken): Promise<ProvenOrRawTx>
+    dbTypeSubstring(source: string, fromOffset: number, forLength?: number)
+    override async getRawTxOfKnownValidTransaction(txid?: string, offset?: number, length?: number, trx?: TrxToken): Promise<number[] | undefined>
+    getProvenTxsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder
+    override async getProvenTxsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTx[]>
+    getProvenTxReqsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder
+    override async getProvenTxReqsForUser(args: FindForUserSincePagedArgs): Promise<TableProvenTxReq[]>
+    getTxLabelMapsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder
+    override async getTxLabelMapsForUser(args: FindForUserSincePagedArgs): Promise<TableTxLabelMap[]>
+    getOutputTagMapsForUserQuery(args: FindForUserSincePagedArgs): Knex.QueryBuilder
+    override async getOutputTagMapsForUser(args: FindForUserSincePagedArgs): Promise<TableOutputTagMap[]>
+    override async listActions(auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
+    override async listOutputs(auth: AuthId, vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    override async insertProvenTx(tx: TableProvenTx, trx?: TrxToken): Promise<number>
+    override async insertProvenTxReq(tx: TableProvenTxReq, trx?: TrxToken): Promise<number>
+    override async insertUser(user: TableUser, trx?: TrxToken): Promise<number>
+    override async insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>
+    override async insertCertificate(certificate: TableCertificateX, trx?: TrxToken): Promise<number>
+    override async insertCertificateField(certificateField: TableCertificateField, trx?: TrxToken): Promise<void>
+    override async insertOutputBasket(basket: TableOutputBasket, trx?: TrxToken): Promise<number>
+    override async insertTransaction(tx: TableTransaction, trx?: TrxToken): Promise<number>
+    override async insertCommission(commission: TableCommission, trx?: TrxToken): Promise<number>
+    override async insertOutput(output: TableOutput, trx?: TrxToken): Promise<number>
+    override async insertOutputTag(tag: TableOutputTag, trx?: TrxToken): Promise<number>
+    override async insertOutputTagMap(tagMap: TableOutputTagMap, trx?: TrxToken): Promise<void>
+    override async insertTxLabel(label: TableTxLabel, trx?: TrxToken): Promise<number>
+    override async insertTxLabelMap(labelMap: TableTxLabelMap, trx?: TrxToken): Promise<void>
+    override async insertMonitorEvent(event: TableMonitorEvent, trx?: TrxToken): Promise<number>
+    override async insertSyncState(syncState: TableSyncState, trx?: TrxToken): Promise<number>
+    override async updateCertificateField(certificateId: number, fieldName: string, update: Partial<TableCertificateField>, trx?: TrxToken): Promise<number>
+    override async updateCertificate(id: number, update: Partial<TableCertificate>, trx?: TrxToken): Promise<number>
+    override async updateCommission(id: number, update: Partial<TableCommission>, trx?: TrxToken): Promise<number>
+    override async updateOutputBasket(id: number, update: Partial<TableOutputBasket>, trx?: TrxToken): Promise<number>
+    override async updateOutput(id: number, update: Partial<TableOutput>, trx?: TrxToken): Promise<number>
+    override async updateOutputTagMap(outputId: number, tagId: number, update: Partial<TableOutputTagMap>, trx?: TrxToken): Promise<number>
+    override async updateOutputTag(id: number, update: Partial<TableOutputTag>, trx?: TrxToken): Promise<number>
+    override async updateProvenTxReq(id: number | number[], update: Partial<TableProvenTxReq>, trx?: TrxToken): Promise<number>
+    override async updateProvenTx(id: number, update: Partial<TableProvenTx>, trx?: TrxToken): Promise<number>
+    override async updateSyncState(id: number, update: Partial<TableSyncState>, trx?: TrxToken): Promise<number>
+    override async updateTransaction(id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number>
+    override async updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number>
+    override async updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number>
+    override async updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number>
+    override async updateMonitorEvent(id: number, update: Partial<TableMonitorEvent>, trx?: TrxToken): Promise<number>
+    setupQuery<T extends object>(table: string, args: FindPartialSincePagedArgs<T>): Knex.QueryBuilder
+    findCertificateFieldsQuery(args: FindCertificateFieldsArgs): Knex.QueryBuilder
+    findCertificatesQuery(args: FindCertificatesArgs): Knex.QueryBuilder
+    findCommissionsQuery(args: FindCommissionsArgs): Knex.QueryBuilder
+    findOutputBasketsQuery(args: FindOutputBasketsArgs): Knex.QueryBuilder
+    findOutputsQuery(args: FindOutputsArgs, count?: boolean): Knex.QueryBuilder
+    findOutputTagMapsQuery(args: FindOutputTagMapsArgs): Knex.QueryBuilder
+    findOutputTagsQuery(args: FindOutputTagsArgs): Knex.QueryBuilder
+    findProvenTxReqsQuery(args: FindProvenTxReqsArgs): Knex.QueryBuilder
+    findProvenTxsQuery(args: FindProvenTxsArgs): Knex.QueryBuilder
+    findStaleMerkleRootsQuery(args: FindStaleMerkleRootsArgs): Knex.QueryBuilder
+    findSyncStatesQuery(args: FindSyncStatesArgs): Knex.QueryBuilder
+    findTransactionsQuery(args: FindTransactionsArgs, count?: boolean): Knex.QueryBuilder
+    findTxLabelMapsQuery(args: FindTxLabelMapsArgs): Knex.QueryBuilder
+    findTxLabelsQuery(args: FindTxLabelsArgs): Knex.QueryBuilder
+    findUsersQuery(args: FindUsersArgs): Knex.QueryBuilder
+    findMonitorEventsQuery(args: FindMonitorEventsArgs): Knex.QueryBuilder
+    override async findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    override async findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    override async findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>
+    override async findCertificateFields(args: FindCertificateFieldsArgs): Promise<TableCertificateField[]>
+    override async findCertificates(args: FindCertificatesArgs): Promise<TableCertificateX[]>
+    override async findCommissions(args: FindCommissionsArgs): Promise<TableCommission[]>
+    override async findOutputBaskets(args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    override async findOutputs(args: FindOutputsArgs): Promise<TableOutput[]>
+    override async findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]>
+    override async findOutputTags(args: FindOutputTagsArgs): Promise<TableOutputTag[]>
+    override async findProvenTxReqs(args: FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    override async findProvenTxs(args: FindProvenTxsArgs): Promise<TableProvenTx[]>
+    override async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]>
+    override async findSyncStates(args: FindSyncStatesArgs): Promise<TableSyncState[]>
+    override async findTransactions(args: FindTransactionsArgs): Promise<TableTransaction[]>
+    override async findTxLabelMaps(args: FindTxLabelMapsArgs): Promise<TableTxLabelMap[]>
+    override async findTxLabels(args: FindTxLabelsArgs): Promise<TableTxLabel[]>
+    override async findUsers(args: FindUsersArgs): Promise<TableUser[]>
+    override async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]>
+    override async findMonitorEvents(args: FindMonitorEventsArgs): Promise<TableMonitorEvent[]>
+    async getCount<T extends object>(q: Knex.QueryBuilder<T, T[]>): Promise<number>
+    override async countCertificateFields(args: FindCertificateFieldsArgs): Promise<number>
+    override async countCertificates(args: FindCertificatesArgs): Promise<number>
+    override async countCommissions(args: FindCommissionsArgs): Promise<number>
+    override async countOutputBaskets(args: FindOutputBasketsArgs): Promise<number>
+    override async countOutputs(args: FindOutputsArgs): Promise<number>
+    override async countOutputTagMaps(args: FindOutputTagMapsArgs): Promise<number>
+    override async countOutputTags(args: FindOutputTagsArgs): Promise<number>
+    override async countProvenTxReqs(args: FindProvenTxReqsArgs): Promise<number>
+    override async countProvenTxs(args: FindProvenTxsArgs): Promise<number>
+    override async countSyncStates(args: FindSyncStatesArgs): Promise<number>
+    override async countTransactions(args: FindTransactionsArgs): Promise<number>
+    override async countTxLabelMaps(args: FindTxLabelMapsArgs): Promise<number>
+    override async countTxLabels(args: FindTxLabelsArgs): Promise<number>
+    override async countUsers(args: FindUsersArgs): Promise<number>
+    override async countMonitorEvents(args: FindMonitorEventsArgs): Promise<number>
+    override async destroy(): Promise<void>
+    override async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    override async dropAllData(): Promise<void>
+    override async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T>
+    toDb(trx?: TrxToken)
+    async validateRawTransaction(t: TableTransaction, trx?: TrxToken): Promise<void>
     _verifiedReadyForDatabaseAccess: boolean = false;
-    async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType> 
-    validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
-    async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
-    override async getLabelsForTransactionId(transactionId?: number, trx?: TrxToken): Promise<TableTxLabel[]> 
-    override async getTagsForOutputId(outputId: number, trx?: TrxToken): Promise<TableOutputTag[]> 
-    override async purgeData(params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
+    async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType>
+    validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T>
+    async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any>
+    override async getLabelsForTransactionId(transactionId?: number, trx?: TrxToken): Promise<TableTxLabel[]>
+    override async getTagsForOutputId(outputId: number, trx?: TrxToken): Promise<TableOutputTag[]>
+    override async purgeData(params: PurgeParams, trx?: TrxToken): Promise<PurgeResults>
     override async reviewStatus(args: {
         agedLimit: Date;
         trx?: TrxToken;
     }): Promise<{
         log: string;
-    }> 
-    async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number> 
-    override async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>> 
+    }>
+    async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number>
+    override async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>>
     override async findOutputsByOutpoints(userId: number, outpoints: Array<{
         txid: string;
         vout: number;
-    }>, trx?: TrxToken): Promise<Record<string, TableOutput>> 
-    override async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>> 
-    override async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>> 
-    override async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number> 
-    async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
+    }>, trx?: TrxToken): Promise<Record<string, TableOutput>>
+    override async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>>
+    override async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>>
+    override async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number>
+    async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined>
+    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T
+    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[]
     async adminStats(adminIdentityKey: string): Promise<AdminStatsResult> {
         if (this.dbtype !== "MySQL")
             throw new WERR_NOT_IMPLEMENTED("adminStats, only MySQL is supported");
@@ -3658,7 +3747,7 @@ export class StorageKnex extends StorageProvider implements WalletStorageProvide
             orderDescending: true,
             paged: { limit: 1 }
         }));
-        const monitorStats: ServicesCallHistory | undefined = monitorEvent ? JSON.parse(monitorEvent.details!) : undefined;
+        const monitorStats: ServicesCallHistory | undefined = (monitorEvent != null) ? JSON.parse(monitorEvent.details!) : undefined;
         const servicesStats = this.getServices().getServicesCallHistory(true);
         const one_day_ago = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
         const one_week_ago = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -3713,14 +3802,14 @@ select
     (select count(*) from transactions where status = 'unfail' and created_at > '${one_week_ago}') as txUnfailWeek,
     (select count(*) from transactions where status = 'unfail' and created_at > '${one_month_ago}') as txUnfailMonth,
 	  (select count(*) from transactions where status = 'unfail') as txUnfailTotal,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 1 and created_at > '${one_day_ago}') as satoshisDefaultDay,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 1 and created_at > '${one_week_ago}') as satoshisDefaultWeek,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 1 and created_at > '${one_month_ago}') as satoshisDefaultMonth,
-	  (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 1) as satoshisDefaultTotal,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 0 and not basketId is null and created_at > '${one_day_ago}') as satoshisOtherDay,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 0 and not basketId is null and created_at > '${one_week_ago}') as satoshisOtherWeek,
-    (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 0 and not basketId is null and created_at > '${one_month_ago}') as satoshisOtherMonth,
-	  (select sum(satoshis) from outputs where spendable = 1 and \`change\` = 0 and not basketId is null) as satoshisOtherTotal,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 1 and o.created_at > '${one_day_ago}') as satoshisDefaultDay,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 1 and o.created_at > '${one_week_ago}') as satoshisDefaultWeek,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 1 and o.created_at > '${one_month_ago}') as satoshisDefaultMonth,
+	  (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 1) as satoshisDefaultTotal,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 0 and not o.basketId is null and o.created_at > '${one_day_ago}') as satoshisOtherDay,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 0 and not o.basketId is null and o.created_at > '${one_week_ago}') as satoshisOtherWeek,
+    (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 0 and not o.basketId is null and o.created_at > '${one_month_ago}') as satoshisOtherMonth,
+	  (select sum(o.satoshis) from outputs o, transactions t where o.transactionId = t.transactionId and t.status = 'completed' and o.spendable = 1 and o.change = 0 and not o.basketId is null) as satoshisOtherTotal,
     (select count(*) from output_baskets where created_at > '${one_day_ago}') as basketsDay,
     (select count(*) from output_baskets where created_at > '${one_week_ago}') as basketsWeek,
     (select count(*) from output_baskets where created_at > '${one_month_ago}') as basketsMonth,
@@ -3813,7 +3902,7 @@ select
 }
 ```
 
-See also: [AdminStatsResult](./storage.md#interface-adminstatsresult), [AuthId](./client.md#interface-authid), [DBType](./storage.md#type-dbtype), [EntityTimeStamp](./client.md#interface-entitytimestamp), [FindCertificateFieldsArgs](./client.md#interface-findcertificatefieldsargs), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindCommissionsArgs](./client.md#interface-findcommissionsargs), [FindForUserSincePagedArgs](./client.md#interface-findforusersincepagedargs), [FindMonitorEventsArgs](./client.md#interface-findmonitoreventsargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputTagMapsArgs](./client.md#interface-findoutputtagmapsargs), [FindOutputTagsArgs](./client.md#interface-findoutputtagsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindPartialSincePagedArgs](./client.md#interface-findpartialsincepagedargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [FindProvenTxsArgs](./client.md#interface-findproventxsargs), [FindStaleMerkleRootsArgs](./client.md#interface-findstalemerklerootsargs), [FindSyncStatesArgs](./client.md#interface-findsyncstatesargs), [FindTransactionsArgs](./client.md#interface-findtransactionsargs), [FindTxLabelMapsArgs](./client.md#interface-findtxlabelmapsargs), [FindTxLabelsArgs](./client.md#interface-findtxlabelsargs), [FindUsersArgs](./client.md#interface-findusersargs), [ProvenOrRawTx](./client.md#interface-provenorrawtx), [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [ServicesCallHistory](./client.md#type-servicescallhistory), [StorageKnexOptions](./storage.md#interface-storageknexoptions), [StorageProvider](./storage.md#class-storageprovider), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken), [WERR_NOT_IMPLEMENTED](./client.md#class-werr_not_implemented), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [listActions](./storage.md#function-listactions), [listOutputs](./storage.md#function-listoutputs), [purgeData](./storage.md#function-purgedata), [reviewStatus](./storage.md#function-reviewstatus), [verifyOneOrNone](./client.md#function-verifyoneornone)
+See also: [AdminStatsResult](#interface-adminstatsresult), [DBType](#type-dbtype), [StorageKnexOptions](#interface-storageknexoptions), [StorageProvider](#class-storageprovider), [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCertificateX](#interface-tablecertificatex), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser), [listActions](#function-listactions), [listOutputs](#function-listoutputs), [purgeData](#function-purgedata), [reviewStatus](#function-reviewstatus), [validateEntities](#function-validateentities), [validateEntity](#function-validateentity)
 
 ###### Method allocateChangeInput
 
@@ -3822,9 +3911,9 @@ Finds closest matching available change output to use as input for new transacti
 Transactionally allocate the output such that
 
 ```ts
-async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined> 
+async allocateChangeInput(userId: number, basketId: number, targetSatoshis: number, exactSatoshis: number | undefined, excludeSending: boolean, transactionId: number): Promise<TableOutput | undefined>
 ```
-See also: [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
 ###### Method countChangeInputs
 
@@ -3835,7 +3924,7 @@ AND whose transaction status is one of:
 - sending (if excludeSending is false)
 
 ```ts
-async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number> 
+async countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number>
 ```
 
 ###### Method toDb
@@ -3844,9 +3933,8 @@ Convert the standard optional `TrxToken` parameter into either a direct knex dat
 or a Knex.Transaction as appropriate.
 
 ```ts
-toDb(trx?: TrxToken) 
+toDb(trx?: TrxToken)
 ```
-See also: [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method validateEntities
 
@@ -3854,9 +3942,8 @@ Helper to force uniform behavior across database engines.
 Use to process all arrays of records with time stamps retreived from database.
 
 ```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[] 
+validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[], booleanFields?: string[]): T[]
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Returns
 
@@ -3868,9 +3955,8 @@ Helper to force uniform behavior across database engines.
 Use to process all individual records with time stamps retreived from database.
 
 ```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T 
+validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[], booleanFields?: string[]): T
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 ###### Method validateEntityForInsert
 
@@ -3878,9 +3964,8 @@ Helper to force uniform behavior across database engines.
 Use to process new entities being inserted into the database.
 
 ```ts
-async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any> 
+async validateEntityForInsert<T extends EntityTimeStamp>(entity: T, trx?: TrxToken, dateFields?: string[], booleanFields?: string[]): Promise<any>
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method validatePartialForUpdate
 
@@ -3888,21 +3973,19 @@ Helper to force uniform behavior across database engines.
 Use to process the update template for entities being updated.
 
 ```ts
-validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T> 
+validatePartialForUpdate<T extends EntityTimeStamp>(update: Partial<T>, dateFields?: string[], booleanFields?: string[]): Partial<T>
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 ###### Method verifyReadyForDatabaseAccess
 
 Make sure database is ready for access:
 
 - dateScheme is known
-- foreign key constraints are enabled
 
 ```ts
-async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType> 
+async verifyReadyForDatabaseAccess(trx?: TrxToken): Promise<DBType>
 ```
-See also: [DBType](./storage.md#type-dbtype), [TrxToken](./client.md#interface-trxtoken)
+See also: [DBType](#type-dbtype)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3917,9 +4000,9 @@ export abstract class StorageProvider extends StorageReaderWriter implements Wal
     commissionSatoshis: number;
     commissionPubKeyHex?: PubKeyHex;
     maxRecursionDepth?: number;
-    static defaultOptions() 
-    static createStorageBaseOptions(chain: Chain): StorageProviderOptions 
-    constructor(options: StorageProviderOptions) 
+    static defaultOptions()
+    static createStorageBaseOptions(chain: Chain): StorageProviderOptions
+    constructor(options: StorageProviderOptions)
     abstract reviewStatus(args: {
         agedLimit: Date;
         trx?: TrxToken;
@@ -3935,54 +4018,54 @@ export abstract class StorageProvider extends StorageReaderWriter implements Wal
     abstract listActions(auth: AuthId, args: Validation.ValidListActionsArgs): Promise<ListActionsResult>;
     abstract listOutputs(auth: AuthId, args: Validation.ValidListOutputsArgs): Promise<ListOutputsResult>;
     abstract countChangeInputs(userId: number, basketId: number, excludeSending: boolean): Promise<number>;
-    async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>> 
-    async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]> 
+    async findOutputsByIds(outputIds: number[], trx?: TrxToken): Promise<Record<number, TableOutput>>
+    async findStaleMerkleRoots(args: FindStaleMerkleRootsArgs): Promise<string[]>
     async findOutputsByOutpoints(userId: number, outpoints: Array<{
         txid: string;
         vout: number;
-    }>, trx?: TrxToken): Promise<Record<string, TableOutput>> 
-    async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>> 
-    async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>> 
-    async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number> 
+    }>, trx?: TrxToken): Promise<Record<string, TableOutput>>
+    async findOrInsertOutputBasketsBulk(userId: number, names: string[], trx?: TrxToken): Promise<Record<string, TableOutputBasket>>
+    async findOrInsertOutputTagsBulk(userId: number, tags: string[], trx?: TrxToken): Promise<Record<string, TableOutputTag>>
+    async sumSpendableSatoshisInBasket(userId: number, basketId: number, excludeSending: boolean, trx?: TrxToken): Promise<number>
     abstract findCertificatesAuth(auth: AuthId, args: FindCertificatesArgs): Promise<TableCertificateX[]>;
     abstract findOutputBasketsAuth(auth: AuthId, args: FindOutputBasketsArgs): Promise<TableOutputBasket[]>;
     abstract findOutputsAuth(auth: AuthId, args: FindOutputsArgs): Promise<TableOutput[]>;
     abstract insertCertificateAuth(auth: AuthId, certificate: TableCertificateX): Promise<number>;
     abstract adminStats(adminIdentityKey: string): Promise<AdminStatsResult>;
-    async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]> 
-    override isStorageProvider(): boolean 
-    setServices(v: WalletServices) 
-    getServices(): WalletServices 
-    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult> 
-    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
-    async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult> 
-    async mergeReqToBeefToShareExternally(req: TableProvenTxReq, mergeToBeef: Beef, knownTxids: string[], trx?: TrxToken): Promise<void> 
-    async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq> 
-    async updateTransactionsStatus(transactionIds: number[], status: TransactionStatus, trx?: TrxToken): Promise<void> 
-    async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void> 
-    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult> 
-    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
-    async attemptToPostReqsToNetwork(reqs: EntityProvenTxReq[], trx?: TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult> 
-    async listCertificates(auth: AuthId, args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async verifyKnownValidTransaction(txid: string, trx?: TrxToken): Promise<boolean> 
-    async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef> 
-    async getValidBeefForTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number, chainTracker?: ChainTracker, skipInvalidProofs?: boolean): Promise<Beef | undefined> 
-    async getBeefForTransaction(txid: string, options: StorageGetBeefOptions): Promise<Beef> 
-    async findMonitorEventById(id: number, trx?: TrxToken): Promise<TableMonitorEvent | undefined> 
-    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number> 
-    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult> 
-    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+    async recentlyActiveUsers(limit = 50, trx?: TrxToken): Promise<TableUser[]>
+    override isStorageProvider(): boolean
+    setServices(v: WalletServices)
+    getServices(): WalletServices
+    async abortAction(auth: AuthId, args: AbortActionArgs): Promise<AbortActionResult>
+    async internalizeAction(auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
+    async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult>
+    async mergeReqToBeefToShareExternally(req: TableProvenTxReq, mergeToBeef: Beef, knownTxids: string[], trx?: TrxToken): Promise<void>
+    async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq>
+    async updateTransactionsStatus(transactionIds: number[], status: TransactionStatus, trx?: TrxToken): Promise<void>
+    async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void>
+    async createAction(auth: AuthId, args: Validation.ValidCreateActionArgs): Promise<StorageCreateActionResult>
+    async processAction(auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
+    async attemptToPostReqsToNetwork(reqs: EntityProvenTxReq[], trx?: TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult>
+    async listCertificates(auth: AuthId, args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async verifyKnownValidTransaction(txid: string, trx?: TrxToken): Promise<boolean>
+    async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef>
+    async getValidBeefForTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number, chainTracker?: ChainTracker, skipInvalidProofs?: boolean): Promise<Beef | undefined>
+    async getBeefForTransaction(txid: string, options: StorageGetBeefOptions): Promise<Beef>
+    async findMonitorEventById(id: number, trx?: TrxToken): Promise<TableMonitorEvent | undefined>
+    async relinquishCertificate(auth: AuthId, args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(auth: AuthId, args: RelinquishOutputArgs): Promise<number>
+    async processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>
+    async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
     async confirmSpendableOutputs(): Promise<{
         invalidSpendableOutputs: TableOutput[];
-    }> 
-    async updateProvenTxReqDynamics(id: number, update: Partial<TableProvenTxReqDynamics>, trx?: TrxToken): Promise<number> 
-    async extendOutput(o: TableOutput, includeBasket = false, includeTags = false, trx?: TrxToken): Promise<TableOutputX> 
-    async validateOutputScript(o: TableOutput, trx?: TrxToken): Promise<void> 
+    }>
+    async updateProvenTxReqDynamics(id: number, update: Partial<TableProvenTxReqDynamics>, trx?: TrxToken): Promise<number>
+    async extendOutput(o: TableOutput, includeBasket = false, includeTags = false, trx?: TrxToken): Promise<TableOutputX>
+    async validateOutputScript(o: TableOutput, trx?: TrxToken): Promise<void>
 }
 ```
 
-See also: [AdminStatsResult](./storage.md#interface-adminstatsresult), [AuthId](./client.md#interface-authid), [Chain](./client.md#type-chain), [EntityProvenTxReq](./storage.md#class-entityproventxreq), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindStaleMerkleRootsArgs](./client.md#interface-findstalemerklerootsargs), [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [PostReqsToNetworkResult](./storage.md#interface-postreqstonetworkresult), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [ProvenOrRawTx](./client.md#interface-provenorrawtx), [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageFeeModel](./client.md#interface-storagefeemodel), [StorageGetBeefOptions](./client.md#interface-storagegetbeefoptions), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvenOrReq](./client.md#interface-storageprovenorreq), [StorageProviderOptions](./storage.md#interface-storageprovideroptions), [StorageReaderWriter](./storage.md#class-storagereaderwriter), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputX](./storage.md#interface-tableoutputx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableProvenTxReqDynamics](./storage.md#interface-tableproventxreqdynamics), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableUser](./storage.md#interface-tableuser), [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken), [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult), [WalletServices](./client.md#interface-walletservices), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [attemptToPostReqsToNetwork](./storage.md#function-attempttopostreqstonetwork), [createAction](./storage.md#function-createaction), [getBeefForTransaction](./storage.md#function-getbeeffortransaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [logger](./client.md#variable-logger), [processAction](./storage.md#function-processaction), [purgeData](./storage.md#function-purgedata), [reviewStatus](./storage.md#function-reviewstatus)
+See also: [AdminStatsResult](#interface-adminstatsresult), [EntityProvenTxReq](#class-entityproventxreq), [GetReqsAndBeefResult](#interface-getreqsandbeefresult), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [StorageProviderOptions](#interface-storageprovideroptions), [StorageReaderWriter](#class-storagereaderwriter), [TableCertificateX](#interface-tablecertificatex), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputX](#interface-tableoutputx), [TableProvenTxReq](#interface-tableproventxreq), [TableProvenTxReqDynamics](#interface-tableproventxreqdynamics), [TableTxLabel](#interface-tabletxlabel), [TableUser](#interface-tableuser), [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork), [createAction](#function-createaction), [getBeefForTransaction](#function-getbeeffortransaction), [internalizeAction](#function-internalizeaction), [listActions](#function-listactions), [listCertificates](#function-listcertificates), [listOutputs](#function-listoutputs), [processAction](#function-processaction), [purgeData](#function-purgedata), [reviewStatus](#function-reviewstatus)
 
 ###### Method confirmSpendableOutputs
 
@@ -3993,28 +4076,13 @@ still in the mempool of at least one service provider.
 ```ts
 async confirmSpendableOutputs(): Promise<{
     invalidSpendableOutputs: TableOutput[];
-}> 
+}>
 ```
-See also: [TableOutput](./storage.md#interface-tableoutput)
+See also: [TableOutput](#interface-tableoutput)
 
 Returns
 
 object with invalidSpendableOutputs array. A good result is an empty array.
-
-###### Method getProvenOrReq
-
-Checks if txid is a known valid ProvenTx and returns it if found.
-Next checks if txid is a current ProvenTxReq and returns that if found.
-If `newReq` is provided and an existing ProvenTxReq isn't found,
-use `newReq` to create a new ProvenTxReq.
-
-This is safe "findOrInsert" operation using retry if unique index constraint
-is violated by a race condition insert.
-
-```ts
-async getProvenOrReq(txid: string, newReq?: TableProvenTxReq, trx?: TrxToken): Promise<StorageProvenOrReq> 
-```
-See also: [StorageProvenOrReq](./client.md#interface-storageprovenorreq), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method getReqsAndBeefToShareWithWorld
 
@@ -4023,9 +4091,9 @@ lookup their ProvenTxReqApi req records.
 For the txids with reqs and status still ready to send construct a single merged beef.
 
 ```ts
-async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult> 
+async getReqsAndBeefToShareWithWorld(txids: string[], knownTxids: string[], trx?: TrxToken): Promise<GetReqsAndBeefResult>
 ```
-See also: [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [TrxToken](./client.md#interface-trxtoken)
+See also: [GetReqsAndBeefResult](#interface-getreqsandbeefresult)
 
 ###### Method getValidBeefForKnownTxid
 
@@ -4035,9 +4103,8 @@ Optionally merges the data into an existing beef.
 Optionally requires a minimum number of proof levels.
 
 ```ts
-async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef> 
+async getValidBeefForKnownTxid(txid: string, mergeToBeef?: Beef, trustSelf?: TrustSelf, knownTxids?: string[], trx?: TrxToken, requiredLevels?: number): Promise<Beef>
 ```
-See also: [TrxToken](./client.md#interface-trxtoken)
 
 ###### Method updateProvenTxReqWithNewProvenTx
 
@@ -4054,9 +4121,8 @@ Performs the following storage updates (typically):
 Alterations of "typically" to handle:
 
 ```ts
-async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult> 
+async updateProvenTxReqWithNewProvenTx(args: UpdateProvenTxReqWithNewProvenTxArgs): Promise<UpdateProvenTxReqWithNewProvenTxResult>
 ```
-See also: [UpdateProvenTxReqWithNewProvenTxArgs](./client.md#interface-updateproventxreqwithnewproventxargs), [UpdateProvenTxReqWithNewProvenTxResult](./client.md#interface-updateproventxreqwithnewproventxresult)
 
 ###### Method updateTransactionStatus
 
@@ -4065,9 +4131,8 @@ For all `status` values besides 'failed', just updates the transaction records s
 For 'status' of 'failed', attempts to make outputs previously allocated as inputs to this transaction usable again.
 
 ```ts
-async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void> 
+async updateTransactionStatus(status: TransactionStatus, transactionId?: number, userId?: number, reference?: string, trx?: TrxToken): Promise<void>
 ```
-See also: [TransactionStatus](./client.md#type-transactionstatus), [TrxToken](./client.md#interface-trxtoken)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4090,12 +4155,12 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     chain: sdk.Chain;
     _settings?: TableSettings;
     whenLastAccess?: Date;
-    get dbtype(): DBType | undefined 
-    constructor(options: StorageReaderOptions) 
-    isAvailable(): boolean 
-    async makeAvailable(): Promise<TableSettings> 
-    getSettings(): TableSettings 
-    isStorageProvider(): boolean 
+    get dbtype(): DBType | undefined
+    constructor(options: StorageReaderOptions)
+    isAvailable(): boolean
+    async makeAvailable(): Promise<TableSettings>
+    getSettings(): TableSettings
+    isStorageProvider(): boolean
     abstract destroy(): Promise<void>;
     abstract transaction<T>(scope: (trx: sdk.TrxToken) => Promise<T>, trx?: sdk.TrxToken): Promise<T>;
     abstract readSettings(trx?: sdk.TrxToken): Promise<TableSettings>;
@@ -4125,30 +4190,22 @@ export abstract class StorageReader implements sdk.WalletStorageSyncReader {
     abstract getProvenTxReqsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableProvenTxReq[]>;
     abstract getTxLabelMapsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableTxLabelMap[]>;
     abstract getOutputTagMapsForUser(args: sdk.FindForUserSincePagedArgs): Promise<TableOutputTagMap[]>;
-    async findUserByIdentityKey(key: string): Promise<TableUser | undefined> 
-    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk> 
-    validateEntityDate(date: Date | string | number): Date | string 
-    validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined 
-    validateDate(date: Date | string | number): Date 
-    validateOptionalDate(date: Date | string | number | null | undefined): Date | undefined 
-    validateDateForWhere(date: Date | string | number): Date | string | number 
+    async findUserByIdentityKey(key: string): Promise<TableUser | undefined>
+    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk>
+    validateEntityDate(date: Date | string | number): Date | string
+    validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined
+    validateDate(date: Date | string | number): Date
+    validateOptionalDate(date: Date | string | number | null | undefined): Date | undefined
+    validateDateForWhere(date: Date | string | number): Date | string | number
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [DBType](./storage.md#type-dbtype), [FindCertificateFieldsArgs](./client.md#interface-findcertificatefieldsargs), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindCommissionsArgs](./client.md#interface-findcommissionsargs), [FindForUserSincePagedArgs](./client.md#interface-findforusersincepagedargs), [FindMonitorEventsArgs](./client.md#interface-findmonitoreventsargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputTagsArgs](./client.md#interface-findoutputtagsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindSyncStatesArgs](./client.md#interface-findsyncstatesargs), [FindTransactionsArgs](./client.md#interface-findtransactionsargs), [FindTxLabelsArgs](./client.md#interface-findtxlabelsargs), [FindUsersArgs](./client.md#interface-findusersargs), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReaderOptions](./storage.md#interface-storagereaderoptions), [SyncChunk](./client.md#interface-syncchunk), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [getSyncChunk](./storage.md#function-getsyncchunk)
-
-###### Method validateEntityDate
-
-Force dates to strings on SQLite and Date objects on MySQL
-
-```ts
-validateEntityDate(date: Date | string | number): Date | string 
-```
+See also: [DBType](#type-dbtype), [StorageReaderOptions](#interface-storagereaderoptions), [TableCertificateField](#interface-tablecertificatefield), [TableCertificateX](#interface-tablecertificatex), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser), [getSyncChunk](#function-getsyncchunk), [validateDate](#function-validatedate)
 
 ###### Method validateOptionalEntityDate
 
 ```ts
-validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined 
+validateOptionalEntityDate(date: Date | string | number | null | undefined, useNowAsDefault?: boolean): Date | string | undefined
 ```
 
 Argument Details
@@ -4163,7 +4220,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export abstract class StorageReaderWriter extends StorageReader {
-    constructor(options: StorageReaderWriterOptions) 
+    constructor(options: StorageReaderWriterOptions)
     abstract dropAllData(): Promise<void>;
     abstract migrate(storageName: string, storageIdentityKey: string): Promise<string>;
     abstract findOutputTagMaps(args: FindOutputTagMapsArgs): Promise<TableOutputTagMap[]>;
@@ -4205,49 +4262,49 @@ export abstract class StorageReaderWriter extends StorageReader {
     abstract updateTxLabel(id: number, update: Partial<TableTxLabel>, trx?: TrxToken): Promise<number>;
     abstract updateTxLabelMap(transactionId: number, txLabelId: number, update: Partial<TableTxLabelMap>, trx?: TrxToken): Promise<number>;
     abstract updateUser(id: number, update: Partial<TableUser>, trx?: TrxToken): Promise<number>;
-    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number> 
-    async findCertificateById(id: number, trx?: TrxToken): Promise<TableCertificate | undefined> 
-    async findCommissionById(id: number, trx?: TrxToken): Promise<TableCommission | undefined> 
-    async findOutputById(id: number, trx?: TrxToken, noScript?: boolean): Promise<TableOutput | undefined> 
-    async findOutputBasketById(id: number, trx?: TrxToken): Promise<TableOutputBasket | undefined> 
-    async findProvenTxById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTx | undefined> 
-    async findProvenTxReqById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTxReq | undefined> 
-    async findSyncStateById(id: number, trx?: TrxToken): Promise<TableSyncState | undefined> 
-    async findTransactionById(id: number, trx?: TrxToken, noRawTx?: boolean): Promise<TableTransaction | undefined> 
-    async findTxLabelById(id: number, trx?: TrxToken): Promise<TableTxLabel | undefined> 
-    async findOutputTagById(id: number, trx?: TrxToken): Promise<TableOutputTag | undefined> 
-    async findUserById(id: number, trx?: TrxToken): Promise<TableUser | undefined> 
+    async setActive(auth: AuthId, newActiveStorageIdentityKey: string): Promise<number>
+    async findCertificateById(id: number, trx?: TrxToken): Promise<TableCertificate | undefined>
+    async findCommissionById(id: number, trx?: TrxToken): Promise<TableCommission | undefined>
+    async findOutputById(id: number, trx?: TrxToken, noScript?: boolean): Promise<TableOutput | undefined>
+    async findOutputBasketById(id: number, trx?: TrxToken): Promise<TableOutputBasket | undefined>
+    async findProvenTxById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTx | undefined>
+    async findProvenTxReqById(id: number, trx?: TrxToken | undefined): Promise<TableProvenTxReq | undefined>
+    async findSyncStateById(id: number, trx?: TrxToken): Promise<TableSyncState | undefined>
+    async findTransactionById(id: number, trx?: TrxToken, noRawTx?: boolean): Promise<TableTransaction | undefined>
+    async findTxLabelById(id: number, trx?: TrxToken): Promise<TableTxLabel | undefined>
+    async findOutputTagById(id: number, trx?: TrxToken): Promise<TableOutputTag | undefined>
+    async findUserById(id: number, trx?: TrxToken): Promise<TableUser | undefined>
     async findOrInsertUser(identityKey: string, trx?: TrxToken): Promise<{
         user: TableUser;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertTransaction(newTx: TableTransaction, trx?: TrxToken): Promise<{
         tx: TableTransaction;
         isNew: boolean;
-    }> 
-    async findOrInsertOutputBasket(userId: number, name: string, trx?: TrxToken): Promise<TableOutputBasket> 
-    async findOrInsertTxLabel(userId: number, label: string, trx?: TrxToken): Promise<TableTxLabel> 
-    async findOrInsertTxLabelMap(transactionId: number, txLabelId: number, trx?: TrxToken): Promise<TableTxLabelMap> 
-    async findOrInsertOutputTag(userId: number, tag: string, trx?: TrxToken): Promise<TableOutputTag> 
-    async findOrInsertOutputTagMap(outputId: number, outputTagId: number, trx?: TrxToken): Promise<TableOutputTagMap> 
+    }>
+    async findOrInsertOutputBasket(userId: number, name: string, trx?: TrxToken): Promise<TableOutputBasket>
+    async findOrInsertTxLabel(userId: number, label: string, trx?: TrxToken): Promise<TableTxLabel>
+    async findOrInsertTxLabelMap(transactionId: number, txLabelId: number, trx?: TrxToken): Promise<TableTxLabelMap>
+    async findOrInsertOutputTag(userId: number, tag: string, trx?: TrxToken): Promise<TableOutputTag>
+    async findOrInsertOutputTagMap(outputId: number, outputTagId: number, trx?: TrxToken): Promise<TableOutputTagMap>
     async findOrInsertSyncStateAuth(auth: AuthId, storageIdentityKey: string, storageName: string): Promise<{
         syncState: TableSyncState;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertProvenTxReq(newReq: TableProvenTxReq, trx?: TrxToken): Promise<{
         req: TableProvenTxReq;
         isNew: boolean;
-    }> 
+    }>
     async findOrInsertProvenTx(newProven: TableProvenTx, trx?: TrxToken): Promise<{
         proven: TableProvenTx;
         isNew: boolean;
-    }> 
+    }>
     abstract processSyncChunk(args: RequestSyncChunkArgs, chunk: SyncChunk): Promise<ProcessSyncChunkResult>;
-    async tagOutput(partial: Partial<TableOutput>, tag: string, trx?: TrxToken): Promise<void> 
+    async tagOutput(partial: Partial<TableOutput>, tag: string, trx?: TrxToken): Promise<void>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindOutputTagMapsArgs](./client.md#interface-findoutputtagmapsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [FindProvenTxsArgs](./client.md#interface-findproventxsargs), [FindStaleMerkleRootsArgs](./client.md#interface-findstalemerklerootsargs), [FindTxLabelMapsArgs](./client.md#interface-findtxlabelmapsargs), [ProcessSyncChunkResult](./client.md#interface-processsyncchunkresult), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [StorageReaderWriterOptions](./storage.md#interface-storagereaderwriteroptions), [SyncChunk](./client.md#interface-syncchunk), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateField](./storage.md#interface-tablecertificatefield), [TableCommission](./storage.md#interface-tablecommission), [TableMonitorEvent](./storage.md#interface-tablemonitorevent), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableOutputTag](./storage.md#interface-tableoutputtag), [TableOutputTagMap](./storage.md#interface-tableoutputtagmap), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSyncState](./storage.md#interface-tablesyncstate), [TableTransaction](./storage.md#interface-tabletransaction), [TableTxLabel](./storage.md#interface-tabletxlabel), [TableTxLabelMap](./storage.md#interface-tabletxlabelmap), [TableUser](./storage.md#interface-tableuser), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageReader](#class-storagereader), [StorageReaderWriterOptions](#interface-storagereaderwriteroptions), [TableCertificate](#interface-tablecertificate), [TableCertificateField](#interface-tablecertificatefield), [TableCommission](#interface-tablecommission), [TableMonitorEvent](#interface-tablemonitorevent), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableOutputTag](#interface-tableoutputtag), [TableOutputTagMap](#interface-tableoutputtagmap), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSyncState](#interface-tablesyncstate), [TableTransaction](#interface-tabletransaction), [TableTxLabel](#interface-tabletxlabel), [TableTxLabelMap](#interface-tabletxlabelmap), [TableUser](#interface-tableuser)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4256,17 +4313,17 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export class StorageServer {
-    constructor(storage: StorageProvider, options: WalletStorageServerOptions) 
+    constructor(storage: StorageProvider, options: WalletStorageServerOptions)
     server: any;
-    public start(): void 
-    public async close(): Promise<void> 
-    validateDate(date: Date | string | number): Date 
-    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
-    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+    public start(): void
+    public async close(): Promise<void>
+    validateDate(date: Date | string | number): Date
+    validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
+    validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
 }
 ```
 
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp), [StorageProvider](./storage.md#class-storageprovider), [WalletStorageServerOptions](./storage.md#interface-walletstorageserveroptions)
+See also: [StorageProvider](#class-storageprovider), [WalletStorageServerOptions](#interface-walletstorageserveroptions), [validateDate](#function-validatedate), [validateEntities](#function-validateentities), [validateEntity](#function-validateentity)
 
 ###### Method validateEntities
 
@@ -4274,9 +4331,8 @@ Helper to force uniform behavior across database engines.
 Use to process all arrays of records with time stamps retreived from database.
 
 ```ts
-validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[] 
+validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Returns
 
@@ -4288,9 +4344,8 @@ Helper to force uniform behavior across database engines.
 Use to process all individual records with time stamps retreived from database.
 
 ```ts
-validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T 
+validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
 ```
-See also: [EntityTimeStamp](./client.md#interface-entitytimestamp)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4304,14 +4359,14 @@ and the `StorageBaseReader` to be protected.
 
 ```ts
 export class StorageSyncReader implements sdk.WalletStorageSyncReader {
-    constructor(public auth: sdk.AuthId, public storage: StorageReader) 
-    async makeAvailable(): Promise<TableSettings> 
-    destroy(): Promise<void> 
-    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk> 
+    constructor(public auth: sdk.AuthId, public storage: StorageReader)
+    async makeAvailable(): Promise<TableSettings>
+    async destroy(): Promise<void>
+    async getSyncChunk(args: sdk.RequestSyncChunkArgs): Promise<sdk.SyncChunk>
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [SyncChunk](./client.md#interface-syncchunk), [TableSettings](./storage.md#interface-tablesettings), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [getSyncChunk](./storage.md#function-getsyncchunk)
+See also: [StorageReader](#class-storagereader), [TableSettings](#interface-tablesettings), [getSyncChunk](#function-getsyncchunk)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4341,81 +4396,80 @@ export class WalletStorageManager implements sdk.WalletStorage {
     _conflictingActives?: ManagedStorage[];
     _authId: sdk.AuthId;
     _services?: sdk.WalletServices;
-    constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[]) 
-    isStorageProvider(): boolean 
-    isAvailable(): boolean 
-    get isActiveEnabled(): boolean 
-    canMakeAvailable(): boolean 
-    async makeAvailable(): Promise<TableSettings> 
-    async getAuth(mustBeActive?: boolean): Promise<sdk.AuthId> 
-    async getUserId(): Promise<number> 
-    getActive(): sdk.WalletStorageProvider 
-    getActiveSettings(): TableSettings 
-    getActiveUser(): TableUser 
-    getActiveStore(): string 
-    getActiveStoreName(): string 
-    getBackupStores(): string[] 
-    getConflictingStores(): string[] 
-    getAllStores(): string[] 
-    async runAsWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R> 
-    async runAsReader<R>(reader: (active: sdk.WalletStorageReader) => Promise<R>): Promise<R> 
-    async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R> 
-    async runAsStorageProvider<R>(sync: (active: StorageProvider) => Promise<R>): Promise<R> 
-    isActiveStorageProvider(): boolean 
-    async addWalletStorageProvider(provider: sdk.WalletStorageProvider): Promise<void> 
-    setServices(v: sdk.WalletServices) 
-    getServices(): sdk.WalletServices 
-    getSettings(): TableSettings 
-    async migrate(storageName: string, storageIdentityKey: string): Promise<string> 
-    async destroy(): Promise<void> 
+    constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[])
+    isStorageProvider(): boolean
+    isAvailable(): boolean
+    get isActiveEnabled(): boolean
+    canMakeAvailable(): boolean
+    async makeAvailable(): Promise<TableSettings>
+    async getAuth(mustBeActive?: boolean): Promise<sdk.AuthId>
+    async getUserId(): Promise<number>
+    getActive(): sdk.WalletStorageProvider
+    getActiveSettings(): TableSettings
+    getActiveUser(): TableUser
+    getActiveStore(): string
+    getActiveStoreName(): string
+    getBackupStores(): string[]
+    getConflictingStores(): string[]
+    getAllStores(): string[]
+    async runAsWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R>
+    async runAsReader<R>(reader: (active: sdk.WalletStorageReader) => Promise<R>): Promise<R>
+    async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R>
+    async runAsStorageProvider<R>(sync: (active: StorageProvider) => Promise<R>): Promise<R>
+    isActiveStorageProvider(): boolean
+    async addWalletStorageProvider(provider: sdk.WalletStorageProvider): Promise<void>
+    setServices(v: sdk.WalletServices)
+    getServices(): sdk.WalletServices
+    getSettings(): TableSettings
+    async migrate(storageName: string, storageIdentityKey: string): Promise<string>
+    async destroy(): Promise<void>
     async findOrInsertUser(identityKey: string): Promise<{
         user: TableUser;
         isNew: boolean;
-    }> 
-    async abortAction(args: AbortActionArgs): Promise<AbortActionResult> 
-    async createAction(vargs: Validation.ValidCreateActionArgs): Promise<sdk.StorageCreateActionResult> 
-    async internalizeAction(args: InternalizeActionArgs): Promise<sdk.StorageInternalizeActionResult> 
-    async relinquishCertificate(args: RelinquishCertificateArgs): Promise<number> 
-    async relinquishOutput(args: RelinquishOutputArgs): Promise<number> 
-    async processAction(args: sdk.StorageProcessActionArgs): Promise<sdk.StorageProcessActionResults> 
-    async insertCertificate(certificate: TableCertificate): Promise<number> 
-    async listActions(vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
-    async listCertificates(args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult> 
-    async listOutputs(vargs: Validation.ValidListOutputsArgs): Promise<ListOutputsResult> 
-    async findCertificates(args: sdk.FindCertificatesArgs): Promise<TableCertificateX[]> 
-    async findOutputBaskets(args: sdk.FindOutputBasketsArgs): Promise<TableOutputBasket[]> 
-    async findOutputs(args: sdk.FindOutputsArgs): Promise<TableOutput[]> 
-    async findProvenTxReqs(args: sdk.FindProvenTxReqsArgs): Promise<TableProvenTxReq[]> 
-    async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult> 
-    async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult> 
-    async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult> 
+    }>
+    async abortAction(args: AbortActionArgs): Promise<AbortActionResult>
+    async createAction(vargs: Validation.ValidCreateActionArgs): Promise<sdk.StorageCreateActionResult>
+    async internalizeAction(args: InternalizeActionArgs): Promise<sdk.StorageInternalizeActionResult>
+    async relinquishCertificate(args: RelinquishCertificateArgs): Promise<number>
+    async relinquishOutput(args: RelinquishOutputArgs): Promise<number>
+    async processAction(args: sdk.StorageProcessActionArgs): Promise<sdk.StorageProcessActionResults>
+    async insertCertificate(certificate: TableCertificate): Promise<number>
+    async listActions(args: ListActionsArgs): Promise<ListActionsResult>
+    async listCertificates(args: Validation.ValidListCertificatesArgs): Promise<ListCertificatesResult>
+    async listOutputs(args: ListOutputsArgs | Validation.ValidListOutputsArgs): Promise<ListOutputsResult>
+    async findCertificates(args: sdk.FindCertificatesArgs): Promise<TableCertificateX[]>
+    async findOutputBaskets(args: sdk.FindOutputBasketsArgs): Promise<TableOutputBasket[]>
+    async findOutputs(args: sdk.FindOutputsArgs): Promise<TableOutput[]>
+    async findProvenTxReqs(args: sdk.FindProvenTxReqsArgs): Promise<TableProvenTxReq[]>
+    async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult>
+    async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult>
+    async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult>
     async syncFromReader(identityKey: string, reader: sdk.WalletStorageSyncReader, activeSync?: sdk.WalletStorageSync, log: string = ""): Promise<{
         inserts: number;
         updates: number;
         log: string;
-    }> 
+    }>
     async syncToWriter(auth: sdk.AuthId, writer: sdk.WalletStorageProvider, activeSync?: sdk.WalletStorageSync, log: string = "", progLog?: (s: string) => string): Promise<{
         inserts: number;
         updates: number;
         log: string;
-    }> 
-    async updateBackups(activeSync?: sdk.WalletStorageSync, progLog?: (s: string) => string): Promise<string> 
-    async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string> 
-    getStoreEndpointURL(store: ManagedStorage): string | undefined 
-    getStores(): sdk.WalletStorageInfo[] 
+    }>
+    async updateBackups(activeSync?: sdk.WalletStorageSync, progLog?: (s: string) => string): Promise<string>
+    async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string>
+    getStoreEndpointURL(store: ManagedStorage): string | undefined
+    getStores(): sdk.WalletStorageInfo[]
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [FindCertificatesArgs](./client.md#interface-findcertificatesargs), [FindOutputBasketsArgs](./client.md#interface-findoutputbasketsargs), [FindOutputsArgs](./client.md#interface-findoutputsargs), [FindProvenTxReqsArgs](./client.md#interface-findproventxreqsargs), [ReproveHeaderResult](./client.md#interface-reproveheaderresult), [ReproveProvenResult](./client.md#interface-reproveprovenresult), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvider](./storage.md#class-storageprovider), [TableCertificate](./storage.md#interface-tablecertificate), [TableCertificateX](./storage.md#interface-tablecertificatex), [TableOutput](./storage.md#interface-tableoutput), [TableOutputBasket](./storage.md#interface-tableoutputbasket), [TableProvenTx](./storage.md#interface-tableproventx), [TableProvenTxReq](./storage.md#interface-tableproventxreq), [TableSettings](./storage.md#interface-tablesettings), [TableUser](./storage.md#interface-tableuser), [WalletServices](./client.md#interface-walletservices), [WalletStorage](./client.md#interface-walletstorage), [WalletStorageInfo](./client.md#interface-walletstorageinfo), [WalletStorageProvider](./client.md#interface-walletstorageprovider), [WalletStorageReader](./client.md#interface-walletstoragereader), [WalletStorageSync](./client.md#interface-walletstoragesync), [WalletStorageSyncReader](./client.md#interface-walletstoragesyncreader), [WalletStorageWriter](./client.md#interface-walletstoragewriter), [createAction](./storage.md#function-createaction), [internalizeAction](./storage.md#function-internalizeaction), [listActions](./storage.md#function-listactions), [listCertificates](./storage.md#function-listcertificates), [listOutputs](./storage.md#function-listoutputs), [processAction](./storage.md#function-processaction)
+See also: [StorageProvider](#class-storageprovider), [TableCertificate](#interface-tablecertificate), [TableCertificateX](#interface-tablecertificatex), [TableOutput](#interface-tableoutput), [TableOutputBasket](#interface-tableoutputbasket), [TableProvenTx](#interface-tableproventx), [TableProvenTxReq](#interface-tableproventxreq), [TableSettings](#interface-tablesettings), [TableUser](#interface-tableuser), [createAction](#function-createaction), [internalizeAction](#function-internalizeaction), [listActions](#function-listactions), [listCertificates](#function-listcertificates), [listOutputs](#function-listoutputs), [processAction](#function-processaction)
 
 ###### Constructor
 
 Creates a new WalletStorageManager with the given identityKey and optional active and backup storage providers.
 
 ```ts
-constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[]) 
+constructor(identityKey: string, active?: sdk.WalletStorageProvider, backups?: sdk.WalletStorageProvider[])
 ```
-See also: [WalletStorageProvider](./client.md#interface-walletstorageprovider)
 
 Argument Details
 
@@ -4441,7 +4495,6 @@ identityKey is always valid, userId and isActive are valid only if _isAvailable
 ```ts
 _authId: sdk.AuthId
 ```
-See also: [AuthId](./client.md#interface-authid)
 
 ###### Property _backups
 
@@ -4474,7 +4527,6 @@ Configured services if any. If valid, shared with stores (which may ignore it).
 ```ts
 _services?: sdk.WalletServices
 ```
-See also: [WalletServices](./client.md#interface-walletservices)
 
 ###### Property _stores
 
@@ -4487,7 +4539,7 @@ _stores: ManagedStorage[] = []
 ###### Method canMakeAvailable
 
 ```ts
-canMakeAvailable(): boolean 
+canMakeAvailable(): boolean
 ```
 
 Returns
@@ -4497,32 +4549,12 @@ true if at least one WalletStorageProvider has been added.
 ###### Method isActiveStorageProvider
 
 ```ts
-isActiveStorageProvider(): boolean 
+isActiveStorageProvider(): boolean
 ```
 
 Returns
 
 true if the active `WalletStorageProvider` also implements `StorageProvider`
-
-###### Method makeAvailable
-
-This async function must be called after construction and before
-any other async function can proceed.
-
-Runs through `_stores` validating all properties and partitioning across `_active`, `_backups`, `_conflictingActives`.
-
-```ts
-async makeAvailable(): Promise<TableSettings> 
-```
-See also: [TableSettings](./storage.md#interface-tablesettings)
-
-Returns
-
-from the active storage.
-
-Throws
-
-WERR_INVALID_PARAMETER if canMakeAvailable returns false.
 
 ###### Method reproveHeader
 
@@ -4531,9 +4563,8 @@ attempt to reprove the transaction against the current chain,
 updating the proven_txs record if a new valid proof is found.
 
 ```ts
-async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult> 
+async reproveHeader(deactivatedHash: string): Promise<sdk.ReproveHeaderResult>
 ```
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
 
 Argument Details
 
@@ -4548,33 +4579,14 @@ attempt to reprove them against the current chain and update proof data if new v
 This is intended for backup auditing of recent heights after the primary reorg event path has run.
 
 ```ts
-async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult> 
+async reproveHeightMerkleRoot(height: number, staleMerkleRoot: string): Promise<sdk.ReproveHeaderResult>
 ```
-See also: [ReproveHeaderResult](./client.md#interface-reproveheaderresult)
-
-###### Method reproveProven
-
-Attempt to reprove the transaction against the current chain,
-If a new valid proof is found and noUpdate is not true,
-update the proven_txs record with new block and merkle proof data.
-If noUpdate is true, the update to be applied is available in the returned result.
-
-```ts
-async reproveProven(ptx: TableProvenTx, noUpdate?: boolean): Promise<sdk.ReproveProvenResult> 
-```
-See also: [ReproveProvenResult](./client.md#interface-reproveprovenresult), [TableProvenTx](./storage.md#interface-tableproventx)
-
-Argument Details
-
-+ **ptx**
-  + proven_txs record to reprove
 
 ###### Method runAsSync
 
 ```ts
-async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R> 
+async runAsSync<R>(sync: (active: sdk.WalletStorageSync) => Promise<R>, activeSync?: sdk.WalletStorageSync): Promise<R>
 ```
-See also: [WalletStorageSync](./client.md#interface-walletstoragesync)
 
 Argument Details
 
@@ -4590,7 +4602,7 @@ Updates backups and switches to new active storage provider from among current b
 Also resolves conflicting actives.
 
 ```ts
-async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string> 
+async setActive(storageIdentityKey: string, progLog?: (s: string) => string): Promise<string>
 ```
 
 Argument Details
@@ -4605,33 +4617,73 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork) | [listActions](#function-listactions) | [renderAdminPage](#function-renderadminpage) |
-| [createAction](#function-createaction) | [listActionsIdb](#function-listactionsidb) | [reviewStatus](#function-reviewstatus) |
-| [createStorageServiceChargeScript](#function-createstorageservicechargescript) | [listCertificates](#function-listcertificates) | [reviewStatusIdb](#function-reviewstatusidb) |
-| [createSyncMap](#function-createsyncmap) | [listOutputs](#function-listoutputs) | [setDisableDoubleSpendCheckForTest](#function-setdisabledoublespendcheckfortest) |
-| [determineDBType](#function-determinedbtype) | [listOutputsIdb](#function-listoutputsidb) | [shareReqsWithWorld](#function-sharereqswithworld) |
-| [generateChangeSdk](#function-generatechangesdk) | [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [transactionInputSize](#function-transactioninputsize) |
-| [generateChangeSdkMakeStorage](#function-generatechangesdkmakestorage) | [offsetPrivKey](#function-offsetprivkey) | [transactionOutputSize](#function-transactionoutputsize) |
-| [getBeefForTransaction](#function-getbeeffortransaction) | [offsetPubKey](#function-offsetpubkey) | [transactionSize](#function-transactionsize) |
-| [getListOutputsSpecOp](#function-getlistoutputsspecop) | [processAction](#function-processaction) | [validateGenerateChangeSdkParams](#function-validategeneratechangesdkparams) |
-| [getSyncChunk](#function-getsyncchunk) | [purgeData](#function-purgedata) | [validateGenerateChangeSdkResult](#function-validategeneratechangesdkresult) |
-| [internalizeAction](#function-internalizeaction) | [purgeDataIdb](#function-purgedataidb) | [validateStorageFeeModel](#function-validatestoragefeemodel) |
-| [keyOffsetToHashedSecret](#function-keyoffsettohashedsecret) | [redeemServiceCharges](#function-redeemservicecharges) | [varUintSize](#function-varuintsize) |
+| [applyOutputScriptMetadata](#function-applyoutputscriptmetadata) | [matchesOutputBasketPartial](#function-matchesoutputbasketpartial) | [transactionOutputSize](#function-transactionoutputsize) |
+| [attemptToPostReqsToNetwork](#function-attempttopostreqstonetwork) | [matchesOutputPartial](#function-matchesoutputpartial) | [transactionSize](#function-transactionsize) |
+| [classifyReqStatus](#function-classifyreqstatus) | [matchesOutputTagMapPartial](#function-matchesoutputtagmappartial) | [updateReqsFromAggregateResults](#function-updatereqsfromaggregateresults) |
+| [createAction](#function-createaction) | [matchesOutputTagPartial](#function-matchesoutputtagpartial) | [upgradeAllStoresV1](#function-upgradeallstoresv1) |
+| [createStorageServiceChargeScript](#function-createstorageservicechargescript) | [matchesProvenTxPartial](#function-matchesproventxpartial) | [upgradeCertificateFields](#function-upgradecertificatefields) |
+| [createSyncMap](#function-createsyncmap) | [matchesProvenTxReqPartial](#function-matchesproventxreqpartial) | [upgradeCertificates](#function-upgradecertificates) |
+| [dateMatches](#function-datematches) | [matchesSyncStatePartial](#function-matchessyncstatepartial) | [upgradeCommissions](#function-upgradecommissions) |
+| [determineDBType](#function-determinedbtype) | [matchesTransactionPartial](#function-matchestransactionpartial) | [upgradeMonitorEvents](#function-upgrademonitorevents) |
+| [generateChangeSdk](#function-generatechangesdk) | [matchesTxLabelMapPartial](#function-matchestxlabelmappartial) | [upgradeOutputBaskets](#function-upgradeoutputbaskets) |
+| [generateChangeSdkMakeStorage](#function-generatechangesdkmakestorage) | [matchesTxLabelPartial](#function-matchestxlabelpartial) | [upgradeOutputTags](#function-upgradeoutputtags) |
+| [getBeefForTransaction](#function-getbeeffortransaction) | [mergeInputBeefs](#function-mergeinputbeefs) | [upgradeOutputTagsMap](#function-upgradeoutputtagsmap) |
+| [getListOutputsSpecOp](#function-getlistoutputsspecop) | [mergeInputsIntoBeef](#function-mergeinputsintobeef) | [upgradeOutputs](#function-upgradeoutputs) |
+| [getSyncChunk](#function-getsyncchunk) | [notifyTransactionsOfProof](#function-notifytransactionsofproof) | [upgradeProvenTxReqs](#function-upgradeproventxreqs) |
+| [hashOutputLockingScript](#function-hashoutputlockingscript) | [offsetPrivKey](#function-offsetprivkey) | [upgradeProvenTxs](#function-upgradeproventxs) |
+| [internalizeAction](#function-internalizeaction) | [offsetPubKey](#function-offsetpubkey) | [upgradeSyncStates](#function-upgradesyncstates) |
+| [keyOffsetToHashedSecret](#function-keyoffsettohashedsecret) | [partitionActionLabels](#function-partitionactionlabels) | [upgradeTransactions](#function-upgradetransactions) |
+| [listActions](#function-listactions) | [processAction](#function-processaction) | [upgradeTxLabels](#function-upgradetxlabels) |
+| [listActionsIdb](#function-listactionsidb) | [purgeData](#function-purgedata) | [upgradeTxLabelsMap](#function-upgradetxlabelsmap) |
+| [listCertificates](#function-listcertificates) | [purgeDataIdb](#function-purgedataidb) | [upgradeUsers](#function-upgradeusers) |
+| [listOutputs](#function-listoutputs) | [redeemServiceCharges](#function-redeemservicecharges) | [validateDate](#function-validatedate) |
+| [listOutputsIdb](#function-listoutputsidb) | [renderAdminPage](#function-renderadminpage) | [validateEntities](#function-validateentities) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [reviewStatus](#function-reviewstatus) | [validateEntity](#function-validateentity) |
+| [markStaleInputsAsSpent](#function-markstaleinputsasspent) | [reviewStatusIdb](#function-reviewstatusidb) | [validateGenerateChangeSdkParams](#function-validategeneratechangesdkparams) |
+| [matchesCertificateFieldPartial](#function-matchescertificatefieldpartial) | [setDisableDoubleSpendCheckForTest](#function-setdisabledoublespendcheckfortest) | [validateGenerateChangeSdkResult](#function-validategeneratechangesdkresult) |
+| [matchesCertificatePartial](#function-matchescertificatepartial) | [shareReqsWithWorld](#function-sharereqswithworld) | [validateStorageFeeModel](#function-validatestoragefeemodel) |
+| [matchesCommissionPartial](#function-matchescommissionpartial) | [summarizePostBeefProviderAttemptsForTxid](#function-summarizepostbeefproviderattemptsfortxid) | [validateSyncChunkEntities](#function-validatesyncchunkentities) |
+| [matchesMonitorEventPartial](#function-matchesmonitoreventpartial) | [transactionInputSize](#function-transactioninputsize) | [varUintSize](#function-varuintsize) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
+##### Function: applyOutputScriptMetadata
+
+```ts
+export function applyOutputScriptMetadata<T extends Partial<TableOutput>>(output: T): T
+```
+
+See also: [TableOutput](#interface-tableoutput)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Function: attemptToPostReqsToNetwork
 
 Attempt to post one or more `ProvenTxReq` with status 'unsent'
 to the bitcoin network.
 
 ```ts
-export async function attemptToPostReqsToNetwork(storage: StorageProvider, reqs: EntityProvenTxReq[], trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult> 
+export async function attemptToPostReqsToNetwork(storage: StorageProvider, reqs: EntityProvenTxReq[], trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<PostReqsToNetworkResult>
 ```
 
-See also: [EntityProvenTxReq](./storage.md#class-entityproventxreq), [PostReqsToNetworkResult](./storage.md#interface-postreqstonetworkresult), [StorageProvider](./storage.md#class-storageprovider), [TrxToken](./client.md#interface-trxtoken), [logger](./client.md#variable-logger)
+See also: [EntityProvenTxReq](#class-entityproventxreq), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [StorageProvider](#class-storageprovider)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: classifyReqStatus
+
+Classify a ProvenTxReq status into beef-sharing lifecycle status.
+Mutates `d` in place.
+
+```ts
+export function classifyReqStatus(d: GetReqsAndBeefDetail, req: TableProvenTxReq): void
+```
+
+See also: [GetReqsAndBeefDetail](#interface-getreqsandbeefdetail), [TableProvenTxReq](#interface-tableproventxreq)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4639,10 +4691,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createAction
 
 ```ts
-export async function createAction(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidCreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<StorageCreateActionResult> 
+export async function createAction(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidCreateActionArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<StorageCreateActionResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageCreateActionResult](./client.md#interface-storagecreateactionresult), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4653,7 +4705,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function createStorageServiceChargeScript(pubKeyHex: PubKeyHex): {
     script: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -4662,10 +4714,19 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: createSyncMap
 
 ```ts
-export function createSyncMap(): SyncMap 
+export function createSyncMap(): SyncMap
 ```
 
-See also: [SyncMap](./storage.md#interface-syncmap)
+See also: [SyncMap](#interface-syncmap)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: dateMatches
+
+```ts
+export function dateMatches(a: Date | undefined, b: Date | undefined): boolean
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4673,10 +4734,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: determineDBType
 
 ```ts
-export async function determineDBType(knex: Knex<any, any[]>): Promise<DBType> 
+export async function determineDBType(knex: Knex<any, any[]>): Promise<DBType>
 ```
 
-See also: [DBType](./storage.md#type-dbtype)
+See also: [DBType](#type-dbtype)
 
 Returns
 
@@ -4694,10 +4755,10 @@ Simplifications:
 Confirms for each availbleChange output that it remains available as they are allocated and selects alternate if not.
 
 ```ts
-export async function generateChangeSdk(params: GenerateChangeSdkParams, allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>, releaseChangeInput: (outputId: number) => Promise<void>, logger?: WalletLoggerInterface): Promise<GenerateChangeSdkResult> 
+export async function generateChangeSdk(params: GenerateChangeSdkParams, allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>, releaseChangeInput: (outputId: number) => Promise<void>, logger?: WalletLoggerInterface): Promise<GenerateChangeSdkResult>
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput), [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [GenerateChangeSdkResult](./storage.md#interface-generatechangesdkresult), [logger](./client.md#variable-logger)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput), [GenerateChangeSdkParams](#interface-generatechangesdkparams), [GenerateChangeSdkResult](#interface-generatechangesdkresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4709,10 +4770,10 @@ export function generateChangeSdkMakeStorage(availableChange: GenerateChangeSdkC
     allocateChangeInput: (targetSatoshis: number, exactSatoshis?: number) => Promise<GenerateChangeSdkChangeInput | undefined>;
     releaseChangeInput: (outputId: number) => Promise<void>;
     getLog: () => string;
-} 
+}
 ```
 
-See also: [GenerateChangeSdkChangeInput](./storage.md#interface-generatechangesdkchangeinput)
+See also: [GenerateChangeSdkChangeInput](#interface-generatechangesdkchangeinput)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4733,10 +4794,10 @@ be valid by verified proof are represented solely by 'txid'.
 If `knownTxids` is defined, any 'txid' required by the `Beef` that appears in the array is represented solely as a 'known' txid.
 
 ```ts
-export async function getBeefForTransaction(storage: StorageProvider, txid: string, options: StorageGetBeefOptions): Promise<Beef> 
+export async function getBeefForTransaction(storage: StorageProvider, txid: string, options: StorageGetBeefOptions): Promise<Beef>
 ```
 
-See also: [StorageGetBeefOptions](./client.md#interface-storagegetbeefoptions), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Argument Details
 
@@ -4757,10 +4818,10 @@ export function getListOutputsSpecOp(basket: string, tags: string[]): {
     specOp: ListOutputsSpecOp | undefined;
     basket?: string;
     tags: string[];
-} 
+}
 ```
 
-See also: [ListOutputsSpecOp](./storage.md#interface-listoutputsspecop)
+See also: [ListOutputsSpecOp](#interface-listoutputsspecop)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4770,10 +4831,19 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Gets the next sync chunk of updated data from un-remoted storage (could be using a remote DB connection).
 
 ```ts
-export async function getSyncChunk(storage: StorageReader, args: RequestSyncChunkArgs): Promise<SyncChunk> 
+export async function getSyncChunk(storage: StorageReader, args: RequestSyncChunkArgs): Promise<SyncChunk>
 ```
 
-See also: [RequestSyncChunkArgs](./client.md#interface-requestsyncchunkargs), [StorageReader](./storage.md#class-storagereader), [SyncChunk](./client.md#interface-syncchunk)
+See also: [StorageReader](#class-storagereader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: hashOutputLockingScript
+
+```ts
+export function hashOutputLockingScript(lockingScript: number[]): string
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4806,10 +4876,10 @@ When the transaction already exists, the description is updated. The isOutgoing 
 2. Targetting a previously "custom" non-change output converts it into a change output. This alters the transaction's `satoshis`, and the wallet balance.
 
 ```ts
-export async function internalizeAction(storage: StorageProvider, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult> 
+export async function internalizeAction(storage: StorageProvider, auth: AuthId, args: InternalizeActionArgs): Promise<StorageInternalizeActionResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageInternalizeActionResult](./client.md#interface-storageinternalizeactionresult), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4820,7 +4890,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function keyOffsetToHashedSecret(pub: PublicKey, keyOffset?: string): {
     hashedSecret: BigNumber;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -4829,10 +4899,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listActions
 
 ```ts
-export async function listActions(storage: StorageKnex, auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
+export async function listActions(storage: StorageKnex, auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageKnex](./storage.md#class-storageknex)
+See also: [StorageKnex](#class-storageknex)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4840,10 +4910,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listActionsIdb
 
 ```ts
-export async function listActionsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult> 
+export async function listActionsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListActionsArgs): Promise<ListActionsResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageIdb](./storage.md#class-storageidb)
+See also: [StorageIdb](#class-storageidb)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4851,10 +4921,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listCertificates
 
 ```ts
-export async function listCertificates(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult> 
+export async function listCertificates(storage: StorageProvider, auth: AuthId, vargs: Validation.ValidListCertificatesArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListCertificatesResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4862,10 +4932,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listOutputs
 
 ```ts
-export async function listOutputs(dsk: StorageKnex, auth: AuthId, vargs: Validation.ValidListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
+export async function listOutputs(dsk: StorageKnex, auth: AuthId, vargs: Validation.ValidListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageKnex](./storage.md#class-storageknex)
+See also: [StorageKnex](#class-storageknex)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4873,10 +4943,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: listOutputsIdb
 
 ```ts
-export async function listOutputsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult> 
+export async function listOutputsIdb(storage: StorageIdb, auth: AuthId, vargs: Validation.ValidListOutputsArgs, originator?: OriginatorDomainNameStringUnder250Bytes): Promise<ListOutputsResult>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageIdb](./storage.md#class-storageidb)
+See also: [StorageIdb](#class-storageidb)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4887,7 +4957,259 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function lockScriptWithKeyOffsetFromPubKey(pubKey: string, keyOffset?: string): {
     script: string;
     keyOffset: string;
-} 
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: markStaleInputsAsSpent
+
+After any failed broadcast (doubleSpend, invalidTx, etc.), query each
+consumed-input outpoint of the failed transaction against on-chain
+UTXO state. For inputs the chain authoritatively confirms are spent
+(i.e. NOT a UTXO), update the corresponding wallet basket entry to
+spendable=false.
+
+Background: `updateTransactionStatus(failed)` optimistically restores
+all consumed-input outputs to spendable=true so the user can retry
+with the same inputs. For some failures (genuine doubleSpend, or any
+'missing-inputs' outcome where the input has been spent on chain by
+a different transaction), restoration is incorrect — the input is
+gone and restoring it produces an infinite missing-inputs loop on
+the next createAction → broadcast cycle. Apps cannot evict from the
+default basket on app-isolated wallets (admin-only policy), so this
+self-heal must run inside the wallet.
+
+Different broadcasters classify the same on-chain reality differently
+(ARC → doubleSpend, WhatsOnChain/Bitails → invalidTx via
+'missing-inputs'); this helper is broadcaster-agnostic because its
+decision is based on services.isUtxo, not the aggregate failure
+classification.
+
+Pre-broadcast races where concurrent createActions reach the same
+UTXO across separate app processes are out of scope; see PR
+description.
+
+Conservatively scoped:
+  - Only inputs found in the failing user's basket are touched.
+  - Inputs whose on-chain UTXO status cannot be determined (service
+    error / inconclusive) are left spendable=true. Eviction is opt-in
+    based on positive evidence of stale state.
+  - Inputs the chain confirms are still UTXOs (e.g. a competing tx
+    itself failed, or a malformed/fee failure where inputs are intact)
+    are left spendable=true — preserving the existing transient-retry
+    semantics callers depend on.
+
+Returns counts for instrumentation and the set of stale outpoints
+that were actually evicted (added to history note for diagnostics).
+
+```ts
+export async function markStaleInputsAsSpent(ar: AggregatePostBeefTxResult, storage: StorageProvider, services: sdk.WalletServices, trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<{
+    checked: number;
+    staleConfirmed: number;
+    staleOutpoints: string[];
+}>
+```
+
+See also: [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult), [StorageProvider](#class-storageprovider)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesCertificateFieldPartial
+
+```ts
+export function matchesCertificateFieldPartial(r: TableCertificateField, partial: Partial<TableCertificateField>): boolean
+```
+
+See also: [TableCertificateField](#interface-tablecertificatefield)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesCertificatePartial
+
+```ts
+export function matchesCertificatePartial(r: TableCertificate, partial: Partial<TableCertificate>): boolean
+```
+
+See also: [TableCertificate](#interface-tablecertificate)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesCommissionPartial
+
+```ts
+export function matchesCommissionPartial(r: TableCommission, partial: Partial<TableCommission>): boolean
+```
+
+See also: [TableCommission](#interface-tablecommission)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesMonitorEventPartial
+
+```ts
+export function matchesMonitorEventPartial(r: TableMonitorEvent, partial: Partial<TableMonitorEvent>): boolean
+```
+
+See also: [TableMonitorEvent](#interface-tablemonitorevent)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesOutputBasketPartial
+
+```ts
+export function matchesOutputBasketPartial(r: TableOutputBasket, partial: Partial<TableOutputBasket>): boolean
+```
+
+See also: [TableOutputBasket](#interface-tableoutputbasket)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesOutputPartial
+
+```ts
+export function matchesOutputPartial(r: TableOutput, partial: Partial<TableOutput>): boolean
+```
+
+See also: [TableOutput](#interface-tableoutput)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesOutputTagMapPartial
+
+```ts
+export function matchesOutputTagMapPartial(r: TableOutputTagMap, partial: Partial<TableOutputTagMap>): boolean
+```
+
+See also: [TableOutputTagMap](#interface-tableoutputtagmap)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesOutputTagPartial
+
+```ts
+export function matchesOutputTagPartial(r: TableOutputTag, partial: Partial<TableOutputTag>): boolean
+```
+
+See also: [TableOutputTag](#interface-tableoutputtag)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesProvenTxPartial
+
+```ts
+export function matchesProvenTxPartial(r: TableProvenTx, partial: Partial<TableProvenTx>): boolean
+```
+
+See also: [TableProvenTx](#interface-tableproventx)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesProvenTxReqPartial
+
+```ts
+export function matchesProvenTxReqPartial(r: TableProvenTxReq, partial: Partial<TableProvenTxReq>): boolean
+```
+
+See also: [TableProvenTxReq](#interface-tableproventxreq)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesSyncStatePartial
+
+```ts
+export function matchesSyncStatePartial(r: TableSyncState, partial: Partial<TableSyncState>): boolean
+```
+
+See also: [TableSyncState](#interface-tablesyncstate)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesTransactionPartial
+
+```ts
+export function matchesTransactionPartial(r: TableTransaction, partial: Partial<TableTransaction>): boolean
+```
+
+See also: [TableTransaction](#interface-tabletransaction)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesTxLabelMapPartial
+
+```ts
+export function matchesTxLabelMapPartial(r: TableTxLabelMap, partial: Partial<TableTxLabelMap>): boolean
+```
+
+See also: [TableTxLabelMap](#interface-tabletxlabelmap)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: matchesTxLabelPartial
+
+```ts
+export function matchesTxLabelPartial(r: TableTxLabel, partial: Partial<TableTxLabel>): boolean
+```
+
+See also: [TableTxLabel](#interface-tabletxlabel)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: mergeInputBeefs
+
+For each input of `rawTx`, ensure the source txid is represented in `beef`.
+
+When `requiredLevels` is undefined/0 and `knownTxids` contains the source txid,
+a txid-only stub is merged rather than recursing into storage.
+
+```ts
+export async function mergeInputBeefs(rawTx: number[], beef: Beef, trustSelf: "known" | undefined, knownTxids: string[] | undefined, trx: TrxToken | undefined, requiredLevels: number | undefined, getValidBeef: (txid: string, beef: Beef, trustSelf: "known" | undefined, knownTxids: string[] | undefined, trx: TrxToken | undefined, requiredLevels: number | undefined) => Promise<unknown>): Promise<void>
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: mergeInputsIntoBeef
+
+Convenience wrapper for the external-sharing path where `trustSelf` and
+`requiredLevels` are always absent.
+
+```ts
+export async function mergeInputsIntoBeef(rawTx: number[], beef: Beef, knownTxids: string[], trx: TrxToken | undefined, getValidBeef: (txid: string, beef: Beef, trustSelf: undefined, knownTxids: string[], trx: TrxToken | undefined) => Promise<unknown>): Promise<void>
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: notifyTransactionsOfProof
+
+Notify each transaction that a proof has been found.
+Mutates `req` history notes in place.
+
+The `addNote` and `flushNotes` callbacks avoid coupling this helper to a
+specific entity type.
+
+```ts
+export async function notifyTransactionsOfProof(ids: number[], provenTxId: number, addNote: (note: ReqHistoryNote) => void, flushNotes: () => Promise<void>, updateTransaction: (id: number, update: {
+    provenTxId: number;
+    status: "completed";
+}) => Promise<unknown>): Promise<void>
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -4899,7 +5221,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function offsetPrivKey(privKey: string, keyOffset?: string): {
     offsetPrivKey: string;
     keyOffset: string;
-} 
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -4911,8 +5233,23 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function offsetPubKey(pubKey: string, keyOffset?: string): {
     offsetPubKey: string;
     keyOffset: string;
-} 
+}
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: partitionActionLabels
+
+```ts
+export function partitionActionLabels(ordinaryLabels: string[]): {
+    specOp: ListActionsSpecOp | undefined;
+    specOpLabels: string[];
+    labels: string[];
+}
+```
+
+See also: [ListActionsSpecOp](#interface-listactionsspecop)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4920,10 +5257,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: processAction
 
 ```ts
-export async function processAction(storage: StorageProvider, auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults> 
+export async function processAction(storage: StorageProvider, auth: AuthId, args: StorageProcessActionArgs): Promise<StorageProcessActionResults>
 ```
 
-See also: [AuthId](./client.md#interface-authid), [StorageProcessActionArgs](./client.md#interface-storageprocessactionargs), [StorageProcessActionResults](./client.md#interface-storageprocessactionresults), [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4931,10 +5268,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: purgeData
 
 ```ts
-export async function purgeData(storage: StorageKnex, params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
+export async function purgeData(storage: StorageKnex, params: PurgeParams, trx?: TrxToken): Promise<PurgeResults>
 ```
 
-See also: [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [StorageKnex](./storage.md#class-storageknex), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageKnex](#class-storageknex)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4942,10 +5279,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: purgeDataIdb
 
 ```ts
-export async function purgeDataIdb(storage: StorageIdb, params: PurgeParams, trx?: TrxToken): Promise<PurgeResults> 
+export async function purgeDataIdb(storage: StorageIdb, params: PurgeParams, trx?: TrxToken): Promise<PurgeResults>
 ```
 
-See also: [PurgeParams](./client.md#interface-purgeparams), [PurgeResults](./client.md#interface-purgeresults), [StorageIdb](./storage.md#class-storageidb), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageIdb](#class-storageidb)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4953,10 +5290,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: redeemServiceCharges
 
 ```ts
-export function redeemServiceCharges(privateKeyWif: string, charges: TableCommission[]): {}[] 
+export function redeemServiceCharges(privateKeyWif: string, charges: TableCommission[]): Array<{}>
 ```
 
-See also: [TableCommission](./storage.md#interface-tablecommission)
+See also: [TableCommission](#interface-tablecommission)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4964,7 +5301,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: renderAdminPage
 
 ```ts
-export function renderAdminPage(): string 
+export function renderAdminPage(): string
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -4984,10 +5321,10 @@ export async function reviewStatus(storage: StorageKnex, args: {
     trx?: TrxToken;
 }): Promise<{
     log: string;
-}> 
+}>
 ```
 
-See also: [StorageKnex](./storage.md#class-storageknex), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageKnex](#class-storageknex)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5006,10 +5343,10 @@ export async function reviewStatusIdb(storage: StorageIdb, args: {
     trx?: sdk.TrxToken;
 }): Promise<{
     log: string;
-}> 
+}>
 ```
 
-See also: [StorageIdb](./storage.md#class-storageidb), [TrxToken](./client.md#interface-trxtoken)
+See also: [StorageIdb](#class-storageidb)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5017,7 +5354,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: setDisableDoubleSpendCheckForTest
 
 ```ts
-export function setDisableDoubleSpendCheckForTest(v: boolean) 
+export function setDisableDoubleSpendCheckForTest(v: boolean)
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -5025,23 +5362,23 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 ##### Function: shareReqsWithWorld
 
-Verifies that all the txids are known reqs with ready-to-share status.
-Assigns a batch identifier and updates all the provenTxReqs.
-If not isDelayed, triggers an initial attempt to broadcast the batch and returns the results.
-
 ```ts
 export async function shareReqsWithWorld(storage: StorageProvider, userId: number, txids: string[], isDelayed: boolean, r?: GetReqsAndBeefResult, logger?: WalletLoggerInterface): Promise<{
     swr: SendWithResult[];
     ndr: ReviewActionResult[] | undefined;
-}> 
+}>
 ```
 
-See also: [GetReqsAndBeefResult](./storage.md#interface-getreqsandbeefresult), [ReviewActionResult](./client.md#interface-reviewactionresult), [StorageProvider](./storage.md#class-storageprovider), [logger](./client.md#variable-logger)
+See also: [GetReqsAndBeefResult](#interface-getreqsandbeefresult), [StorageProvider](#class-storageprovider)
 
-Argument Details
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
-+ **r**
-  + Optional. Ignores txids and allows ProvenTxReqs and merged beef to be passed in.
+---
+##### Function: summarizePostBeefProviderAttemptsForTxid
+
+```ts
+export function summarizePostBeefProviderAttemptsForTxid(txid: string, pbrs: sdk.PostBeefResult[]): string[]
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5049,7 +5386,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: transactionInputSize
 
 ```ts
-export function transactionInputSize(scriptSize: number): number 
+export function transactionInputSize(scriptSize: number): number
 ```
 
 Returns
@@ -5067,7 +5404,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: transactionOutputSize
 
 ```ts
-export function transactionOutputSize(scriptSize: number): number 
+export function transactionOutputSize(scriptSize: number): number
 ```
 
 Returns
@@ -5089,7 +5426,7 @@ given the number of inputs and outputs,
 and the size of each script.
 
 ```ts
-export function transactionSize(inputs: number[], outputs: number[]): number 
+export function transactionSize(inputs: number[], outputs: number[]): number
 ```
 
 Returns
@@ -5106,13 +5443,266 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+##### Function: updateReqsFromAggregateResults
+
+For each txid in submitted `txids`:
+
+  Based on its aggregate status, and whether broadcast happening in background (isDelayed) or immediately (!isDelayed),
+  and iff current req.status is not 'unproven' or 'completed':
+
+    'success':
+      req.status => 'unmined', tx.status => 'unproven'
+    'doubleSpend':
+      req.status => 'doubleSpend', tx.status => 'failed'
+    'invalidTx':
+      req.status => 'invalid', tx.status => 'failed'
+    'serviceError':
+      increment req.attempts
+
+```ts
+export async function updateReqsFromAggregateResults(txids: string[], r: PostReqsToNetworkResult, apbrs: Record<string, AggregatePostBeefTxResult>, storage: StorageProvider, services?: sdk.WalletServices, trx?: sdk.TrxToken, logger?: WalletLoggerInterface): Promise<void>
+```
+
+See also: [AggregatePostBeefTxResult](#interface-aggregatepostbeeftxresult), [PostReqsToNetworkResult](#interface-postreqstonetworkresult), [StorageProvider](#class-storageprovider)
+
+Argument Details
+
++ **services**
+  + if valid, doubleSpend results will be verified (but only if not within a trx. e.g. trx must be undefined)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeAllStoresV1
+
+Upgrade handler for every store that existed at schema version 1.
+
+```ts
+export function upgradeAllStoresV1(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeCertificateFields
+
+```ts
+export function upgradeCertificateFields(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeCertificates
+
+```ts
+export function upgradeCertificates(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeCommissions
+
+```ts
+export function upgradeCommissions(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeMonitorEvents
+
+```ts
+export function upgradeMonitorEvents(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeOutputBaskets
+
+```ts
+export function upgradeOutputBaskets(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeOutputTags
+
+```ts
+export function upgradeOutputTags(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeOutputTagsMap
+
+```ts
+export function upgradeOutputTagsMap(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeOutputs
+
+```ts
+export function upgradeOutputs(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeProvenTxReqs
+
+```ts
+export function upgradeProvenTxReqs(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeProvenTxs
+
+```ts
+export function upgradeProvenTxs(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeSyncStates
+
+```ts
+export function upgradeSyncStates(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeTransactions
+
+```ts
+export function upgradeTransactions(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeTxLabels
+
+```ts
+export function upgradeTxLabels(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeTxLabelsMap
+
+```ts
+export function upgradeTxLabelsMap(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: upgradeUsers
+
+```ts
+export function upgradeUsers(db: IDBPDatabase<StorageIdbSchema>): void
+```
+
+See also: [StorageIdbSchema](#interface-storageidbschema)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateDate
+
+Shared entity-validation helpers used by both client-side storage remoting
+(StorageClientBase / StorageMobile) and the server-side StorageServer.
+
+These helpers normalise records returned from remote calls or database queries:
+  - Coerce date strings / timestamps to `Date` objects.
+  - Replace `null` values with `undefined`.
+  - Replace `Uint8Array` / `Buffer` values with plain `number[]` arrays.
+
+```ts
+export function validateDate(date: Date | string | number): Date
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateEntities
+
+Force uniform behaviour across database engines.
+Use to process all arrays of records with timestamps retrieved from database.
+
+```ts
+export function validateEntities<T extends EntityTimeStamp>(entities: T[], dateFields?: string[]): T[]
+```
+
+Returns
+
+input `entities` array with contained values validated.
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateEntity
+
+Force uniform behaviour across database engines.
+Use to process all individual records with timestamps retrieved from database.
+
+```ts
+export function validateEntity<T extends EntityTimeStamp>(entity: T, dateFields?: string[]): T
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ##### Function: validateGenerateChangeSdkParams
 
 ```ts
-export function validateGenerateChangeSdkParams(params: GenerateChangeSdkParams): ValidateGenerateChangeSdkParamsResult 
+export function validateGenerateChangeSdkParams(params: GenerateChangeSdkParams): ValidateGenerateChangeSdkParamsResult
 ```
 
-See also: [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [ValidateGenerateChangeSdkParamsResult](./storage.md#interface-validategeneratechangesdkparamsresult)
+See also: [GenerateChangeSdkParams](#interface-generatechangesdkparams), [ValidateGenerateChangeSdkParamsResult](#interface-validategeneratechangesdkparamsresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5123,10 +5713,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateGenerateChangeSdkResult(params: GenerateChangeSdkParams, r: GenerateChangeSdkResult): {
     ok: boolean;
     log: string;
-} 
+}
 ```
 
-See also: [GenerateChangeSdkParams](./storage.md#interface-generatechangesdkparams), [GenerateChangeSdkResult](./storage.md#interface-generatechangesdkresult)
+See also: [GenerateChangeSdkParams](#interface-generatechangesdkparams), [GenerateChangeSdkResult](#interface-generatechangesdkresult)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5134,10 +5724,20 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Function: validateStorageFeeModel
 
 ```ts
-export function validateStorageFeeModel(v?: StorageFeeModel): StorageFeeModel 
+export function validateStorageFeeModel(v?: StorageFeeModel): StorageFeeModel
 ```
 
-See also: [StorageFeeModel](./client.md#interface-storagefeemodel)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+##### Function: validateSyncChunkEntities
+
+Validate all entity arrays within a `SyncChunk` received from a remote storage call.
+Normalises timestamps, nulls, and binary fields in-place.
+
+```ts
+export function validateSyncChunkEntities(r: SyncChunk): SyncChunk
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5150,11 +5750,15 @@ Returns the byte size required to encode number as Bitcoin VarUint
 export function varUintSize(val: number): 1 | 3 | 5 | 9 {
     if (val < 0)
         throw new WERR_INVALID_PARAMETER("varUint", "non-negative");
-    return val <= 252 ? 1 : val <= 65535 ? 3 : val <= 4294967295 ? 5 : 9;
+    if (val <= 252)
+        return 1;
+    if (val <= 65535)
+        return 3;
+    if (val <= 4294967295)
+        return 5;
+    return 9;
 }
 ```
-
-See also: [WERR_INVALID_PARAMETER](./client.md#class-werr_invalid_parameter)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5174,7 +5778,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ##### Type: DBType
 
 ```ts
-export type DBType = "SQLite" | "MySQL" | "IndexedDB"
+export type DBType = "MySQL" | "IndexedDB"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -5186,7 +5790,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type EntityStorage = StorageProvider
 ```
 
-See also: [StorageProvider](./storage.md#class-storageprovider)
+See also: [StorageProvider](#class-storageprovider)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5234,8 +5838,8 @@ getLabelToSpecOp: () => Record<string, ListActionsSpecOp> = () => {
             name: "noSendActions",
             labelsToIntercept: ["abort"],
             setStatusFilter: () => ["nosend"],
-            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]): Promise<void> => {
-                if (specOpLabels.indexOf("abort") >= 0) {
+            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Array<Partial<TableTransaction>>): Promise<void> => {
+                if (specOpLabels.includes("abort")) {
                     for (const tx of txs) {
                         if (tx.status === "nosend") {
                             await s.abortAction(auth, { reference: tx.reference! });
@@ -5249,8 +5853,8 @@ getLabelToSpecOp: () => Record<string, ListActionsSpecOp> = () => {
             name: "failedActions",
             labelsToIntercept: ["unfail"],
             setStatusFilter: () => ["failed"],
-            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Partial<TableTransaction>[]): Promise<void> => {
-                if (specOpLabels.indexOf("unfail") >= 0) {
+            postProcess: async (s: StorageProvider, auth: AuthId, vargs: Validation.ValidListActionsArgs, specOpLabels: string[], txs: Array<Partial<TableTransaction>>): Promise<void> => {
+                if (specOpLabels.includes("unfail")) {
                     for (const tx of txs) {
                         if (tx.status === "failed") {
                             await s.updateTransaction(tx.transactionId!, { status: "unfail" });
@@ -5263,7 +5867,7 @@ getLabelToSpecOp: () => Record<string, ListActionsSpecOp> = () => {
 }
 ```
 
-See also: [AuthId](./client.md#interface-authid), [ListActionsSpecOp](./storage.md#interface-listactionsspecop), [StorageProvider](./storage.md#class-storageprovider), [TableTransaction](./storage.md#interface-tabletransaction), [specOpFailedActions](./client.md#variable-specopfailedactions), [specOpNoSendActions](./client.md#variable-specopnosendactions)
+See also: [ListActionsSpecOp](#interface-listactionsspecop), [StorageProvider](#class-storageprovider), [TableTransaction](#interface-tabletransaction)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5313,7 +5917,9 @@ outputColumnsWithoutLockingScript = [
     "sequenceNumber",
     "spendingDescription",
     "scriptLength",
-    "scriptOffset"
+    "scriptOffset",
+    "scriptHash",
+    "cacheUpdatedAt"
 ]
 ```
 

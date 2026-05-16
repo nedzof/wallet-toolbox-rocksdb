@@ -937,29 +937,11 @@ export class StorageKnex extends StorageProvider implements WalletStorageProvide
   }
 
   override async migrate (storageName: string, storageIdentityKey: string): Promise<string> {
-    // Check if this is a SQLite database by looking at the Knex client config
-    const clientName = (this.knex.client as { config?: { client?: string } }).config?.client || ''
-    const isSQLite = clientName.includes('sqlite')
-
-    // For SQLite, disable transactions during migrations and turn off foreign keys.
-    // PRAGMA foreign_keys is silently ignored inside transactions, so we must
-    // disable transactions for the migration to allow the PRAGMA to take effect.
-    // See: https://github.com/knex/knex/issues/4155
-    if (isSQLite) {
-      await this.knex.raw('PRAGMA foreign_keys = OFF;')
-    }
-
     const config = {
-      migrationSource: new KnexMigrations(this.chain, storageName, storageIdentityKey, 1024),
-      disableTransactions: isSQLite
+      migrationSource: new KnexMigrations(this.chain, storageName, storageIdentityKey, 1024)
     }
     await this.knex.migrate.latest(config)
     const version = await this.knex.migrate.currentVersion(config)
-
-    // Re-enable foreign key checks for SQLite
-    if (isSQLite) {
-      await this.knex.raw('PRAGMA foreign_keys = ON;')
-    }
 
     return version
   }
@@ -968,25 +950,10 @@ export class StorageKnex extends StorageProvider implements WalletStorageProvide
     // Only using migrations to migrate down, don't need valid properties for settings table.
     const migrationSource = new KnexMigrations('test', '', '', 1024)
 
-    // Check if this is a SQLite database by looking at the Knex client config
-    const clientName = (this.knex.client as { config?: { client?: string } }).config?.client || ''
-    const isSQLite = clientName.includes('sqlite')
-
-    // For SQLite, disable transactions during migrations and turn off foreign keys.
-    // PRAGMA foreign_keys is silently ignored inside transactions, so we must
-    // disable transactions for the migration to allow the PRAGMA to take effect.
-    // See: https://github.com/knex/knex/issues/4155
     const config = {
-      migrationSource,
-      disableTransactions: isSQLite
+      migrationSource
     }
     const count = Object.keys(migrationSource.migrations).length
-
-    // Disable foreign key checks for SQLite before dropping tables
-    // This is necessary for better-sqlite3 which enforces FK constraints by default
-    if (isSQLite) {
-      await this.knex.raw('PRAGMA foreign_keys = OFF;')
-    }
 
     for (let i = 0; i < count; i++) {
       try {
@@ -1003,10 +970,6 @@ export class StorageKnex extends StorageProvider implements WalletStorageProvide
       }
     }
 
-    // Re-enable foreign key checks for SQLite
-    if (isSQLite) {
-      await this.knex.raw('PRAGMA foreign_keys = ON;')
-    }
   }
 
   override async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T> {
@@ -1046,21 +1009,11 @@ export class StorageKnex extends StorageProvider implements WalletStorageProvide
    * Make sure database is ready for access:
    *
    * - dateScheme is known
-   * - foreign key constraints are enabled
    *
    * @param trx
    */
   async verifyReadyForDatabaseAccess (trx?: TrxToken): Promise<DBType> {
     this._settings ??= await this.readSettings()
-
-    // Always run the PRAGMA for SQLite to ensure foreign key constraints are enabled.
-    // This is necessary because PRAGMA foreign_keys is a per-connection setting,
-    // and connection pools may create new connections that don't have it set.
-    // The performance impact is minimal as SQLite handles this efficiently.
-    if (this._settings.dbtype === 'SQLite') {
-      await this.toDb(trx).raw('PRAGMA foreign_keys = ON;')
-    }
-
     this._verifiedReadyForDatabaseAccess = true
 
     return this._settings.dbtype

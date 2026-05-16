@@ -47,7 +47,7 @@
 
 | Type | Count | Packages |
 |------|-------|---------|
-| Production | 10 | @bsv/auth-express-middleware, @bsv/payment-express-middleware, @bsv/sdk, better-sqlite3, express, hash-wasm, idb, knex, mysql2, ws |
+| Production | 17 | @bsv/auth-express-middleware, @bsv/payment-express-middleware, @bsv/sdk, @harperfast/rocksdb-js, eventemitter3, express, hash-wasm, idb, knex, lru-cache, mysql2, node-cache, p-limit, p-queue, prom-client, undici, ws |
 | Dev | — | typescript, jest, prettier, ts2md, … |
 
 ## Known Issues & Incidents

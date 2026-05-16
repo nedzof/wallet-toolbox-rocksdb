@@ -527,5 +527,5 @@ Look specifically at existing mocks for `WalletServices` and `StorageKnex` to ex
 - All scenarios except Scenario 3 `LEGACY` must pass before merge.
 - Scenario 3 `LEGACY` test must **FAIL** after PLANNED_CHANGES are implemented — update its assertions at that point to match Scenario 3 `PROPOSED`.
 - Run with `--runInBand` for deterministic ordering of timer-based scenarios.
-- Target: complete in < 10s on local (no network, mock services, mock Knex with `knex-mock-client` or in-memory SQLite).
+- Target: complete in < 10s on local (no network, mock services, or mock Knex with `knex-mock-client`).
 - Add snapshot testing for `reviewStatus` SQL queries to prevent accidental SQL regression.

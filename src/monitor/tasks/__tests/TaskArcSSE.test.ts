@@ -92,8 +92,8 @@ function makeMonitor (
     chain: 'test',
     storage,
     eventBus,
-    processBlockMinedNotice: jest.fn((blockHeight?: number, blockHash?: string) => {
-      eventBus.emitBlockMined({ blockHeight: blockHeight ?? 0, blockHash, timestamp: Date.now() })
+    processBlockMinedNotice: jest.fn((blockHeight?: number, blockHash?: string, header?: any, outpoints?: string[]) => {
+      eventBus.emitBlockMined({ blockHeight: blockHeight ?? 0, blockHash, header, outpoints, timestamp: Date.now() })
     }),
     callOnTransactionStatusChanged: jest.fn(),
     callOnProvenTransaction: jest.fn()
@@ -248,15 +248,16 @@ describe('TaskArcadeSSE', () => {
           txStatus: 'BLOCK_MINED',
           timestamp: '',
           blockHeight: 123,
-          blockHash: 'abc'
+          blockHash: 'abc',
+          outpoints: ['txid.0']
         })
       })
 
       const log = await task.runTask()
 
       expect(log).toContain('block mined: height=123 hash=abc')
-      expect(monitor.processBlockMinedNotice).toHaveBeenCalledWith(123, 'abc')
-      expect(blocks).toEqual([expect.objectContaining({ blockHeight: 123, blockHash: 'abc' })])
+      expect(monitor.processBlockMinedNotice).toHaveBeenCalledWith(123, 'abc', undefined, ['txid.0'])
+      expect(blocks).toEqual([expect.objectContaining({ blockHeight: 123, blockHash: 'abc', outpoints: ['txid.0'] })])
       expect(monitor.storage.findProvenTxReqs).not.toHaveBeenCalled()
     })
   })

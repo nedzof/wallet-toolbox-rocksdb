@@ -34,21 +34,20 @@ export async function backupWalletClient(env: SetupEnv, identityKey: string): Pr
     env,
     rootKeyHex: env.devKeys[identityKey]
   })
-  await backupToSQLite(setup)
+  await backupToMySQL(setup)
   await setup.wallet.destroy()
 }
 
 /**
  * @publicbody
  */
-export async function backupToSQLite(setup: SetupWallet, filePath?: string, databaseName?: string): Promise<void> {
+export async function backupToMySQL(setup: SetupWallet, databaseName?: string): Promise<void> {
   const env = Setup.getEnv(setup.chain)
-  filePath ||= `backup_${setup.identityKey}.sqlite`
-  databaseName ||= `${setup.identityKey} backup`
+  databaseName ||= `${setup.identityKey}_backup`
 
   const backup = await Setup.createStorageKnex({
     env,
-    knex: Setup.createSQLiteKnex(filePath),
+    knex: Setup.createMySQLKnex(env.mySQLConnection, databaseName),
     databaseName,
     rootKeyHex: setup.keyDeriver.rootKey.toHex()
   })

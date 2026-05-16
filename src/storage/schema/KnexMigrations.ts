@@ -3,7 +3,6 @@ import { Knex } from 'knex'
 import { DBType } from '../StorageReader'
 import { Chain } from '../../sdk/types'
 import { StorageKnex } from '../StorageKnex'
-import { WalletError } from '../../sdk/WalletError'
 import { WERR_NOT_IMPLEMENTED } from '../../sdk/WERR_errors'
 import { hashOutputLockingScript } from '../outputScriptMetadata'
 
@@ -582,13 +581,10 @@ export async function determineDBType (knex: Knex<any, any[]>): Promise<DBType> 
     let r = await knex.raw(q)
     if (!r[0].database_type) r = r[0]
     if (r.rows) r = r.rows
-    const dbtype: 'SQLite' | 'MySQL' | 'Unknown' = r[0].database_type
+    const dbtype: 'MySQL' | 'Unknown' = r[0].database_type
     if (dbtype === 'Unknown') throw new WERR_NOT_IMPLEMENTED('Attempting to create database on unsuported engine.')
     return dbtype
-  } catch (error_: unknown) {
-    const e = WalletError.fromUnknown(error_)
-    // Check for SQLite errors from both node-sqlite3 (SQLITE_ERROR) and better-sqlite3 (SqliteError)
-    if (e.code === 'SQLITE_ERROR' || e.code === 'SqliteError') return 'SQLite'
+  } catch {
     throw new WERR_NOT_IMPLEMENTED('Attempting to create database on unsuported engine.')
   }
 }

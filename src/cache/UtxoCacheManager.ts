@@ -35,8 +35,12 @@ export class UtxoCacheManager {
     this.invalidateOutpoints(event.outpoints)
   }
 
-  private readonly onBlockMined = (event: { blockHeight: number }): void => {
-    this.invalidateByBlock(event.blockHeight)
+  private readonly onBlockMined = (event: { blockHeight: number, outpoints?: string[] }): void => {
+    this.invalidateByBlock(event.blockHeight, event.outpoints)
+  }
+
+  private readonly onReorg = (): void => {
+    this.clear()
   }
 
   constructor (options: UtxoCacheManagerOptions = {}) {
@@ -46,6 +50,8 @@ export class UtxoCacheManager {
     this.cache = new LRUCache<string, GetUtxoStatusResult>({
       max: options.max ?? 10000,
       ttl: this.ttlMs,
+      updateAgeOnGet: true,
+      updateAgeOnHas: true,
       dispose: (_value, key) => {
         this.removeKeyFromOutpointMap(key)
         this.metrics?.setUtxoCacheSize(this.cache.size)
@@ -53,6 +59,7 @@ export class UtxoCacheManager {
     })
     this.events?.on(EventBus.UTXO_INVALIDATE, this.onUtxoInvalidate)
     this.events?.on(EventBus.BLOCK_MINED, this.onBlockMined)
+    this.events?.on(EventBus.REORG, this.onReorg)
   }
 
   async getOrLoad (
@@ -78,7 +85,7 @@ export class UtxoCacheManager {
     const generation = this.generation
     const loading = load()
       .then(result => {
-        if (result.status === 'success' && generation === this.generation) this.set(query, result)
+        if (isCacheableUtxoResult(result) && generation === this.generation) this.set(query, result)
         return result
       })
       .finally(() => {
@@ -89,6 +96,7 @@ export class UtxoCacheManager {
   }
 
   set (query: UtxoCacheQuery, result: GetUtxoStatusResult): void {
+    if (!isCacheableUtxoResult(result)) return
     const key = this.makeKey(query)
     this.cache.set(key, cloneUtxoResult(result))
     let keys = this.outpointKeys.get(query.outpoint)
@@ -99,6 +107,47 @@ export class UtxoCacheManager {
     keys.add(key)
     this.metrics?.setUtxoCacheSize(this.cache.size)
     this.events?.emit('utxoCacheSet', { key, query })
+  }
+
+  async getUtxoStatus (outpoint: string): Promise<boolean | null> {
+    const keys = this.outpointKeys.get(outpoint)
+    if (keys == null) {
+      this.misses++
+      this.metrics?.recordUtxoCacheRequest('miss', this.cache.size)
+      return null
+    }
+
+    for (const key of Array.from(keys)) {
+      const cached = this.cache.get(key)
+      if (cached == null) {
+        keys.delete(key)
+        continue
+      }
+      this.hits++
+      this.metrics?.recordUtxoCacheRequest('hit', this.cache.size)
+      this.events?.emit('utxoCacheHit', { key, outpoint })
+      return cached.isUtxo ?? null
+    }
+
+    this.outpointKeys.delete(outpoint)
+    this.misses++
+    this.metrics?.recordUtxoCacheRequest('miss', this.cache.size)
+    return null
+  }
+
+  setUtxoStatus (outpoint: string, isUtxo: boolean, blockHeight?: number): void {
+    const detail = parseOutpoint(outpoint)
+    this.set(
+      { output: outpoint, outpoint },
+      {
+        name: 'UtxoCacheManager',
+        status: 'success',
+        isUtxo,
+        details: isUtxo && detail != null
+          ? [{ ...detail, height: blockHeight }]
+          : []
+      }
+    )
   }
 
   invalidateOutpoint (outpoint: string): number {
@@ -122,7 +171,23 @@ export class UtxoCacheManager {
     return removed
   }
 
-  invalidateByBlock (blockHeight: number): number {
+  invalidateByBlock (blockHeight: number, outpoints?: string[]): number {
+    if (outpoints !== undefined) {
+      this.generation++
+      let removed = 0
+      for (const outpoint of outpoints) {
+        const keys = this.outpointKeys.get(outpoint)
+        if (keys == null) continue
+        for (const key of Array.from(keys)) {
+          if (this.cache.delete(key)) removed++
+        }
+        this.outpointKeys.delete(outpoint)
+      }
+      this.metrics?.setUtxoCacheSize(this.cache.size)
+      this.events?.emit('utxoCacheInvalidateByBlock', { blockHeight, outpoints, removed })
+      return removed
+    }
+
     const removed = this.cache.size
     this.clear()
     this.events?.emit('utxoCacheInvalidateByBlock', { blockHeight, removed })
@@ -142,6 +207,7 @@ export class UtxoCacheManager {
   close (): void {
     this.events?.off(EventBus.UTXO_INVALIDATE, this.onUtxoInvalidate)
     this.events?.off(EventBus.BLOCK_MINED, this.onBlockMined)
+    this.events?.off(EventBus.REORG, this.onReorg)
     this.clear()
   }
 
@@ -174,4 +240,15 @@ function cloneUtxoResult (result: GetUtxoStatusResult): GetUtxoStatusResult {
     ...result,
     details: result.details.map(d => ({ ...d }))
   }
+}
+
+function isCacheableUtxoResult (result: GetUtxoStatusResult): boolean {
+  return result.status === 'success' && typeof result.isUtxo === 'boolean'
+}
+
+function parseOutpoint (outpoint: string): { txid: string, index: number } | undefined {
+  const [txid, indexText] = outpoint.split('.')
+  const index = Number(indexText)
+  if (txid == null || txid === '' || !Number.isInteger(index) || index < 0) return undefined
+  return { txid, index }
 }

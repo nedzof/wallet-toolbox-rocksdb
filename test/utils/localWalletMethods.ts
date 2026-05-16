@@ -43,29 +43,23 @@ export interface LocalTestWalletSetup extends TestWalletNoSetup {
 export async function createSetup(chain: sdk.Chain, options: LocalWalletTestOptions): Promise<LocalTestWalletSetup> {
   const env = _tu.getEnv(chain)
   let identityKey: string | undefined
-  let filePath: string | undefined
   if (options.useTestIdentityKey) {
     identityKey = env.testIdentityKey
-    filePath = env.testFilePath
   } else {
     if (options.useIdentityKey2) {
       identityKey = env.identityKey2
     } else {
       identityKey = env.identityKey
-      filePath = env.filePath
     }
   }
   if (!identityKey) throw new sdk.WERR_INVALID_PARAMETER('identityKey', 'valid')
-  if (!filePath) filePath = `./backup-${chain}-${identityKey}.sqlite`
 
   const setup = {
     ...options,
     ...(await _tu.createTestWallet({
       chain,
       rootKeyHex: env.devKeys[identityKey],
-      filePath,
       setActiveClient: options.setActiveClient,
-      addLocalBackup: false,
       useMySQLConnectionForClient: options.useMySQLConnectionForClient
     }))
   }

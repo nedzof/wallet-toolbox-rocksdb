@@ -35,10 +35,22 @@ export class SpvHeaderSync {
   async start (): Promise<SpvHeaderSyncStartResult> {
     if (this.startPromise != null) return await this.startPromise
     this.startPromise = this.startOnce()
-    return await this.startPromise
+    try {
+      return await this.startPromise
+    } catch (error) {
+      this.startPromise = undefined
+      throw error
+    }
   }
 
   async stop (): Promise<void> {
+    if (this.startPromise != null) {
+      try {
+        await this.startPromise
+      } catch {
+        // Failed starts clean up their partial subscriptions in startOnce().
+      }
+    }
     const ids = [this.headerSubscriptionId, this.reorgSubscriptionId].filter((id): id is string => id != null)
     await Promise.all(ids.map(async id => await this.source.unsubscribe(id)))
     this.headerSubscriptionId = undefined
@@ -47,11 +59,20 @@ export class SpvHeaderSync {
   }
 
   private async startOnce (): Promise<SpvHeaderSyncStartResult> {
-    const reorgSubscriptionId = await this.source.subscribeReorgs(this.handleReorg.bind(this))
-    const headerSubscriptionId = await this.source.subscribeHeaders(this.handleHeader.bind(this))
-    this.reorgSubscriptionId = reorgSubscriptionId
-    this.headerSubscriptionId = headerSubscriptionId
-    return { headerSubscriptionId, reorgSubscriptionId }
+    try {
+      this.reorgSubscriptionId = await this.source.subscribeReorgs(this.handleReorg.bind(this))
+      this.headerSubscriptionId = await this.source.subscribeHeaders(this.handleHeader.bind(this))
+      return {
+        headerSubscriptionId: this.headerSubscriptionId,
+        reorgSubscriptionId: this.reorgSubscriptionId
+      }
+    } catch (error) {
+      const ids = [this.headerSubscriptionId, this.reorgSubscriptionId].filter((id): id is string => id != null)
+      this.headerSubscriptionId = undefined
+      this.reorgSubscriptionId = undefined
+      await Promise.allSettled(ids.map(async id => await this.source.unsubscribe(id)))
+      throw error
+    }
   }
 
   private handleHeader (header: BlockHeader): void {

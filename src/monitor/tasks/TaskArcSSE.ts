@@ -199,7 +199,7 @@ export class TaskArcadeSSE extends WalletMonitorTask {
   }
 
   private handleBlockEvent (event: ArcSSEEvent): string {
-    this.monitor.processBlockMinedNotice(event.blockHeight, event.blockHash)
+    this.monitor.processBlockMinedNotice(event.blockHeight, event.blockHash, undefined, event.outpoints)
     return `  block mined: height=${event.blockHeight ?? 'unknown'} hash=${event.blockHash ?? 'unknown'}\n`
   }
 

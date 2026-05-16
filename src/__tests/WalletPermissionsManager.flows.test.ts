@@ -18,6 +18,17 @@ function mockNoTokensFound (manager: WalletPermissionsManager) {
   jest.spyOn(manager as any, 'findSpendingToken').mockResolvedValue(undefined)
 }
 
+function mockManifestHttpClient (manager: WalletPermissionsManager) {
+  const request = jest.fn(async () => ({
+    ok: false,
+    status: 404,
+    statusText: 'Not Found',
+    data: {}
+  }))
+  ;(manager as any).manifestHttpClient = { request }
+  return request
+}
+
 describe('WalletPermissionsManager - Permission Request Flow & Active Requests', () => {
   let underlying: ReturnType<typeof mockUnderlyingWallet>
   let manager: WalletPermissionsManager
@@ -25,6 +36,7 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
   beforeEach(() => {
     underlying = mockUnderlyingWallet()
     manager = new WalletPermissionsManager(underlying, 'admin.test.com')
+    mockManifestHttpClient(manager)
   })
 
   afterEach(() => {
@@ -150,10 +162,12 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
     })
 
     it('should parse counterpartyPermissions protocols from protocolName (preferred) and protocolId/protocolID (fallback)', async () => {
-      const fetchMock = globalThis.fetch as any
-      fetchMock.mockResolvedValueOnce({
+      const request = mockManifestHttpClient(manager)
+      request.mockResolvedValueOnce({
         ok: true,
-        json: async () => ({
+        status: 200,
+        statusText: 'OK',
+        data: {
           metanet: {
             groupPermissions: { protocolPermissions: [] },
             counterpartyPermissions: {
@@ -165,7 +179,7 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
               ]
             }
           }
-        })
+        }
       })
 
       const res = await (manager as any).fetchManifestPermissions('example.com')
@@ -179,10 +193,12 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
     })
 
     it('should parse counterpartyPermissions from metanet namespace with babbage fallback', async () => {
-      const fetchMock = globalThis.fetch as any
-      fetchMock.mockResolvedValueOnce({
+      const request = mockManifestHttpClient(manager)
+      request.mockResolvedValueOnce({
         ok: true,
-        json: async () => ({
+        status: 200,
+        statusText: 'OK',
+        data: {
           metanet: {
             groupPermissions: { protocolPermissions: [] },
             counterpartyPermissions: {
@@ -190,7 +206,7 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
               protocols: [{ protocolName: 'p', description: 'd' }]
             }
           }
-        })
+        }
       })
 
       const res1 = await (manager as any).fetchManifestPermissions('example.com')
@@ -198,9 +214,11 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
         expect.arrayContaining([expect.objectContaining({ protocolName: 'p' })])
       )
       ;(manager as any).manifestCache = new Map()
-      fetchMock.mockResolvedValueOnce({
+      request.mockResolvedValueOnce({
         ok: true,
-        json: async () => ({
+        status: 200,
+        statusText: 'OK',
+        data: {
           babbage: {
             groupPermissions: { protocolPermissions: [] },
             counterpartyPermissions: {
@@ -208,7 +226,7 @@ describe('WalletPermissionsManager - Permission Request Flow & Active Requests',
               protocols: [{ protocolName: 'p2', description: 'd2' }]
             }
           }
-        })
+        }
       })
 
       const res2 = await (manager as any).fetchManifestPermissions('example.com')

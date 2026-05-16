@@ -23,7 +23,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [SetupEnv](#interface-setupenv) | [SetupWalletKnex](#interface-setupwalletknex) |
 | [SetupWallet](#interface-setupwallet) | [SetupWalletKnexArgs](#interface-setupwalletknexargs) |
 | [SetupWalletArgs](#interface-setupwalletargs) | [SetupWalletMySQLArgs](#interface-setupwalletmysqlargs) |
-| [SetupWalletClient](#interface-setupwalletclient) | [SetupWalletSQLiteArgs](#interface-setupwalletsqliteargs) |
+| [SetupWalletClient](#interface-setupwalletclient) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -140,7 +140,6 @@ export interface SetupEnv {
     chain: Chain;
     identityKey: string;
     identityKey2: string;
-    filePath: string | undefined;
     taalApiKey: string;
     devKeys: Record<string, string>;
     mySQLConnection: string;
@@ -164,14 +163,6 @@ A map of public keys (identity keys, hex strings) to private keys (hex strings).
 
 ```ts
 devKeys: Record<string, string>
-```
-
-###### Property filePath
-
-Filepath to sqlite file to be used for identityKey wallet.
-
-```ts
-filePath: string | undefined
 ```
 
 ###### Property identityKey
@@ -322,8 +313,6 @@ Extension `SetupWalletClientArgs` used by `createWalletClient` to construct a `S
 Extension `SetupWalletKnexArgs` used by `createWalletKnex` to construct a `SetupWalletKnex`.
 
 Extension `SetupWalletMySQLArgs` used by `createWalletMySQL` to construct a `SetupWalletKnex`.
-
-Extension `SetupWalletSQLiteArgs` used by `createWalletSQLite` to construct a `SetupWalletKnex`.
 
 ```ts
 export interface SetupWalletArgs {
@@ -520,20 +509,6 @@ See also: [SetupWalletArgs](./setup.md#interface-setupwalletargs)
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-##### Interface: SetupWalletSQLiteArgs
-
-```ts
-export interface SetupWalletSQLiteArgs extends SetupWalletArgs {
-    filePath: string;
-    databaseName: string;
-}
-```
-
-See also: [SetupWalletArgs](./setup.md#interface-setupwalletargs)
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Classes
 
 | |
@@ -554,7 +529,7 @@ It serves as a starting point for experimentation and customization.
 
 ```ts
 export abstract class Setup {
-    static noEnv(chain: Chain): boolean 
+    static noEnv(chain: Chain): boolean
     static makeEnv(): string {
         const testPrivKey1 = PrivateKey.fromRandom();
         const testIdentityKey1 = testPrivKey1.toPublicKey().toString();
@@ -586,7 +561,6 @@ DEV_KEYS = '{
     static getEnv(chain: Chain): SetupEnv {
         const identityKey = chain === "main" ? process.env.MY_MAIN_IDENTITY : process.env.MY_TEST_IDENTITY;
         const identityKey2 = chain === "main" ? process.env.MY_MAIN_IDENTITY2 : process.env.MY_TEST_IDENTITY2;
-        const filePath = chain === "main" ? process.env.MY_MAIN_FILEPATH : process.env.MY_TEST_FILEPATH;
         const DEV_KEYS = process.env.DEV_KEYS || "{}";
         const mySQLConnection = process.env.MYSQL_CONNECTION || "{}";
         const taalApiKey = verifyTruthy(chain === "main" ? process.env.MAIN_TAAL_API_KEY : process.env.TEST_TAAL_API_KEY, `.env value for '${chain.toUpperCase()}_TAAL_API_KEY' is required.`);
@@ -596,7 +570,6 @@ DEV_KEYS = '{
             chain,
             identityKey,
             identityKey2,
-            filePath,
             taalApiKey,
             devKeys: JSON.parse(DEV_KEYS) as Record<string, string>,
             mySQLConnection
@@ -616,7 +589,7 @@ DEV_KEYS = '{
         const services = new Services(serviceOptions);
         const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
         const monitor = new Monitor(monopts);
-        const privilegedKeyManager = args.privilegedKeyGetter
+        const privilegedKeyManager = (args.privilegedKeyGetter != null)
             ? new PrivilegedKeyManager(args.privilegedKeyGetter)
             : undefined;
         const wallet = new Wallet({
@@ -644,7 +617,7 @@ DEV_KEYS = '{
         rootKeyHex: string;
         storageUrl?: string;
         privilegedKeyGetter?: () => Promise<PrivateKey>;
-    }): Promise<Wallet> 
+    }): Promise<Wallet>
     static async createWalletClient(args: SetupWalletClientArgs): Promise<SetupWalletClient> {
         const wo = await Setup.createWallet(args);
         const endpointUrl = args.endpointUrl || `https://${args.env.chain !== "main" ? "staging-" : ""}storage.babbage.systems`;
@@ -676,13 +649,13 @@ DEV_KEYS = '{
         const unlock = p2pkh.unlock(priv, "all", false, satoshis, lock);
         return unlock;
     }
-    static createP2PKHOutputs(outputs: {
+    static createP2PKHOutputs(outputs: Array<{
         address: string;
         satoshis: number;
         outputDescription?: string;
         basket?: string;
         tags?: string[];
-    }[]): CreateActionOutput[] {
+    }>): CreateActionOutput[] {
         const os: CreateActionOutput[] = [];
         const count = outputs.length;
         for (let i = 0; i < count; i++) {
@@ -697,19 +670,19 @@ DEV_KEYS = '{
         }
         return os;
     }
-    static async createP2PKHOutputsAction(wallet: WalletInterface, outputs: {
+    static async createP2PKHOutputsAction(wallet: WalletInterface, outputs: Array<{
         address: string;
         satoshis: number;
         outputDescription?: string;
         basket?: string;
         tags?: string[];
-    }[], options?: CreateActionOptions): Promise<{
+    }>, options?: CreateActionOptions): Promise<{
         cr: CreateActionResult;
         outpoints: string[] | undefined;
     }> {
         const os = Setup.createP2PKHOutputs(outputs);
         const createArgs: CreateActionArgs = {
-            description: `createP2PKHOutputs`,
+            description: "createP2PKHOutputs",
             outputs: os,
             options: {
                 ...options,
@@ -723,19 +696,19 @@ DEV_KEYS = '{
         }
         return { cr, outpoints };
     }
-    static async fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, inputBEEF?: BEEF): Promise<{
+    static async fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, inputBEEF?: BEEF): Promise<Array<{
         outpoint: string;
         txid?: string;
         success: boolean;
         error?: string;
-    }[]> {
-        return _fundWalletFromP2PKHOutpoints(wallet, outpoints, p2pkhKey, Setup.getUnlockP2PKH.bind(Setup), inputBEEF);
+    }>> {
+        return await _fundWalletFromP2PKHOutpoints(wallet, outpoints, p2pkhKey, Setup.getUnlockP2PKH.bind(Setup), inputBEEF);
     }
     static async createWalletKnex(args: SetupWalletKnexArgs): Promise<SetupWalletKnex> {
         const wo = await Setup.createWallet(args);
         const activeStorage = await Setup.createStorageKnex(args);
         await wo.storage.addWalletStorageProvider(activeStorage);
-        const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
+        const { user } = await activeStorage.findOrInsertUser(wo.identityKey);
         const userId = user.userId;
         const r: SetupWalletKnex = {
             ...wo,
@@ -744,16 +717,7 @@ DEV_KEYS = '{
         };
         return r;
     }
-    static async createStorageKnex(args: SetupWalletKnexArgs): Promise<StorageKnex> 
-    static createSQLiteKnex(filename: string): Knex {
-        const config: Knex.Config = {
-            client: "better-sqlite3",
-            connection: { filename },
-            useNullAsDefault: true
-        };
-        const knex = makeKnex(config);
-        return knex;
-    }
+    static async createStorageKnex(args: SetupWalletKnexArgs): Promise<StorageKnex>
     static createMySQLKnex(connection: string, database?: string): Knex {
         const c: Knex.MySql2ConnectionConfig = JSON.parse(connection);
         if (database) {
@@ -774,21 +738,15 @@ DEV_KEYS = '{
             knex: Setup.createMySQLKnex(args.env.mySQLConnection, args.databaseName)
         });
     }
-    static async createWalletSQLite(args: SetupWalletSQLiteArgs): Promise<SetupWalletKnex> {
-        return await this.createWalletKnex({
-            ...args,
-            knex: Setup.createSQLiteKnex(args.filePath)
-        });
-    }
 }
 ```
 
-See also: [Chain](./client.md#type-chain), [KeyPairAddress](./setup.md#interface-keypairaddress), [Monitor](./monitor.md#class-monitor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock), [Services](./services.md#class-services), [SetupEnv](./setup.md#interface-setupenv), [SetupWallet](./setup.md#interface-setupwallet), [SetupWalletArgs](./setup.md#interface-setupwalletargs), [SetupWalletClient](./setup.md#interface-setupwalletclient), [SetupWalletClientArgs](./setup.md#interface-setupwalletclientargs), [SetupWalletKnex](./setup.md#interface-setupwalletknex), [SetupWalletKnexArgs](./setup.md#interface-setupwalletknexargs), [SetupWalletMySQLArgs](./setup.md#interface-setupwalletmysqlargs), [SetupWalletSQLiteArgs](./setup.md#interface-setupwalletsqliteargs), [StorageClient](./storage.md#class-storageclient), [StorageKnex](./storage.md#class-storageknex), [WERR_INVALID_OPERATION](./client.md#class-werr_invalid_operation), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager), [createAction](./storage.md#function-createaction), [fundWalletFromP2PKHOutpoints](./client.md#function-fundwalletfromp2pkhoutpoints), [verifyTruthy](./client.md#function-verifytruthy)
+See also: [Chain](./client.md#type-chain), [KeyPairAddress](./setup.md#interface-keypairaddress), [Monitor](./monitor.md#class-monitor), [PrivilegedKeyManager](./client.md#class-privilegedkeymanager), [ScriptTemplateUnlock](./client.md#interface-scripttemplateunlock), [Services](./services.md#class-services), [SetupEnv](./setup.md#interface-setupenv), [SetupWallet](./setup.md#interface-setupwallet), [SetupWalletArgs](./setup.md#interface-setupwalletargs), [SetupWalletClient](./setup.md#interface-setupwalletclient), [SetupWalletClientArgs](./setup.md#interface-setupwalletclientargs), [SetupWalletKnex](./setup.md#interface-setupwalletknex), [SetupWalletKnexArgs](./setup.md#interface-setupwalletknexargs), [SetupWalletMySQLArgs](./setup.md#interface-setupwalletmysqlargs), [StorageClient](./storage.md#class-storageclient), [StorageKnex](./storage.md#class-storageknex), [WERR_INVALID_OPERATION](./client.md#class-werr_invalid_operation), [Wallet](./client.md#class-wallet), [WalletStorageManager](./storage.md#class-walletstoragemanager), [createAction](./storage.md#function-createaction), [fundWalletFromP2PKHOutpoints](./client.md#function-fundwalletfromp2pkhoutpoints), [verifyTruthy](./client.md#function-verifytruthy)
 
 ###### Method createStorageKnex
 
 ```ts
-static async createStorageKnex(args: SetupWalletKnexArgs): Promise<StorageKnex> 
+static async createStorageKnex(args: SetupWalletKnexArgs): Promise<StorageKnex>
 ```
 See also: [SetupWalletKnexArgs](./setup.md#interface-setupwalletknexargs), [StorageKnex](./storage.md#class-storageknex)
 
@@ -818,7 +776,7 @@ static async createWallet(args: SetupWalletArgs): Promise<SetupWallet> {
     const services = new Services(serviceOptions);
     const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
     const monitor = new Monitor(monopts);
-    const privilegedKeyManager = args.privilegedKeyGetter
+    const privilegedKeyManager = (args.privilegedKeyGetter != null)
         ? new PrivilegedKeyManager(args.privilegedKeyGetter)
         : undefined;
     const wallet = new Wallet({
@@ -854,7 +812,7 @@ static async createWalletClientNoEnv(args: {
     rootKeyHex: string;
     storageUrl?: string;
     privilegedKeyGetter?: () => Promise<PrivateKey>;
-}): Promise<Wallet> 
+}): Promise<Wallet>
 ```
 See also: [Chain](./client.md#type-chain), [Wallet](./client.md#class-wallet)
 
@@ -878,7 +836,7 @@ static async createWalletKnex(args: SetupWalletKnexArgs): Promise<SetupWalletKne
     const wo = await Setup.createWallet(args);
     const activeStorage = await Setup.createStorageKnex(args);
     await wo.storage.addWalletStorageProvider(activeStorage);
-    const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
+    const { user } = await activeStorage.findOrInsertUser(wo.identityKey);
     const userId = user.userId;
     const r: SetupWalletKnex = {
         ...wo,
@@ -893,7 +851,7 @@ See also: [Setup](./setup.md#class-setup), [SetupWalletKnex](./setup.md#interfac
 Argument Details
 
 + **args.knex**
-  + `Knex` object configured for either MySQL or SQLite database access.
+  + `Knex` object configured for MySQL database access.
 Schema will be created and migrated as needed.
 For MySQL, a schema corresponding to databaseName must exist with full access permissions.
 + **args.databaseName**
@@ -913,7 +871,6 @@ Access private keys through the `devKeys` object: `devKeys[identityKey]`
 static getEnv(chain: Chain): SetupEnv {
     const identityKey = chain === "main" ? process.env.MY_MAIN_IDENTITY : process.env.MY_TEST_IDENTITY;
     const identityKey2 = chain === "main" ? process.env.MY_MAIN_IDENTITY2 : process.env.MY_TEST_IDENTITY2;
-    const filePath = chain === "main" ? process.env.MY_MAIN_FILEPATH : process.env.MY_TEST_FILEPATH;
     const DEV_KEYS = process.env.DEV_KEYS || "{}";
     const mySQLConnection = process.env.MYSQL_CONNECTION || "{}";
     const taalApiKey = verifyTruthy(chain === "main" ? process.env.MAIN_TAAL_API_KEY : process.env.TEST_TAAL_API_KEY, `.env value for '${chain.toUpperCase()}_TAAL_API_KEY' is required.`);
@@ -923,7 +880,6 @@ static getEnv(chain: Chain): SetupEnv {
         chain,
         identityKey,
         identityKey2,
-        filePath,
         taalApiKey,
         devKeys: JSON.parse(DEV_KEYS) as Record<string, string>,
         mySQLConnection
@@ -985,7 +941,7 @@ See also: [Setup](./setup.md#class-setup)
 ###### Method noEnv
 
 ```ts
-static noEnv(chain: Chain): boolean 
+static noEnv(chain: Chain): boolean
 ```
 See also: [Chain](./client.md#type-chain)
 
@@ -1018,7 +974,7 @@ export abstract class SetupClient {
         const services = new Services(serviceOptions);
         const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
         const monitor = new Monitor(monopts);
-        const privilegedKeyManager = args.privilegedKeyGetter
+        const privilegedKeyManager = (args.privilegedKeyGetter != null)
             ? new PrivilegedKeyManager(args.privilegedKeyGetter)
             : undefined;
         const wallet = new Wallet({
@@ -1046,7 +1002,7 @@ export abstract class SetupClient {
         rootKeyHex: string;
         storageUrl?: string;
         privilegedKeyGetter?: () => Promise<PrivateKey>;
-    }): Promise<Wallet> 
+    }): Promise<Wallet>
     static async createWalletClient(args: SetupClientWalletClientArgs): Promise<SetupWalletClient> {
         const wo = await SetupClient.createWallet(args);
         const endpointUrl = args.endpointUrl || `https://${args.chain !== "main" ? "staging-" : ""}storage.babbage.systems`;
@@ -1078,13 +1034,13 @@ export abstract class SetupClient {
         const unlock = p2pkh.unlock(priv, "all", false, satoshis, lock);
         return unlock;
     }
-    static createP2PKHOutputs(outputs: {
+    static createP2PKHOutputs(outputs: Array<{
         address: string;
         satoshis: number;
         outputDescription?: string;
         basket?: string;
         tags?: string[];
-    }[]): CreateActionOutput[] {
+    }>): CreateActionOutput[] {
         const os: CreateActionOutput[] = [];
         const count = outputs.length;
         for (let i = 0; i < count; i++) {
@@ -1099,19 +1055,19 @@ export abstract class SetupClient {
         }
         return os;
     }
-    static async createP2PKHOutputsAction(wallet: WalletInterface, outputs: {
+    static async createP2PKHOutputsAction(wallet: WalletInterface, outputs: Array<{
         address: string;
         satoshis: number;
         outputDescription?: string;
         basket?: string;
         tags?: string[];
-    }[], options?: CreateActionOptions): Promise<{
+    }>, options?: CreateActionOptions): Promise<{
         cr: CreateActionResult;
         outpoints: string[] | undefined;
     }> {
         const os = SetupClient.createP2PKHOutputs(outputs);
         const createArgs: CreateActionArgs = {
-            description: `createP2PKHOutputs`,
+            description: "createP2PKHOutputs",
             outputs: os,
             options: {
                 ...options,
@@ -1125,19 +1081,19 @@ export abstract class SetupClient {
         }
         return { cr, outpoints };
     }
-    static async fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, inputBEEF?: BEEF): Promise<{
+    static async fundWalletFromP2PKHOutpoints(wallet: WalletInterface, outpoints: string[], p2pkhKey: KeyPairAddress, inputBEEF?: BEEF): Promise<Array<{
         outpoint: string;
         txid?: string;
         success: boolean;
         error?: string;
-    }[]> {
-        return _fundWalletFromP2PKHOutpoints(wallet, outpoints, p2pkhKey, SetupClient.getUnlockP2PKH.bind(SetupClient), inputBEEF);
+    }>> {
+        return await _fundWalletFromP2PKHOutpoints(wallet, outpoints, p2pkhKey, SetupClient.getUnlockP2PKH.bind(SetupClient), inputBEEF);
     }
     static async createWalletIdb(args: SetupWalletIdbArgs): Promise<SetupWalletIdb> {
         const wo = await SetupClient.createWallet(args);
         const activeStorage = await SetupClient.createStorageIdb(args);
         await wo.storage.addWalletStorageProvider(activeStorage);
-        const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
+        const { user } = await activeStorage.findOrInsertUser(wo.identityKey);
         const userId = user.userId;
         const r: SetupWalletIdb = {
             ...wo,
@@ -1146,7 +1102,7 @@ export abstract class SetupClient {
         };
         return r;
     }
-    static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb> 
+    static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb>
 }
 ```
 
@@ -1155,7 +1111,7 @@ See also: [Chain](./client.md#type-chain), [KeyPairAddress](./setup.md#interface
 ###### Method createStorageIdb
 
 ```ts
-static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb> 
+static async createStorageIdb(args: SetupWalletIdbArgs): Promise<StorageIdb>
 ```
 See also: [SetupWalletIdbArgs](./setup.md#interface-setupwalletidbargs), [StorageIdb](./storage.md#class-storageidb)
 
@@ -1184,7 +1140,7 @@ static async createWallet(args: SetupClientWalletArgs): Promise<SetupWallet> {
     const services = new Services(serviceOptions);
     const monopts = Monitor.createDefaultWalletMonitorOptions(chain, storage, services, undefined, "default");
     const monitor = new Monitor(monopts);
-    const privilegedKeyManager = args.privilegedKeyGetter
+    const privilegedKeyManager = (args.privilegedKeyGetter != null)
         ? new PrivilegedKeyManager(args.privilegedKeyGetter)
         : undefined;
     const wallet = new Wallet({
@@ -1220,7 +1176,7 @@ static async createWalletClientNoEnv(args: {
     rootKeyHex: string;
     storageUrl?: string;
     privilegedKeyGetter?: () => Promise<PrivateKey>;
-}): Promise<Wallet> 
+}): Promise<Wallet>
 ```
 See also: [Chain](./client.md#type-chain), [Wallet](./client.md#class-wallet)
 
@@ -1244,7 +1200,7 @@ static async createWalletIdb(args: SetupWalletIdbArgs): Promise<SetupWalletIdb> 
     const wo = await SetupClient.createWallet(args);
     const activeStorage = await SetupClient.createStorageIdb(args);
     await wo.storage.addWalletStorageProvider(activeStorage);
-    const { user, isNew } = await activeStorage.findOrInsertUser(wo.identityKey);
+    const { user } = await activeStorage.findOrInsertUser(wo.identityKey);
     const userId = user.userId;
     const r: SetupWalletIdb = {
         ...wo,

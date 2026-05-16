@@ -120,6 +120,24 @@ describe('Services cache integration', () => {
     expect(chaintracks.findHeaderForBlockHash).toHaveBeenCalledTimes(1)
   })
 
+  test('rejects mismatched block headers before caching them', async () => {
+    const heightMismatch = makeHeader(2, 'aa')
+    const hashMismatch = makeHeader(1, 'bb')
+    const chaintracks = {
+      findHeaderForHeight: jest.fn(async () => heightMismatch),
+      findHeaderForBlockHash: jest.fn(async () => hashMismatch),
+      currentHeight: jest.fn(async () => 1)
+    }
+    const options = Services.createDefaultOptions('test')
+    options.chaintracks = chaintracks as any
+    const services = new Services(options)
+
+    await expect(services.getHeaderForHeight(1)).rejects.toThrow('returned height 2 for requested height 1')
+    await expect(services.hashToHeader('aa')).rejects.toThrow('returned hash bb for requested hash aa')
+
+    expect(services.blockHeaderCache.getStats().entries).toBe(0)
+  })
+
   test('caches output script hash derivation', () => {
     const services = new Services('test')
     const script = '76a914000000000000000000000000000000000000000088ac'
@@ -136,6 +154,47 @@ describe('Services cache integration', () => {
     }))
   })
 
+  test('applies owned cache size and TTL options', async () => {
+    const options = Services.createDefaultOptions('test')
+    options.utxoStatusCacheMaxEntries = 1
+    options.utxoStatusCacheTtlMs = 1234
+    options.blockHeaderCacheMaxEntries = 1
+    options.blockHeaderCacheTtlMs = 2345
+    options.scriptHashCacheMaxEntries = 1
+    options.scriptHashCacheTtlMs = 3456
+    const services = new Services(options)
+
+    try {
+      services.utxoCache.setUtxoStatus(`${'11'.repeat(32)}.0`, true, 100)
+      services.utxoCache.setUtxoStatus(`${'22'.repeat(32)}.0`, true, 100)
+
+      expect(services.utxoCache.getStats()).toEqual(expect.objectContaining({
+        size: 1,
+        ttlMs: 1234
+      }))
+
+      services.blockHeaderCache.setHeader(1, makeHeader(1, 'aa'))
+      services.blockHeaderCache.setHeader(2, makeHeader(2, 'bb'))
+
+      expect(services.blockHeaderCache.getStats()).toEqual(expect.objectContaining({
+        entries: 1,
+        ttlMs: 2345
+      }))
+      expect(services.blockHeaderCache.getHeader(1)).toBeNull()
+      expect(services.blockHeaderCache.getHeader(2)).toEqual(makeHeader(2, 'bb'))
+
+      services.hashOutputScript('51')
+      services.hashOutputScript('52')
+
+      expect(services.scriptHashCache.getStats()).toEqual(expect.objectContaining({
+        size: 1,
+        ttlMs: 3456
+      }))
+    } finally {
+      await services.close()
+    }
+  })
+
   test('close tears down owned cache event listeners', async () => {
     const eventBus = new EventBus()
     const options = Services.createDefaultOptions('test')
@@ -144,7 +203,7 @@ describe('Services cache integration', () => {
 
     expect(eventBus.listenerCount(EventBus.UTXO_INVALIDATE)).toBe(1)
     expect(eventBus.listenerCount(EventBus.BLOCK_MINED)).toBe(2)
-    expect(eventBus.listenerCount(EventBus.REORG)).toBe(1)
+    expect(eventBus.listenerCount(EventBus.REORG)).toBe(2)
 
     await services.close()
 

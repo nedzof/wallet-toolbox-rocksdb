@@ -36,6 +36,12 @@ import { SpvHeaderSync } from '../chaintracker/SpvHeaderSync'
 export type MonitorStorage = WalletStorageManager
 export type MonitorStartupTaskMode = 'none' | 'default' | 'multiuser' | 'alltoother'
 
+export interface MonitorBroadcastConfig {
+  maxConcurrency?: number
+  connectionPoolSize?: number
+  chunkLimit?: number
+}
+
 export interface MonitorOptions {
   chain: Chain
 
@@ -56,6 +62,7 @@ export interface MonitorOptions {
 
   taskRunWaitMsecs: number
   taskRunConcurrency?: number
+  broadcastConfig?: MonitorBroadcastConfig
 
   abandonedMsecs: number
 
@@ -81,7 +88,7 @@ export interface MonitorOptions {
    */
   callbackToken?: string
 
-  /** Load persisted SSE lastEventId (e.g. from SQLite) for catchup on startup */
+  /** Load persisted SSE lastEventId for catchup on startup */
   loadLastSSEEventId?: () => Promise<string | undefined>
   /** Save SSE lastEventId to persistent storage */
   saveLastSSEEventId?: (lastEventId: string) => Promise<void>
@@ -253,7 +260,7 @@ export class Monitor {
       new TaskClock(this),
       new TaskNewHeader(this),
       new TaskMonitorCallHistory(this),
-      new TaskSendWaiting(this, Monitor.oneSecond, Monitor.oneSecond, Monitor.oneMinute * 5, Monitor.oneSecond, 500, 100),
+      this.createSendWaitingTask(),
       new TaskCheckForProofs(this),
       new TaskCheckNoSends(this),
       new TaskFailAbandoned(this),
@@ -278,7 +285,7 @@ export class Monitor {
       new TaskClock(this),
       new TaskNewHeader(this),
       new TaskMonitorCallHistory(this),
-      new TaskSendWaiting(this, Monitor.oneSecond, Monitor.oneSecond, Monitor.oneMinute * 5, Monitor.oneSecond, 500, 100),
+      this.createSendWaitingTask(),
       new TaskCheckForProofs(this, 2 * Monitor.oneHour), // Every two hours if no block found
       new TaskCheckNoSends(this),
       new TaskFailAbandoned(this, 8 * Monitor.oneMinute),
@@ -306,7 +313,7 @@ export class Monitor {
       new TaskClock(this),
       new TaskNewHeader(this),
       new TaskMonitorCallHistory(this),
-      new TaskSendWaiting(this, Monitor.oneSecond, Monitor.oneSecond, Monitor.oneMinute * 5, Monitor.oneSecond, 500, 100),
+      this.createSendWaitingTask(),
       new TaskCheckForProofs(this, 2 * Monitor.oneHour), // Every two hours if no block found
       new TaskCheckNoSends(this),
       new TaskFailAbandoned(this, 8 * Monitor.oneMinute),
@@ -328,6 +335,18 @@ export class Monitor {
   addTask (task: WalletMonitorTask): void {
     if (this._tasks.some(t => t.name === task.name)) { throw new WERR_BAD_REQUEST(`task ${task.name} has already been added.`) }
     this._tasks.push(task)
+  }
+
+  private createSendWaitingTask (): TaskSendWaiting {
+    return new TaskSendWaiting(
+      this,
+      Monitor.oneSecond,
+      Monitor.oneSecond,
+      Monitor.oneMinute * 5,
+      Monitor.oneSecond,
+      this.options.broadcastConfig?.chunkLimit ?? 500,
+      this.options.broadcastConfig?.maxConcurrency ?? 100
+    )
   }
 
   removeTask (name: string): void {
@@ -495,7 +514,7 @@ export class Monitor {
     this.processBlockMinedNotice(h.height, h.hash, h)
   }
 
-  processBlockMinedNotice (blockHeight?: number, blockHash?: string, header?: BlockHeader): void {
+  processBlockMinedNotice (blockHeight?: number, blockHash?: string, header?: BlockHeader, outpoints?: string[]): void {
     if (blockHeight !== undefined) {
       this.lastNewBlockHeight = blockHeight
       this.lastNewHeaderWhen = new Date()
@@ -505,7 +524,8 @@ export class Monitor {
       blockHeight: blockHeight ?? 0,
       blockHash,
       timestamp: Date.now(),
-      header
+      header,
+      outpoints
     })
     // console.log(`WalletMonitor notified of new block height ${blockHeight ?? 'unknown'}`)
   }

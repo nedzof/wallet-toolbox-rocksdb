@@ -7,6 +7,17 @@ import { jest } from '@jest/globals'
 // Mock the @bsv/sdk module with our fixture/mocks:
 jest.mock('@bsv/sdk', () => MockedBSV_SDK)
 
+function mockManifestHttpClient (manager: WalletPermissionsManager) {
+  ;(manager as any).manifestHttpClient = {
+    request: jest.fn(async () => ({
+      ok: false,
+      status: 404,
+      statusText: 'Not Found',
+      data: {}
+    }))
+  }
+}
+
 describe('WalletPermissionsManager - Callbacks & Event Handling', () => {
   let underlying: ReturnType<typeof mockUnderlyingWallet>
   let manager: WalletPermissionsManager
@@ -15,6 +26,7 @@ describe('WalletPermissionsManager - Callbacks & Event Handling', () => {
     underlying = mockUnderlyingWallet()
     // Use default config so that protocol permissions are enforced for testing requests
     manager = new WalletPermissionsManager(underlying, 'admin.domain.com')
+    mockManifestHttpClient(manager)
   })
 
   afterEach(() => {
@@ -135,6 +147,7 @@ describe('WalletPermissionsManager - Callbacks & Event Handling', () => {
         '028155878063d691f01cfc0eeb626404ebe9303ec50f9542c234c5c85100a98ca1': ['Authentication']
       }
     } as any)
+    mockManifestHttpClient(manager)
     manager.bindCallback('onProtocolPermissionRequested', requestedCb)
 
     const signPromise = manager.createSignature(

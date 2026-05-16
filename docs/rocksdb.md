@@ -16,6 +16,7 @@ Node package surface via `src/storage/index.all.ts`.
 - `scan({ prefix, limit })`
 - `findEntities({ prefix, limit })`
 - `putOutput(output)`
+- `updateOutput(output)`
 - `deleteOutput(outputId)`
 - `findOutputsByScriptHash(scriptHash, limit?)`
 - `findSpendableOutputs(userId, basketId?, limit?)`
@@ -24,6 +25,7 @@ Node package surface via `src/storage/index.all.ts`.
 - `getTuningOptions()`
 - `flush()`
 - `compact({ prefix? })`
+- `prepareForFilesystemSnapshot({ compact? })`
 - `close()`
 
 ## Output Indexes
@@ -37,9 +39,11 @@ records in the same RocksDB transaction. The current wallet-owned indexes are:
 - `userId + txid + vout -> outputId`
 
 The index lookup helpers resolve index records back to primary output records
-with bounded parallelism. `rebuildOutputIndexes()` drops existing output index
-records and recreates them from primary output records, which is useful after
-bulk imports or metadata backfills.
+with bounded parallelism. Script-hash, spendable, and user-scoped outpoint
+lookups also re-check the resolved primary records, so stale secondary index
+records cannot return mismatched outputs. `rebuildOutputIndexes()` drops
+existing output index records and recreates them from primary output records,
+which is useful after bulk imports or metadata backfills.
 
 ## Tuning
 
@@ -50,11 +54,39 @@ current `@harperfast/rocksdb-js` binding:
 - `disableWAL`
 - `enableStats`
 - `noBlockCache`
+- `pessimistic`
+- `readOnly`
+- `statsLevel`
+- `transactionLogMaxAgeThreshold`
+- `transactionLogMaxSize`
+- `transactionLogRetention`
+- `transactionLogsPath`
 - `blockCacheSize`
 - `compactOnClose`
 
 The binding does not currently expose write-buffer or level-compaction options.
 Use `getTuningOptions()` to inspect the active store configuration.
+
+## Snapshot Handoff
+
+`prepareForFilesystemSnapshot({ compact })` flushes pending writes and can
+compact the namespace before returning the database path. The actual filesystem
+snapshot remains operator-owned because the current RocksDB binding does not
+expose a checkpoint or online backup API.
+
+Recommended operator flow:
+
+1. Quiesce wallet writes or run on storage that provides crash-consistent volume
+   snapshots.
+2. Call `prepareForFilesystemSnapshot({ compact: true })` and wait for it to
+   return the database path.
+3. Snapshot the returned path with the platform snapshot tool.
+4. Restore into staging and open the restored database before relying on the
+   snapshot procedure.
+
+Do not treat an ordinary recursive copy of a live RocksDB directory as a
+point-in-time backup. Without a binding-level checkpoint API, safe online
+backup semantics must come from the surrounding storage platform.
 
 ## Guarantees
 
@@ -64,8 +96,10 @@ Use `getTuningOptions()` to inspect the active store configuration.
 - `expectedVersion` enforces optimistic concurrency.
 - `batch` uses a RocksDB transaction.
 - Prefix scans are bounded by `limit`.
-- Secondary output indexes are maintained transactionally by `putOutput` and
-  `deleteOutput`.
+- Secondary output indexes are maintained transactionally by `putOutput`,
+  `updateOutput`, and `deleteOutput`.
+- Secondary index lookups verify resolved primary records before returning
+  results.
 - `compact` is namespace-aware and may be scoped to a wallet-store prefix.
 
 ## Current Boundary

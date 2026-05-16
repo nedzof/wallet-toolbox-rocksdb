@@ -18,6 +18,7 @@ export interface ArcSSEEvent {
   timestamp: string
   blockHeight?: number
   blockHash?: string
+  outpoints?: string[]
 }
 
 export interface ArcSSEClientOptions {

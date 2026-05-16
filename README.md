@@ -22,19 +22,25 @@ await store.put({
 })
 
 const utxos = await store.scan({ prefix: 'utxo!', limit: 100 })
+const prepared = await store.prepareForFilesystemSnapshot({ compact: true })
+// Operator-owned snapshot tooling can snapshot prepared.path after this point.
 store.close()
 ```
 
 The RocksDB extension currently provides durable versioned wallet records,
 optimistic compare-and-set writes, transactional batches, prefix scans,
 secondary output indexes, bounded-parallel index resolution, flush, compaction,
-and close. It is intentionally kept below the existing BRC-100 wallet APIs so
-the fork can replace SQLite/IDB persistence incrementally without changing
-signing semantics. RocksDB index helpers include script-hash lookup, spendable
-output lookup by user/basket, outpoint lookup, and output-index rebuild.
+operator filesystem-snapshot preparation, and close. It is intentionally kept
+below the existing BRC-100 wallet APIs so the fork can replace legacy
+persistence incrementally without changing signing semantics. RocksDB index
+helpers include script-hash lookup, spendable output lookup by user/basket,
+outpoint lookup, and output-index rebuild. Open options pass through the
+RocksDB binding's supported tuning knobs, including parallelism, WAL/stats,
+block-cache, read-only, and transaction-log controls.
 
 This fork keeps runtime orchestration out of the wallet library: no Redis,
-BullMQ, or NATS JetStream dependency is required for the RocksDB storage layer.
+BullMQ, embedded SQL-file, or NATS JetStream dependency is required for the
+RocksDB storage layer.
 
 This fork does not generate keys, does not run payments, and does not expose
 private key material through RocksDB records.
@@ -65,7 +71,7 @@ BSV Desktop and BSV Browser are the BSV Association reference wallet application
 | Module | Description |
 |--------|-------------|
 | **Wallet** | Full BRC-100 wallet — action creation, signing, certificate management, identity discovery, output tracking |
-| **Storage** | Pluggable persistence with **SQLite/MySQL** (via Knex), **IndexedDB** (browser/mobile), **remote** (client/server over HTTP), and a Node-only **RocksDB** wallet state extension |
+| **Storage** | Pluggable persistence with **MySQL** (via Knex), **IndexedDB** (browser/mobile), **remote** (client/server over HTTP), and a Node-only **RocksDB** wallet state extension |
 | **Services** | Network layer — ARC transaction broadcasting, chain tracking (Chaintracks), merkle proof verification, UTXO lookups via WhatsOnChain |
 | **Monitor** | Background daemon that watches pending transactions, rebroadcasts failures, handles chain reorganizations, and manages proof acquisition |
 | **Signer** | `WalletSigner` bridges any BRC-100 wallet to the SDK's `Transaction` signing interface |
@@ -78,8 +84,8 @@ BSV Desktop and BSV Browser are the BSV Association reference wallet application
 
 The toolbox publishes three npm packages from this repo:
 
-- **[`@bsv/wallet-toolbox`](https://www.npmjs.com/package/@bsv/wallet-toolbox)** — Full package with all storage backends (SQLite, MySQL, IndexedDB, remote)
-- **[`@bsv/wallet-toolbox-client`](https://www.npmjs.com/package/@bsv/wallet-toolbox-client)** — Browser build; excludes Node-only backends (Knex/SQLite/MySQL)
+- **[`@bsv/wallet-toolbox`](https://www.npmjs.com/package/@bsv/wallet-toolbox)** — Full package with Node, browser, mobile, remote, and RocksDB wallet storage surfaces
+- **[`@bsv/wallet-toolbox-client`](https://www.npmjs.com/package/@bsv/wallet-toolbox-client)** — Browser build; excludes Node-only backends (Knex/MySQL/RocksDB)
 - **[`@bsv/wallet-toolbox-mobile`](https://www.npmjs.com/package/@bsv/wallet-toolbox-mobile)** — Mobile build; IndexedDB and remote storage only
 
 ## Getting Started
@@ -102,7 +108,7 @@ npm install @bsv/wallet-toolbox-mobile
 ```typescript
 import { SetupWallet } from '@bsv/wallet-toolbox'
 
-// Create a wallet with SQLite storage and default mainnet services
+// Create a wallet against a remote storage service and default mainnet services
 const wallet = await SetupWallet({
   env: 'main',
   endpointUrl: 'https://your-storage-server.example.com'

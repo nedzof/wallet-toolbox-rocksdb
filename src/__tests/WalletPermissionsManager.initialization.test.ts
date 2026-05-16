@@ -3,6 +3,17 @@ import { WalletPermissionsManager, PermissionsManagerConfig } from '../WalletPer
 
 jest.mock('@bsv/sdk', () => MockedBSV_SDK)
 
+function mockManifestHttpClient (manager: WalletPermissionsManager) {
+  ;(manager as any).manifestHttpClient = {
+    request: jest.fn(async () => ({
+      ok: false,
+      status: 404,
+      statusText: 'Not Found',
+      data: {}
+    }))
+  }
+}
+
 describe('WalletPermissionsManager - Initialization & Configuration', () => {
   let underlying: jest.Mocked<any>
 
@@ -147,6 +158,7 @@ describe('WalletPermissionsManager - Initialization & Configuration', () => {
     const manager = new WalletPermissionsManager(underlying, 'admin.domain.com', {
       seekProtocolPermissionsForSigning: true
     })
+    mockManifestHttpClient(manager)
 
     // Non-admin origin tries createSignature -> must prompt for protocol permission
     const createSigPromise = manager.createSignature(
