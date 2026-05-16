@@ -1,0 +1,92 @@
+{
+  "name": "@bsv/wallet-toolbox-rocksdb",
+  "version": "2.1.25-rocksdb.0",
+  "description": "BRC100 conforming wallet, wallet storage and wallet signer components extended with RocksDB storage",
+  "main": "./out/src/index.js",
+  "types": "./out/src/index.d.ts",
+  "files": [
+    "out/src/",
+    "docs/",
+    "README.md",
+    "CHANGELOG.md",
+    "license.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsv-blockchain/ts-stack.git",
+    "directory": "packages/wallet/wallet-toolbox"
+  },
+  "author": "Tone Engel",
+  "license": "SEE LICENSE IN license.md",
+  "keywords": [
+    "bsv",
+    "babbage",
+    "wallet",
+    "BRC100",
+    "rocksdb"
+  ],
+  "scripts": {
+    "test": "npm run build && jest",
+    "test:rocksdb": "jest test/storage/RocksDbWalletStore.test.ts --runInBand",
+    "test:watch": "npm run build && jest --watch",
+    "test:coverage": "npm run build && jest --coverage",
+    "lint": "ts-standard --fix src/**/*.ts",
+    "lint:ci": "ts-standard src/**/*.ts",
+    "build": "tsc --build",
+    "typecheck:rocksdb": "tsc --noEmit --target es2018 --module commonjs --moduleResolution node --esModuleInterop --skipLibCheck --types node,jest src/storage/rocksdb/RocksDbWalletStore.ts test/storage/RocksDbWalletStore.test.ts",
+    "prepublishOnly": "npm run lint && npm run build && npm run doc && npm run sync-versions",
+    "doc": "ts2md",
+    "depcheck": "depcruise --config .dependency-cruiser.js --output-type err src",
+    "depcheck:graph": "depcruise --config .dependency-cruiser.js --output-type dot src --output-to dependency-graph.dot",
+    "depcheck:html": "depcruise --config .dependency-cruiser.js --output-type err-html src --output-to dependency-report.html",
+    "depcheck:ci": "depcruise --config .dependency-cruiser.js --output-type json src --output-to dependency-report.json",
+    "loadtest:single-instance": "npm run build && node out/test/performance/SingleInstanceThroughput.load.js",
+    "sync-versions": "node syncVersions.js"
+  },
+  "bugs": {
+    "url": "https://github.com/bsv-blockchain/ts-stack/issues"
+  },
+  "homepage": "https://github.com/bsv-blockchain/ts-stack/tree/main/packages/wallet/wallet-toolbox#readme",
+  "dependencies": {
+    "@bsv/auth-express-middleware": "^2.0.5",
+    "@bsv/payment-express-middleware": "^2.0.2",
+    "@bsv/sdk": "^2.1.0",
+    "@harperfast/rocksdb-js": "1.2.0",
+    "better-sqlite3": "^12.6.2",
+    "eventemitter3": "^5.0.4",
+    "express": "^4.21.2",
+    "hash-wasm": "^4.12.0",
+    "idb": "^8.0.2",
+    "knex": "^3.1.0",
+    "lru-cache": "^10.4.3",
+    "mysql2": "^3.12.0",
+    "node-cache": "^5.1.2",
+    "p-limit": "^3.1.0",
+    "p-queue": "^6.6.2",
+    "prom-client": "^15.1.3",
+    "undici": "^8.3.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.3.0",
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.13",
+    "@types/diff": "^6.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^30.0.0",
+    "@types/jest-diff": "^20.0.1",
+    "@types/node": "^22.5.0",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "dependency-cruiser": "^16.10.4",
+    "dotenv": "^16.4.7",
+    "fake-indexeddb": "^6.0.0",
+    "fs-extra": "^11.2.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "ts-node": "^10.9.1",
+    "ts-standard": "^12.0.0",
+    "ts2md": "^0.2.8",
+    "typescript": "^5.5.4"
+  }
+}

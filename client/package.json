@@ -1,0 +1,28 @@
+{
+  "name": "@bsv/wallet-toolbox-client",
+  "version": "2.1.25",
+  "description": "Client only Wallet Storage",
+  "main": "./out/src/index.client.js",
+  "types": "./out/src/index.client.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsv-blockchain/ts-stack.git",
+    "directory": "packages/wallet/wallet-toolbox/client"
+  },
+  "author": "Tone Engel",
+  "license": "SEE LICENSE IN license.md",
+  "keywords": [
+    "bsv",
+    "wallet",
+    "BRC100"
+  ],
+  "bugs": {
+    "url": "https://github.com/bsv-blockchain/ts-stack/issues"
+  },
+  "homepage": "https://github.com/bsv-blockchain/ts-stack/tree/main/packages/wallet/wallet-toolbox/client#readme",
+  "dependencies": {
+    "@bsv/sdk": "^2.1.0",
+    "hash-wasm": "^4.12.0",
+    "idb": "^8.0.2"
+  }
+}
