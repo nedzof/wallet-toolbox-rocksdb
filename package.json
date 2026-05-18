@@ -41,6 +41,7 @@
     "depcheck:html": "depcruise --config .dependency-cruiser.js --output-type err-html src --output-to dependency-report.html",
     "depcheck:ci": "depcruise --config .dependency-cruiser.js --output-type json src --output-to dependency-report.json",
     "loadtest:single-instance": "npm run build && node out/test/performance/SingleInstanceThroughput.load.js",
+    "loadtest:testnet": "npx ts-node --project tsconfig.all.json test/performance/TestnetThroughput.load.ts",
     "benchmark:rocksdb-indexes": "npm run build && node out/test/performance/RocksDbIndexBenchmark.load.js",
     "sync-versions": "node syncVersions.js"
   },

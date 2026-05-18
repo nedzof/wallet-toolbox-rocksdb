@@ -19,13 +19,39 @@ Run the practical test phase against a real testnet wallet, on-disk RocksDB, and
 real provider endpoints. Use the same signed transaction data and txid for every
 provider retry.
 
+Prerequisites:
+
+- Nektar runtime checkout available through `TESTNET_LOAD_NEKTAR_RUN_ROOT`
+  or the default sibling path `../nektar-run`;
+- SPV Wallet/paymail environment loaded for that runtime, including
+  `NEKTAR_SPV_WALLET_URL`, treasury sender credentials, and provider settings;
+- recipient paymail in `TESTNET_LOAD_RECIPIENT_PAYMAIL` or
+  `NEKTAR_LIVE_SETTLEMENT_RECIPIENT_PAYMAIL`;
+- funded SPV Wallet treasury slots for the selected sender agent.
+
+The live harness is SPV/paymail-only. It no longer discovers or imports legacy
+P2PKH UTXOs through WhatsOnChain.
+
+Run:
+
+```bash
+TESTNET_LOAD_ENABLED=1 \
+TESTNET_LOAD_NEKTAR_RUN_ROOT=/path/to/nektar-run \
+TESTNET_LOAD_RECIPIENT_PAYMAIL=alice@example.com \
+npm run loadtest:testnet
+```
+
+With `TESTNET_LOAD_ENABLED` unset, `npm run loadtest:testnet` is CI-safe and
+prints a skip message before exiting 0.
+
 Recommended ladder:
 
 1. 10 tx/s for 10 seconds
-2. 10 tx/s for 60 seconds
-3. 100 tx/s for 60 seconds
-4. 500 tx/s for 60 seconds
-5. 1000 tx/s only after provider outcomes, proof finality, cache invalidation,
+2. 50 tx/s for 10 seconds
+3. 100 tx/s for 10 seconds
+4. 500 tx/s for 10 seconds
+5. 1000 tx/s for 10 seconds, only after provider outcomes, proof finality,
+   cache invalidation,
    and wallet storage state reconcile cleanly at the lower rungs
 
 ## Required Observability
@@ -42,6 +68,10 @@ Capture Prometheus metrics and logs for:
 - block-header cache hit/miss rate;
 - SPV header/reorg events and cache invalidation counts.
 
+The harness prints each Nektar circulation report and a summary table with
+actual TPS, latency percentiles where the report exposes them, failed counts,
+and the first SPV/paymail or provider blocker.
+
 ## Expected Bottleneck Search
 
 When throughput fails to scale, classify the first bottleneck before changing
@@ -53,6 +83,24 @@ architecture:
 - transaction construction or BEEF serialization CPU;
 - proof/finality reconciliation lag;
 - cache churn that prevents the expected UTXO hit rate.
+
+Decision tree:
+
+- If ARC latency or rate limits dominate, add more providers or move fanout into
+  Nektar runtime workers.
+- If RocksDB write/query p95 dominates, investigate binding support for write
+  batching, checkpoints, and compaction/write-buffer tuning.
+- If UTXO cache misses dominate, tune TTL/max entries and verify invalidation
+  events are not clearing the whole cache unnecessarily.
+- If queue backlog grows, tune provider and SendWaiting concurrency limits, then
+  re-run the same staged ramp.
+
+Success criteria:
+
+- sustained 1000 tx/s for 10 seconds;
+- p99 `createAction` latency under 500ms;
+- no growth in postBeef or SendWaiting queue backlog at the end of the stage;
+- no unreconciled failed broadcasts.
 
 ## Reorg And Cache Safety
 
