@@ -264,6 +264,9 @@ export class WalletStorageManager implements sdk.WalletStorage {
   private readonly writerLocks: Array<(value: void | PromiseLike<void>) => void> = []
   private readonly syncLocks: Array<(value: void | PromiseLike<void>) => void> = []
   private readonly spLocks: Array<(value: void | PromiseLike<void>) => void> = []
+  private readonly actionWriterExclusiveLocks: Array<(value: void | PromiseLike<void>) => void> = []
+  private readonly actionWriterSharedLocks: Array<(value: void | PromiseLike<void>) => void> = []
+  private actionWriterSharedCount = 0
 
   private async getActiveLock (lockQueue: Array<(value: void | PromiseLike<void>) => void>): Promise<void> {
     if (!this.isAvailable()) await this.makeAvailable()
@@ -277,6 +280,44 @@ export class WalletStorageManager implements sdk.WalletStorage {
       resolveNewLock()
     }
     await newLock
+  }
+
+  private async getActionWriterSharedLock (): Promise<void> {
+    if (this.actionWriterExclusiveLocks.length === 0) {
+      this.actionWriterSharedCount++
+      return
+    }
+
+    await new Promise<void>(resolve => {
+      this.actionWriterSharedLocks.push(resolve)
+    })
+    this.actionWriterSharedCount++
+  }
+
+  private releaseActionWriterSharedLock (): void {
+    this.actionWriterSharedCount = Math.max(0, this.actionWriterSharedCount - 1)
+    if (this.actionWriterSharedCount === 0 && this.actionWriterExclusiveLocks.length > 0) {
+      this.actionWriterExclusiveLocks[0]()
+    }
+  }
+
+  private async getActionWriterExclusiveLock (): Promise<void> {
+    await new Promise<void>(resolve => {
+      this.actionWriterExclusiveLocks.push(resolve)
+      if (this.actionWriterExclusiveLocks.length === 1 && this.actionWriterSharedCount === 0) {
+        resolve()
+      }
+    })
+  }
+
+  private releaseActionWriterExclusiveLock (): void {
+    this.actionWriterExclusiveLocks.shift()
+    if (this.actionWriterExclusiveLocks.length > 0) {
+      if (this.actionWriterSharedCount === 0) this.actionWriterExclusiveLocks[0]()
+      return
+    }
+    const sharedLocks = this.actionWriterSharedLocks.splice(0)
+    for (const resolve of sharedLocks) resolve()
   }
 
   private releaseActiveLock (queue: Array<(value: void | PromiseLike<void>) => void>): void {
@@ -344,12 +385,42 @@ export class WalletStorageManager implements sdk.WalletStorage {
   }
 
   async runAsWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R> {
+    await this.getActionWriterExclusiveLock()
     try {
       const active = await this.getActiveForWriter()
       const r = await writer(active)
       return r
     } finally {
       this.releaseActiveForWriter()
+      this.releaseActionWriterExclusiveLock()
+    }
+  }
+
+  private getConcurrentActionWriter (): sdk.WalletStorageWriter | undefined {
+    if (!this._isAvailable || !this.isActiveEnabled) return undefined
+    if (this._stores.length !== 1) return undefined
+    if ((this._backups?.length ?? 0) > 0 || (this._conflictingActives?.length ?? 0) > 0) return undefined
+    const active = this.getActive()
+    return active.supportsConcurrentActionWrites?.() === true ? active : undefined
+  }
+
+  async runAsActionWriter<R>(writer: (active: sdk.WalletStorageWriter) => Promise<R>): Promise<R> {
+    let active = this.getConcurrentActionWriter()
+    if (active == null) return await this.runAsWriter(writer)
+
+    await this.getActionWriterSharedLock()
+    let sharedLockHeld = true
+    try {
+      active = this.getConcurrentActionWriter()
+      if (active == null) {
+        this.releaseActionWriterSharedLock()
+        sharedLockHeld = false
+        return await this.runAsWriter(writer)
+      }
+      const r = await writer(active)
+      return r
+    } finally {
+      if (sharedLockHeld) this.releaseActionWriterSharedLock()
     }
   }
 
@@ -457,7 +528,7 @@ export class WalletStorageManager implements sdk.WalletStorage {
   }
 
   async createAction (vargs: Validation.ValidCreateActionArgs): Promise<sdk.StorageCreateActionResult> {
-    return await this.runAsWriter(async writer => {
+    return await this.runAsActionWriter(async writer => {
       const auth = await this.getAuth(true)
       return await writer.createAction(auth, vargs)
     })
@@ -488,7 +559,7 @@ export class WalletStorageManager implements sdk.WalletStorage {
   }
 
   async processAction (args: sdk.StorageProcessActionArgs): Promise<sdk.StorageProcessActionResults> {
-    return await this.runAsWriter(async writer => {
+    return await this.runAsActionWriter(async writer => {
       const auth = await this.getAuth(true)
       return await writer.processAction(auth, args)
     })

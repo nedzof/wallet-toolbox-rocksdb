@@ -19,14 +19,22 @@ Run the practical test phase against a real testnet wallet key, on-disk RocksDB,
 and real provider endpoints. The harness opens `StorageRocksDb`, creates a
 `Wallet` with `Services` on `chain='test'`, imports funded P2PKH UTXOs for the
 configured testnet key, then creates P2PKH self-send transactions through
-`wallet.createAction`.
+`wallet.createAction`. The preferred Nektar path is a wallet-toolbox signer
+config that points at the local paymail wallet store and local key JSON. Legacy
+direct key inputs are still supported for isolated test wallets.
 
 Prerequisites:
 
 - `TESTNET_LOAD_ENABLED=1`;
-- `ARC_URL` for the testnet ARC broadcaster;
-- `ARC_API_KEY` for the testnet ARC broadcaster;
-- `TESTNET_WALLET_WIF`, a funded testnet P2PKH key;
+- `ARC_URL` for the testnet ARC broadcaster, or `NEKTAR_ARC_URL` /
+  `NEKTAR_LIVE_TESTNET_ARC_ENDPOINTS`;
+- `ARC_API_KEY` for the testnet ARC broadcaster, or `NEKTAR_ARC_TOKEN` /
+  `SPVWALLET_ARC_TOKEN_TESTNET`;
+- one funded wallet source: preferably
+  `TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG` /
+  `NEKTAR_AUTONOMOUS_TESTNET_SIGNER_CONFIG`, or legacy
+  `TESTNET_WALLET_ROOT_KEY_HEX`, `TESTNET_WALLET_ROOT_KEY_FILE`, or
+  `TESTNET_WALLET_WIF`;
 - optional `TESTNET_LOAD_OUTPOINTS` as comma-separated `txid.vout` values when
   provider discovery should be bypassed;
 - enough funded UTXOs for the selected stage, or the run will stop cleanly with
@@ -36,14 +44,33 @@ Run:
 
 ```bash
 TESTNET_LOAD_ENABLED=1 \
-ARC_URL=https://arc-test.taal.com \
+ARC_URL=https://arc.gorillapool.io \
 ARC_API_KEY=... \
-TESTNET_WALLET_WIF=... \
+TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG=/path/to/testnet-signer-config.json \
 npm run loadtest:testnet
 ```
 
+The current Nektar testnet config resolves to GorillaPool ARC and the
+`nektar.run` SPV Wallet/BHS deployment. The latest live run against
+`.nektar-runtime/autonomous-commerce/testnet-signer-config.json` imported 2
+funded wallet-toolbox/paymail outpoints, then stopped after Stage 1 because the
+createAction path reached 2.51 TPS against the 10 TPS target. The current
+blocker is `storage_manager_writer_serialization`, not WIF, missing funds,
+provider capacity, or RocksDB write latency.
+
 With `TESTNET_LOAD_ENABLED` unset, `npm run loadtest:testnet` is CI-safe and
 prints a skip message before exiting 0.
+
+For the distributed acceptance phase, `NATS_URL` must point at a reachable
+JetStream broker. On small brokers such as the current Hetzner Nektar testnet
+node, set per-stream limits for wallet-toolbox streams that do not already
+exist:
+
+```bash
+WALLET_TOOLBOX_NATS_PROOF_REQUESTS_MAX_BYTES=10485760 \
+WALLET_TOOLBOX_NATS_CACHE_INVALIDATE_MAX_BYTES=10485760 \
+WALLET_TOOLBOX_NATS_DEAD_LETTER_MAX_BYTES=10485760
+```
 
 Recommended ladder:
 
@@ -91,6 +118,9 @@ Decision tree:
   Nektar runtime workers.
 - If RocksDB write/query p95 dominates, investigate binding support for write
   batching, checkpoints, and compaction/write-buffer tuning.
+- If provider queues are empty, RocksDB p95 is low, transaction tail depth is
+  low, and actual TPS remains below target with high createAction latency,
+  inspect the wallet storage-manager writer path before tuning providers.
 - If UTXO cache misses dominate, tune TTL/max entries and verify invalidation
   events are not clearing the whole cache unnecessarily.
 - If queue backlog grows, tune provider and SendWaiting concurrency limits, then

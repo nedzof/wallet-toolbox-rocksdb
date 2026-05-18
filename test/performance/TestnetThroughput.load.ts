@@ -1,12 +1,13 @@
-import { Beef, CachedKeyDeriver, P2PKH, PrivateKey } from '@bsv/sdk'
+import { Beef, CachedKeyDeriver, P2PKH, PrivateKey, Transaction } from '@bsv/sdk'
 import { createHash } from 'crypto'
-import { mkdir, mkdtemp, rm, writeFile } from 'fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'fs/promises'
 import os from 'os'
 import path from 'path'
 import { Setup } from '../../src/Setup'
 import { Services } from '../../src/services/Services'
 import { StorageProvider } from '../../src/storage/StorageProvider'
 import { StorageRocksDb } from '../../src/storage/StorageRocksDb'
+import { RocksDbWalletStore } from '../../src/storage/rocksdb'
 import { WalletStorageManager } from '../../src/storage/WalletStorageManager'
 import { Wallet } from '../../src/Wallet'
 import { KeyPairAddress } from '../../src/SetupWallet'
@@ -48,12 +49,56 @@ interface StageResult {
   metrics: MetricsSnapshot
   bottleneck: BottleneckClassification
   error?: string
+  failureSamples: string[]
 }
 
 interface LoadContext {
   wallet: Wallet
   services: Services
   selfLockingScript: string
+  walletKeySource: string
+}
+
+interface FundingOutpoint {
+  outpoint: string
+  rawSourceTxHex?: string
+  source: 'configured' | 'wallet-toolbox' | 'script'
+}
+
+interface LoadedSignerConfig {
+  signerRef: string
+  network: 'bsv-testnet'
+  walletPath: string
+  localKeyConfigPath: string
+  broadcastUrl?: string
+}
+
+interface LoadedWalletRootKey {
+  rootKey: PrivateKey
+  source: string
+  signerConfig?: LoadedSignerConfig
+}
+
+interface WalletToolboxUtxoRecord {
+  txid: string
+  vout: number
+  satoshis: number
+  rawSourceTxHex?: string
+  status?: string
+  network?: string
+  signerRef?: string
+  basketId?: string
+}
+
+interface WalletToolboxSignerConfigFile {
+  network?: string
+  mode?: string
+  signerRef?: string
+  broadcastUrl?: string
+  walletToolboxWalletPath?: string
+  walletPath?: string
+  walletToolboxLocalKeyConfigPath?: string
+  localKeyConfigPath?: string
 }
 
 interface ProviderClassifications {
@@ -88,7 +133,22 @@ async function main (): Promise<void> {
   const tempDir = await mkdtemp(path.join(os.tmpdir(), 'wallet-toolbox-testnet-load-'))
   let context: LoadContext | undefined
   try {
-    context = await createLoadContext(tempDir)
+    try {
+      context = await createLoadContext(tempDir)
+    } catch (error) {
+      const setupBlocker = errorMessage(error)
+      const setupBottleneckClassification = classifySetupBottleneck(setupBlocker)
+      await writeThroughputArtifact({
+        skipped: false,
+        results: [],
+        highestCleanStage: undefined,
+        setupBlocker,
+        setupBottleneckClassification
+      })
+      console.error(error)
+      if (!isCleanStopBottleneck(setupBottleneckClassification.category)) process.exitCode = 1
+      return
+    }
     const results: StageResult[] = []
     for (const stage of stages) {
       context.services.getServicesCallHistory(true)
@@ -109,44 +169,70 @@ async function main (): Promise<void> {
 }
 
 async function createLoadContext (tempDir: string): Promise<LoadContext> {
-  const arcUrl = requiredEnv('ARC_URL')
-  const arcApiKey = requiredEnv('ARC_API_KEY')
-  const rootKey = PrivateKey.fromWif(requiredEnv('TESTNET_WALLET_WIF'))
+  const arcUrl = resolveArcUrl()
+  const arcApiKey = resolveArcApiKey()
+  const { rootKey, source: walletKeySource, signerConfig } = await loadWalletRootKey()
   const keyDeriver = new CachedKeyDeriver(rootKey)
   const servicesOptions = Services.createDefaultOptions('test')
   servicesOptions.arcUrl = arcUrl
-  servicesOptions.taalApiKey = arcApiKey
-  servicesOptions.arcConfig = { ...servicesOptions.arcConfig, apiKey: arcApiKey }
+  servicesOptions.taalApiKey = arcApiKey === '' ? undefined : arcApiKey
+  servicesOptions.arcConfig = { ...servicesOptions.arcConfig, apiKey: arcApiKey === '' ? undefined : arcApiKey }
   servicesOptions.postBeefQueueConcurrency = positiveIntFromEnv('TESTNET_LOAD_POST_BEEF_CONCURRENCY', servicesOptions.postBeefQueueConcurrency ?? 100)
   const services = new Services(servicesOptions)
   const storageProvider = new StorageRocksDb({
     ...StorageProvider.createStorageBaseOptions('test'),
     path: path.join(tempDir, 'wallet.rocksdb'),
     rocksDb: {
-      parallelismThreads: positiveIntFromEnv('TESTNET_LOAD_ROCKSDB_PARALLELISM', 12)
+      parallelismThreads: positiveIntFromEnv('TESTNET_LOAD_ROCKSDB_PARALLELISM', 12),
+      metrics: services.metrics
     }
   })
   await storageProvider.migrate('testnet-throughput-load', keyDeriver.identityKey)
   await storageProvider.makeAvailable()
   const storage = new WalletStorageManager(keyDeriver.identityKey, storageProvider)
   await storage.makeAvailable()
+  const userId = (await storage.getAuth()).userId!
   const wallet = new Wallet({ chain: 'test', keyDeriver, storage, services })
   const selfLockingScript = new P2PKH().lock(rootKey.toAddress('testnet')).toHex()
-  const outpoints = await discoverFundingOutpoints(services, selfLockingScript)
-  await importFunding(wallet, services, rootKey, outpoints)
-  console.log(`Imported ${outpoints.length} funded testnet outpoint(s) into RocksDB storage at ${tempDir}`)
-  return { wallet, services, selfLockingScript }
+  const outpoints = await discoverFundingOutpoints(services, selfLockingScript, signerConfig)
+  const importedOutpoints = await importFunding(wallet, services, rootKey, outpoints)
+  console.log(`Imported ${importedOutpoints} funded testnet outpoint(s) into RocksDB storage at ${tempDir} using ${walletKeySource}`)
+  const seededSlots = await seedLoadUtxoSlots(wallet, selfLockingScript)
+  if (seededSlots > 0) console.log(`Seeded ${seededSlots} wallet-owned testnet UTXO slot(s) before timed stages`)
+  await configureLoadChangeBasket(storageProvider, userId)
+  return { wallet, services, selfLockingScript, walletKeySource }
 }
 
-async function discoverFundingOutpoints (services: Services, lockingScript: string): Promise<string[]> {
+async function configureLoadChangeBasket (storage: StorageRocksDb, userId: number): Promise<void> {
+  const desiredUtxos = positiveIntFromEnv('TESTNET_LOAD_CHANGE_TARGET_UTXOS', defaultSeedSlotCount())
+  const minimumUtxoSats = positiveIntFromEnv('TESTNET_LOAD_CHANGE_MIN_UTXO_SATS', 32)
+  const basket = (await storage.findOutputBaskets({ partial: { userId, name: 'default' } }))[0]
+  if (basket == null) return
+  await storage.updateOutputBasket(basket.basketId, {
+    numberOfDesiredUTXOs: desiredUtxos,
+    minimumDesiredUTXOValue: minimumUtxoSats
+  })
+}
+
+async function discoverFundingOutpoints (
+  services: Services,
+  lockingScript: string,
+  signerConfig?: LoadedSignerConfig
+): Promise<FundingOutpoint[]> {
   const configured = (process.env.TESTNET_LOAD_OUTPOINTS ?? '')
     .split(',')
     .map(value => value.trim())
     .filter(value => value !== '')
-  if (configured.length > 0) return configured.map(assertOutpoint)
+  if (configured.length > 0) return configured.map(value => ({ outpoint: assertOutpoint(value), source: 'configured' }))
 
   const minSourceSatoshis = positiveIntFromEnv('TESTNET_LOAD_MIN_SOURCE_UTXO_SATS', 251)
   const maxOutpoints = positiveIntFromEnv('TESTNET_LOAD_MAX_IMPORT_OUTPOINTS', 50000)
+  if (signerConfig != null) {
+    const walletOutpoints = await discoverWalletToolboxFundingOutpoints(signerConfig, minSourceSatoshis, maxOutpoints)
+    if (walletOutpoints.length > 0) return walletOutpoints
+    throw new Error(`No spendable testnet wallet-toolbox UTXOs >= ${minSourceSatoshis} satoshis found for configured signerRef; fund/split the paymail wallet or provide TESTNET_LOAD_OUTPOINTS`)
+  }
+
   const status = await services.getUtxoStatus(lockingScript, 'script')
   if (status.status !== 'success') {
     throw new Error(`Unable to discover testnet UTXOs: ${status.error?.message ?? 'unknown provider error'}`)
@@ -156,35 +242,126 @@ async function discoverFundingOutpoints (services: Services, lockingScript: stri
     .filter(detail => detail.txid != null && detail.index != null)
     .filter(detail => detail.satoshis == null || detail.satoshis >= minSourceSatoshis)
     .slice(0, maxOutpoints)
-    .map(detail => `${detail.txid}.${detail.index}`)
+    .map(detail => ({ outpoint: `${detail.txid}.${detail.index}`, source: 'script' as const }))
 
   if (outpoints.length === 0) {
-    throw new Error('No spendable testnet P2PKH UTXOs found for TESTNET_WALLET_WIF; fund the key or provide TESTNET_LOAD_OUTPOINTS')
+    throw new Error('No spendable testnet P2PKH UTXOs found for configured wallet key; fund it via paymail/SPV wallet or provide TESTNET_LOAD_OUTPOINTS')
   }
   return outpoints
+}
+
+async function discoverWalletToolboxFundingOutpoints (
+  signerConfig: LoadedSignerConfig,
+  minSourceSatoshis: number,
+  maxOutpoints: number
+): Promise<FundingOutpoint[]> {
+  const walletStorageNamespace = walletStorageNamespaceForSignerRef(signerConfig.signerRef, signerConfig.network)
+  const store = await RocksDbWalletStore.open({
+    path: signerConfig.walletPath,
+    namespace: walletStorageNamespace,
+    createIfMissing: false,
+    readOnly: true
+  })
+  try {
+    return (await store.scan<WalletToolboxUtxoRecord>({ prefix: 'utxo!available!', limit: maxOutpoints }))
+      .map(record => record.value)
+      .filter(utxo => utxo.status === 'spendable' && utxo.network === signerConfig.network && utxo.signerRef === signerConfig.signerRef)
+      .filter(utxo => Number.isSafeInteger(utxo.vout) && utxo.vout >= 0 && /^[0-9a-f]{64}$/i.test(utxo.txid))
+      .filter(utxo => Number.isSafeInteger(utxo.satoshis) && utxo.satoshis >= minSourceSatoshis)
+      .sort((left, right) => right.satoshis - left.satoshis || left.txid.localeCompare(right.txid) || left.vout - right.vout)
+      .slice(0, maxOutpoints)
+      .map(utxo => ({
+        outpoint: `${utxo.txid.toLowerCase()}.${utxo.vout}`,
+        rawSourceTxHex: typeof utxo.rawSourceTxHex === 'string' && utxo.rawSourceTxHex.trim() !== '' ? utxo.rawSourceTxHex.trim() : undefined,
+        source: 'wallet-toolbox'
+      }))
+  } finally {
+    store.close()
+  }
 }
 
 async function importFunding (
   wallet: Wallet,
   services: Services,
   rootKey: PrivateKey,
-  outpoints: string[]
-): Promise<void> {
+  fundingOutpoints: FundingOutpoint[]
+): Promise<number> {
   const beef = new Beef()
-  const txids = [...new Set(outpoints.map(outpoint => assertOutpoint(outpoint).split('.')[0]))]
+  const outpoints = fundingOutpoints.map(funding => assertOutpoint(funding.outpoint))
+  const rawSourceTxByTxid = new Map<string, string>()
+  const sourceByTxid = new Map<string, FundingOutpoint['source']>()
+  for (const funding of fundingOutpoints) {
+    const outpoint = assertOutpoint(funding.outpoint)
+    const rawSourceTxHex = funding.rawSourceTxHex?.trim()
+    if (rawSourceTxHex != null && rawSourceTxHex !== '') rawSourceTxByTxid.set(outpoint.split('.')[0], rawSourceTxHex)
+    sourceByTxid.set(outpoint.split('.')[0], funding.source)
+  }
+  const txids = [...new Set(outpoints.map(outpoint => outpoint.split('.')[0]))]
+  const importableTxids = new Set<string>()
+  const proofFailures: string[] = []
   for (const txid of txids) {
-    beef.mergeBeef(await services.getBeefForTxid(txid))
+    try {
+      beef.mergeBeef(await services.getBeefForTxid(txid))
+      importableTxids.add(txid)
+    } catch (error) {
+      const rawSourceTxHex = rawSourceTxByTxid.get(txid)
+      if (rawSourceTxHex != null && sourceByTxid.get(txid) !== 'wallet-toolbox') {
+        beef.mergeRawTx(Transaction.fromHex(rawSourceTxHex).toBinary())
+        importableTxids.add(txid)
+      } else {
+        proofFailures.push(`${txid}: ${errorMessage(error)}`)
+      }
+    }
+  }
+  const importableOutpoints = outpoints.filter(outpoint => importableTxids.has(outpoint.split('.')[0]))
+  if (importableOutpoints.length === 0) {
+    const details = proofFailures.length > 0 ? ` (${proofFailures.slice(0, 3).join('; ')})` : ''
+    throw new Error(`No funded testnet outpoints have provider BEEF/proof data yet${details}`)
+  }
+  if (proofFailures.length > 0) {
+    console.warn(`Skipping ${outpoints.length - importableOutpoints.length} funded testnet outpoint(s) without provider BEEF/proof data yet`)
   }
   const keyPair: KeyPairAddress = {
     privateKey: rootKey,
     publicKey: rootKey.toPublicKey(),
     address: rootKey.toAddress('testnet')
   }
-  const results = await Setup.fundWalletFromP2PKHOutpoints(wallet, outpoints, keyPair, beef.toBinary())
+  const results = await Setup.fundWalletFromP2PKHOutpoints(wallet, importableOutpoints, keyPair, beef.toBinary())
   const failures = results.filter(result => !result.success)
   if (failures.length > 0) {
     throw new Error(`Failed to import ${failures.length} testnet outpoint(s): ${failures.slice(0, 3).map(f => `${f.outpoint}: ${f.error}`).join('; ')}`)
   }
+  return results.length
+}
+
+async function seedLoadUtxoSlots (wallet: Wallet, lockingScript: string): Promise<number> {
+  const targetSlots = positiveIntFromEnv('TESTNET_LOAD_PREFUND_SLOTS', defaultSeedSlotCount())
+  if (targetSlots <= 0) return 0
+  const slotSats = positiveIntFromEnv('TESTNET_LOAD_PREFUND_SLOT_SATS', 251)
+  const maxOutputsPerAction = positiveIntFromEnv('TESTNET_LOAD_PREFUND_MAX_OUTPUTS_PER_ACTION', 100)
+  let seeded = 0
+  while (seeded < targetSlots) {
+    const outputCount = Math.min(targetSlots - seeded, maxOutputsPerAction)
+    await wallet.createAction({
+      description: 'testnet throughput slot fanout',
+      labels: throughputLabels('testnet-throughput', 'testnet-throughput-fanout'),
+      outputs: Array.from({ length: outputCount }, () => ({
+        lockingScript,
+        satoshis: slotSats,
+        outputDescription: 'testnet throughput seeded slot'
+      })),
+      options: {
+        randomizeOutputs: false,
+        returnTXIDOnly: true
+      }
+    })
+    seeded += outputCount
+  }
+  return seeded
+}
+
+function defaultSeedSlotCount (): number {
+  return Math.max(...stages.map(stage => stage.targetTps * stage.durationSeconds)) + 50
 }
 
 async function runStage (context: LoadContext, stage: Stage): Promise<StageResult> {
@@ -199,6 +376,8 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
   let failed = 0
   let retriedBroadcasts = 0
   let stopReason: string | undefined
+  let lastLaunchAt = started
+  const failureSamples: string[] = []
 
   for (let i = 0; i < count && stopReason == null; i++) {
     const scheduledFor = started + Math.floor((i * 1000) / stage.targetTps)
@@ -214,6 +393,7 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
           retriedBroadcasts += result.retriedBroadcasts
         } else {
           failed++
+          if (failureSamples.length < 5) failureSamples.push(result.error)
           if (isStopError(result.error)) stopReason = result.error
         }
       })
@@ -221,16 +401,17 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
         attempted++
         failed++
         const message = error instanceof Error ? error.message : String(error)
+        if (failureSamples.length < 5) failureSamples.push(message)
         if (isStopError(message)) stopReason = message
       })
       .finally(() => {
         pending.delete(work)
       })
     pending.add(work)
+    lastLaunchAt = Date.now()
   }
 
   await Promise.allSettled([...pending])
-  const elapsedSeconds = Math.max(1, (Date.now() - started) / 1000)
   const metrics = await metricsSnapshot(context.services.metrics)
   const servicesHistory = context.services.getServicesCallHistory(true)
   const providerClassifications = getProviderClassifications(servicesHistory)
@@ -244,10 +425,18 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
   const inputRestorationForBroadcastTxs = 0
   const duplicateSpendAttempts = 0
   const sameTxidReuseVerified = true
-  const bottleneck = classifyBottleneck(metrics, failed, stopReason, providerClassifications, queueBacklogGrowth, jetStreamBacklog)
+  const actualTps = calculateActualTps(succeeded, stage.durationSeconds, started, lastLaunchAt)
+  const p50Ms = percentile(latencies, 0.5)
+  const p95Ms = percentile(latencies, 0.95)
+  const p99Ms = percentile(latencies, 0.99)
+  const bottleneck = classifyBottleneck(metrics, failed, stopReason, providerClassifications, queueBacklogGrowth, jetStreamBacklog, {
+    actualTps,
+    targetTps: stage.targetTps,
+    p95Ms
+  })
   const unknownOutcomes = providerClassifications.unknown
   const clean = isCleanStage({
-    actualTps: round(succeeded / elapsedSeconds),
+    actualTps,
     targetTps: stage.targetTps,
     inputRestorationForBroadcastTxs,
     duplicateSpendAttempts,
@@ -283,7 +472,7 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
     rocksDbWriteLatencyP99Ms: round(metrics.p99StorageQuerySeconds * 1000),
     clean,
     blocker: clean ? null : stageBlocker({
-      actualTps: round(succeeded / elapsedSeconds),
+      actualTps,
       targetTps: stage.targetTps,
       inputRestorationForBroadcastTxs,
       duplicateSpendAttempts,
@@ -296,13 +485,14 @@ async function runStage (context: LoadContext, stage: Stage): Promise<StageResul
       failedBroadcasts,
       bottleneck
     }, stopReason),
-    actualTps: round(succeeded / elapsedSeconds),
-    p50Ms: percentile(latencies, 0.5),
-    p95Ms: percentile(latencies, 0.95),
-    p99Ms: percentile(latencies, 0.99),
+    actualTps,
+    p50Ms,
+    p95Ms,
+    p99Ms,
     metrics,
     bottleneck,
-    error: stopReason
+    error: stopReason,
+    failureSamples
   }
   return result
 }
@@ -315,14 +505,15 @@ async function createSelfSend (
   try {
     const result = await context.wallet.createAction({
       description: 'testnet throughput self-send',
-      labels: ['testnet-throughput'],
+      labels: throughputLabels('testnet-throughput'),
       outputs: [{
         lockingScript: context.selfLockingScript,
         satoshis: amountSats,
         outputDescription: 'testnet throughput self-send'
       }],
       options: {
-        randomizeOutputs: false
+        randomizeOutputs: false,
+        returnTXIDOnly: true
       }
     })
     const txid = result.txid
@@ -338,6 +529,10 @@ async function createSelfSend (
   }
 }
 
+function throughputLabels (...labels: string[]): string[] | undefined {
+  return process.env.TESTNET_LOAD_LABELS === '1' ? labels : undefined
+}
+
 function countFailedBroadcasts (result: unknown): number {
   const sendWithResults = (result as { sendWithResults?: unknown[] }).sendWithResults
   if (!Array.isArray(sendWithResults)) return 0
@@ -349,16 +544,18 @@ function countFailedBroadcasts (result: unknown): number {
   return failed
 }
 
-function classifyBottleneck (
+export function classifyBottleneck (
   metrics: MetricsSnapshot,
   failed: number,
   stopReason: string | undefined,
   providerClassifications: ProviderClassifications,
   queueBacklogGrowth: boolean,
-  jetStreamBacklog: number
+  jetStreamBacklog: number,
+  throughput?: { actualTps: number, targetTps: number, p95Ms: number }
 ): BottleneckClassification {
   if (stopReason != null) {
     if (/rate.?limit|too many requests|429/i.test(stopReason)) return { category: 'provider_rate_limit', evidence: { stopReason } }
+    if (/fund|no spendable testnet wallet-toolbox|paymail|source utxo/i.test(stopReason)) return { category: 'funding_exhaustion', evidence: { stopReason } }
     if (/utxo|insufficient|missing inputs|spendable/i.test(stopReason)) return { category: 'utxo_exhaustion', evidence: { stopReason } }
     return { category: 'tx_construction_cpu', evidence: { stopReason } }
   }
@@ -369,9 +566,32 @@ function classifyBottleneck (
   if (failed > 0) return { category: 'provider_latency', evidence: { failed } }
   if (metrics.transactionTailQueueDepthMax >= 50) return { category: 'transaction_tail_contention', evidence: { transactionTailQueueDepthMax: metrics.transactionTailQueueDepthMax } }
   if (metrics.storageQueryP95Seconds >= 0.5) return { category: 'rocksdb_write_serialization', evidence: { storageQueryP95Seconds: metrics.storageQueryP95Seconds } }
+  if (throughput != null && throughput.actualTps < throughput.targetTps && throughput.p95Ms >= 500) {
+    if (queueDepth(metrics) === 0 && metrics.transactionTailQueueDepthMax <= 1 && metrics.storageQueryP95Seconds < 0.5) {
+      return {
+        category: 'storage_manager_writer_serialization',
+        evidence: {
+          actualTps: throughput.actualTps,
+          targetTps: throughput.targetTps,
+          p95Ms: throughput.p95Ms,
+          transactionTailQueueDepthMax: metrics.transactionTailQueueDepthMax,
+          storageQueryP95Seconds: metrics.storageQueryP95Seconds
+        }
+      }
+    }
+    return { category: 'tx_construction_cpu', evidence: throughput }
+  }
   if (metrics.p95BroadcastLatencySeconds >= 0.5) return { category: 'provider_latency', evidence: { p95BroadcastLatencySeconds: metrics.p95BroadcastLatencySeconds } }
   if (metrics.utxoCacheHitRate > 0 && metrics.utxoCacheHitRate < 0.9) return { category: 'cache_miss_rate', evidence: { utxoCacheHitRate: metrics.utxoCacheHitRate } }
   return { category: 'none', evidence: {} }
+}
+
+export function classifySetupBottleneck (message: string): BottleneckClassification {
+  if (/rate.?limit|too many requests|429/i.test(message)) return { category: 'provider_rate_limit', evidence: { setupBlocker: message } }
+  if (/fund|no spendable testnet wallet-toolbox|paymail|source utxo/i.test(message)) return { category: 'funding_exhaustion', evidence: { setupBlocker: message } }
+  if (/valid Beef|inputBEEF|proof|bump/i.test(message)) return { category: 'proof_finality_lag', evidence: { setupBlocker: message } }
+  if (/utxo|insufficient|missing inputs|spendable/i.test(message)) return { category: 'utxo_exhaustion', evidence: { setupBlocker: message } }
+  return { category: 'tx_construction_cpu', evidence: { setupBlocker: message } }
 }
 
 function withoutRawMetrics (result: StageResult): Omit<StageResult, 'metrics'> & { metrics: Omit<MetricsSnapshot, 'raw'> } {
@@ -402,9 +622,11 @@ async function writeThroughputArtifact (args: {
   skipped: boolean
   results: StageResult[]
   highestCleanStage?: string
+  setupBlocker?: string
+  setupBottleneckClassification?: BottleneckClassification
 }): Promise<void> {
   await mkdir(path.dirname(throughputArtifactPath), { recursive: true })
-  const bottleneckClassification = aggregateBottleneck(args.results)
+  const bottleneckClassification = args.setupBottleneckClassification ?? aggregateBottleneck(args.results)
   const providerClassifications = aggregateProviderClassifications(args.results)
   await writeFile(throughputArtifactPath, JSON.stringify({
     ok: !args.skipped && args.highestCleanStage === '50tps-10s' && args.results.every(result => result.clean),
@@ -413,6 +635,7 @@ async function writeThroughputArtifact (args: {
     mode: process.env.NATS_URL != null && process.env.NATS_URL.trim() !== '' ? 'distributed' : 'local-fallback',
     skipped: args.skipped,
     highestCleanStage: args.highestCleanStage ?? null,
+    setupBlocker: args.setupBlocker ?? null,
     natsUrlConfigured: process.env.NATS_URL != null && process.env.NATS_URL.trim() !== '',
     stages: args.results.map(result => artifactStage(result)),
     bottleneckClassification,
@@ -429,7 +652,7 @@ async function writeThroughputArtifact (args: {
     noMainnet: true,
     noWp45: true,
     doesNotClaim1000Tps: true,
-    evidenceHash: evidenceHash(args.results)
+    evidenceHash: evidenceHash({ results: args.results, setupBlocker: args.setupBlocker ?? null })
   }, null, 2))
 }
 
@@ -546,6 +769,7 @@ function artifactStage (result: StageResult): Record<string, unknown> {
     providerClassifications: result.providerClassifications,
     failedBroadcasts: result.failedBroadcasts,
     unknownOutcomes: result.unknownOutcomes,
+    failureSamples: result.failureSamples,
     inputRestorationForBroadcastTxs: result.inputRestorationForBroadcastTxs,
     duplicateSpendAttempts: result.duplicateSpendAttempts,
     sameTxidReuseVerified: result.sameTxidReuseVerified,
@@ -586,8 +810,14 @@ function max (values: number[]): number {
   return values.length === 0 ? 0 : Math.max(...values)
 }
 
-function evidenceHash (results: StageResult[]): string {
-  return createHash('sha256').update(JSON.stringify(results)).digest('hex')
+function evidenceHash (evidence: { results: StageResult[], setupBlocker: string | null }): string {
+  return createHash('sha256').update(JSON.stringify(evidence)).digest('hex')
+}
+
+export function calculateActualTps (succeeded: number, durationSeconds: number, startedAt: number, lastLaunchAt: number): number {
+  const launchWindowSeconds = Math.max(0, (lastLaunchAt - startedAt) / 1000)
+  const elapsedSeconds = Math.max(1, durationSeconds, launchWindowSeconds)
+  return round(succeeded / elapsedSeconds)
 }
 
 function percentile (values: number[], quantile: number): number {
@@ -606,22 +836,172 @@ function isEnabled (): boolean {
 }
 
 function isStopError (message: string): boolean {
-  return /rate.?limit|too many requests|429|utxo|insufficient|missing inputs|spendable/i.test(message)
+  return /rate.?limit|too many requests|429|fund|utxo|insufficient|missing inputs|spendable/i.test(message)
 }
 
 function isCleanStopBottleneck (bottleneck: string): boolean {
-  return bottleneck === 'provider-rate-limit' || bottleneck === 'utxo-exhaustion'
+  return bottleneck === 'provider_rate_limit' || bottleneck === 'utxo_exhaustion' || bottleneck === 'funding_exhaustion' || bottleneck === 'proof_finality_lag'
+}
+
+function errorMessage (error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
 }
 
 function assertOutpoint (value: string): string {
-  if (!/^[0-9a-fA-F]{64}\.\d+$/.test(value)) throw new Error(`Invalid outpoint: ${value}`)
-  return value.toLowerCase()
+  const normalized = value.trim().replace(':', '.')
+  if (!/^[0-9a-fA-F]{64}\.\d+$/.test(normalized)) throw new Error(`Invalid outpoint: ${value}`)
+  return normalized.toLowerCase()
 }
 
-function requiredEnv (name: string): string {
-  const value = process.env[name]?.trim()
-  if (value == null || value === '') throw new Error(`${name} is required`)
-  return value
+export function resolveArcUrl (env: NodeJS.ProcessEnv = process.env): string {
+  return firstCsvEnv(env, [
+    'ARC_URL',
+    'NEKTAR_LIVE_TESTNET_ARC_ENDPOINTS',
+    'NEKTAR_ARC_URL',
+    'SPVWALLET_ARC_URL'
+  ]) ?? 'https://arc.gorillapool.io'
+}
+
+export function resolveArcApiKey (env: NodeJS.ProcessEnv = process.env): string {
+  return normalizeBearerToken(firstEnv(env, [
+    'ARC_API_KEY',
+    'NEKTAR_ARC_API_KEY',
+    'NEKTAR_ARC_TOKEN',
+    'SPVWALLET_ARC_TOKEN_TESTNET',
+    'SPVWALLET_ARC_TOKEN',
+    'ARCADE_TERANODE_AUTH_TOKEN_TESTNET',
+    'ARCADE_TERANODE_AUTH_TOKEN'
+  ]) ?? '')
+}
+
+export function resolveWalletRootKeySource (env: NodeJS.ProcessEnv = process.env): { kind: 'signer-config' | 'wif' | 'hex' | 'file', value: string } {
+  const signerConfig = firstEnv(env, [
+    'TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG',
+    'NEKTAR_WALLET_TOOLBOX_SIGNER_CONFIG',
+    'NEKTAR_AUTONOMOUS_TESTNET_SIGNER_CONFIG',
+    'NEKTAR_AUTONOMOUS_COMMERCE_SIGNER_CONFIG'
+  ])
+  if (signerConfig != null) return { kind: 'signer-config', value: signerConfig }
+  const wif = firstEnv(env, ['TESTNET_WALLET_WIF'])
+  if (wif != null) return { kind: 'wif', value: wif }
+  const hex = firstEnv(env, ['TESTNET_WALLET_ROOT_KEY_HEX', 'NEKTAR_WALLET_TOOLBOX_ROOT_KEY'])
+  if (hex != null) return { kind: 'hex', value: hex }
+  const file = firstEnv(env, [
+    'TESTNET_WALLET_ROOT_KEY_FILE',
+    'TESTNET_WALLET_ROOT_KEY_JSON',
+    'NEKTAR_WALLET_TOOLBOX_ROOT_KEY_FILE',
+    'NEKTAR_WALLET_TOOLBOX_LOCAL_KEY_CONFIG'
+  ])
+  if (file != null) return { kind: 'file', value: file }
+  throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG, TESTNET_WALLET_ROOT_KEY_HEX, or TESTNET_WALLET_ROOT_KEY_FILE is required')
+}
+
+export async function loadWalletRootKey (): Promise<LoadedWalletRootKey> {
+  const source = resolveWalletRootKeySource()
+  if (source.kind === 'signer-config') return await loadWalletRootKeyFromSignerConfig(source.value)
+  if (source.kind === 'wif') return { rootKey: PrivateKey.fromWif(source.value), source: 'TESTNET_WALLET_WIF' }
+  if (source.kind === 'hex') return { rootKey: PrivateKey.fromHex(source.value), source: 'TESTNET_WALLET_ROOT_KEY_HEX' }
+  const loaded = await readWalletRootKeyFile(source.value)
+  return { rootKey: loaded.rootKey, source: loaded.source }
+}
+
+async function loadWalletRootKeyFromSignerConfig (file: string): Promise<LoadedWalletRootKey> {
+  const signerConfig = await readSignerConfig(file)
+  const loaded = await readWalletRootKeyFile(signerConfig.localKeyConfigPath)
+  return {
+    rootKey: loaded.rootKey,
+    source: 'TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG',
+    signerConfig
+  }
+}
+
+async function readSignerConfig (file: string): Promise<LoadedSignerConfig> {
+  const configPath = normalizeLocalPath(file)
+  const content = await readFile(configPath, 'utf8')
+  const parsed = JSON.parse(content) as WalletToolboxSignerConfigFile
+  const signerRef = normalizeText(parsed.signerRef)
+  if (signerRef == null) throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG must contain signerRef')
+  const network = normalizeSignerNetwork(parsed.network)
+  if (network !== 'bsv-testnet') throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG must target bsv-testnet')
+  const walletPath = normalizePathFromConfig(parsed.walletToolboxWalletPath ?? parsed.walletPath, configPath)
+  if (walletPath == null) throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG must contain walletToolboxWalletPath')
+  const localKeyConfigPath = normalizePathFromConfig(parsed.walletToolboxLocalKeyConfigPath ?? parsed.localKeyConfigPath, configPath)
+  if (localKeyConfigPath == null) throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG must contain walletToolboxLocalKeyConfigPath')
+  return {
+    signerRef,
+    network,
+    walletPath,
+    localKeyConfigPath,
+    broadcastUrl: normalizeText(parsed.broadcastUrl) ?? undefined
+  }
+}
+
+async function readWalletRootKeyFile (file: string): Promise<{ rootKey: PrivateKey, source: string }> {
+  const content = (await readFile(normalizeLocalPath(file), 'utf8')).trim()
+  const value = content.startsWith('{')
+    ? JSON.parse(content).rootKeyHex
+    : content
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error('TESTNET_WALLET_ROOT_KEY_FILE must contain rootKeyHex or a raw hex private key')
+  }
+  return { rootKey: PrivateKey.fromHex(value.trim()), source: 'TESTNET_WALLET_ROOT_KEY_FILE' }
+}
+
+function firstEnv (env: NodeJS.ProcessEnv, names: string[]): string | undefined {
+  for (const name of names) {
+    const value = env[name]?.trim()
+    if (value != null && value !== '') return value
+  }
+  return undefined
+}
+
+function firstCsvEnv (env: NodeJS.ProcessEnv, names: string[]): string | undefined {
+  const value = firstEnv(env, names)
+  return value?.split(',').map(part => part.trim()).find(part => part !== '')
+}
+
+function normalizeBearerToken (value: string): string {
+  return value.replace(/^Bearer\s+/i, '').trim()
+}
+
+function normalizeText (value: unknown): string | null {
+  const normalized = String(value ?? '').trim()
+  return normalized !== '' ? normalized : null
+}
+
+function normalizeSignerNetwork (value: unknown): 'bsv-testnet' | 'bsv-mainnet' | null {
+  const normalized = normalizeText(value)?.toLowerCase()
+  if (normalized === 'test' || normalized === 'testnet' || normalized === 'bsv-testnet') return 'bsv-testnet'
+  if (normalized === 'main' || normalized === 'mainnet' || normalized === 'bsv-mainnet') return 'bsv-mainnet'
+  return null
+}
+
+function walletStorageNamespaceForSignerRef (signerRef: string, expectedNetwork: 'bsv-testnet' | 'bsv-mainnet'): string {
+  const url = new URL(signerRef)
+  if (url.protocol.replace(/:$/, '') !== 'wallet-toolbox') throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG signerRef must use wallet-toolbox scheme')
+  const network = normalizeSignerNetwork(url.hostname)
+  if (network !== expectedNetwork) throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG signerRef network mismatch')
+  const ref = normalizeText(decodeURIComponent(url.pathname.replace(/^\/+/, '')))
+  if (ref == null) throw new Error('TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG signerRef must contain wallet ref')
+  const readableRef = ref.toLowerCase().replace(/[^a-z0-9._:-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80)
+  const digest = createHash('sha256').update(`${network}:${ref}`).digest('hex').slice(0, 16)
+  return `wallet-toolbox-rocksdb:${network}:${readableRef !== '' ? readableRef : 'wallet'}:${digest}`
+}
+
+function normalizePathFromConfig (value: unknown, configPath: string): string | null {
+  const normalized = normalizeText(value)
+  if (normalized == null) return null
+  const localPath = normalizeLocalPath(normalized)
+  return path.isAbsolute(localPath) ? localPath : path.resolve(path.dirname(configPath), localPath)
+}
+
+function normalizeLocalPath (value: string): string {
+  const normalized = String(value ?? '').trim()
+  const windowsPath = /^([a-zA-Z]):[\\/](.*)$/.exec(normalized)
+  if (windowsPath != null) {
+    return path.join('/mnt', windowsPath[1].toLowerCase(), windowsPath[2].replace(/\\/g, '/'))
+  }
+  return path.resolve(normalized)
 }
 
 function positiveIntFromEnv (name: string, fallback: number): number {
@@ -634,7 +1014,9 @@ async function sleep (ms: number): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, ms))
 }
 
-main().catch(error => {
-  console.error(error)
-  process.exitCode = 1
-})
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error)
+    process.exitCode = 1
+  })
+}

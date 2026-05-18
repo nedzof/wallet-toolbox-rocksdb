@@ -40,6 +40,8 @@ export interface RocksDbWalletCompactArgs {
   prefix?: string
 }
 
+export type SpendableValueReservationMode = 'exact' | 'over' | 'under'
+
 export interface RocksDbWalletSnapshotPreparationArgs {
   compact?: boolean
 }
@@ -94,6 +96,13 @@ interface RocksDbTransaction {
   remove: (key: string) => Promise<void>
 }
 
+interface SpendableValueRange {
+  prefix: string
+  start: string
+  end: string
+  reverse?: boolean
+}
+
 /**
  * RocksDB-backed wallet state store for the wallet-toolbox fork.
  *
@@ -104,6 +113,7 @@ interface RocksDbTransaction {
  */
 export class RocksDbWalletStore {
   static readonly defaultParallelismThreads = 12
+  private nativeTransactionTail: Promise<unknown> = Promise.resolve()
 
   private constructor (
     private readonly db: RocksDatabase,
@@ -182,16 +192,16 @@ export class RocksDbWalletStore {
       const normalizedKey = normalizeKey(args.key)
       const storageKey = this.storageKey(normalizedKey)
       if (args.expectedVersion !== undefined) {
-        return await this.db.transaction(async txn => {
-          const current = await (txn as unknown as RocksDbTransaction).get(storageKey)
+        return await this.runNativeTransaction(async tx => {
+          const current = await tx.get(storageKey)
           const currentVersion = current?.version ?? null
           if (currentVersion !== args.expectedVersion) {
             return { ok: false, key: normalizedKey, reason: 'version_conflict', currentVersion }
           }
           const next = this.encode(args.value, currentVersion, args.updated_at)
-          await (txn as unknown as RocksDbTransaction).put(storageKey, next)
+          await tx.put(storageKey, next)
           return { ok: true, key: normalizedKey, version: next.version }
-        }) as RocksDbWalletPutResult
+        })
       }
       const current = await this.db.get(storageKey) as StoredRocksDbWalletRecord<T> | undefined
       const next = this.encode(args.value, current?.version ?? null, args.updated_at)
@@ -208,29 +218,41 @@ export class RocksDbWalletStore {
 
   async batch (writes: Array<RocksDbWalletPutArgs | { type: 'delete', key: string }>): Promise<RocksDbWalletPutResult[]> {
     return await this.recordStorageQuery('batch', async () => {
-      return await this.db.transaction(async txn => {
-        const results: RocksDbWalletPutResult[] = []
-        const tx = txn as unknown as RocksDbTransaction
-        for (const write of writes) {
-          const key = normalizeKey(write.key)
-          const storageKey = this.storageKey(key)
-          if (isDeleteWrite(write)) {
-            await tx.remove(storageKey)
-            results.push({ ok: true, key, version: 0 })
-            continue
-          }
-          const current = await tx.get(storageKey)
-          const currentVersion = current?.version ?? null
-          if (write.expectedVersion !== undefined && currentVersion !== write.expectedVersion) {
-            results.push({ ok: false, key, reason: 'version_conflict', currentVersion })
-            continue
-          }
-          const next = this.encode(write.value, currentVersion, write.updated_at)
-          await tx.put(storageKey, next)
-          results.push({ ok: true, key, version: next.version })
+      const results: RocksDbWalletPutResult[] = []
+      for (const write of writes) {
+        const key = normalizeKey(write.key)
+        const storageKey = this.storageKey(key)
+        if (isDeleteWrite(write)) {
+          await this.db.remove(storageKey)
+          results.push({ ok: true, key, version: 0 })
+          continue
         }
-        return results
-      }) as RocksDbWalletPutResult[]
+        const current = await this.db.get(storageKey) as StoredRocksDbWalletRecord | undefined
+        const currentVersion = current?.version ?? null
+        if (write.expectedVersion !== undefined && currentVersion !== write.expectedVersion) {
+          results.push({ ok: false, key, reason: 'version_conflict', currentVersion })
+          continue
+        }
+        const next = this.encode(write.value, currentVersion, write.updated_at)
+        await this.db.put(storageKey, next)
+        results.push({ ok: true, key, version: next.version })
+      }
+      return results
+    })
+  }
+
+  async incrementNumber (key: string, amount = 1): Promise<number> {
+    return await this.recordStorageQuery('incrementNumber', async () => {
+      if (!Number.isSafeInteger(amount) || amount < 1) throw new Error('ROCKSDB_WALLET_STORE_INCREMENT_AMOUNT_INVALID')
+      const normalizedKey = normalizeKey(key)
+      const storageKey = this.storageKey(normalizedKey)
+      return await this.runNativeTransaction(async tx => {
+        const current = await tx.get(storageKey) as StoredRocksDbWalletRecord<number> | undefined
+        const currentVersion = current?.version ?? null
+        const next = (current?.value ?? 0) + amount
+        await tx.put(storageKey, this.encode(next, currentVersion))
+        return next
+      })
     })
   }
 
@@ -263,7 +285,16 @@ export class RocksDbWalletStore {
     }
   }
 
-  async putOutput (output: TableOutput): Promise<RocksDbWalletPutResult[]> {
+  private async runNativeTransaction<T> (work: (tx: RocksDbTransaction) => Promise<T>): Promise<T> {
+    const run = async (): Promise<T> => {
+      return await this.db.transaction(async txn => await work(txn as unknown as RocksDbTransaction)) as T
+    }
+    const next = this.nativeTransactionTail.then(run, run)
+    this.nativeTransactionTail = next.then(() => undefined, () => undefined)
+    return await next
+  }
+
+  async putOutput (output: TableOutput, transactionStatus?: string): Promise<RocksDbWalletPutResult[]> {
     if (!Number.isInteger(output.outputId) || output.outputId <= 0) {
       throw new Error('ROCKSDB_OUTPUT_ID_REQUIRED')
     }
@@ -271,14 +302,14 @@ export class RocksDbWalletStore {
     const existing = await this.get<TableOutput>(outputPrimaryKey(output.outputId))
     const next = applyOutputScriptMetadata({ ...output })
     const writes: Array<RocksDbWalletPutArgs | { type: 'delete', key: string }> = []
-    if (existing != null) writes.push(...this.indexDeletesForOutput(existing.value))
+    if (existing != null) writes.push(...this.indexDeletesForOutput(existing.value, transactionStatus))
     writes.push({ key: outputPrimaryKey(next.outputId), value: next })
-    writes.push(...this.indexPutsForOutput(next))
+    writes.push(...this.indexPutsForOutput(next, transactionStatus))
     return await this.batch(writes)
   }
 
-  async updateOutput (output: TableOutput): Promise<RocksDbWalletPutResult[]> {
-    return await this.putOutput(output)
+  async updateOutput (output: TableOutput, transactionStatus?: string): Promise<RocksDbWalletPutResult[]> {
+    return await this.putOutput(output, transactionStatus)
   }
 
   async deleteOutput (outputId: number): Promise<RocksDbWalletPutResult[]> {
@@ -317,6 +348,213 @@ export class RocksDbWalletStore {
     )
   }
 
+  async countSpendableOutputs (
+    userId: number,
+    basketId?: number,
+    limit = Number.MAX_SAFE_INTEGER
+  ): Promise<number> {
+    return await this.recordStorageQuery('countSpendableOutputs', async () => {
+      const prefix = basketId == null
+        ? outputSpendableAllPrefix(userId)
+        : outputSpendableBasketPrefix(userId, basketId)
+      const storagePrefix = this.storageKey(prefix)
+      const normalizedLimit = Math.max(1, Math.trunc(limit))
+      let count = 0
+      for (const entry of this.db.getRange({ start: storagePrefix, end: `${storagePrefix}\uffff` })) {
+        if (!String(entry.key).startsWith(this.namespace)) continue
+        count++
+        if (count >= normalizedLimit) break
+      }
+      return count
+    })
+  }
+
+  async countSpendableOutputsByTransactionStatus (
+    userId: number,
+    basketId: number,
+    statuses: string[]
+  ): Promise<number> {
+    return await this.recordStorageQuery('countSpendableOutputsByTransactionStatus', async () => {
+      let count = 0
+      for (const status of statuses) {
+        const prefix = outputSpendableBasketStatusPrefix(userId, basketId, status)
+        const storagePrefix = this.storageKey(prefix)
+        for (const entry of this.db.getRange({ start: storagePrefix, end: `${storagePrefix}\uffff` })) {
+          const key = String(entry.key)
+          if (!key.startsWith(this.namespace) || !key.startsWith(storagePrefix)) continue
+          count++
+        }
+      }
+      return count
+    })
+  }
+
+  async findFirstSpendableOutput (
+    userId: number,
+    basketId: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    limit = Number.MAX_SAFE_INTEGER
+  ): Promise<TableOutput | undefined> {
+    return await this.recordStorageQuery('findFirstSpendableOutput', async () => {
+      const prefix = outputSpendableBasketPrefix(userId, basketId)
+      const storagePrefix = this.storageKey(prefix)
+      const normalizedLimit = Math.max(1, Math.trunc(limit))
+      let checked = 0
+      for (const entry of this.db.getRange({ start: storagePrefix, end: `${storagePrefix}\uffff` })) {
+        const key = String(entry.key)
+        if (!key.startsWith(this.namespace)) continue
+        const record = this.decode<RocksDbOutputIndexRecord>(key.slice(this.namespace.length), entry.value as StoredRocksDbWalletRecord<RocksDbOutputIndexRecord>)
+        const output = await this.get<TableOutput>(outputPrimaryKey(record.value.outputId))
+        checked++
+        if (output != null) {
+          const value = output.value
+          if (
+            value.userId === userId &&
+            value.basketId === basketId &&
+            value.spendable === true &&
+            await predicate(value)
+          ) return value
+        }
+        if (checked >= normalizedLimit) break
+      }
+      return undefined
+    })
+  }
+
+  async reserveFirstSpendableOutput (
+    userId: number,
+    basketId: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    transactionId: number,
+    outputEntityKey: (outputId: number) => string,
+    limit = Number.MAX_SAFE_INTEGER
+  ): Promise<TableOutput | undefined> {
+    return await this.recordStorageQuery('reserveFirstSpendableOutput', async () => {
+      const prefix = outputSpendableBasketPrefix(userId, basketId)
+      const storagePrefix = this.storageKey(prefix)
+      const normalizedLimit = Math.max(1, Math.trunc(limit))
+      let checked = 0
+      for (const entry of this.db.getRange({ start: storagePrefix, end: `${storagePrefix}\uffff` })) {
+        const key = String(entry.key)
+        if (!key.startsWith(this.namespace)) continue
+        const record = this.decode<RocksDbOutputIndexRecord>(key.slice(this.namespace.length), entry.value as StoredRocksDbWalletRecord<RocksDbOutputIndexRecord>)
+        const outputRecord = await this.get<TableOutput>(outputPrimaryKey(record.value.outputId))
+        checked++
+        if (outputRecord != null) {
+          const output = outputRecord.value
+          if (
+            output.userId === userId &&
+            output.basketId === basketId &&
+            output.spendable === true &&
+            await predicate(output)
+          ) {
+            const reserved = await this.tryReserveSpendableOutput(
+              outputRecord,
+              userId,
+              basketId,
+              transactionId,
+              outputEntityKey(output.outputId)
+            )
+            if (reserved != null) return reserved
+          }
+        }
+        if (checked >= normalizedLimit) break
+      }
+      return undefined
+    })
+  }
+
+  async reserveSpendableOutputByValue (
+    userId: number,
+    basketId: number,
+    mode: SpendableValueReservationMode,
+    satoshis: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    transactionId: number,
+    outputEntityKey: (outputId: number) => string,
+    limit = Number.MAX_SAFE_INTEGER
+  ): Promise<TableOutput | undefined> {
+    return await this.recordStorageQuery('reserveSpendableOutputByValue', async () => {
+      const range = spendableValueRange(userId, basketId, mode, satoshis)
+      const seededSatoshis = mode === 'exact'
+        ? satoshis
+        : await this.firstSpendableValueSatoshisInRange(range)
+      if (seededSatoshis != null) {
+        const bucketSeed = await this.spendableValueBucketSeed(userId, basketId, seededSatoshis, transactionId)
+        const seeded = await this.reserveSpendableValueBucketFromSeed(
+          userId,
+          basketId,
+          seededSatoshis,
+          mode === 'under',
+          bucketSeed,
+          predicate,
+          transactionId,
+          outputEntityKey,
+          limit
+        )
+        if (seeded != null) return seeded
+      }
+      return await this.reserveFirstSpendableOutputFromIndexRange(
+        userId,
+        basketId,
+        predicate,
+        transactionId,
+        outputEntityKey,
+        range,
+        limit
+      )
+    })
+  }
+
+  async reserveSpendableOutputByStatusAndValue (
+    userId: number,
+    basketId: number,
+    statuses: string[],
+    mode: SpendableValueReservationMode,
+    satoshis: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    transactionId: number,
+    outputEntityKey: (outputId: number) => string,
+    limit = Number.MAX_SAFE_INTEGER
+  ): Promise<TableOutput | undefined> {
+    return await this.recordStorageQuery('reserveSpendableOutputByStatusAndValue', async () => {
+      for (const status of statuses) {
+        const range = spendableStatusValueRange(userId, basketId, status, mode, satoshis)
+        const seededSatoshis = mode === 'exact'
+          ? satoshis
+          : await this.firstSpendableValueSatoshisInRange(range)
+        if (seededSatoshis != null) {
+          const bucketSeed = await this.spendableStatusValueBucketSeed(userId, basketId, status, seededSatoshis, transactionId)
+          const seeded = await this.reserveSpendableValueBucketFromSeed(
+            userId,
+            basketId,
+            seededSatoshis,
+            mode === 'under',
+            bucketSeed,
+            predicate,
+            transactionId,
+            outputEntityKey,
+            limit,
+            status
+          )
+          if (seeded != null) return seeded
+        }
+        const reserved = await this.reserveFirstSpendableOutputFromIndexRange(
+          userId,
+          basketId,
+          predicate,
+          transactionId,
+          outputEntityKey,
+          range,
+          limit,
+          status
+        )
+        if (reserved != null) return reserved
+      }
+      return undefined
+    })
+  }
+
   async findOutputsByOutpoints (
     userId: number,
     outpoints: Array<{ txid: string, vout: number }>
@@ -337,6 +575,15 @@ export class RocksDbWalletStore {
       if (result != null) byOutpoint[result.outpoint] = result.output
     }
     return byOutpoint
+  }
+
+  async findOutputsByTransactionId (transactionId: number): Promise<TableOutput[]> {
+    const records = await this.scan<RocksDbOutputIndexRecord>({
+      prefix: outputTransactionPrefix(transactionId),
+      limit: Number.MAX_SAFE_INTEGER
+    })
+    const outputs = await this.resolveOutputIndex(records)
+    return outputs.filter(output => output.transactionId === transactionId)
   }
 
   async rebuildOutputIndexes (): Promise<number> {
@@ -446,7 +693,14 @@ export class RocksDbWalletStore {
     return outputs.filter((output): output is TableOutput => output != null)
   }
 
-  private indexPutsForOutput (output: TableOutput): Array<RocksDbWalletPutArgs<RocksDbOutputIndexRecord>> {
+  async reindexOutputTransactionStatus (output: TableOutput, fromStatus: string | undefined, toStatus: string | undefined): Promise<RocksDbWalletPutResult[]> {
+    return await this.batch([
+      ...this.statusIndexDeletesForOutput(output, fromStatus),
+      ...this.statusIndexPutsForOutput(output, toStatus)
+    ])
+  }
+
+  private indexPutsForOutput (output: TableOutput, transactionStatus?: string): Array<RocksDbWalletPutArgs<RocksDbOutputIndexRecord>> {
     const outputId = output.outputId
     const value = { outputId }
     const writes: Array<RocksDbWalletPutArgs<RocksDbOutputIndexRecord>> = []
@@ -456,14 +710,19 @@ export class RocksDbWalletStore {
     if (output.spendable) {
       writes.push({ key: outputSpendableUserKey(output.userId, outputId), value })
       if (output.basketId != null) writes.push({ key: outputSpendableBasketKey(output.userId, output.basketId, outputId), value })
+      if (output.basketId != null) writes.push({ key: outputSpendableBasketValueKey(output.userId, output.basketId, output.satoshis, outputId), value })
+      writes.push(...this.statusIndexPutsForOutput(output, transactionStatus))
     }
     if (output.txid != null && output.vout != null) {
       writes.push({ key: outputOutpointKey(output.userId, output.txid, output.vout), value })
     }
+    if (output.transactionId != null) {
+      writes.push({ key: outputTransactionKey(output.transactionId, outputId), value })
+    }
     return writes
   }
 
-  private indexDeletesForOutput (output: TableOutput): Array<{ type: 'delete', key: string }> {
+  private indexDeletesForOutput (output: TableOutput, transactionStatus?: string): Array<{ type: 'delete', key: string }> {
     const deletes: Array<{ type: 'delete', key: string }> = []
     if (output.scriptHash != null && output.scriptHash !== '') {
       deletes.push({ type: 'delete', key: outputScriptHashKey(output.scriptHash, output.outputId) })
@@ -471,15 +730,214 @@ export class RocksDbWalletStore {
     if (output.spendable) {
       deletes.push({ type: 'delete', key: outputSpendableUserKey(output.userId, output.outputId) })
       if (output.basketId != null) deletes.push({ type: 'delete', key: outputSpendableBasketKey(output.userId, output.basketId, output.outputId) })
+      if (output.basketId != null) deletes.push({ type: 'delete', key: outputSpendableBasketValueKey(output.userId, output.basketId, output.satoshis, output.outputId) })
+      deletes.push(...this.statusIndexDeletesForOutput(output, transactionStatus))
     }
     if (output.txid != null && output.vout != null) {
       deletes.push({ type: 'delete', key: outputOutpointKey(output.userId, output.txid, output.vout) })
     }
+    if (output.transactionId != null) {
+      deletes.push({ type: 'delete', key: outputTransactionKey(output.transactionId, output.outputId) })
+    }
     return deletes
   }
 
+  private statusIndexPutsForOutput (output: TableOutput, transactionStatus?: string): Array<RocksDbWalletPutArgs<RocksDbOutputIndexRecord>> {
+    if (!output.spendable || output.basketId == null || transactionStatus == null) return []
+    return [{
+      key: outputSpendableBasketStatusValueKey(output.userId, output.basketId, transactionStatus, output.satoshis, output.outputId),
+      value: { outputId: output.outputId }
+    }]
+  }
+
+  private statusIndexDeletesForOutput (output: TableOutput, transactionStatus?: string): Array<{ type: 'delete', key: string }> {
+    if (!output.spendable || output.basketId == null || transactionStatus == null) return []
+    return [{
+      type: 'delete',
+      key: outputSpendableBasketStatusValueKey(output.userId, output.basketId, transactionStatus, output.satoshis, output.outputId)
+    }]
+  }
+
+  private async tryReserveSpendableOutput (
+    outputRecord: RocksDbWalletRecord<TableOutput>,
+    userId: number,
+    basketId: number,
+    transactionId: number,
+    entityKey: string,
+    transactionStatus?: string
+  ): Promise<TableOutput | undefined> {
+    const primaryKey = outputPrimaryKey(outputRecord.value.outputId)
+    return await this.runNativeTransaction(async tx => {
+      const primaryStorageKey = this.storageKey(primaryKey)
+      const entityStorageKey = this.storageKey(normalizeKey(entityKey))
+      const currentPrimary = await tx.get(primaryStorageKey) as StoredRocksDbWalletRecord<TableOutput> | undefined
+      const currentEntity = await tx.get(entityStorageKey) as StoredRocksDbWalletRecord<TableOutput> | undefined
+      if (currentPrimary == null || currentEntity == null) return undefined
+      if (currentPrimary.version !== outputRecord.version) return undefined
+      const current = currentPrimary.value
+      if (
+        currentEntity.value.outputId !== current.outputId ||
+        current.userId !== userId ||
+        current.basketId !== basketId ||
+        current.spendable !== true ||
+        currentEntity.value.spendable !== true
+      ) return undefined
+
+      const updatedAt = new Date()
+      const next = applyOutputScriptMetadata({
+        ...current,
+        spendable: false,
+        spentBy: transactionId,
+        updated_at: updatedAt
+      })
+      for (const deleteWrite of this.indexDeletesForOutput(current, transactionStatus)) {
+        await tx.remove(this.storageKey(normalizeKey(deleteWrite.key)))
+      }
+      await tx.put(primaryStorageKey, this.encode(next, currentPrimary.version, updatedAt))
+      await tx.put(entityStorageKey, this.encode(next, currentEntity.version, updatedAt))
+      for (const putWrite of this.indexPutsForOutput(next, transactionStatus)) {
+        await tx.put(this.storageKey(normalizeKey(putWrite.key)), this.encode(putWrite.value, null, updatedAt))
+      }
+      return next
+    })
+  }
+
+  private async reserveFirstSpendableOutputFromIndexRange (
+    userId: number,
+    basketId: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    transactionId: number,
+    outputEntityKey: (outputId: number) => string,
+    range: SpendableValueRange,
+    limit = Number.MAX_SAFE_INTEGER,
+    transactionStatus?: string
+  ): Promise<TableOutput | undefined> {
+    const storagePrefix = this.storageKey(range.prefix)
+    const storageStart = this.storageKey(range.start)
+    const storageEnd = this.storageKey(range.end)
+    const normalizedLimit = Math.max(1, Math.trunc(limit))
+    let checked = 0
+    for (const entry of this.db.getRange({ start: storageStart, end: storageEnd, reverse: range.reverse })) {
+      const key = String(entry.key)
+      if (!key.startsWith(this.namespace) || !key.startsWith(storagePrefix)) continue
+      const record = this.decode<RocksDbOutputIndexRecord>(key.slice(this.namespace.length), entry.value as StoredRocksDbWalletRecord<RocksDbOutputIndexRecord>)
+      const outputRecord = await this.get<TableOutput>(outputPrimaryKey(record.value.outputId))
+      checked++
+      if (outputRecord != null) {
+        const output = outputRecord.value
+        if (
+          output.userId === userId &&
+          output.basketId === basketId &&
+          output.spendable === true &&
+          await predicate(output)
+        ) {
+          const reserved = await this.tryReserveSpendableOutput(
+            outputRecord,
+            userId,
+            basketId,
+            transactionId,
+            outputEntityKey(output.outputId),
+            transactionStatus
+          )
+          if (reserved != null) return reserved
+        }
+      }
+      if (checked >= normalizedLimit) break
+    }
+    return undefined
+  }
+
+  private async reserveSpendableValueBucketFromSeed (
+    userId: number,
+    basketId: number,
+    satoshis: number,
+    reverse: boolean,
+    seed: number,
+    predicate: (output: TableOutput) => boolean | Promise<boolean>,
+    transactionId: number,
+    outputEntityKey: (outputId: number) => string,
+    limit = Number.MAX_SAFE_INTEGER,
+    transactionStatus?: string
+  ): Promise<TableOutput | undefined> {
+    const ranges = transactionStatus == null
+      ? spendableValueSeededBucketRanges(userId, basketId, satoshis, seed, reverse)
+      : spendableStatusValueSeededBucketRanges(userId, basketId, transactionStatus, satoshis, seed, reverse)
+    for (const range of ranges) {
+      const reserved = await this.reserveFirstSpendableOutputFromIndexRange(
+        userId,
+        basketId,
+        predicate,
+        transactionId,
+        outputEntityKey,
+        range,
+        limit,
+        transactionStatus
+      )
+      if (reserved != null) return reserved
+    }
+    return undefined
+  }
+
+  private async spendableValueBucketSeed (
+    userId: number,
+    basketId: number,
+    satoshis: number,
+    transactionId: number
+  ): Promise<number> {
+    const prefix = outputSpendableBasketValueSatoshisPrefix(userId, basketId, satoshis)
+    const firstOutputId = await this.firstSpendableValueOutputIdInBucket(prefix, false)
+    const lastOutputId = await this.firstSpendableValueOutputIdInBucket(prefix, true)
+    if (firstOutputId == null || lastOutputId == null || lastOutputId < firstOutputId) {
+      return spendableReservationSeed(transactionId)
+    }
+    const width = lastOutputId - firstOutputId + 1
+    return firstOutputId + positiveModulo(transactionId - 1, width)
+  }
+
+  private async spendableStatusValueBucketSeed (
+    userId: number,
+    basketId: number,
+    status: string,
+    satoshis: number,
+    transactionId: number
+  ): Promise<number> {
+    const prefix = outputSpendableBasketStatusValueSatoshisPrefix(userId, basketId, status, satoshis)
+    const firstOutputId = await this.firstSpendableValueOutputIdInBucket(prefix, false)
+    const lastOutputId = await this.firstSpendableValueOutputIdInBucket(prefix, true)
+    if (firstOutputId == null || lastOutputId == null || lastOutputId < firstOutputId) {
+      return spendableReservationSeed(transactionId)
+    }
+    const width = lastOutputId - firstOutputId + 1
+    return firstOutputId + positiveModulo(transactionId - 1, width)
+  }
+
+  private async firstSpendableValueOutputIdInBucket (prefix: string, reverse: boolean): Promise<number | undefined> {
+    const storagePrefix = this.storageKey(prefix)
+    const range = reverse
+      ? { start: `${storagePrefix}\uffff`, end: storagePrefix, reverse: true }
+      : { start: storagePrefix, end: `${storagePrefix}\uffff` }
+    for (const entry of this.db.getRange(range)) {
+      const key = String(entry.key)
+      if (!key.startsWith(this.namespace) || !key.startsWith(storagePrefix)) continue
+      return outputIdFromSpendableValueKey(key.slice(this.namespace.length))
+    }
+    return undefined
+  }
+
+  private async firstSpendableValueSatoshisInRange (range: SpendableValueRange): Promise<number | undefined> {
+    const storagePrefix = this.storageKey(range.prefix)
+    const storageStart = this.storageKey(range.start)
+    const storageEnd = this.storageKey(range.end)
+    for (const entry of this.db.getRange({ start: storageStart, end: storageEnd, reverse: range.reverse })) {
+      const key = String(entry.key)
+      if (!key.startsWith(this.namespace) || !key.startsWith(storagePrefix)) continue
+      return satoshisFromSpendableValueKey(key.slice(this.namespace.length))
+    }
+    return undefined
+  }
+
   private async collectOutputIndexDeletes (): Promise<Array<{ type: 'delete', key: string }>> {
-    const prefixes = [OUTPUT_SCRIPT_HASH_PREFIX, OUTPUT_SPENDABLE_PREFIX, OUTPUT_OUTPOINT_PREFIX]
+    const prefixes = [OUTPUT_SCRIPT_HASH_PREFIX, OUTPUT_SPENDABLE_PREFIX, OUTPUT_SPENDABLE_VALUE_PREFIX, OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX, OUTPUT_OUTPOINT_PREFIX, OUTPUT_TRANSACTION_PREFIX]
     const deletes: Array<{ type: 'delete', key: string }> = []
     for (const prefix of prefixes) {
       const records = await this.scan<RocksDbOutputIndexRecord>({ prefix, limit: Number.MAX_SAFE_INTEGER })
@@ -546,7 +1004,10 @@ function normalizeDate (value?: Date | string | number): Date {
 const OUTPUT_PRIMARY_PREFIX = 'output!id!'
 const OUTPUT_SCRIPT_HASH_PREFIX = 'output!scriptHash!'
 const OUTPUT_SPENDABLE_PREFIX = 'output!spendable!'
+const OUTPUT_SPENDABLE_VALUE_PREFIX = 'output!spendableValue!'
+const OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX = 'output!spendableStatusValue!'
 const OUTPUT_OUTPOINT_PREFIX = 'output!outpoint!'
+const OUTPUT_TRANSACTION_PREFIX = 'output!transaction!'
 const UNSUPPORTED_SOURCE_TUNING_OPTIONS = [
   'writeOptions',
   'columnFamilies',
@@ -600,8 +1061,147 @@ function outputSpendableBasketKey (userId: number, basketId: number, outputId: n
   return `${outputSpendableBasketPrefix(userId, basketId)}${padNumber(outputId)}`
 }
 
+function outputSpendableBasketValuePrefix (userId: number, basketId: number): string {
+  return `${OUTPUT_SPENDABLE_VALUE_PREFIX}${padNumber(userId)}!basket!${padNumber(basketId)}!`
+}
+
+function outputSpendableBasketValueSatoshisPrefix (userId: number, basketId: number, satoshis: number): string {
+  return `${outputSpendableBasketValuePrefix(userId, basketId)}${padNumber(satoshis)}!`
+}
+
+function outputSpendableBasketValueKey (userId: number, basketId: number, satoshis: number, outputId: number): string {
+  return `${outputSpendableBasketValueSatoshisPrefix(userId, basketId, satoshis)}${padNumber(outputId)}`
+}
+
+function outputSpendableBasketStatusPrefix (userId: number, basketId: number, status: string): string {
+  return `${OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX}${padNumber(userId)}!basket!${padNumber(basketId)}!status!${normalizeIndexPart(status)}!`
+}
+
+function outputSpendableBasketStatusValueSatoshisPrefix (userId: number, basketId: number, status: string, satoshis: number): string {
+  return `${outputSpendableBasketStatusPrefix(userId, basketId, status)}${padNumber(satoshis)}!`
+}
+
+function outputSpendableBasketStatusValueKey (userId: number, basketId: number, status: string, satoshis: number, outputId: number): string {
+  return `${outputSpendableBasketStatusValueSatoshisPrefix(userId, basketId, status, satoshis)}${padNumber(outputId)}`
+}
+
+function spendableValueRange (
+  userId: number,
+  basketId: number,
+  mode: SpendableValueReservationMode,
+  satoshis: number
+): SpendableValueRange {
+  const basketPrefix = outputSpendableBasketValuePrefix(userId, basketId)
+  if (mode === 'exact') {
+    const prefix = outputSpendableBasketValueSatoshisPrefix(userId, basketId, satoshis)
+    return { prefix, start: prefix, end: `${prefix}\uffff` }
+  }
+  if (mode === 'over') {
+    return { prefix: basketPrefix, start: `${basketPrefix}${padNumber(satoshis)}`, end: `${basketPrefix}\uffff` }
+  }
+  return { prefix: basketPrefix, start: `${basketPrefix}${padNumber(satoshis)}`, end: basketPrefix, reverse: true }
+}
+
+function spendableStatusValueRange (
+  userId: number,
+  basketId: number,
+  status: string,
+  mode: SpendableValueReservationMode,
+  satoshis: number
+): SpendableValueRange {
+  const basketPrefix = outputSpendableBasketStatusPrefix(userId, basketId, status)
+  if (mode === 'exact') {
+    const prefix = outputSpendableBasketStatusValueSatoshisPrefix(userId, basketId, status, satoshis)
+    return { prefix, start: prefix, end: `${prefix}\uffff` }
+  }
+  if (mode === 'over') {
+    return { prefix: basketPrefix, start: `${basketPrefix}${padNumber(satoshis)}`, end: `${basketPrefix}\uffff` }
+  }
+  return { prefix: basketPrefix, start: `${basketPrefix}${padNumber(satoshis)}`, end: basketPrefix, reverse: true }
+}
+
+function spendableValueSeededBucketRanges (
+  userId: number,
+  basketId: number,
+  satoshis: number,
+  seed: number,
+  reverse: boolean
+): SpendableValueRange[] {
+  const prefix = outputSpendableBasketValueSatoshisPrefix(userId, basketId, satoshis)
+  const seededKey = `${prefix}${padNumber(seed)}`
+  if (reverse) {
+    return [
+      { prefix, start: seededKey, end: prefix, reverse: true },
+      { prefix, start: `${prefix}\uffff`, end: seededKey, reverse: true }
+    ]
+  }
+  return [
+    { prefix, start: seededKey, end: `${prefix}\uffff` },
+    { prefix, start: prefix, end: seededKey }
+  ]
+}
+
+function spendableStatusValueSeededBucketRanges (
+  userId: number,
+  basketId: number,
+  status: string,
+  satoshis: number,
+  seed: number,
+  reverse: boolean
+): SpendableValueRange[] {
+  const prefix = outputSpendableBasketStatusValueSatoshisPrefix(userId, basketId, status, satoshis)
+  const seededKey = `${prefix}${padNumber(seed)}`
+  if (reverse) {
+    return [
+      { prefix, start: seededKey, end: prefix, reverse: true },
+      { prefix, start: `${prefix}\uffff`, end: seededKey, reverse: true }
+    ]
+  }
+  return [
+    { prefix, start: seededKey, end: `${prefix}\uffff` },
+    { prefix, start: prefix, end: seededKey }
+  ]
+}
+
+function spendableReservationSeed (transactionId: number): number {
+  if (!Number.isSafeInteger(transactionId) || transactionId < 0) return 0
+  return transactionId
+}
+
+function positiveModulo (value: number, divisor: number): number {
+  if (!Number.isSafeInteger(divisor) || divisor <= 0) return 0
+  const result = value % divisor
+  return result < 0 ? result + divisor : result
+}
+
+function satoshisFromSpendableValueKey (key: string): number | undefined {
+  if (!key.startsWith(OUTPUT_SPENDABLE_VALUE_PREFIX) && !key.startsWith(OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX)) return undefined
+  const parts = key.split('!')
+  const raw = key.startsWith(OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX) ? parts[7] : parts[5]
+  if (raw == null) return undefined
+  const value = Number(raw)
+  return Number.isSafeInteger(value) && value >= 0 ? value : undefined
+}
+
+function outputIdFromSpendableValueKey (key: string): number | undefined {
+  if (!key.startsWith(OUTPUT_SPENDABLE_VALUE_PREFIX) && !key.startsWith(OUTPUT_SPENDABLE_STATUS_VALUE_PREFIX)) return undefined
+  const parts = key.split('!')
+  const raw = parts[parts.length - 1]
+  if (raw == null) return undefined
+  const value = Number(raw)
+  return Number.isSafeInteger(value) && value >= 0 ? value : undefined
+}
+
 function outputOutpointKey (userId: number, txid: string, vout: number): string {
   return `${OUTPUT_OUTPOINT_PREFIX}${padNumber(userId)}!${normalizeIndexPart(txid)}!${padNumber(vout)}`
+}
+
+function outputTransactionPrefix (transactionId: number): string {
+  return `${OUTPUT_TRANSACTION_PREFIX}${padNumber(transactionId)}!`
+}
+
+function outputTransactionKey (transactionId: number, outputId: number): string {
+  return `${outputTransactionPrefix(transactionId)}${padNumber(outputId)}`
 }
 
 function normalizeIndexPart (value: string): string {

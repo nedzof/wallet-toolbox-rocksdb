@@ -179,6 +179,129 @@ describe('RocksDbWalletStore', () => {
     }
   })
 
+  test('reserves spendable outputs through value-ordered index', async () => {
+    const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
+    try {
+      const outputs = [10, 50, 100].map((satoshis, index) => makeOutput({
+        outputId: index + 1,
+        userId: 9,
+        basketId: 13,
+        spendable: true,
+        txid: String(index + 1).repeat(64),
+        vout: 0,
+        satoshis,
+        lockingScript: [0x51]
+      }))
+      for (const output of outputs) {
+        await store.putOutput(output)
+        await store.put({ key: `entity!outputs!${output.outputId}`, value: output })
+      }
+
+      const exact = await store.reserveSpendableOutputByValue(9, 13, 'exact', 50, () => true, 500, id => `entity!outputs!${id}`)
+      const over = await store.reserveSpendableOutputByValue(9, 13, 'over', 51, () => true, 501, id => `entity!outputs!${id}`)
+      const under = await store.reserveSpendableOutputByValue(9, 13, 'under', 51, () => true, 502, id => `entity!outputs!${id}`)
+
+      expect(exact?.outputId).toBe(2)
+      expect(over?.outputId).toBe(3)
+      expect(under?.outputId).toBe(1)
+      expect((await store.findSpendableOutputs(9, 13)).map(output => output.outputId)).toEqual([])
+    } finally {
+      store.close()
+    }
+  })
+
+  test('starts value-ordered reservations from a transaction-derived seed', async () => {
+    const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
+    try {
+      const outputs = Array.from({ length: 4 }, (_, index) => makeOutput({
+        outputId: index + 1,
+        userId: 9,
+        basketId: 13,
+        spendable: true,
+        txid: String(index + 1).repeat(64),
+        vout: 0,
+        satoshis: 50,
+        lockingScript: [0x51]
+      }))
+      for (const output of outputs) {
+        await store.putOutput(output)
+        await store.put({ key: `entity!outputs!${output.outputId}`, value: output })
+      }
+
+      const seeded = await store.reserveSpendableOutputByValue(9, 13, 'over', 1, () => true, 3, id => `entity!outputs!${id}`)
+      const nextSeeded = await store.reserveSpendableOutputByValue(9, 13, 'over', 1, () => true, 4, id => `entity!outputs!${id}`)
+      const wrapped = await store.reserveSpendableOutputByValue(9, 13, 'over', 1, () => true, 5, id => `entity!outputs!${id}`)
+
+      expect(seeded?.outputId).toBe(3)
+      expect(nextSeeded?.outputId).toBe(4)
+      expect(wrapped?.outputId).toBe(1)
+    } finally {
+      store.close()
+    }
+  })
+
+  test('reserves spendable outputs through transaction-status value index', async () => {
+    const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
+    try {
+      const completed = makeOutput({
+        outputId: 1,
+        userId: 9,
+        basketId: 13,
+        transactionId: 101,
+        spendable: true,
+        txid: '1'.repeat(64),
+        vout: 0,
+        satoshis: 50,
+        lockingScript: [0x51]
+      })
+      const sending = makeOutput({
+        outputId: 2,
+        userId: 9,
+        basketId: 13,
+        transactionId: 102,
+        spendable: true,
+        txid: '2'.repeat(64),
+        vout: 0,
+        satoshis: 10,
+        lockingScript: [0x51]
+      })
+      const unproven = makeOutput({
+        outputId: 3,
+        userId: 9,
+        basketId: 13,
+        transactionId: 103,
+        spendable: true,
+        txid: '3'.repeat(64),
+        vout: 0,
+        satoshis: 20,
+        lockingScript: [0x51]
+      })
+      await store.putOutput(completed, 'completed')
+      await store.put({ key: `entity!outputs!${completed.outputId}`, value: completed })
+      await store.putOutput(sending, 'sending')
+      await store.put({ key: `entity!outputs!${sending.outputId}`, value: sending })
+      await store.putOutput(unproven, 'unproven')
+      await store.put({ key: `entity!outputs!${unproven.outputId}`, value: unproven })
+
+      expect(await store.countSpendableOutputsByTransactionStatus(9, 13, ['completed', 'unproven'])).toBe(2)
+      const reserved = await store.reserveSpendableOutputByStatusAndValue(
+        9,
+        13,
+        ['completed', 'unproven'],
+        'over',
+        1,
+        () => true,
+        500,
+        id => `entity!outputs!${id}`
+      )
+
+      expect(reserved?.outputId).not.toBe(sending.outputId)
+      expect([completed.outputId, unproven.outputId]).toContain(reserved?.outputId)
+    } finally {
+      store.close()
+    }
+  })
+
   test('uses write-heavy defaults for RocksDB open options metadata', async () => {
     const store = await RocksDbWalletStore.open({ path: path.join(dir, 'wallet.rocksdb') })
     try {

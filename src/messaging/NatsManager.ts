@@ -320,7 +320,7 @@ export class NatsManager {
       storage: StorageType.File,
       discard: DiscardPolicy.Old,
       max_age: nanos(definition.maxAgeMs),
-      max_bytes: definition.maxBytes,
+      max_bytes: positiveIntFromEnv(streamMaxBytesEnvNames(streamName), definition.maxBytes),
       duplicate_window: nanos(definition.duplicateWindowMs),
       num_replicas: this.options.replicas ?? positiveIntFromEnv('NATS_REPLICAS', 1),
       ...this.options.streamConfigs?.[streamName]
@@ -337,7 +337,21 @@ function isMissingResourceError (error: unknown): boolean {
   return /not found|stream.*missing|consumer.*missing|no response/i.test(message)
 }
 
-function positiveIntFromEnv (name: string, fallback: number): number {
-  const value = Number(process.env[name] ?? fallback)
-  return Number.isSafeInteger(value) && value > 0 ? value : fallback
+function streamMaxBytesEnvNames (streamName: NatsStreamName): string[] {
+  return [
+    `WALLET_TOOLBOX_NATS_${streamName}_MAX_BYTES`,
+    `NATS_${streamName}_MAX_BYTES`,
+    'WALLET_TOOLBOX_NATS_STREAM_MAX_BYTES'
+  ]
+}
+
+function positiveIntFromEnv (names: string | string[], fallback: number): number {
+  const envNames = Array.isArray(names) ? names : [names]
+  for (const name of envNames) {
+    const rawValue = process.env[name]
+    if (rawValue == null || rawValue.trim() === '') continue
+    const value = Number(rawValue)
+    if (Number.isSafeInteger(value) && value > 0) return value
+  }
+  return fallback
 }

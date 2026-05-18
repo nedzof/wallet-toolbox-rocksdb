@@ -9,9 +9,10 @@ Source objective: implement `docs/rocksdb_scaling.md` for
 
 The wallet-toolbox-owned implementation work is complete for the critical
 rebroadcast bug fix and the real-network testnet harness. Final end-to-end
-production readiness is not fully provable in this checkout because the live
-testnet run requires funded credentials that are not present in the environment,
-and the distributed Nektar runtime adapter work belongs outside this package.
+production readiness is not complete: the live signer-config run now has
+funded wallet-toolbox/paymail outpoints, but the createAction path only reached
+2.51 TPS in Stage 1 against the required 10 TPS target. The distributed Nektar
+runtime adapter work also remains outside this package.
 
 ## Prompt-To-Artifact Checklist
 
@@ -26,17 +27,17 @@ and the distributed Nektar runtime adapter work belongs outside this package.
 | Unit tests for rebroadcast path | `test/storage/EntityProvenTxReq.rebroadcast.test.ts`, `test/monitor/TaskCheckForProofs.rebroadcast.test.ts` | Implemented |
 | Adversarial empty-block timeout simulation | `TaskCheckForProofs.rebroadcast.test.ts` covers a request that previously reached `unmined` and times out without proof | Implemented |
 | CI-safe testnet load harness gate | `npm run loadtest:testnet` skips unless `TESTNET_LOAD_ENABLED=1` | Implemented |
-| Require live testnet credentials | `TestnetThroughput.load.ts` requires `ARC_URL`, `ARC_API_KEY`, and `TESTNET_WALLET_WIF` when enabled | Implemented |
+| Require live testnet credentials | `TestnetThroughput.load.ts` accepts `ARC_URL`/Nektar ARC aliases, token aliases, and one funded wallet source: preferred signer config (`TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG` / `NEKTAR_AUTONOMOUS_TESTNET_SIGNER_CONFIG`) or legacy WIF/root hex/root-key file | Implemented |
 | Use real temp RocksDB store | `TestnetThroughput.load.ts` opens `StorageRocksDb` in an OS temp directory and removes it in `finally` | Implemented |
-| Use real testnet services | Harness creates `Services` with `chain='test'`, `ARC_URL`, and `ARC_API_KEY` | Implemented |
+| Use real testnet services | Harness creates `Services` with `chain='test'`, GorillaPool-compatible ARC URL/token resolution, and Nektar env fallbacks | Implemented |
 | Use wallet-toolbox wallet with RocksDB storage | Harness creates `WalletStorageManager` over `StorageRocksDb` and a `Wallet` | Implemented |
-| Import funded testnet UTXOs | Harness discovers P2PKH UTXOs for `TESTNET_WALLET_WIF` or accepts `TESTNET_LOAD_OUTPOINTS` | Implemented |
+| Import funded testnet UTXOs | Harness can read the Nektar signer config, scan the local wallet-toolbox/paymail RocksDB UTXO inventory read-only, import eligible P2PKH outpoints into a temp `StorageRocksDb`, or accept `TESTNET_LOAD_OUTPOINTS` | Implemented |
 | Stage 10 tx/s x 10s, 10 tx/s x 60s, 50 tx/s x 10s | Harness stage table matches the source goal ceiling | Implemented |
 | Create P2PKH self-send transactions using `createAction` | Harness calls `wallet.createAction()` with a P2PKH self-send output | Implemented |
 | Measure TPS and latency percentiles | Harness records attempted/succeeded/failed, actual TPS, p50/p95/p99 latency | Implemented |
-| Capture cache, queue, provider, and storage metrics | Harness uses `metricsSnapshot()` and prints full Prometheus text after every stage | Implemented |
+| Capture cache, queue, provider, and storage metrics | Harness passes `services.metrics` into `StorageRocksDb`, uses `metricsSnapshot()`, and prints full Prometheus text after every stage | Implemented |
 | Stop cleanly on rate limits or UTXO exhaustion | Harness classifies provider rate limits and UTXO exhaustion, stops the ladder, and cleans up | Implemented |
-| Distributed message backbone | `nats` dependency, `NatsManager`, message contracts, stream configs, durable consumer defaults, and Redis/BullMQ dependency guard are present | Implemented |
+| Distributed message backbone | `nats` dependency, `NatsManager`, message contracts, stream configs, durable consumer defaults, env-based stream max-byte overrides, and Redis/BullMQ dependency guard are present | Implemented |
 | Distributed broadcast pipeline | `BroadcastPublisher`, JetStream-aware `BroadcastConsumer`, and `TaskSendWaiting` publisher path are present; raw transaction bytes are not published in `TxBroadcastMessage` | Implemented |
 | Distributed cache invalidation | `CacheInvalidationPublisher` dual-publishes local/NATS invalidations and `CacheInvalidationConsumer` applies block/UTXO/reorg invalidation | Implemented |
 | Proof request wake-up pipeline | `ProofRequestPublisher`, `ProofRequestConsumer`, and `BlockEventConsumer` provide the distributed proof-request interfaces | Implemented |
@@ -45,15 +46,28 @@ and the distributed Nektar runtime adapter work belongs outside this package.
 | Runtime dependency policy | `nats` is allowed for JetStream; Redis and BullMQ remain blocked; `npm run depcheck` passes with 0 errors | Verified |
 | Update practical test docs | `docs/practical-testing-plan.md` documents prerequisites, run command, ladder, and bottleneck triage | Implemented |
 | Update implementation audit row | `docs/refactor-rocksdb-implementation-audit.md` now describes the package-local live harness | Implemented |
-| Execute staged live testnet validation | Environment has `TESTNET_LOAD_ENABLED`, `ARC_URL`, `ARC_API_KEY`, `TESTNET_WALLET_WIF`, and `TESTNET_LOAD_OUTPOINTS` unset | Blocked |
-| Optimize based on live bottleneck results | Requires live testnet bottleneck evidence first | Blocked |
+| Execute staged live testnet validation | GorillaPool/Nektar ARC env, local signer config, and funded wallet-toolbox/paymail outpoints are present; Stage 1 created 100/100 actions but reached only 2.51 TPS | Blocked |
+| Optimize based on live bottleneck results | Latest live artifact classifies the first blocker as `storage_manager_writer_serialization` with p95 create latency 4017 ms, storage p95 1 ms, and transaction tail max depth 1 | Blocked |
 | Nektar runtime adapter and JetStream deployment | Source doc states this belongs in a separate Nektar repository, not wallet-toolbox | External |
 | Production 1000 tx/s validation | Requires funded 1000 tx/s testnet run and operational Nektar/runtime evidence | Blocked |
 
 ## Verification Run
 
-- `npm test`: 87 suites passed, 635 tests passed, 10 skipped.
+- `npm test`: 100 suites passed, 677 tests passed, 16 skipped.
+- `npx jest test/performance/TestnetThroughputConfig.test.ts --runInBand`: 6 tests passed.
+- `npx jest test/storage/RocksDbWalletStore.test.ts --runInBand`: 11 tests passed.
+- `npx jest test/storage/StorageRocksDb.test.ts --runInBand`: 4 tests passed.
+- `npm run build`: passed.
 - `npm run loadtest:testnet`: skipped cleanly with live env unset.
+- Nektar signer-config live run:
+  `TESTNET_WALLET_TOOLBOX_SIGNER_CONFIG=.nektar-runtime/autonomous-commerce/testnet-signer-config.json`
+  resolved GorillaPool ARC and the local wallet-toolbox/paymail store, imported
+  2 funded outpoints, and produced the latest throughput artifact. Stage 1
+  reached 2.51 TPS, with `storage_manager_writer_serialization` as the
+  bottleneck. The latest RocksDB allocation/count changes lowered Stage 1
+  storage `get` operations from roughly 38k to roughly 5.9k, but the global
+  wallet writer path still serializes createAction throughput below the target.
+- Hetzner JetStream preflight: `TX_BROADCAST` publish/pull/ACK passed over a temporary SSH tunnel, and wallet-toolbox stream initialization succeeded after setting 10 MiB caps for `PROOF_REQUESTS`, `CACHE_INVALIDATE`, and `DEAD_LETTER`; no transaction broadcast was attempted.
 - `npm run loadtest:single-instance`: passed 1000 mocked calls with peak concurrency 100.
 - `npm run benchmark:rocksdb-indexes`: passed; 1000 outputs, query timings recorded.
 - `npm run depcheck`: 0 errors, 15 existing circular-dependency warnings.

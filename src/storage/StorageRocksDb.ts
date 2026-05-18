@@ -73,6 +73,7 @@ const outputDateFields = ['cacheUpdatedAt']
 const SETTINGS_KEY = 'settings'
 const COUNTER_PREFIX = 'meta!nextId!'
 const ENTITY_PREFIX = 'entity!'
+const ROCKSDB_ID_BLOCK_SIZE = 256
 
 type EntityTable =
   | 'certificate_fields'
@@ -113,6 +114,8 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   private readonly ownsStore: boolean
   private transactionTail: Promise<unknown> = Promise.resolve()
   private transactionTailQueueDepth = 0
+  private readonly idBlocks = new Map<EntityTable, { next: number, end: number }>()
+  private readonly idBlockRefills = new Map<EntityTable, Promise<void>>()
 
   constructor (options: StorageRocksDbOptions) {
     super(options)
@@ -121,6 +124,10 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
     this.storePath = options.path
     this.rocksDbOptions = options.rocksDb
     this.ownsStore = options.store == null
+  }
+
+  supportsConcurrentActionWrites (): boolean {
+    return true
   }
 
   async migrate (storageName: string, storageIdentityKey: string): Promise<string> {
@@ -207,33 +214,57 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   ): Promise<TableOutput | undefined> {
     const txStatus: TransactionStatus[] = ['completed', 'unproven']
     if (!excludeSending) txStatus.push('sending')
-    const outputs = await this.findOutputs({ partial: { userId, basketId, spendable: true }, txStatus, noScript: true })
-    let output = exactSatoshis === undefined ? undefined : outputs.find(o => o.satoshis === exactSatoshis)
-    if (output == null) {
-      const over = outputs
-        .filter(o => o.satoshis >= targetSatoshis)
-        .sort((a, b) => a.satoshis - b.satoshis || a.outputId - b.outputId)
-      output = over[0]
+    const store = await this.verifyStore()
+    const hasAcceptedStatus = async (output: TableOutput): Promise<boolean> => {
+      const tx = verifyOneOrNone(await this.findTransactions({
+        partial: { transactionId: output.transactionId },
+        status: txStatus,
+        noRawTx: true
+      }))
+      return tx != null
     }
-    if (output == null) {
-      const under = outputs
-        .filter(o => o.satoshis < targetSatoshis)
-        .sort((a, b) => b.satoshis - a.satoshis || b.outputId - a.outputId)
-      output = under[0]
-    }
+    let output = exactSatoshis === undefined
+      ? undefined
+      : await store.reserveSpendableOutputByStatusAndValue(
+        userId,
+        basketId,
+        txStatus,
+        'exact',
+        exactSatoshis,
+        async o => o.satoshis === exactSatoshis && await hasAcceptedStatus(o),
+        transactionId,
+        outputId => entityKey(outputDefinition.table, String(outputId))
+      )
+    output ??= await store.reserveSpendableOutputByStatusAndValue(
+      userId,
+      basketId,
+      txStatus,
+      'over',
+      targetSatoshis,
+      async o => o.satoshis >= targetSatoshis && await hasAcceptedStatus(o),
+      transactionId,
+      outputId => entityKey(outputDefinition.table, String(outputId))
+    )
+    output ??= await store.reserveSpendableOutputByStatusAndValue(
+      userId,
+      basketId,
+      txStatus,
+      'under',
+      targetSatoshis,
+      async o => o.satoshis < targetSatoshis && await hasAcceptedStatus(o),
+      transactionId,
+      outputId => entityKey(outputDefinition.table, String(outputId))
+    )
     if (output == null) return undefined
-    const fullOutput = verifyOneOrNone(await this.findOutputs({ partial: { outputId: output.outputId } }))
-    if (fullOutput == null) return undefined
-    await this.updateOutput(fullOutput.outputId, { spendable: false, spentBy: transactionId })
-    fullOutput.spendable = false
-    fullOutput.spentBy = transactionId
-    return fullOutput
+    output = this.validateEntity(output, outputDateFields, ['spendable', 'change'])
+    await this.validateOutputScript(output)
+    return output
   }
 
   async countChangeInputs (userId: number, basketId: number, excludeSending: boolean): Promise<number> {
+    if (!excludeSending) return await (await this.verifyStore()).countSpendableOutputs(userId, basketId)
     const txStatus: TransactionStatus[] = ['completed', 'unproven']
-    if (!excludeSending) txStatus.push('sending')
-    return await this.countOutputs({ partial: { userId, basketId, spendable: true }, txStatus, noScript: true })
+    return await (await this.verifyStore()).countSpendableOutputsByTransactionStatus(userId, basketId, txStatus)
   }
 
   async getProvenOrRawTx (txid: string, trx?: TrxToken): Promise<ProvenOrRawTx> {
@@ -355,7 +386,7 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   async insertOutput (output: TableOutput, trx?: TrxToken): Promise<number> {
     applyOutputScriptMetadata(output)
     const id = await this.insertEntity(outputDefinition, output, trx)
-    await (await this.verifyStore()).putOutput(output)
+    await (await this.verifyStore()).putOutput(output, await this.transactionStatusForOutput(output, trx))
     return id
   }
 
@@ -419,7 +450,7 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
     applyOutputScriptMetadata(update)
     const updated = await this.updateById(outputDefinition, id, update, trx)
     const output = verifyOneOrNone(await this.findOutputs({ partial: { outputId: id }, trx }))
-    if (output != null) await (await this.verifyStore()).putOutput(output)
+    if (output != null) await (await this.verifyStore()).putOutput(output, await this.transactionStatusForOutput(output, trx))
     return updated
   }
 
@@ -453,7 +484,13 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   async updateTransaction (id: number | number[], update: Partial<TableTransaction>, trx?: TrxToken): Promise<number> {
     const ids = Array.isArray(id) ? id : [id]
     let count = 0
-    for (const singleId of ids) count += await this.updateById(transactionDefinition, singleId, update, trx)
+    for (const singleId of ids) {
+      const existing = await this.getEntity(transactionDefinition, String(singleId))
+      count += await this.updateById(transactionDefinition, singleId, update, trx)
+      if (existing != null && update.status != null && update.status !== existing.status) {
+        await this.reindexOutputsForTransactionStatus(singleId, existing.status, update.status, trx)
+      }
+    }
     return count
   }
 
@@ -514,7 +551,8 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
 
   async findOutputs (args: FindOutputsArgs, tagIds?: number[], isQueryModeAll?: boolean): Promise<TableOutput[]> {
     if (args.partial.lockingScript != null) throw new WERR_INVALID_PARAMETER('args.partial.lockingScript', 'undefined. Outputs may not be found by lockingScript value.')
-    let rows = await this.findEntities(outputDefinition, args)
+    let rows = await this.findOutputsFromIndex(args, tagIds)
+    rows ??= await this.findEntities(outputDefinition, args)
     if (args.txStatus != null && args.txStatus.length > 0) {
       const filtered: TableOutput[] = []
       for (const output of rows) {
@@ -736,12 +774,49 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   }
 
   private async nextId (table: EntityTable): Promise<number> {
+    for (;;) {
+      const block = this.idBlocks.get(table)
+      if (block != null && block.next <= block.end) return block.next++
+      let refill = this.idBlockRefills.get(table)
+      if (refill == null) {
+        refill = this.refillIdBlock(table)
+        this.idBlockRefills.set(table, refill)
+      }
+      await refill
+    }
+  }
+
+  private async refillIdBlock (table: EntityTable): Promise<void> {
+    try {
+      const store = await this.verifyStore()
+      const key = `${COUNTER_PREFIX}${table}`
+      const end = await store.incrementNumber(key, ROCKSDB_ID_BLOCK_SIZE)
+      this.idBlocks.set(table, { next: end - ROCKSDB_ID_BLOCK_SIZE + 1, end })
+    } finally {
+      this.idBlockRefills.delete(table)
+    }
+  }
+
+  private async transactionStatusForOutput (output: TableOutput, trx?: TrxToken): Promise<TransactionStatus | undefined> {
+    const tx = verifyOneOrNone(await this.findTransactions({
+      partial: { transactionId: output.transactionId },
+      noRawTx: true,
+      trx
+    }))
+    return tx?.status
+  }
+
+  private async reindexOutputsForTransactionStatus (
+    transactionId: number,
+    fromStatus: TransactionStatus | undefined,
+    toStatus: TransactionStatus | undefined,
+    _trx?: TrxToken
+  ): Promise<void> {
     const store = await this.verifyStore()
-    const key = `${COUNTER_PREFIX}${table}`
-    const current = await store.get<number>(key)
-    const next = (current?.value ?? 0) + 1
-    await store.put({ key, value: next })
-    return next
+    const outputs = await store.findOutputsByTransactionId(transactionId)
+    for (const output of outputs) {
+      await store.reindexOutputTransactionStatus(output, fromStatus, toStatus)
+    }
   }
 
   private async insertEntity<T extends EntityTimeStamp> (definition: TableDefinition<T>, entity: T, trx?: TrxToken): Promise<number> {
@@ -786,16 +861,40 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
     args: { partial: Partial<T>, since?: Date, paged?: { limit: number, offset?: number }, orderDescending?: boolean }
   ): Promise<T[]> {
     this.assertNoUndefinedInPartial(args.partial as Record<string, unknown>)
-    const records = await (await this.verifyStore()).scan<T>({ prefix: entityPrefix(definition.table), limit: Number.MAX_SAFE_INTEGER })
-    let rows = records
-      .map(record => this.validateEntity(record.value, definition.dateFields, definition.booleanFields))
-      .filter(row => definition.match(row, args.partial))
+    const primaryId = definition.id == null ? undefined : (args.partial as Record<string, unknown>)[definition.id]
+    let rows: T[]
+    if (primaryId != null) {
+      const row = await this.getEntity(definition, String(primaryId))
+      rows = row != null && definition.match(row, args.partial) ? [row] : []
+    } else {
+      const records = await (await this.verifyStore()).scan<T>({ prefix: entityPrefix(definition.table), limit: Number.MAX_SAFE_INTEGER })
+      rows = records
+        .map(record => this.validateEntity(record.value, definition.dateFields, definition.booleanFields))
+        .filter(row => definition.match(row, args.partial))
+    }
     if (args.since != null) rows = rows.filter(row => row.updated_at >= args.since!)
     rows.sort((a, b) => compareEntityKeys(definition.key(a), definition.key(b), args.orderDescending === true))
     const offset = args.paged?.offset ?? 0
     const limit = args.paged?.limit
     if (limit != null) rows = rows.slice(offset, offset + limit)
     else if (offset > 0) rows = rows.slice(offset)
+    return rows
+  }
+
+  private async findOutputsFromIndex (args: FindOutputsArgs, tagIds?: number[]): Promise<TableOutput[] | undefined> {
+    if (tagIds != null && tagIds.length > 0) return undefined
+    if (args.since != null || args.paged != null) return undefined
+    if (args.partial.spendable !== true) return undefined
+    if (!Number.isInteger(args.partial.userId)) return undefined
+    if (args.partial.basketId != null && !Number.isInteger(args.partial.basketId)) return undefined
+    const userId = args.partial.userId
+    if (userId == null) return undefined
+    const store = await this.verifyStore()
+    const indexed = await store.findSpendableOutputs(userId, args.partial.basketId)
+    const rows = indexed
+      .map(output => this.validateEntity(output, outputDateFields, ['spendable', 'change']))
+      .filter(output => outputDefinition.match(output, args.partial))
+    rows.sort((a, b) => compareEntityKeys(outputDefinition.key(a), outputDefinition.key(b), args.orderDescending === true))
     return rows
   }
 

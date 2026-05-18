@@ -64,6 +64,52 @@ describe('StorageRocksDb', () => {
     }
   })
 
+  test('allocates transaction ids without duplicates under concurrent inserts', async () => {
+    const storage = await createStorage('concurrent-ids', '55'.repeat(32))
+    try {
+      const { user } = await storage.findOrInsertUser(PrivateKey.fromRandom().toPublicKey().toString())
+      const ids = await Promise.all(Array.from({ length: 20 }, async (_, index) => {
+        return await storage.insertTransaction(makeTransaction(user.userId, txidFor(index + 1), 1))
+      }))
+
+      expect(new Set(ids).size).toBe(ids.length)
+      expect([...ids].sort((a, b) => a - b)).toEqual(Array.from({ length: 20 }, (_, index) => index + 1))
+    } finally {
+      await storage.destroy()
+    }
+  })
+
+  test('reserves distinct change outputs under concurrent allocation', async () => {
+    const storage = await createStorage('concurrent-change', '66'.repeat(32))
+    try {
+      const { user } = await storage.findOrInsertUser(PrivateKey.fromRandom().toPublicKey().toString())
+      const [basket] = await storage.findOutputBaskets({ partial: { userId: user.userId, name: 'default' } })
+      const sourceTransactionId = await storage.insertTransaction(makeTransaction(user.userId, txidFor(100), 500))
+      const sourceOutputIds = await Promise.all(Array.from({ length: 10 }, async (_, index) => {
+        return await storage.insertOutput({
+          ...makeOutput(user.userId, basket.basketId, sourceTransactionId, txidFor(100), 50),
+          vout: index
+        })
+      }))
+
+      const allocated = await Promise.all(sourceOutputIds.map(async (_, index) => {
+        return await storage.allocateChangeInput(user.userId, basket.basketId, 1, undefined, true, 1000 + index)
+      }))
+
+      const allocatedOutputs = allocated.filter((output): output is TableOutput => output != null)
+      const allocatedIds = allocatedOutputs.map(output => output.outputId)
+      const storedOutputs = await storage.findOutputs({ partial: { userId: user.userId, basketId: basket.basketId }, noScript: true })
+
+      expect(allocatedOutputs).toHaveLength(sourceOutputIds.length)
+      expect(new Set(allocatedIds).size).toBe(sourceOutputIds.length)
+      expect(await storage.countChangeInputs(user.userId, basket.basketId, true)).toBe(0)
+      expect(storedOutputs.every(output => output.spendable === false)).toBe(true)
+      expect(new Set(storedOutputs.map(output => output.spentBy)).size).toBe(sourceOutputIds.length)
+    } finally {
+      await storage.destroy()
+    }
+  })
+
   test('backs a Wallet.createAction flow', async () => {
     const rootKey = PrivateKey.fromRandom()
     const keyDeriver = new CachedKeyDeriver(rootKey)
@@ -200,5 +246,9 @@ describe('StorageRocksDb', () => {
       txid,
       lockingScript: [0x51]
     }
+  }
+
+  function txidFor (value: number): string {
+    return value.toString(16).padStart(64, '0')
   }
 })

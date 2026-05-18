@@ -113,6 +113,10 @@ export interface WalletStorageProvider extends WalletStorageSync {
    * @returns true if this object's interface can be extended to the full `StorageProvider` interface
    */
   isStorageProvider: () => boolean
+  /**
+   * @returns true when createAction/processAction writes may run concurrently for a single active provider.
+   */
+  supportsConcurrentActionWrites?: () => boolean
   setServices: (v: WalletServices) => void
 }
 

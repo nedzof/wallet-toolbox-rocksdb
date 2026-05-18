@@ -411,7 +411,7 @@ export async function generateChangeSdk (
       throw new WERR_INTERNAL(`generateChangeSdk error: ${log}`)
     }
 
-    if (r.allocatedChangeInputs.length > 4 && r.changeOutputs.length > 4) {
+    if (params.noLogging === false && r.allocatedChangeInputs.length > 4 && r.changeOutputs.length > 4) {
       console.log('generateChangeSdk_Capture_too_many_ins_and_outs')
       logGenerateChangeSdkParams(params)
     }

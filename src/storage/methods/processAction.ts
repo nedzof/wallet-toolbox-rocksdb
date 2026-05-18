@@ -12,7 +12,8 @@ import {
   AuthId,
   ReviewActionResult,
   StorageProcessActionArgs,
-  StorageProcessActionResults
+  StorageProcessActionResults,
+  TrxToken
 } from '../../sdk/WalletStorage.interfaces'
 import { stampLog } from '../../utility/stampLog'
 import {
@@ -403,7 +404,7 @@ async function commitNewTxToStorage (
 
   let req: EntityProvenTxReq | undefined
 
-  await storage.transaction(async trx => {
+  const commit = async (trx?: TrxToken): Promise<void> => {
     log = stampLog(log, '... storage commitNewTxToStorage storage transaction start')
 
     // Create initial 'nosend' proven_tx_req record to store signed, valid rawTx and input beef
@@ -420,7 +421,10 @@ async function commitNewTxToStorage (
     await storage.updateTransaction(vargs.transactionId, vargs.transactionUpdate, trx)
 
     log = stampLog(log, '... storage commitNewTxToStorage storage transaction end')
-  })
+  }
+
+  if (storageSupportsConcurrentActionWrites(storage)) await commit()
+  else await storage.transaction(commit)
 
   log = stampLog(log, '... storage commitNewTxToStorage storage transaction await done')
 
@@ -432,4 +436,8 @@ async function commitNewTxToStorage (
   log = stampLog(log, 'end storage commitNewTxToStorage')
 
   return r
+}
+
+function storageSupportsConcurrentActionWrites (storage: StorageProvider): boolean {
+  return (storage as unknown as { supportsConcurrentActionWrites?: () => boolean }).supportsConcurrentActionWrites?.() === true
 }

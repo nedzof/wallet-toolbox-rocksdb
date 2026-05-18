@@ -82,6 +82,39 @@ describe('NatsManager', () => {
     expect(payload.rawTx).toBeUndefined()
   })
 
+  test('allows env-based JetStream max byte overrides for constrained live brokers', async () => {
+    const originalGlobal = process.env.WALLET_TOOLBOX_NATS_STREAM_MAX_BYTES
+    const originalDeadLetter = process.env.WALLET_TOOLBOX_NATS_DEAD_LETTER_MAX_BYTES
+    process.env.WALLET_TOOLBOX_NATS_STREAM_MAX_BYTES = '10485760'
+    process.env.WALLET_TOOLBOX_NATS_DEAD_LETTER_MAX_BYTES = '1048576'
+    const add = jest.fn(async () => ({}))
+    const info = jest.fn(async () => { throw new Error('stream not found') })
+    const manager = new NatsManager({
+      jetstreamManager: {
+        streams: { add, update: jest.fn(), info },
+        consumers: {}
+      } as any
+    })
+
+    try {
+      await manager.initializeStreams()
+
+      expect(add).toHaveBeenCalledWith(expect.objectContaining({
+        name: 'TX_BROADCAST',
+        max_bytes: 10485760
+      }))
+      expect(add).toHaveBeenCalledWith(expect.objectContaining({
+        name: 'DEAD_LETTER',
+        max_bytes: 1048576
+      }))
+    } finally {
+      if (originalGlobal == null) delete process.env.WALLET_TOOLBOX_NATS_STREAM_MAX_BYTES
+      else process.env.WALLET_TOOLBOX_NATS_STREAM_MAX_BYTES = originalGlobal
+      if (originalDeadLetter == null) delete process.env.WALLET_TOOLBOX_NATS_DEAD_LETTER_MAX_BYTES
+      else process.env.WALLET_TOOLBOX_NATS_DEAD_LETTER_MAX_BYTES = originalDeadLetter
+    }
+  })
+
   test('ensures durable consumers and reports connection health', async () => {
     const consumerInfo = jest.fn(async () => { throw new Error('consumer not found') })
     const addConsumer = jest.fn(async () => ({}))
