@@ -62,7 +62,7 @@ describe('Services cache integration', () => {
     expect(getUtxoStatus).toHaveBeenCalledTimes(2)
   })
 
-  test('isUtxo useNext bypasses cached hints for spend-authoritative checks', async () => {
+  test('isUtxo bypasses cached hints for spend-authoritative checks', async () => {
     const services = new Services('test')
     const output = {
       outputId: 1,
@@ -85,14 +85,15 @@ describe('Services cache integration', () => {
     const getUtxoStatus: GetUtxoStatusService = jest.fn()
       .mockResolvedValueOnce(cachedHint)
       .mockResolvedValueOnce(freshStatus)
+      .mockResolvedValueOnce(freshStatus)
     services.getUtxoStatusServices = new ServiceCollection<GetUtxoStatusService>('getUtxoStatus')
       .add({ name: 'fake', service: getUtxoStatus })
 
     await expect(services.isUtxo(output)).resolves.toBe(true)
-    await expect(services.isUtxo(output)).resolves.toBe(true)
+    await expect(services.isUtxo(output)).resolves.toBe(false)
     await expect(services.isUtxo(output, true)).resolves.toBe(false)
 
-    expect(getUtxoStatus).toHaveBeenCalledTimes(2)
+    expect(getUtxoStatus).toHaveBeenCalledTimes(3)
   })
 
   test('caches block headers and clears them on reorg events', async () => {

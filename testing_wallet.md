@@ -148,7 +148,7 @@ Add a row to the checklist table:
 
 \- The harness must exit cleanly even if ARC rate-limits or the wallet runs out of UTXOs. Log the failure stage and exit 0 with a clear message.
 
-\- Use RocksDbWalletStore for storage, not SQLite/Knex.
+\- Use RocksDbWalletStore for storage, not alternate SQL/Knex providers.
 
 \- The harness should be safe to run in CI with TESTNET\_LOAD\_ENABLED unset (it just skips).
 

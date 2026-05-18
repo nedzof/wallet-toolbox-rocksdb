@@ -11,6 +11,8 @@ describe('WalletToolboxMetrics', () => {
     metrics.recordPostBeefProvider('arc', 'success', 250)
     metrics.setPostBeefQueue(11, 4)
     metrics.setSendWaitingQueue(22, 5)
+    metrics.setTransactionTailQueueDepth(2)
+    metrics.setTransactionTailQueueDepth(1)
     metrics.recordStorageQuery('scan', 12)
 
     const body = await metrics.metrics()
@@ -28,6 +30,8 @@ describe('WalletToolboxMetrics', () => {
     expect(body).toContain('wallet_toolbox_post_beef_queue_pending 4')
     expect(body).toContain('wallet_toolbox_send_waiting_queue_size 22')
     expect(body).toContain('wallet_toolbox_send_waiting_queue_pending 5')
+    expect(body).toContain('wallet_toolbox_transaction_tail_queue_depth 1')
+    expect(body).toContain('wallet_toolbox_transaction_tail_queue_depth_max 2')
     expect(body).toContain('wallet_toolbox_storage_query_duration_seconds_count{operation="scan"} 1')
   })
 })

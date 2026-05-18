@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'fs/promises'
 import path from 'path'
 
-const FORBIDDEN_RUNTIME_PACKAGES = ['bullmq', 'ioredis', 'redis', 'nats', 'better-sqlite3', 'sqlite3']
+const FORBIDDEN_RUNTIME_PACKAGES = ['bullmq', 'ioredis', 'redis', 'better-sqlite3', 'sqlite3']
 const SQLITE_SURFACE_PATTERN = /\bsqlite\b|better-sqlite3|sqlite3|createWalletSQLite|createSQLiteKnex|SetupWalletSQLite|sqliteFilename/i
 const DEPENDENCY_FIELDS = [
   'dependencies',

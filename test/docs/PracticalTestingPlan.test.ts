@@ -23,9 +23,8 @@ describe('practical testing plan', () => {
     for (const gate of [
       '10 tx/s for 10 seconds',
       '10 tx/s for 60 seconds',
-      '100 tx/s for 60 seconds',
-      '500 tx/s for 60 seconds',
-      '1000 tx/s only after provider outcomes',
+      '50 tx/s for 10 seconds',
+      'Do not raise the target above 50 tx/s',
       'UTXO cache hit/miss rate',
       'target of at least 90%',
       'RocksDB get/put/delete/batch/scan/compact latency',

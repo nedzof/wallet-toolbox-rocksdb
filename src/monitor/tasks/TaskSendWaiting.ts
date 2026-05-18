@@ -7,9 +7,10 @@ import { WalletMonitorTask } from './WalletMonitorTask'
 import { attemptToPostReqsToNetwork } from '../../storage/methods/attemptToPostReqsToNetwork'
 import { aggregateActionResults } from '../../utility/aggregateResults'
 import { ProvenTxReqStatus } from '../../sdk/types'
-import { verifyTruthy } from '../../utility/utilityHelpers'
+import { doubleSha256BE, verifyTruthy } from '../../utility/utilityHelpers'
 import { TableProvenTxReq } from '../../storage/schema/tables/TableProvenTxReq'
 import { EntityProvenTxReq } from '../../storage/schema/entities/EntityProvenTxReq'
+import { asString } from '../../utility/utilityHelpers.noBuffer'
 
 interface SendWaitingWorkItem {
   reqApi: TableProvenTxReq
@@ -242,6 +243,11 @@ export class TaskSendWaiting extends WalletMonitorTask {
     item: SendWaitingWorkItem,
     logs: Record<string, string>
   ): Promise<void> {
+    if (this.monitor.broadcastPublisher != null) {
+      await this.publishWorkItemToBroadcastStream(item, logs)
+      return
+    }
+
     const r = await this.storage.runAsStorageProvider(async sp => {
       return await attemptToPostReqsToNetwork(sp, item.reqs)
     })
@@ -258,5 +264,37 @@ export class TaskSendWaiting extends WalletMonitorTask {
       })
       this.monitor.callOnBroadcastedTransaction(rar[0])
     }
+  }
+
+  private async publishWorkItemToBroadcastStream (
+    item: SendWaitingWorkItem,
+    logs: Record<string, string>
+  ): Promise<void> {
+    const publisher = verifyTruthy(this.monitor.broadcastPublisher)
+    const walletStorageIdentityKey = this.monitor.storage.getActiveStore()
+    await this.storage.runAsStorageProvider(async sp => {
+      for (const req of item.reqs) {
+        const attempt = req.attempts + 1
+        logs[req.txid] ??= `reqId=${req.provenTxReqId} attempts=${req.attempts} txid=${req.txid}:`
+        await publisher.publish({
+          txid: req.txid,
+          provenTxReqId: req.provenTxReqId,
+          rawTxHash: asString(doubleSha256BE(req.rawTx)),
+          attempt,
+          priority: req.attempts,
+          walletStorageIdentityKey
+        })
+        req.attempts = attempt
+        req.status = 'sending'
+        req.addHistoryNote({
+          what: 'queuedForDistributedBroadcast',
+          stream: 'TX_BROADCAST',
+          attempt,
+          txid: req.txid
+        })
+        await req.updateStorageDynamicProperties(sp)
+        logs[req.txid] += ` queued TX_BROADCAST attempt ${attempt}`
+      }
+    })
   }
 }

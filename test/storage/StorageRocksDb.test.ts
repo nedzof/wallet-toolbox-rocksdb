@@ -127,6 +127,31 @@ describe('StorageRocksDb', () => {
     }
   })
 
+  test('records transaction tail wait and run timings when metrics are configured', async () => {
+    const recordStorageQuery = jest.fn()
+    const setTransactionTailQueueDepth = jest.fn()
+    const storage = new StorageRocksDb({
+      ...StorageProvider.createStorageBaseOptions('test'),
+      path: path.join(dir, 'metrics.rocksdb'),
+      rocksDb: {
+        metrics: { recordStorageQuery, setTransactionTailQueueDepth }
+      }
+    })
+
+    try {
+      await storage.migrate('metrics', '44'.repeat(32))
+      await storage.makeAvailable()
+      await expect(storage.transaction(async () => 'ok')).resolves.toBe('ok')
+
+      expect(recordStorageQuery).toHaveBeenCalledWith('transactionTail.wait', expect.any(Number))
+      expect(recordStorageQuery).toHaveBeenCalledWith('transactionTail.run', expect.any(Number))
+      expect(setTransactionTailQueueDepth).toHaveBeenCalledWith(1)
+      expect(setTransactionTailQueueDepth).toHaveBeenCalledWith(0)
+    } finally {
+      await storage.destroy()
+    }
+  })
+
   async function createStorage (name: string, storageIdentityKey: string): Promise<StorageRocksDb> {
     const storage = new StorageRocksDb({
       ...StorageProvider.createStorageBaseOptions('test'),

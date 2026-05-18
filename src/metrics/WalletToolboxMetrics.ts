@@ -16,11 +16,14 @@ export class WalletToolboxMetrics {
   private readonly postBeefQueuePending: Gauge<string>
   private readonly sendWaitingQueueSize: Gauge<string>
   private readonly sendWaitingQueuePending: Gauge<string>
+  private readonly transactionTailQueueDepth: Gauge<string>
+  private readonly transactionTailQueueDepthMax: Gauge<string>
   private readonly storageQueryDuration: Histogram<string>
   private utxoCacheHits = 0
   private utxoCacheMisses = 0
   private blockHeaderCacheHits = 0
   private blockHeaderCacheMisses = 0
+  private maxTransactionTailQueueDepth = 0
 
   constructor (prefix = 'wallet_toolbox') {
     this.registry = new Registry()
@@ -84,6 +87,16 @@ export class WalletToolboxMetrics {
       help: 'SendWaiting broadcast work items currently running.',
       registers: [this.registry]
     })
+    this.transactionTailQueueDepth = new Gauge({
+      name: `${prefix}_transaction_tail_queue_depth`,
+      help: 'Current RocksDB transaction tail queued and active write scopes.',
+      registers: [this.registry]
+    })
+    this.transactionTailQueueDepthMax = new Gauge({
+      name: `${prefix}_transaction_tail_queue_depth_max`,
+      help: 'Maximum RocksDB transaction tail queued and active write scopes since process start.',
+      registers: [this.registry]
+    })
     this.storageQueryDuration = new Histogram({
       name: `${prefix}_storage_query_duration_seconds`,
       help: 'Storage query duration by operation.',
@@ -129,6 +142,12 @@ export class WalletToolboxMetrics {
   setSendWaitingQueue (size: number, pending: number): void {
     this.sendWaitingQueueSize.set(size)
     this.sendWaitingQueuePending.set(pending)
+  }
+
+  setTransactionTailQueueDepth (depth: number): void {
+    this.transactionTailQueueDepth.set(depth)
+    this.maxTransactionTailQueueDepth = Math.max(this.maxTransactionTailQueueDepth, depth)
+    this.transactionTailQueueDepthMax.set(this.maxTransactionTailQueueDepth)
   }
 
   recordStorageQuery (operation: string, durationMs: number): void {

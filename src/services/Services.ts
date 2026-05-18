@@ -370,7 +370,7 @@ export class Services implements WalletServices {
       throw new WERR_INVALID_PARAMETER('output.lockingScript', 'validated by storage provider validateOutputScript.')
     }
     const hash = this.hashOutputScript(Utils.toHex(output.lockingScript))
-    const or = await this.getUtxoStatus(hash, undefined, `${output.txid}.${output.vout}`, useNext)
+    const or = await this.getUtxoStatusFromProviders(hash, undefined, `${output.txid}.${output.vout}`, useNext)
     return or.isUtxo === true
   }
 

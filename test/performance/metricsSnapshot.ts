@@ -7,8 +7,14 @@ export interface MetricsSnapshot {
   postBeefQueuePending: number
   sendWaitingQueueSize: number
   sendWaitingQueuePending: number
+  transactionTailQueueDepth: number
+  transactionTailQueueDepthMax: number
+  p50BroadcastLatencySeconds: number
   p95BroadcastLatencySeconds: number
+  p99BroadcastLatencySeconds: number
+  p50StorageQuerySeconds: number
   storageQueryP95Seconds: number
+  p99StorageQuerySeconds: number
   raw: Record<string, number>
 }
 
@@ -52,8 +58,14 @@ export function parseMetricsSnapshot (prometheusText: string): MetricsSnapshot {
     postBeefQueuePending: getGauge(raw, 'wallet_toolbox_post_beef_queue_pending'),
     sendWaitingQueueSize: getGauge(raw, 'wallet_toolbox_send_waiting_queue_size'),
     sendWaitingQueuePending: getGauge(raw, 'wallet_toolbox_send_waiting_queue_pending'),
+    transactionTailQueueDepth: getGauge(raw, 'wallet_toolbox_transaction_tail_queue_depth'),
+    transactionTailQueueDepthMax: getGauge(raw, 'wallet_toolbox_transaction_tail_queue_depth_max'),
+    p50BroadcastLatencySeconds: histogramQuantile(postBeefBuckets, postBeefCount, 0.5),
     p95BroadcastLatencySeconds: histogramQuantile(postBeefBuckets, postBeefCount, 0.95),
+    p99BroadcastLatencySeconds: histogramQuantile(postBeefBuckets, postBeefCount, 0.99),
+    p50StorageQuerySeconds: histogramQuantile(storageBuckets, storageCount, 0.5),
     storageQueryP95Seconds: histogramQuantile(storageBuckets, storageCount, 0.95),
+    p99StorageQuerySeconds: histogramQuantile(storageBuckets, storageCount, 0.99),
     raw
   }
 }

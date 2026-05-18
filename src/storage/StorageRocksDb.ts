@@ -112,6 +112,7 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
   private readonly rocksDbOptions?: Omit<RocksDbWalletStoreOptions, 'path'>
   private readonly ownsStore: boolean
   private transactionTail: Promise<unknown> = Promise.resolve()
+  private transactionTailQueueDepth = 0
 
   constructor (options: StorageRocksDbOptions) {
     super(options)
@@ -165,9 +166,26 @@ export class StorageRocksDb extends StorageProvider implements WalletStorageProv
 
   async transaction<T>(scope: (trx: TrxToken) => Promise<T>, trx?: TrxToken): Promise<T> {
     if (trx != null) return await scope(trx)
-    const run = async (): Promise<T> => await scope({} as TrxToken)
+    const queuedAt = Date.now()
+    const metrics = this.rocksDbOptions?.metrics
+    this.transactionTailQueueDepth++
+    metrics?.setTransactionTailQueueDepth(this.transactionTailQueueDepth)
+    const run = async (): Promise<T> => {
+      metrics?.recordStorageQuery('transactionTail.wait', Date.now() - queuedAt)
+      const startedAt = Date.now()
+      try {
+        return await scope({} as TrxToken)
+      } finally {
+        metrics?.recordStorageQuery('transactionTail.run', Date.now() - startedAt)
+      }
+    }
     const next = this.transactionTail.then(run, run)
-    this.transactionTail = next.then(() => undefined, () => undefined)
+    this.transactionTail = next
+      .finally(() => {
+        this.transactionTailQueueDepth = Math.max(0, this.transactionTailQueueDepth - 1)
+        metrics?.setTransactionTailQueueDepth(this.transactionTailQueueDepth)
+      })
+      .then(() => undefined, () => undefined)
     return await next
   }
 

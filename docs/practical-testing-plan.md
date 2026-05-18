@@ -15,29 +15,30 @@ That mocked harness intentionally does not exercise:
 
 ## Testnet Ramp
 
-Run the practical test phase against a real testnet wallet, on-disk RocksDB, and
-real provider endpoints. Use the same signed transaction data and txid for every
-provider retry.
+Run the practical test phase against a real testnet wallet key, on-disk RocksDB,
+and real provider endpoints. The harness opens `StorageRocksDb`, creates a
+`Wallet` with `Services` on `chain='test'`, imports funded P2PKH UTXOs for the
+configured testnet key, then creates P2PKH self-send transactions through
+`wallet.createAction`.
 
 Prerequisites:
 
-- Nektar runtime checkout available through `TESTNET_LOAD_NEKTAR_RUN_ROOT`
-  or the default sibling path `../nektar-run`;
-- SPV Wallet/paymail environment loaded for that runtime, including
-  `NEKTAR_SPV_WALLET_URL`, treasury sender credentials, and provider settings;
-- recipient paymail in `TESTNET_LOAD_RECIPIENT_PAYMAIL` or
-  `NEKTAR_LIVE_SETTLEMENT_RECIPIENT_PAYMAIL`;
-- funded SPV Wallet treasury slots for the selected sender agent.
-
-The live harness is SPV/paymail-only. It no longer discovers or imports legacy
-P2PKH UTXOs through WhatsOnChain.
+- `TESTNET_LOAD_ENABLED=1`;
+- `ARC_URL` for the testnet ARC broadcaster;
+- `ARC_API_KEY` for the testnet ARC broadcaster;
+- `TESTNET_WALLET_WIF`, a funded testnet P2PKH key;
+- optional `TESTNET_LOAD_OUTPOINTS` as comma-separated `txid.vout` values when
+  provider discovery should be bypassed;
+- enough funded UTXOs for the selected stage, or the run will stop cleanly with
+  a UTXO exhaustion classification.
 
 Run:
 
 ```bash
 TESTNET_LOAD_ENABLED=1 \
-TESTNET_LOAD_NEKTAR_RUN_ROOT=/path/to/nektar-run \
-TESTNET_LOAD_RECIPIENT_PAYMAIL=alice@example.com \
+ARC_URL=https://arc-test.taal.com \
+ARC_API_KEY=... \
+TESTNET_WALLET_WIF=... \
 npm run loadtest:testnet
 ```
 
@@ -47,12 +48,11 @@ prints a skip message before exiting 0.
 Recommended ladder:
 
 1. 10 tx/s for 10 seconds
-2. 50 tx/s for 10 seconds
-3. 100 tx/s for 10 seconds
-4. 500 tx/s for 10 seconds
-5. 1000 tx/s for 10 seconds, only after provider outcomes, proof finality,
-   cache invalidation,
-   and wallet storage state reconcile cleanly at the lower rungs
+2. 10 tx/s for 60 seconds
+3. 50 tx/s for 10 seconds
+
+Do not raise the target above 50 tx/s until provider outcomes, proof finality,
+cache invalidation, and wallet storage state reconcile cleanly at these rungs.
 
 ## Required Observability
 
@@ -68,9 +68,10 @@ Capture Prometheus metrics and logs for:
 - block-header cache hit/miss rate;
 - SPV header/reorg events and cache invalidation counts.
 
-The harness prints each Nektar circulation report and a summary table with
-actual TPS, latency percentiles where the report exposes them, failed counts,
-and the first SPV/paymail or provider blocker.
+The harness prints each stage result, full Prometheus text after every stage,
+and a summary table with actual TPS, latency percentiles, failed counts, cache
+hit rates, RocksDB/provider queue metrics, and the first UTXO, provider, or
+wallet blocker.
 
 ## Expected Bottleneck Search
 
@@ -95,9 +96,9 @@ Decision tree:
 - If queue backlog grows, tune provider and SendWaiting concurrency limits, then
   re-run the same staged ramp.
 
-Success criteria:
+Success criteria for this phase:
 
-- sustained 1000 tx/s for 10 seconds;
+- clean 50 tx/s for 10 seconds;
 - p99 `createAction` latency under 500ms;
 - no growth in postBeef or SendWaiting queue backlog at the end of the stage;
 - no unreconciled failed broadcasts.

@@ -1,1 +1,5 @@
 export * from './BroadcastConsumer'
+export * from './CacheInvalidationConsumer'
+export * from './ProofRequestConsumer'
+export * from './BlockEventConsumer'
+export * from './NatsBroadcastWorker'

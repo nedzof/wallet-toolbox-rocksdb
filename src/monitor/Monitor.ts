@@ -32,6 +32,8 @@ import { ChaintracksClientApi } from '../services/chaintracker/chaintracks/Api/C
 import { Chaintracks } from '../services/chaintracker/chaintracks/Chaintracks'
 import { EventBus } from '../events/EventBus'
 import { SpvHeaderSync } from '../chaintracker/SpvHeaderSync'
+import { NatsManager } from '../messaging/NatsManager'
+import { BroadcastPublisher } from '../messaging/publishers/BroadcastPublisher'
 
 export type MonitorStorage = WalletStorageManager
 export type MonitorStartupTaskMode = 'none' | 'default' | 'multiuser' | 'alltoother'
@@ -63,6 +65,8 @@ export interface MonitorOptions {
   taskRunWaitMsecs: number
   taskRunConcurrency?: number
   broadcastConfig?: MonitorBroadcastConfig
+  natsManager?: NatsManager
+  broadcastPublisher?: BroadcastPublisher
 
   abandonedMsecs: number
 
@@ -150,6 +154,7 @@ export class Monitor {
   onTransactionProven?: (txStatus: ProvenTransactionStatus) => Promise<void>
   onTransactionStatusChanged?: (txid: string, newStatus: string) => Promise<void>
   eventBus: EventBus
+  broadcastPublisher?: BroadcastPublisher
 
   /**
    * Resolves once the optional Chaintracks subscriptions have been registered.
@@ -176,8 +181,20 @@ export class Monitor {
     this.onTransactionProven = options.onTransactionProven
     this.onTransactionBroadcasted = options.onTransactionBroadcasted
     this.onTransactionStatusChanged = options.onTransactionStatusChanged
+    this.broadcastPublisher = options.broadcastPublisher ?? this.createEnvBroadcastPublisher(options)
 
     this.applyStartupTaskMode(options.startupTaskMode || 'none')
+  }
+
+  private createEnvBroadcastPublisher (options: MonitorOptions): BroadcastPublisher | undefined {
+    if (process.env.NATS_URL == null || process.env.NATS_URL.trim() === '') return undefined
+    if (this.chain !== 'test' && this.chain !== 'main') return undefined
+    return new BroadcastPublisher({
+      natsManager: options.natsManager ?? new NatsManager({ url: process.env.NATS_URL }),
+      chain: this.chain,
+      source: 'wallet-toolbox-task-send-waiting',
+      walletStorageIdentityKey: this.storage.getActiveStore()
+    })
   }
 
   private async _init (): Promise<void> {

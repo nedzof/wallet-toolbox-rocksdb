@@ -1,4 +1,5 @@
 import { mkdir } from 'fs/promises'
+import { createRequire } from 'node:module'
 import path from 'path'
 import type { RocksDatabase, RocksDatabaseOptions } from '@harperfast/rocksdb-js'
 import pLimit from 'p-limit'
@@ -8,6 +9,9 @@ import type { WalletToolboxMetrics } from '../../metrics/WalletToolboxMetrics'
 
 export const ROCKSDB_WALLET_STORE_SCHEMA_VERSION = 1 as const
 const ROCKSDB_INDEX_RESOLVE_CONCURRENCY = 50
+const nativeRequire = createRequire(__filename)
+
+type RocksDbJsModule = typeof import('@harperfast/rocksdb-js')
 
 export interface RocksDbWalletRecord<T = unknown> {
   key: string
@@ -69,7 +73,7 @@ export interface RocksDbWalletStoreOptions {
   transactionLogsPath?: string
   blockCacheSize?: number
   compactOnClose?: boolean
-  metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery'>
+  metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery' | 'setTransactionTailQueueDepth'>
 }
 
 export interface RocksDbOutputIndexRecord {
@@ -118,7 +122,7 @@ export class RocksDbWalletStore {
     private readonly transactionLogsPath: string | undefined,
     private readonly blockCacheSize: number | undefined,
     private readonly compactOnClose: boolean | undefined,
-    private readonly metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery'>
+    private readonly metrics?: Pick<WalletToolboxMetrics, 'recordStorageQuery' | 'setTransactionTailQueueDepth'>
   ) {}
 
   static async open (options: RocksDbWalletStoreOptions): Promise<RocksDbWalletStore> {
@@ -632,9 +636,37 @@ async function openRocksDatabase (
   >,
   config: RocksDatabaseRuntimeConfig = {}
 ): Promise<RocksDatabase> {
-  const { RocksDatabase } = await import('@harperfast/rocksdb-js')
+  const { RocksDatabase } = await importRocksDbJs()
   if (config.blockCacheSize !== undefined || config.compactOnClose !== undefined) {
     RocksDatabase.config(config)
   }
   return RocksDatabase.open(dbPath, options)
+}
+
+async function importRocksDbJs (): Promise<RocksDbJsModule> {
+  return requireRocksDbJs()
+}
+
+function requireRocksDbJs (): RocksDbJsModule {
+  const originalDefineProperty = Object.defineProperty
+  const patchedDefineProperty = ((
+    target: object,
+    propertyKey: PropertyKey,
+    attributes: PropertyDescriptor
+  ): object => {
+    if (propertyKey === 'query') {
+      const existing = Object.getOwnPropertyDescriptor(target, propertyKey)
+      if (existing != null && existing.configurable === false && typeof attributes.value === 'function') {
+        return target
+      }
+    }
+    return originalDefineProperty(target, propertyKey, attributes)
+  }) as typeof Object.defineProperty
+
+  Object.defineProperty = patchedDefineProperty
+  try {
+    return nativeRequire('@harperfast/rocksdb-js') as RocksDbJsModule
+  } finally {
+    Object.defineProperty = originalDefineProperty
+  }
 }
