@@ -442,6 +442,154 @@ function highestCleanStage (results: StageResult[]): string | undefined {
   return highest
 }
 
+function stageName (stage: Stage): string {
+  return `${stage.targetTps}tps-${stage.durationSeconds}s`
+}
+
+function queueDepth (metrics: MetricsSnapshot): number {
+  return metrics.postBeefQueueSize + metrics.postBeefQueuePending + metrics.sendWaitingQueueSize + metrics.sendWaitingQueuePending
+}
+
+function getProviderClassifications (history: ServicesCallHistory): ProviderClassifications {
+  const classifications: ProviderClassifications = emptyProviderClassifications()
+  for (const provider of Object.values(history.postBeef.historyByProvider)) {
+    const reset = provider.resetCounts[0]
+    classifications.accepted += reset?.success ?? 0
+    classifications.rejected += Math.max(0, (reset?.failure ?? 0) - (reset?.error ?? 0))
+    classifications.unknown += reset?.error ?? 0
+    for (const call of provider.calls) {
+      if (call.success) continue
+      const text = `${call.result ?? ''} ${call.error?.message ?? ''}`
+      if (/rate.?limit|429/i.test(text)) classifications.rateLimited++
+      if (/timeout|timed out/i.test(text)) classifications.timeout++
+    }
+  }
+  classifications.unknown = Math.max(0, classifications.unknown - classifications.rateLimited - classifications.timeout)
+  return classifications
+}
+
+function emptyProviderClassifications (): ProviderClassifications {
+  return {
+    seen: 0,
+    accepted: 0,
+    rejected: 0,
+    unknown: 0,
+    timeout: 0,
+    rateLimited: 0
+  }
+}
+
+function isCleanStage (stage: {
+  actualTps: number
+  targetTps: number
+  inputRestorationForBroadcastTxs: number
+  duplicateSpendAttempts: number
+  sameTxidReuseVerified: boolean
+  queueBacklogGrowth: boolean
+  jetStreamBacklog: number
+  cacheHitRate: number
+  transactionTailQueueDepthMax: number
+  unknownOutcomes: number
+  failedBroadcasts: number
+  bottleneck: BottleneckClassification
+}): boolean {
+  return stage.actualTps >= stage.targetTps &&
+    stage.inputRestorationForBroadcastTxs === 0 &&
+    stage.duplicateSpendAttempts === 0 &&
+    stage.sameTxidReuseVerified &&
+    !stage.queueBacklogGrowth &&
+    stage.jetStreamBacklog === 0 &&
+    cacheCriterionPassed(stage.cacheHitRate, stage.bottleneck) &&
+    (stage.transactionTailQueueDepthMax < 50 || stage.bottleneck.category === 'transaction_tail_contention') &&
+    stage.unknownOutcomes === 0 &&
+    stage.failedBroadcasts === 0
+}
+
+function cacheCriterionPassed (cacheHitRate: number, bottleneck: BottleneckClassification): boolean {
+  return cacheHitRate === 0 || cacheHitRate >= 0.9 || bottleneck.category === 'cache_miss_rate'
+}
+
+function stageBlocker (
+  stage: Parameters<typeof isCleanStage>[0],
+  stopReason?: string
+): string {
+  if (stopReason != null) return stopReason
+  if (stage.actualTps < stage.targetTps) return `actual TPS ${stage.actualTps} below target ${stage.targetTps}`
+  if (stage.inputRestorationForBroadcastTxs !== 0) return 'input restoration occurred for broadcast-visible transactions'
+  if (stage.duplicateSpendAttempts !== 0) return 'duplicate spend attempts were observed'
+  if (!stage.sameTxidReuseVerified) return 'same txid reuse could not be verified'
+  if (stage.queueBacklogGrowth) return 'queue backlog grew during the stage'
+  if (stage.jetStreamBacklog !== 0) return 'JetStream backlog remained after the stage'
+  if (!cacheCriterionPassed(stage.cacheHitRate, stage.bottleneck)) return `UTXO cache hit rate ${stage.cacheHitRate} below 0.90 without cache bottleneck classification`
+  if (stage.transactionTailQueueDepthMax >= 50 && stage.bottleneck.category !== 'transaction_tail_contention') return 'transaction tail queue depth exceeded threshold without contention classification'
+  if (stage.unknownOutcomes !== 0) return 'unknown provider outcomes were observed'
+  if (stage.failedBroadcasts !== 0) return 'failed broadcasts were observed'
+  return 'stage did not satisfy clean criteria'
+}
+
+function artifactStage (result: StageResult): Record<string, unknown> {
+  return {
+    name: result.name,
+    targetTps: result.targetTps,
+    durationSeconds: result.durationSeconds,
+    actualTps: result.actualTps,
+    p50LatencyMs: result.p50Ms,
+    p95LatencyMs: result.p95Ms,
+    p99LatencyMs: result.p99Ms,
+    cacheHitRate: result.metrics.utxoCacheHitRate,
+    broadcastQueueDepthMax: result.broadcastQueueDepthMax,
+    jetStreamBacklog: result.jetStreamBacklog,
+    rocksDbWriteLatencyP50Ms: result.rocksDbWriteLatencyP50Ms,
+    rocksDbWriteLatencyP95Ms: result.rocksDbWriteLatencyP95Ms,
+    rocksDbWriteLatencyP99Ms: result.rocksDbWriteLatencyP99Ms,
+    transactionTailQueueDepthMax: result.transactionTailQueueDepthMax,
+    providerClassifications: result.providerClassifications,
+    failedBroadcasts: result.failedBroadcasts,
+    unknownOutcomes: result.unknownOutcomes,
+    inputRestorationForBroadcastTxs: result.inputRestorationForBroadcastTxs,
+    duplicateSpendAttempts: result.duplicateSpendAttempts,
+    sameTxidReuseVerified: result.sameTxidReuseVerified,
+    queueBacklogGrowth: result.queueBacklogGrowth,
+    clean: result.clean,
+    blocker: result.blocker
+  }
+}
+
+function aggregateBottleneck (results: StageResult[]): BottleneckClassification {
+  return results.find(result => result.bottleneck.category !== 'none')?.bottleneck ?? { category: 'none', evidence: {} }
+}
+
+function aggregateProviderClassifications (results: StageResult[]): ProviderClassifications {
+  return results.reduce((total, result) => addProviderClassifications(total, result.providerClassifications), emptyProviderClassifications())
+}
+
+function addProviderClassifications (a: ProviderClassifications, b: ProviderClassifications): ProviderClassifications {
+  return {
+    seen: a.seen + b.seen,
+    accepted: a.accepted + b.accepted,
+    rejected: a.rejected + b.rejected,
+    unknown: a.unknown + b.unknown,
+    timeout: a.timeout + b.timeout,
+    rateLimited: a.rateLimited + b.rateLimited
+  }
+}
+
+function sum (results: StageResult[], key: 'inputRestorationForBroadcastTxs' | 'duplicateSpendAttempts' | 'unknownOutcomes' | 'failedBroadcasts'): number {
+  return results.reduce((total, result) => total + result[key], 0)
+}
+
+function lastMetric (results: StageResult[], key: 'utxoCacheHitRate'): number {
+  return results.at(-1)?.metrics[key] ?? 0
+}
+
+function max (values: number[]): number {
+  return values.length === 0 ? 0 : Math.max(...values)
+}
+
+function evidenceHash (results: StageResult[]): string {
+  return createHash('sha256').update(JSON.stringify(results)).digest('hex')
+}
+
 function percentile (values: number[], quantile: number): number {
   if (values.length === 0) return 0
   const sorted = [...values].sort((a, b) => a - b)
